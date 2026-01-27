@@ -1,6 +1,6 @@
 export default function ApproachPage() {
     return (
-        <div className="pt-32 pb-24 bg-[#1c1e20]">
+        <div className="pt-32 pb-24 bg-black">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="max-w-3xl mb-24">
                     <h2 className="text-[#f15a2f] font-bold uppercase tracking-[0.3em] mb-4 text-sm">Our Methodology</h2>
@@ -8,7 +8,7 @@ export default function ApproachPage() {
                         Built for the <br /> <span className="text-[#f15a2f]">Real World.</span>
                     </h1>
                     <p className="text-xl text-[#fffdf2]/70 leading-relaxed">
-                        Most AI fails because it's trained for perfect conditions. Codantrix Labs builds for the 10% of cases that actually break your business.
+                        Most AI fails because it&apos;s trained for perfect conditions. Codantrix Labs builds for the 10% of cases that actually break your business.
                     </p>
                 </div>
 
@@ -23,7 +23,7 @@ export default function ApproachPage() {
                             </p>
                             <div className="p-4 bg-[#f15a2f]/5 border-l-4 border-[#f15a2f]">
                                 <p className="text-sm font-bold text-[#f15a2f]">CRITICAL STEP</p>
-                                <p className="text-sm text-[#fffdf2]/70">Identifying 'Failure Modes' that academic benchmarks ignore.</p>
+                                <p className="text-sm text-[#fffdf2]/70">Identifying &apos;Failure Modes&apos; that academic benchmarks ignore.</p>
                             </div>
                         </div>
                         <div className="bg-[#161819] aspect-video border border-[#fffdf2]/10 rounded-sm flex items-center justify-center p-8">
@@ -42,7 +42,7 @@ export default function ApproachPage() {
 
                     {/* Step 2 */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-                        <div className="order-2 md:order-1 bg-[#161819] aspect-video border border-[#fffdf2]/10 rounded-sm p-12">
+                        <div className="order-2 md:order-1 bg-[#161819] aspect-video border border-[#fffdf2]/10 rounded-sm p-6 sm:p-8 lg:p-12">
                             <div className="h-full border border-dashed border-[#f15a2f]/20 flex items-center justify-center text-[#f15a2f]/20 font-bold uppercase tracking-widest text-center">
                                 Validation Environment <br /> (Real-World Twin)
                             </div>
@@ -51,7 +51,7 @@ export default function ApproachPage() {
                             <span className="text-8xl font-black text-[#fffdf2]/5 block mb-4">02</span>
                             <h3 className="text-3xl font-bold mb-6">Architectural Optimization</h3>
                             <p className="text-[#fffdf2]/60 leading-relaxed">
-                                We design the model architecture specifically for your deployment environment. Whether it's edge-based latency or cloud-based massive parallel processing, we strike the balance between accuracy and operational cost.
+                                We design the model architecture specifically for your deployment environment. Whether it&apos;s edge-based latency or cloud-based massive parallel processing, we strike the balance between accuracy and operational cost.
                             </p>
                         </div>
                     </div>
@@ -82,7 +82,7 @@ export default function ApproachPage() {
                         <div className="p-8 bg-[#f15a2f] text-[#fffdf2]">
                             <h4 className="text-2xl font-bold mb-4">Continuous ROI</h4>
                             <p className="text-sm opacity-90 leading-relaxed">
-                                Our approach ensures that as your business evolves, the AI adapts. We don't just deliver a static file; we deliver an evolving asset.
+                                Our approach ensures that as your business evolves, the AI adapts. We don&apos;t just deliver a static file; we deliver an evolving asset.
                             </p>
                         </div>
                     </div>

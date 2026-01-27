@@ -14,6 +14,9 @@ const poppins = Poppins({
 export const metadata: Metadata = {
   title: "Codantrix Labs | Real Solutions for Real Problems",
   description: "B2B AI/ML partner for enterprises. Pragmatic intelligence built for measurable industrial and enterprise ROI.",
+  icons: {
+    icon: '/Logo_Favicon.ico',
+  },
 };
 
 export default function RootLayout({
@@ -24,7 +27,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${poppins.variable} antialiased selection:bg-[#f15a2f] selection:text-white bg-[#0b0c0e] bg-[radial-gradient(circle_at_20%_20%,rgba(241,90,47,0.08),transparent_35%),radial-gradient(circle_at_80%_0%,rgba(241,90,47,0.06),transparent_30%)]`}
+        className={`${poppins.variable} antialiased selection:bg-brand-orange selection:text-white bg-background-deep bg-[radial-gradient(circle_at_20%_20%,rgba(241,90,47,0.08),transparent_35%),radial-gradient(circle_at_80%_0%,rgba(241,90,47,0.06),transparent_30%)]`}
       >
         <JsonLd data={generateOrganizationSchema()} />
         <Navbar />

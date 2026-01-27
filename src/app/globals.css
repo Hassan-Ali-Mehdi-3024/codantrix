@@ -1,21 +1,49 @@
 @import "tailwindcss";
 
 :root {
-  --background: #1c1e20;
-  --foreground: #fffdf2;
-  --brand-orange: #f15a2f;
+  --background: #000000;
+  --background-deep: #000000;
+  --foreground: #FFFCF0;
+  --brand-orange: #F15B2F;
+  --brand-orange-dark: #C44520; /* Darker shade of F15B2F */
+  --brand-orange-light: #FF7F55; /* Lighter shade of F15B2F */
+
+  /* MD3 Radius Tokens */
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 28px;
+  --radius-full: 9999px;
 }
 
 @theme inline {
   --color-background: var(--background);
+  --color-background-deep: var(--background-deep);
   --color-foreground: var(--foreground);
   --color-brand-orange: var(--brand-orange);
-  --font-sans: 'Poppins', var(--font-poppins), system-ui, -apple-system, sans-serif;
+  --color-brand-orange-dark: var(--brand-orange-dark);
+  --color-brand-orange-light: var(--brand-orange-light);
+  --font-sans: var(--font-poppins), 'Poppins', sans-serif;
+  
+  /* Expose Radius Tokens to Tailwind */
 }
 
 @layer base {
+  html,
   body {
-    @apply bg-background text-foreground antialiased;
+    overflow-x: hidden;
+  }
+
+  @supports (overflow: clip) {
+    html,
+    body {
+      overflow-x: clip;
+    }
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased font-sans;
     font-feature-settings: "ss01", "ss02", "cv01", "cv02";
   }
 
@@ -48,4 +76,76 @@
 ::selection {
   background: var(--brand-orange);
   color: #fffdf2;
+}
+
+/* Glass theme utilities */
+@layer utilities {
+  .glass {
+    background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+    border: 1px solid rgba(255,255,255,0.06);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5); /* MD3-ish Elevation 2 */
+    border-radius: var(--radius-lg);
+  }
+
+  .glass-strong {
+    background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+    border: 1px solid rgba(255,255,255,0.08);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.55); /* MD3-ish Elevation 3 */
+    border-radius: var(--radius-xl);
+  }
+
+  .glass-card {
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    border: 1px solid rgba(255,255,255,0.06);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.4); /* MD3-ish Elevation 1 */
+    border-radius: var(--radius-md);
+  }
+
+  .glass-stats {
+    background: linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.01));
+    border: 1px solid rgba(255,255,255,0.05);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+    border-radius: var(--radius-md);
+  }
+
+  .glass-btn {
+    border: 1px solid rgba(255,255,255,0.06);
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.02);
+    border-radius: var(--radius-full);
+  }
+
+  .edge-shine {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .edge-shine::after {
+    content: "";
+    position: absolute;
+    top: -30%;
+    right: -40%;
+    width: 60%;
+    height: 160%;
+    background: linear-gradient(120deg, rgba(255,255,255,0.06), rgba(255,255,255,0));
+    transform: rotate(18deg);
+    opacity: 0.5;
+    pointer-events: none;
+    mix-blend-mode: overlay;
+    transition: opacity 250ms ease, transform 300ms ease;
+  }
+
+  .group:hover .edge-shine::after {
+    opacity: 0.95;
+    transform: rotate(14deg) translateX(-6%);
+  }
 }

@@ -21,7 +21,7 @@ export default async function IndustryDetailPage({ params }: { params: Promise<{
     if (!validIndustries.includes(slug)) notFound()
 
     return (
-        <div className="pt-32 pb-24 bg-[#1c1e20]">
+        <div className="pt-32 pb-24 bg-black">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <Link href="/" className="text-[#f15a2f] font-bold text-sm uppercase tracking-widest mb-12 inline-block">
                     ← Back to Portfolio
@@ -54,11 +54,11 @@ export default async function IndustryDetailPage({ params }: { params: Promise<{
                     </div>
                 )}
 
-                <div className="p-12 bg-[#161819] border border-[#f15a2f]/10 rounded-sm">
+                <div className="p-6 sm:p-8 lg:p-12 bg-[#161819] border border-[#f15a2f]/10 rounded-sm">
                     <h3 className="text-3xl font-bold mb-8">Ready to modernize your {slug} ops?</h3>
                     <div className="flex flex-col md:flex-row gap-8 items-center justify-between">
                         <p className="text-[#fffdf2]/60 max-w-xl">
-                            We specialize in vertical-specific AI infrastructure. Let's discuss your specific ground-truth data.
+                            We specialize in vertical-specific AI infrastructure. Let&apos;s discuss your specific ground-truth data.
                         </p>
                         <Link
                             href="/contact"

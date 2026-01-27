@@ -1,16 +1,20 @@
 'use client'
 
 import { useState } from 'react'
+import type { ComponentType, SVGProps } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowLeft, ArrowRight, CheckCircle2, Factory, Package, Truck, ShoppingCart, Cpu, Brain, Laptop } from 'lucide-react'
 import Link from 'next/link'
 import { trackEvent } from '@/utils/analytics'
 
+type IconProps = SVGProps<SVGSVGElement> & { size?: number }
+type IconComponent = ComponentType<IconProps>
+
 type Step = {
     id: number
     title: string
     question: string
-    options: { label: string, value: string, icon?: any }[]
+    options: { label: string, value: string, icon?: IconComponent }[]
 }
 
 const steps: Step[] = [
@@ -90,13 +94,13 @@ const getRecommendation = (answers: Record<number, string>) => {
     }
 }
 
-function TrendingUp(props: any) {
+function TrendingUp({ size = 24, ...props }: IconProps) {
     return (
         <svg
             {...props}
             xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
+            width={size}
+            height={size}
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -132,7 +136,7 @@ export default function SolutionQuiz() {
     const recommendation = isFinished ? getRecommendation(answers) : null
 
     return (
-        <div className="pt-32 pb-24 bg-[#1c1e20] min-h-screen">
+        <div className="pt-32 pb-24 bg-black min-h-screen">
             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
 
                 {!isFinished ? (
@@ -180,7 +184,7 @@ export default function SolutionQuiz() {
                                         >
                                             <div className="flex items-center gap-6">
                                                 {Icon && (
-                                                    <div className="w-12 h-12 bg-[#1c1e20] flex items-center justify-center text-[#fffdf2]/40 group-hover:text-[#f15a2f] transition-colors">
+                                                    <div className="w-12 h-12 bg-black flex items-center justify-center text-[#fffdf2]/40 group-hover:text-[#f15a2f] transition-colors">
                                                         <Icon size={24} />
                                                     </div>
                                                 )}
@@ -201,7 +205,7 @@ export default function SolutionQuiz() {
                     <motion.div
                         initial={{ opacity: 0, scale: 0.95 }}
                         animate={{ opacity: 1, scale: 1 }}
-                        className="bg-[#161819] p-12 md:p-20 border-l-8 border-[#f15a2f]"
+                        className="bg-[#161819] p-6 sm:p-10 md:p-20 border-l-8 border-[#f15a2f]"
                     >
                         <h2 className="text-[#f15a2f] font-black uppercase tracking-[0.3em] mb-8 text-sm">Recommended Path</h2>
                         <h3 className="text-4xl md:text-6xl font-black text-[#fffdf2] mb-8 leading-tight italic">
@@ -225,13 +229,13 @@ export default function SolutionQuiz() {
                         <div className="flex flex-col md:flex-row gap-6">
                             <Link
                                 href={`/services/${recommendation?.service}`}
-                                className="px-10 py-5 bg-[#1c1e20] text-[#fffdf2] font-black uppercase tracking-widest text-xs hover:bg-[#fffdf2] hover:text-[#1c1e20] transition-all text-center"
+                                className="w-full md:w-auto px-6 sm:px-10 py-5 bg-[#1c1e20] text-[#fffdf2] font-black uppercase tracking-widest text-xs hover:bg-[#fffdf2] hover:text-[#1c1e20] transition-all text-center"
                             >
                                 Explorer Service Profile
                             </Link>
                             <Link
                                 href="/contact"
-                                className="px-10 py-5 bg-[#f15a2f] text-[#fffdf2] font-black uppercase tracking-widest text-xs hover:translate-y-[-2px] transition-all text-center flex items-center justify-center gap-3"
+                                className="w-full md:w-auto px-6 sm:px-10 py-5 bg-[#f15a2f] text-[#fffdf2] font-black uppercase tracking-widest text-xs hover:translate-y-[-2px] transition-all text-center flex items-center justify-center gap-3"
                             >
                                 Schedule Scoping Call <ArrowRight size={14} />
                             </Link>

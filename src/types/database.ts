@@ -6,7 +6,7 @@ export type TeamMember = {
     image_url: string | null
     linkedin_url?: string | null
     expertise?: string[] | null
-    social_handles?: any | null
+    social_handles?: Record<string, string> | null
     published_articles?: number
     created_at: string
 }
@@ -18,7 +18,7 @@ export type Service = {
     description: string | null
     overview: string | null
     use_cases: string[] | null
-    process: any | null
+    process: Record<string, unknown> | null
     icon: string | null
     service_order: number | null
     created_at: string
@@ -126,7 +126,7 @@ export type UserProfile = {
     role: 'admin' | 'manager' | 'collaborator' | 'viewer'
     phone: string | null
     profile_photo_url: string | null
-    preferences: any
+    preferences: Record<string, unknown>
     created_at: string
 }
 

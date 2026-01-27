@@ -24,7 +24,7 @@ export default async function ResourceDetailPage({ params }: { params: Promise<{
     const fillerContent = "Content for this article is being finalized as part of our Phase 2 knowledge base expansion. Contact us for a direct engineering brief on this topic."
 
     return (
-        <div className="pt-32 pb-24 bg-[#1c1e20]">
+        <div className="pt-32 pb-24 bg-black">
             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
                 <Link href="/resources" className="text-[#f15a2f] font-bold text-sm uppercase tracking-widest mb-12 inline-flex items-center gap-2">
                     <ArrowLeft size={16} /> Back to Resources
@@ -41,7 +41,7 @@ export default async function ResourceDetailPage({ params }: { params: Promise<{
 
                 <div className="prose prose-invert max-w-none text-xl text-[#fffdf2]/70 leading-relaxed space-y-8">
                     <p>{article?.content || fillerContent}</p>
-                    <div className="p-12 bg-[#161819] border-l-4 border-[#f15a2f]">
+                    <div className="p-6 sm:p-8 lg:p-12 bg-[#161819] border-l-4 border-[#f15a2f]">
                         <h3 className="text-2xl font-bold text-[#fffdf2] mb-4 italic">The Bottom Line</h3>
                         <p>At Codantrix Labs, we believe that AI is only as good as its measurable reliability in the face of messy, real-world data.</p>
                     </div>

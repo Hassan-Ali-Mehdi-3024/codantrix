@@ -19,7 +19,7 @@ export async function POST(req: Request) {
         if (error) throw error
 
         return NextResponse.json({ success: true })
-    } catch (e: any) {
+    } catch (e: unknown) {
         // Fail silently for analytics to avoid UX disruption
         console.error('Analytics tracking error:', e)
         return NextResponse.json({ success: false }, { status: 500 })

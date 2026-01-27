@@ -40,7 +40,7 @@ export async function POST(req: Request) {
 
         return NextResponse.json({ success: true, message: 'Successfully subscribed' })
 
-    } catch (e: any) {
+    } catch (e: unknown) {
         console.error('Newsletter error:', e)
         return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
     }

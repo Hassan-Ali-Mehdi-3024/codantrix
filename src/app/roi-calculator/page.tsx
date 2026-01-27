@@ -23,7 +23,7 @@ export default function ROICalculator() {
     const estimatedSavings = calculateROI()
 
     return (
-        <div className="pt-32 pb-24 bg-[#1c1e20]">
+        <div className="pt-32 pb-24 bg-black">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="mb-24">
                     <h2 className="text-[#f15a2f] font-bold uppercase tracking-[0.3em] mb-4 text-sm">Economic Validation</h2>
@@ -37,7 +37,7 @@ export default function ROICalculator() {
 
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
                     {/* Calculator Form */}
-                    <div className="lg:col-span-7 bg-[#161819] p-12 border border-[#fffdf2]/5">
+                    <div className="lg:col-span-7 bg-[#161819] p-6 sm:p-8 lg:p-12 border border-[#fffdf2]/5">
                         <div className="space-y-12">
                             <div>
                                 <label className="block text-[10px] font-black uppercase tracking-widest text-[#f15a2f] mb-6">Annual Throughput (Units)</label>
@@ -91,9 +91,9 @@ export default function ROICalculator() {
 
                     {/* Results Display */}
                     <div className="lg:col-span-5 flex flex-col gap-8">
-                        <div className="p-12 bg-[#f15a2f] text-[#fffdf2] flex-1">
+                        <div className="p-6 sm:p-8 lg:p-12 bg-[#f15a2f] text-[#fffdf2] flex-1">
                             <h3 className="text-xs font-black uppercase tracking-widest mb-12 opacity-80">Estimated Annual Savings</h3>
-                            <div className="text-7xl md:text-8xl font-black tracking-tighter mb-8 italic">
+                            <div className="text-6xl sm:text-7xl md:text-8xl font-black tracking-tighter mb-8 italic">
                                 ${estimatedSavings.toLocaleString()}
                             </div>
                             <p className="text-sm opacity-80 leading-relaxed mb-12">

@@ -2,7 +2,7 @@ import Link from 'next/link'
 
 export default function TermsPage() {
     return (
-        <div className="pt-32 pb-24 bg-[#1c1e20]">
+        <div className="pt-32 pb-24 bg-black">
             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 prose prose-invert">
                 <h1 className="text-5xl font-bold mb-12 text-[#f15a2f]">Terms of Service</h1>
                 <p className="text-xl text-[#fffdf2]/70 mb-8">Last Updated: December 28, 2025</p>

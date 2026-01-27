@@ -1,206 +1,75 @@
 'use client'
 
-import { useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import * as z from 'zod'
-import { Loader2, CheckCircle, ArrowRight, AlertCircle } from 'lucide-react'
-import { cn } from '@/lib/utils'
-import { createClient } from '@/utils/supabase/client'
-
-const contactSchema = z.object({
-    name: z.string().min(2, 'Name is required'),
-    email: z.string().email('Invalid email address'),
-    company: z.string().optional(),
-    message: z.string().min(10, 'Message must be at least 10 characters'),
-    service: z.string().min(1, 'Please select a service'),
-})
-
-type ContactFormData = z.infer<typeof contactSchema>
-
-const services = [
-    'AI/ML Solutions',
-    'Computer Vision',
-    'Industrial Automation',
-    'ROI Validation / Audit',
-    'Build vs Buy Analysis',
-    'Quick Scoping Call',
-    'Other / Custom Tooling'
-]
+import { Mail, Clock, MapPin, Phone } from 'lucide-react'
+import ContactForm from '@/components/cards/ContactForm'
 
 export default function ContactPage() {
-    const [isSubmitting, setIsSubmitting] = useState(false)
-    const [isSuccess, setIsSuccess] = useState(false)
-    const [error, setError] = useState<string | null>(null)
-    const supabase = createClient()
-
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-        reset
-    } = useForm<ContactFormData>({
-        resolver: zodResolver(contactSchema)
-    })
-
-    const onSubmit = async (data: ContactFormData) => {
-        setIsSubmitting(true)
-        setError(null)
-
-        try {
-            const { error: supabaseError } = await supabase
-                .from('inquiries')
-                .insert([{
-                    name: data.name,
-                    email: data.email,
-                    company: data.company,
-                    message: data.message,
-                    service_interested: data.service,
-                    status: 'new'
-                }])
-
-            if (supabaseError) throw supabaseError
-
-            setIsSuccess(true)
-            reset()
-        } catch (e: any) {
-            console.error('Submission error:', e)
-            setError('Something went wrong. Please try again or email us directly at hello@codantrix.com.')
-        } finally {
-            setIsSubmitting(false)
-        }
-    }
-
     return (
-        <div className="pt-32 pb-24 bg-[#1c1e20] min-h-screen">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-20">
+        <div className="pt-32 pb-24 bg-black min-h-screen relative overflow-hidden">
+            {/* Ambient Background Effects */}
+            <div className="absolute top-0 right-0 w-[50vw] h-[50vw] bg-[#f15a2f]/5 rounded-full blur-[120px] pointer-events-none" />
+            <div className="absolute bottom-0 left-0 w-[40vw] h-[40vw] bg-blue-500/5 rounded-full blur-[100px] pointer-events-none" />
 
-                    {/* Left Side: Info */}
-                    <div>
-                        <h2 className="text-[#f15a2f] font-bold uppercase tracking-[0.3em] mb-4 text-sm">Get in Touch</h2>
-                        <h1 className="text-5xl md:text-7xl font-bold mb-8">
-                            Let's solve <br /> something.
-                        </h1>
-                        <p className="text-xl text-[#fffdf2]/70 leading-relaxed mb-12">
-                            Have a complex problem that standard software can't fix? Describe it to us, and we'll tell you if/how AI can actually help.
-                        </p>
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div className="text-center mb-16">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#f15a2f]/30 bg-[#f15a2f]/10 text-[#f15a2f] text-[10px] font-black uppercase tracking-[0.2em] mb-8">
+                        <span className="w-2 h-2 rounded-full bg-[#f15a2f] animate-pulse" />
+                        Status: Online
+                    </div>
+                    
+                    <h1 className="text-5xl md:text-7xl font-bold mb-8 text-[#fffdf2] tracking-tight">
+                        Let&apos;s Solve <br /> 
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#f15a2f] to-[#ff8c69]">The Impossible.</span>
+                    </h1>
+                    
+                    <p className="text-xl text-[#fffdf2]/60 leading-relaxed max-w-2xl mx-auto">
+                        Have a complex industrial problem? Describe it. If we can&apos;t engineer a measurable ROI, we won&apos;t take the project.
+                    </p>
+                </div>
 
-                        <div className="space-y-8 mt-16">
-                            <div>
-                                <h4 className="text-[#f15a2f] font-bold uppercase tracking-widest text-xs mb-2">Email</h4>
-                                <p className="text-2xl font-bold">hello@codantrix.com</p>
-                            </div>
-                            <div>
-                                <h4 className="text-[#f15a2f] font-bold uppercase tracking-widest text-xs mb-2">Response Time</h4>
-                                <p className="text-lg text-[#fffdf2]/60">&lt; 24 Hours for qualified inquiries.</p>
-                            </div>
-                        </div>
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                    {/* Left Side: Form */}
+                    <div className="lg:col-span-8">
+                        <ContactForm />
                     </div>
 
-                    {/* Right Side: Form */}
-                    <div className="bg-[#161819] p-8 md:p-12 border border-[#f15a2f]/10 rounded-sm relative">
-                        {isSuccess ? (
-                            <div className="flex flex-col items-center justify-center py-20 text-center">
-                                <CheckCircle size={64} className="text-[#f15a2f] mb-6" />
-                                <h3 className="text-3xl font-bold mb-4">Inquiry Received.</h3>
-                                <p className="text-[#fffdf2]/60 mb-8 max-w-sm">
-                                    Thank you. A lead architect will review your submission and reach out within 24 hours.
-                                </p>
-                                <button
-                                    onClick={() => setIsSuccess(false)}
-                                    className="text-[#f15a2f] font-bold uppercase tracking-widest text-sm border-b border-[#f15a2f] pb-1"
-                                >
-                                    Send another message
-                                </button>
+                    {/* Right Side: Cards */}
+                    <div className="lg:col-span-4 space-y-6">
+                        <div className="bg-[#161819] border border-white/5 p-6 rounded-2xl hover:border-[#f15a2f]/30 transition-colors group">
+                            <div className="w-10 h-10 bg-[#f15a2f]/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-[#f15a2f] transition-colors">
+                                <Mail size={20} className="text-[#f15a2f] group-hover:text-white transition-colors" />
                             </div>
-                        ) : (
-                            <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-                                {error && (
-                                    <div className="p-4 bg-red-500/10 border border-red-500/20 text-red-500 flex items-center gap-3 text-sm font-bold">
-                                        <AlertCircle size={18} /> {error}
-                                    </div>
-                                )}
+                            <h4 className="text-[#fffdf2]/40 font-bold uppercase tracking-widest text-[10px] mb-1">Direct Line</h4>
+                            <a href="mailto:contact@codantrix.com" className="text-lg font-bold text-[#fffdf2] hover:text-[#f15a2f] transition-colors">
+                                contact@codantrix.com
+                            </a>
+                        </div>
 
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                    <div>
-                                        <label className="block text-xs font-black uppercase tracking-widest text-[#fffdf2]/40 mb-2">Your Name</label>
-                                        <input
-                                            {...register('name')}
-                                            className={cn(
-                                                "w-full bg-[#1c1e20] border border-[#fffdf2]/10 p-4 font-medium focus:border-[#f15a2f] outline-none transition-colors",
-                                                errors.name && "border-red-500/50"
-                                            )}
-                                            placeholder="John Doe"
-                                        />
-                                        {errors.name && <p className="mt-1 text-[10px] text-red-500 font-bold uppercase">{errors.name.message}</p>}
-                                    </div>
-                                    <div>
-                                        <label className="block text-xs font-black uppercase tracking-widest text-[#fffdf2]/40 mb-2">Company Email</label>
-                                        <input
-                                            {...register('email')}
-                                            className={cn(
-                                                "w-full bg-[#1c1e20] border border-[#fffdf2]/10 p-4 font-medium focus:border-[#f15a2f] outline-none transition-colors",
-                                                errors.email && "border-red-500/50"
-                                            )}
-                                            placeholder="john@company.com"
-                                        />
-                                        {errors.email && <p className="mt-1 text-[10px] text-red-500 font-bold uppercase">{errors.email.message}</p>}
-                                    </div>
-                                </div>
+                        <div className="bg-[#161819] border border-white/5 p-6 rounded-2xl hover:border-[#f15a2f]/30 transition-colors group">
+                            <div className="w-10 h-10 bg-[#f15a2f]/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-[#f15a2f] transition-colors">
+                                <Clock size={20} className="text-[#f15a2f] group-hover:text-white transition-colors" />
+                            </div>
+                            <h4 className="text-[#fffdf2]/40 font-bold uppercase tracking-widest text-[10px] mb-1">Response Velocity</h4>
+                            <p className="text-lg font-bold text-[#fffdf2]">&lt; 24 Hours</p>
+                        </div>
 
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                    <div>
-                                        <label className="block text-xs font-black uppercase tracking-widest text-[#fffdf2]/40 mb-2">Company Name</label>
-                                        <input
-                                            {...register('company')}
-                                            className="w-full bg-[#1c1e20] border border-[#fffdf2]/10 p-4 font-medium focus:border-[#f15a2f] outline-none transition-colors"
-                                            placeholder="Acme Corp"
-                                        />
-                                    </div>
-                                    <div>
-                                        <label className="block text-xs font-black uppercase tracking-widest text-[#fffdf2]/40 mb-2">Service of Interest</label>
-                                        <select
-                                            {...register('service')}
-                                            className={cn(
-                                                "w-full bg-[#1c1e20] border border-[#fffdf2]/10 p-4 font-medium focus:border-[#f15a2f] outline-none transition-colors appearance-none",
-                                                errors.service && "border-red-500/50"
-                                            )}
-                                        >
-                                            <option value="">Select a service...</option>
-                                            {services.map(s => <option key={s} value={s}>{s}</option>)}
-                                        </select>
-                                        {errors.service && <p className="mt-1 text-[10px] text-red-500 font-bold uppercase">{errors.service.message}</p>}
-                                    </div>
-                                </div>
+                        <div className="bg-[#161819] border border-white/5 p-6 rounded-2xl hover:border-[#f15a2f]/30 transition-colors group">
+                            <div className="w-10 h-10 bg-[#f15a2f]/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-[#f15a2f] transition-colors">
+                                <Phone size={20} className="text-[#f15a2f] group-hover:text-white transition-colors" />
+                            </div>
+                            <h4 className="text-[#fffdf2]/40 font-bold uppercase tracking-widest text-[10px] mb-1">Emergency Ops</h4>
+                            <a href="tel:+923274320706" className="text-lg font-bold text-[#fffdf2] hover:text-[#f15a2f] transition-colors">
+                                +92-327-4320706
+                            </a>
+                        </div>
 
-                                <div>
-                                    <label className="block text-xs font-black uppercase tracking-widest text-[#fffdf2]/40 mb-2">Describe Your Challenge</label>
-                                    <textarea
-                                        {...register('message')}
-                                        rows={5}
-                                        className={cn(
-                                            "w-full bg-[#1c1e20] border border-[#fffdf2]/10 p-4 font-medium focus:border-[#f15a2f] outline-none transition-colors resize-none",
-                                            errors.message && "border-red-500/50"
-                                        )}
-                                        placeholder="Tell us about the problem you want to solve..."
-                                    />
-                                    {errors.message && <p className="mt-1 text-[10px] text-red-500 font-bold uppercase">{errors.message.message}</p>}
-                                </div>
-
-                                <button
-                                    type="submit"
-                                    disabled={isSubmitting}
-                                    className="w-full bg-[#f15a2f] text-[#fffdf2] py-5 font-black uppercase tracking-[0.2em] hover:bg-[#f15a2f]/90 transition-all flex items-center justify-center gap-3 disabled:opacity-50"
-                                >
-                                    {isSubmitting ? (
-                                        <Loader2 className="animate-spin" />
-                                    ) : (
-                                        <>Submit Inquiry <ArrowRight size={20} /></>
-                                    )}
-                                </button>
-                            </form>
-                        )}
+                        <div className="bg-[#161819] border border-white/5 p-6 rounded-2xl hover:border-[#f15a2f]/30 transition-colors group">
+                            <div className="w-10 h-10 bg-[#f15a2f]/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-[#f15a2f] transition-colors">
+                                <MapPin size={20} className="text-[#f15a2f] group-hover:text-white transition-colors" />
+                            </div>
+                            <h4 className="text-[#fffdf2]/40 font-bold uppercase tracking-widest text-[10px] mb-1">Global HQ</h4>
+                            <p className="text-lg font-bold text-[#fffdf2]">Lahore, PK</p>
+                        </div>
                     </div>
                 </div>
             </div>

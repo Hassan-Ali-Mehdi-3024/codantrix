@@ -1,4 +1,4 @@
-export default function JsonLd({ data }: { data: any }) {
+export default function JsonLd({ data }: { data: Record<string, unknown> }) {
     return (
         <script
             type="application/ld+json"
@@ -27,7 +27,7 @@ export function generateOrganizationSchema() {
     }
 }
 
-export function generateServiceSchema(service: any) {
+export function generateServiceSchema(service: { name: string, description: string }) {
     return {
         "@context": "https://schema.org",
         "@type": "Service",

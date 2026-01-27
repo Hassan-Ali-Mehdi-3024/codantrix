@@ -1,5 +1,6 @@
 import { createClient } from '@/utils/supabase/server'
 import { FileText, Download, Lock, CheckCircle2, Calculator } from 'lucide-react'
+import type { ElementType } from 'react'
 
 export const dynamic = 'force-dynamic'
 
@@ -10,7 +11,7 @@ export default async function ResourceLibraryPage() {
         .select('*')
         .order('created_at', { ascending: false })
 
-    const typeIcons: Record<string, any> = {
+    const typeIcons: Record<string, ElementType> = {
         'whitepaper': FileText,
         'checklist': CheckCircle2,
         'template': FileText,
@@ -18,7 +19,7 @@ export default async function ResourceLibraryPage() {
     }
 
     return (
-        <div className="pt-32 pb-24 bg-[#1c1e20]">
+        <div className="pt-32 pb-24 bg-black">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="mb-24">
                     <h2 className="text-[#f15a2f] font-bold uppercase tracking-[0.3em] mb-4 text-sm">Actionable Intelligence</h2>
@@ -34,7 +35,7 @@ export default async function ResourceLibraryPage() {
                     {resources?.map((res) => {
                         const Icon = typeIcons[res.type] || FileText
                         return (
-                            <div key={res.id} className="p-10 bg-[#161819] border border-[#fffdf2]/5 group hover:border-[#f15a2f]/40 transition-all">
+                            <div key={res.id} className="p-6 sm:p-8 lg:p-10 bg-[#161819] border border-[#fffdf2]/5 group hover:border-[#f15a2f]/40 transition-all">
                                 <div className="w-12 h-12 bg-[#f15a2f]/10 flex items-center justify-center text-[#f15a2f] mb-8">
                                     <Icon size={24} />
                                 </div>
@@ -57,17 +58,17 @@ export default async function ResourceLibraryPage() {
                     })}
 
                     {/* Industrial ROI Calculator Teaser */}
-                    <div className="p-10 bg-[#1c1e20] border-2 border-dashed border-[#fffdf2]/10 flex flex-col items-center justify-center text-center">
+                    <div className="p-6 sm:p-8 lg:p-10 bg-[#1c1e20] border-2 border-dashed border-[#fffdf2]/10 flex flex-col items-center justify-center text-center">
                         <Calculator size={40} className="text-[#fffdf2]/20 mb-6" />
                         <h3 className="text-xl font-bold text-[#fffdf2]/40 mb-2">Live ROI Calculator</h3>
                         <p className="text-xs text-[#fffdf2]/30 uppercase tracking-widest font-bold">Deploying in Phase 2B</p>
                     </div>
                 </div>
 
-                <div className="mt-32 p-16 border border-[#fffdf2]/5 bg-[#161819] text-center">
+                <div className="mt-32 p-8 sm:p-12 lg:p-16 border border-[#fffdf2]/5 bg-[#161819] text-center">
                     <h3 className="text-3xl font-bold text-[#fffdf2] mb-6">Need a custom implementation guide?</h3>
                     <p className="text-[#fffdf2]/60 mb-12 max-w-xl mx-auto">Our engineering team creates bespoke technical roadmaps for complex industrial environments.</p>
-                    <a href="/contact" className="inline-block px-12 py-5 bg-[#f15a2f] text-[#fffdf2] font-black uppercase tracking-widest hover:scale-105 transition-all text-sm">
+                    <a href="/contact" className="inline-block w-full sm:w-auto px-6 sm:px-10 lg:px-12 py-5 bg-[#f15a2f] text-[#fffdf2] font-black uppercase tracking-widest hover:scale-105 transition-all text-sm">
                         Request Engineering Brief
                     </a>
                 </div>

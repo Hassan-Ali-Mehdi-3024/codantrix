@@ -1,6 +1,6 @@
 export async function trackEvent(
     type: 'page_view' | 'cta_click' | 'download' | 'quiz_complete' | 'calculator_use',
-    metadata: any = {}
+    metadata: Record<string, unknown> = {}
 ) {
     try {
         await fetch('/api/analytics', {
@@ -13,7 +13,7 @@ export async function trackEvent(
                 user_id: localStorage.getItem('cl_session_id') || 'anonymous'
             })
         })
-    } catch (e) {
+    } catch (_) {
         console.warn('Analytics tracking failed')
     }
 }
