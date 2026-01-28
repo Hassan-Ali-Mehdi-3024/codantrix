@@ -1,3 +1,4 @@
 User-agent: *
 Allow: /
-Sitemap: https://labs.codantrix.com/sitemap.xml
+Sitemap: https://codantrix.com/sitemap.xml
+Host: https://codantrix.com

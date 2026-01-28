@@ -1,9 +1,10 @@
 import { MetadataRoute } from 'next'
+import { blogPosts } from '@/data/blog-posts'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-    const baseUrl = 'https://labs.codantrix.com'
+    const baseUrl = 'https://codantrix.com'
 
-    const routes = [
+    const staticRoutes = [
         '',
         '/about',
         '/services',
@@ -11,6 +12,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
         '/our-approach',
         '/solutions-hub',
         '/contact',
+        '/blog',
+        '/careers',
+        '/compare',
+        '/industries',
+        '/privacy',
+        '/terms',
+        '/quiz',
+        '/roi-calculator',
+        '/resources',
+        '/resources/library',
+        '/testimonials',
+        '/team',
     ].map((route) => ({
         url: `${baseUrl}${route}`,
         lastModified: new Date(),
@@ -18,5 +31,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
         priority: route === '' ? 1 : 0.8,
     }))
 
-    return routes
+    const blogRoutes = blogPosts.map((post) => ({
+        url: `${baseUrl}/blog/${post.slug}`,
+        lastModified: new Date(post.date),
+        changeFrequency: 'monthly' as const,
+        priority: 0.7,
+    }))
+
+    return [...staticRoutes, ...blogRoutes]
 }
