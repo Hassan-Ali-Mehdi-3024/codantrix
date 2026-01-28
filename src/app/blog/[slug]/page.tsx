@@ -37,49 +37,49 @@ export default async function BlogArticlePage({ params }: Props) {
         .slice(0, 3)
 
     return (
-        <div className="pt-32 pb-24 bg-black">
-            <article className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="pt-40 pb-24 bg-nm-bg">
+            <article className="max-w-[1380px] mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
 
                     {/* Main Content Area */}
                     <div className="lg:col-span-8">
-                        <Link href="/blog" className="text-[#f15a2f] font-bold text-sm uppercase tracking-widest mb-12 inline-flex items-center gap-2 hover:translate-x-[-4px] transition-transform">
+                        <Link href="/blog" className="text-brand-orange font-bold text-sm uppercase tracking-widest mb-12 inline-flex items-center gap-2 hover:translate-x-[-4px] transition-transform">
                             <ArrowLeft size={16} /> Back to Library
                         </Link>
 
-                        <div className="mb-12">
-                            <span className="text-[#f15a2f] font-black uppercase tracking-[0.2em] text-[10px] px-3 py-1 bg-[#f15a2f]/10 mb-6 inline-block">
+                        <div className="mb-12 text-left">
+                            <span className="text-brand-orange font-black uppercase tracking-[0.2em] text-[10px] px-3 py-1 nm-inset-sm mb-6 inline-block">
                                 {post.category}
                             </span>
-                            <h1 className="text-4xl md:text-6xl font-black mb-8 leading-tight text-[#fffdf2]">
+                            <h1 className="text-4xl md:text-6xl font-black mb-8 leading-tight text-nm-text">
                                 {post.title}
                             </h1>
 
-                            <div className="flex flex-wrap gap-6 text-[#fffdf2]/40 text-xs font-bold uppercase tracking-widest pb-8 border-b border-[#fffdf2]/5">
-                                <span className="flex items-center gap-2"><User size={14} className="text-[#f15a2f]" /> {post.author}</span>
+                            <div className="flex flex-wrap gap-6 text-nm-text-muted text-xs font-bold uppercase tracking-widest pb-8 border-b border-nm-text/5">
+                                <span className="flex items-center gap-2"><User size={14} className="text-brand-orange" /> {post.author}</span>
                                 <span className="flex items-center gap-2"><Calendar size={14} /> {new Date(post.date).toLocaleDateString()}</span>
                                 <span className="flex items-center gap-2"><Clock size={14} /> {post.readTime} Min Read</span>
                             </div>
                         </div>
 
                         <div className="prose prose-invert max-w-none">
-                            <div className="text-xl text-[#fffdf2]/70 leading-relaxed space-y-8 whitespace-pre-wrap font-medium">
+                            <div className="text-xl text-nm-text-muted leading-relaxed space-y-8 whitespace-pre-wrap font-medium">
                                 {post.content || post.excerpt + "\n\n(Full article content is being migrated to the new platform...)"}
                             </div>
                         </div>
 
                         {/* Author Bio Box */}
-                        <div className="mt-24 p-6 sm:p-8 lg:p-12 bg-[#161819] border border-[#fffdf2]/5 flex flex-col md:flex-row gap-8 items-center">
-                            <div className="w-24 h-24 bg-black flex items-center justify-center border border-[#f15a2f]/20">
-                                <span className="text-4xl font-black text-[#f15a2f]">{post.author?.charAt(0)}</span>
+                        <div className="mt-24 p-6 sm:p-8 lg:p-12 nm-flat-md border border-nm-text/5 rounded-3xl flex flex-col md:flex-row gap-8 items-center">
+                            <div className="w-24 h-24 nm-inset-sm rounded-2xl flex items-center justify-center">
+                                <span className="text-4xl font-black text-brand-orange">{post.author?.charAt(0)}</span>
                             </div>
                             <div className="flex-1 text-center md:text-left">
-                                <h4 className="text-xl font-bold mb-2">Written by {post.author}</h4>
-                                <p className="text-[#fffdf2]/50 text-sm leading-relaxed mb-4">
+                                <h4 className="text-xl font-bold mb-2 text-nm-text">Written by {post.author}</h4>
+                                <p className="text-nm-text-muted text-sm leading-relaxed mb-4">
                                     {post.role} at Codantrix Labs.
                                 </p>
                                 <div className="flex gap-4 justify-center md:justify-start">
-                                    <Link href="/team" className="text-[10px] font-black uppercase tracking-widest text-[#f15a2f] hover:text-[#fffdf2] transition-colors">
+                                    <Link href="/team" className="text-[10px] font-black uppercase tracking-widest text-brand-orange hover:text-nm-text transition-colors">
                                         View Profile →
                                     </Link>
                                 </div>
@@ -92,12 +92,13 @@ export default async function BlogArticlePage({ params }: Props) {
                         <div className="sticky top-32 space-y-12">
 
                             {/* Lead Magnet CTA */}
-                            <div className="p-8 bg-[#f15a2f] text-[#fffdf2] rounded-sm shadow-xl text-center">
+                            <div className="p-8 nm-flat-lg border border-nm-text/5 text-nm-text rounded-3xl text-left relative overflow-hidden">
+                                <div className="absolute top-0 right-0 w-32 h-32 bg-brand-orange/5 rounded-full blur-2xl -mr-16 -mt-16" />
                                 <h3 className="text-2xl font-black mb-4 italic leading-tight">Master Industrial AI.</h3>
-                                <p className="text-sm opacity-90 mb-8 font-medium">Download our &quot;Ground-Truth Checklist&quot; used by enterprise teams to validate high-stakes ML models.</p>
+                                <p className="text-sm text-nm-text-muted mb-8 font-medium">Download our &quot;Ground-Truth Checklist&quot; used by enterprise teams to validate high-stakes ML models.</p>
                                 <Link
                                     href="/resources/library"
-                                    className="block w-full py-4 bg-black text-center text-xs font-black uppercase tracking-widest hover:translate-y-[-2px] transition-all"
+                                    className="block w-full py-4 nm-btn-accent text-white rounded-xl text-center text-xs font-black uppercase tracking-widest hover:scale-[1.02] active:scale-[0.98] transition-all"
                                 >
                                     Get the Checklist →
                                 </Link>
@@ -105,17 +106,17 @@ export default async function BlogArticlePage({ params }: Props) {
 
                             {/* Related Posts */}
                             {related && related.length > 0 && (
-                                <div className="p-8 bg-[#161819] border border-[#fffdf2]/5">
-                                    <h4 className="text-xs font-black uppercase tracking-widest text-[#f15a2f] mb-8 pb-4 border-b border-[#fffdf2]/5 flex items-center justify-center sm:justify-start gap-2">
+                                <div className="p-8 nm-flat-md border border-nm-text/5 rounded-3xl">
+                                    <h4 className="text-xs font-black uppercase tracking-widest text-brand-orange mb-8 pb-4 border-b border-nm-text/10 flex items-center justify-start gap-2">
                                         <BookOpen size={14} /> Related Briefs
                                     </h4>
-                                    <div className="space-y-8 text-center sm:text-left">
+                                    <div className="space-y-8 text-left">
                                         {related.map(r => (
                                             <Link key={r.slug} href={`/blog/${r.slug}`} className="group block">
-                                                <p className="text-[10px] font-black uppercase tracking-widest text-[#fffdf2]/30 group-hover:text-[#f15a2f] transition-colors mb-2">
+                                                <p className="text-[10px] font-black uppercase tracking-widest text-nm-text-muted/40 group-hover:text-brand-orange transition-colors mb-2">
                                                     {r.category}
                                                 </p>
-                                                <h5 className="font-bold text-[#fffdf2] group-hover:text-[#f15a2f] transition-colors leading-tight">
+                                                <h5 className="font-bold text-nm-text group-hover:text-brand-orange transition-colors leading-tight">
                                                     {r.title}
                                                 </h5>
                                             </Link>
@@ -126,9 +127,9 @@ export default async function BlogArticlePage({ params }: Props) {
 
                             {/* Share CTA */}
                             <div className="text-center">
-                                <p className="text-[10px] font-black uppercase tracking-[0.3em] text-[#fffdf2]/20 mb-4">Share Intelligence</p>
+                                <p className="text-[10px] font-black uppercase tracking-[0.3em] text-nm-text-muted/20 mb-4">Share Intelligence</p>
                                 <div className="flex justify-center gap-4">
-                                    <button className="w-10 h-10 rounded-full border border-[#fffdf2]/5 flex items-center justify-center text-[#fffdf2]/40 hover:text-[#f15a2f] hover:border-[#f15a2f] transition-all">
+                                    <button className="w-10 h-10 rounded-full nm-flat-sm flex items-center justify-center text-nm-text-muted/40 hover:text-brand-orange transition-all">
                                         <Share2 size={16} />
                                     </button>
                                 </div>

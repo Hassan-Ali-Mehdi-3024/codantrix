@@ -25,13 +25,39 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var theme = localStorage.getItem('theme');
+                  if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                    document.documentElement.classList.add('dark');
+                  } else {
+                    document.documentElement.classList.remove('dark');
+                  }
+                } catch (e) {}
+              })();
+            `,
+          }}
+        />
+      </head>
       <body
-        className={`${poppins.variable} antialiased selection:bg-brand-orange selection:text-white bg-background-deep bg-[radial-gradient(circle_at_20%_20%,rgba(241,90,47,0.08),transparent_35%),radial-gradient(circle_at_80%_0%,rgba(241,90,47,0.06),transparent_30%)]`}
+        className={`${poppins.variable} antialiased selection:bg-brand-orange selection:text-nm-accent-text`}
       >
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-full focus:bg-brand-orange focus:px-4 focus:py-2 focus:text-black focus:font-semibold"
+        >
+          Skip to content
+        </a>
         <JsonLd data={generateOrganizationSchema()} />
         <Navbar />
-        <main className="min-h-[80vh]">{children}</main>
+        <main id="main-content" className="min-h-[80vh]">
+          {children}
+        </main>
         <Footer />
       </body>
     </html>

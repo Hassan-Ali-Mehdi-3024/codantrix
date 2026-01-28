@@ -73,17 +73,18 @@ export default function ContactForm() {
 
     if (isSuccess) {
         return (
-            <div className="h-full flex flex-col items-center justify-center py-20 text-center bg-gradient-to-br from-[#1c1e20] to-black rounded-[32px] border border-[#f15a2f]/20 shadow-[0_0_100px_rgba(241,90,47,0.1)] p-8">
-                <div className="w-24 h-24 bg-[#f15a2f]/10 rounded-full flex items-center justify-center mb-8 animate-pulse">
-                    <CheckCircle size={48} className="text-[#f15a2f]" />
+            <div className="h-full flex flex-col items-center justify-center py-20 text-center nm-flat-lg rounded-[32px] border border-nm-text/5 p-8 relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-64 h-64 bg-brand-orange/5 rounded-full blur-3xl -mr-32 -mt-32" />
+                <div className="w-24 h-24 nm-inset-sm rounded-full flex items-center justify-center mb-8 animate-pulse">
+                    <CheckCircle size={48} className="text-brand-orange" />
                 </div>
-                <h3 className="text-4xl font-bold mb-4 bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">Transmission Received.</h3>
-                <p className="text-[#fffdf2]/60 mb-12 max-w-sm text-lg">
+                <h3 className="text-4xl font-bold mb-4 text-nm-text relative z-10">Transmission Received.</h3>
+                <p className="text-nm-text-muted mb-12 max-w-sm text-lg relative z-10">
                     Your signal has been locked. Our lead architect will analyze your request and establish a secure link within 24 hours.
                 </p>
                 <button
                     onClick={() => setIsSuccess(false)}
-                    className="group flex items-center gap-2 text-[#f15a2f] font-bold uppercase tracking-[0.2em] text-sm hover:text-white transition-colors"
+                    className="group flex items-center gap-2 text-brand-orange font-bold uppercase tracking-[0.2em] text-sm hover:text-nm-text transition-colors relative z-10"
                 >
                     <Sparkles size={16} /> Send Another Signal
                 </button>
@@ -93,90 +94,144 @@ export default function ContactForm() {
 
     return (
         <div className="relative group">
-            <div className="absolute -inset-1 bg-gradient-to-r from-[#f15a2f] to-[#b83a0f] rounded-[32px] opacity-20 group-hover:opacity-40 blur transition duration-500"></div>
-            <div className="relative bg-[#161819] rounded-[32px] border border-white/5 p-8 md:p-12 overflow-hidden">
-                <div className="absolute top-0 right-0 w-64 h-64 bg-[#f15a2f]/5 rounded-full blur-[100px] pointer-events-none" />
+            <div className="relative nm-flat-lg rounded-[32px] p-8 md:p-12 overflow-hidden border border-nm-text/5">
+                <div className="absolute top-0 right-0 w-64 h-64 bg-brand-orange/5 rounded-full blur-[100px] pointer-events-none" />
                 
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-8 relative z-10">
                     {error && (
-                        <div className="p-4 bg-red-500/10 border border-red-500/20 text-red-500 flex items-center gap-3 text-sm font-bold rounded-lg">
+                        <div className="p-4 nm-inset-sm bg-red-500/5 border border-red-500/20 text-red-500 flex items-center gap-3 text-sm font-bold rounded-xl">
                             <AlertCircle size={18} /> {error}
                         </div>
                     )}
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                         <div className="group/input">
-                            <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-[#f15a2f] mb-3 group-focus-within/input:text-white transition-colors">Your Name</label>
+                            <label htmlFor="contact-name" className="block text-sm font-bold uppercase tracking-widest text-brand-orange mb-3 transition-colors">Full Name</label>
                             <input
+                                id="contact-name"
                                 {...register('name')}
+                                type="text"
+                                autoComplete="name"
+                                aria-invalid={!!errors.name}
+                                aria-describedby={errors.name ? "contact-name-error" : undefined}
                                 className={cn(
-                                    "w-full h-14 bg-black/40 border border-white/10 rounded-xl px-4 font-medium text-[#fffdf2] focus:border-[#f15a2f] focus:bg-black/60 outline-none transition-all duration-300 placeholder:text-white/20",
+                                    "w-full h-14 nm-inset-sm border-transparent rounded-xl px-4 font-bold text-nm-text focus:border-brand-orange/30 outline-none transition-all duration-300 placeholder:text-nm-text-muted/30",
                                     errors.name && "border-red-500/50"
                                 )}
-                                placeholder="John Doe"
+                                placeholder="e.g. Hassan Mehdi"
                             />
-                            {errors.name && <p className="mt-2 text-[10px] text-red-500 font-bold uppercase tracking-wider flex items-center gap-1"><AlertCircle size={10} /> {errors.name.message}</p>}
+                            {errors.name && <p id="contact-name-error" className="mt-2 text-[10px] text-red-500 font-bold uppercase tracking-wider flex items-center gap-1"><AlertCircle size={10} /> {errors.name.message}</p>}
                         </div>
                         <div className="group/input">
-                            <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-[#f15a2f] mb-3 group-focus-within/input:text-white transition-colors">Company Email</label>
+                            <label htmlFor="contact-email" className="block text-sm font-bold uppercase tracking-widest text-brand-orange mb-3 transition-colors">Corporate Email</label>
                             <input
+                                id="contact-email"
                                 {...register('email')}
+                                type="email"
+                                inputMode="email"
+                                autoComplete="email"
+                                aria-invalid={!!errors.email}
+                                aria-describedby={errors.email ? "contact-email-error" : undefined}
                                 className={cn(
-                                    "w-full h-14 bg-black/40 border border-white/10 rounded-xl px-4 font-medium text-[#fffdf2] focus:border-[#f15a2f] focus:bg-black/60 outline-none transition-all duration-300 placeholder:text-white/20",
+                                    "w-full h-14 nm-inset-sm border-transparent rounded-xl px-4 font-bold text-nm-text focus:border-brand-orange/30 outline-none transition-all duration-300 placeholder:text-nm-text-muted/30",
                                     errors.email && "border-red-500/50"
                                 )}
-                                placeholder="john@company.com"
+                                placeholder="name@company.com"
                             />
-                            {errors.email && <p className="mt-2 text-[10px] text-red-500 font-bold uppercase tracking-wider flex items-center gap-1"><AlertCircle size={10} /> {errors.email.message}</p>}
+                            {errors.email && <p id="contact-email-error" className="mt-2 text-[10px] text-red-500 font-bold uppercase tracking-wider flex items-center gap-1"><AlertCircle size={10} /> {errors.email.message}</p>}
                         </div>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                         <div className="group/input">
-                            <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-[#f15a2f] mb-3 group-focus-within/input:text-white transition-colors">Company Name</label>
+                            <label htmlFor="contact-company" className="block text-sm font-bold uppercase tracking-widest text-brand-orange mb-3 transition-colors">Organization</label>
                             <input
+                                id="contact-company"
                                 {...register('company')}
-                                className="w-full h-14 bg-black/40 border border-white/10 rounded-xl px-4 font-medium text-[#fffdf2] focus:border-[#f15a2f] focus:bg-black/60 outline-none transition-all duration-300 placeholder:text-white/20"
-                                placeholder="Acme Corp"
+                                type="text"
+                                autoComplete="organization"
+                                className="w-full h-14 nm-inset-sm border-transparent rounded-xl px-4 font-bold text-nm-text focus:border-brand-orange/30 outline-none transition-all duration-300 placeholder:text-nm-text-muted/30"
+                                placeholder="Company Name"
                             />
                         </div>
                         <div className="group/input">
-                            <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-[#f15a2f] mb-3 group-focus-within/input:text-white transition-colors">Service Interest</label>
+                            <label htmlFor="contact-service" className="block text-sm font-bold uppercase tracking-widest text-brand-orange mb-3 transition-colors">Interest Area</label>
                             <div className="relative">
                                 <select
+                                    id="contact-service"
                                     {...register('service')}
+                                    aria-invalid={!!errors.service}
+                                    aria-describedby={errors.service ? "contact-service-error" : undefined}
                                     className={cn(
-                                        "w-full h-14 bg-black/40 border border-white/10 rounded-xl px-4 font-medium text-[#fffdf2] focus:border-[#f15a2f] focus:bg-black/60 outline-none transition-all duration-300 appearance-none cursor-pointer",
+                                        "w-full h-14 nm-inset-sm border-transparent rounded-xl px-4 font-bold text-nm-text focus:border-brand-orange/30 outline-none transition-all duration-300 appearance-none cursor-pointer",
                                         errors.service && "border-red-500/50"
                                     )}
                                 >
-                                    <option value="" className="bg-[#1c1e20]">Select a protocol...</option>
-                                    {services.map(s => <option key={s} value={s} className="bg-[#1c1e20]">{s}</option>)}
+                                    <option value="" className="bg-nm-bg">Select Interest...</option>
+                                    {services.map(s => <option key={s} value={s} className="bg-nm-bg">{s}</option>)}
                                 </select>
-                                <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-[#f15a2f] pointer-events-none" size={18} />
+                                <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-brand-orange pointer-events-none" size={18} />
                             </div>
-                            {errors.service && <p className="mt-2 text-[10px] text-red-500 font-bold uppercase tracking-wider flex items-center gap-1"><AlertCircle size={10} /> {errors.service.message}</p>}
+                            {errors.service && <p id="contact-service-error" className="mt-2 text-[10px] text-red-500 font-bold uppercase tracking-wider flex items-center gap-1"><AlertCircle size={10} /> {errors.service.message}</p>}
+                        </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div className="group/input">
+                            <label htmlFor="contact-budget" className="block text-sm font-bold uppercase tracking-widest text-brand-orange mb-3 transition-colors">Project Budget</label>
+                            <div className="relative">
+                                <select
+                                    id="contact-budget"
+                                    className="w-full h-14 nm-inset-sm border-transparent rounded-xl px-4 font-bold text-nm-text focus:border-brand-orange/30 outline-none transition-all duration-300 appearance-none cursor-pointer"
+                                >
+                                    <option value="" className="bg-nm-bg">Select Range...</option>
+                                    <option value="5-10k" className="bg-nm-bg">$5k - $10k</option>
+                                    <option value="10-50k" className="bg-nm-bg">$10k - $50k</option>
+                                    <option value="50-100k" className="bg-nm-bg">$50k - $100k</option>
+                                    <option value="100k+" className="bg-nm-bg">$100k+</option>
+                                </select>
+                                <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-brand-orange pointer-events-none" size={18} />
+                            </div>
+                        </div>
+                        <div className="group/input">
+                            <label htmlFor="contact-timeline" className="block text-sm font-bold uppercase tracking-widest text-brand-orange mb-3 transition-colors">Timeline</label>
+                            <div className="relative">
+                                <select
+                                    id="contact-timeline"
+                                    className="w-full h-14 nm-inset-sm border-transparent rounded-xl px-4 font-bold text-nm-text focus:border-brand-orange/30 outline-none transition-all duration-300 appearance-none cursor-pointer"
+                                >
+                                    <option value="" className="bg-nm-bg">Select Timeline...</option>
+                                    <option value="immediate" className="bg-nm-bg">Immediate</option>
+                                    <option value="1-3-months" className="bg-nm-bg">1-3 Months</option>
+                                    <option value="3-6-months" className="bg-nm-bg">3-6 Months</option>
+                                    <option value="planning" className="bg-nm-bg">Planning Stage</option>
+                                </select>
+                                <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-brand-orange pointer-events-none" size={18} />
+                            </div>
                         </div>
                     </div>
 
                     <div className="group/input">
-                        <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-[#f15a2f] mb-3 group-focus-within/input:text-white transition-colors">Mission Parameters</label>
+                        <label htmlFor="contact-message" className="block text-sm font-bold uppercase tracking-widest text-brand-orange mb-3 transition-colors">Mission Parameters</label>
                         <textarea
+                            id="contact-message"
                             {...register('message')}
-                            rows={5}
+                            rows={4}
+                            aria-invalid={!!errors.message}
+                            aria-describedby={errors.message ? "contact-message-error" : undefined}
                             className={cn(
-                                "w-full bg-black/40 border border-white/10 rounded-xl p-4 font-medium text-[#fffdf2] focus:border-[#f15a2f] focus:bg-black/60 outline-none transition-all duration-300 resize-none placeholder:text-white/20",
+                                "w-full nm-inset-sm border-transparent rounded-xl p-4 font-bold text-nm-text focus:border-brand-orange/30 outline-none transition-all duration-300 resize-none placeholder:text-nm-text-muted/30",
                                 errors.message && "border-red-500/50"
                             )}
                             placeholder="Describe the challenge. Be specific. We like hard problems..."
                         />
-                        {errors.message && <p className="mt-2 text-[10px] text-red-500 font-bold uppercase tracking-wider flex items-center gap-1"><AlertCircle size={10} /> {errors.message.message}</p>}
+                        {errors.message && <p id="contact-message-error" className="mt-2 text-[10px] text-red-500 font-bold uppercase tracking-wider flex items-center gap-1"><AlertCircle size={10} /> {errors.message.message}</p>}
                     </div>
 
                     <button
                         type="submit"
                         disabled={isSubmitting}
-                        className="w-full relative overflow-hidden group bg-gradient-to-r from-[#f15a2f] to-[#b83a0f] text-[#fffdf2] py-5 rounded-xl font-black uppercase tracking-[0.2em] transition-all disabled:opacity-50 hover:shadow-[0_0_40px_rgba(241,90,47,0.4)] hover:scale-[1.01]"
+                        className="w-full relative overflow-hidden group nm-btn-accent text-white py-5 rounded-full font-black uppercase tracking-[0.2em] transition-all disabled:opacity-50 hover:scale-[1.01] active:scale-[0.98]"
                     >
                         <span className="relative z-10 flex items-center justify-center gap-3">
                             {isSubmitting ? (
@@ -185,7 +240,6 @@ export default function ContactForm() {
                                 <>Initialize Uplink <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" /></>
                             )}
                         </span>
-                        <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
                     </button>
                 </form>
             </div>

@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 export const dynamic = 'force-dynamic'
 
-const testimonials = [
+export const testimonials = [
     {
         id: '1',
         client_name: "Sarah Jenkins",
@@ -62,73 +62,73 @@ const testimonials = [
 
 export default function TestimonialsPage() {
     return (
-        <div className="pt-32 pb-24 bg-black">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="pt-40 pb-24 bg-nm-bg">
+            <div className="max-w-[1380px] mx-auto px-4 sm:px-6 lg:px-8">
                 
                 {/* Hero Section */}
-                <div className="mb-24 text-center mx-auto max-w-4xl">
-                    <h2 className="text-[#f15a2f] font-bold uppercase tracking-[0.3em] mb-4 text-sm">Validated Results</h2>
-                    <h1 className="text-5xl md:text-7xl font-bold text-[#fffdf2] mb-8">
-                        Industrial <span className="text-[#f15a2f]">Trust.</span>
+                <div className="mb-24 text-left max-w-4xl">
+                    <h2 className="text-brand-orange font-bold uppercase tracking-[0.3em] mb-4 text-sm">Validated Results</h2>
+                    <h1 className="text-5xl md:text-7xl font-bold text-nm-text mb-8">
+                        Industrial <span className="text-brand-orange">Trust.</span>
                     </h1>
-                    <p className="text-xl text-[#fffdf2]/70 leading-relaxed">
+                    <p className="text-xl text-nm-text-muted leading-relaxed">
                         We don&apos;t trade in hype. We trade in uptime, accuracy, and ROI. Here is what happens when enterprise engineering meets real-world chaos.
                     </p>
                 </div>
 
                 {/* Impact Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-24 pb-12 border-b border-[#fffdf2]/5">
-                    <div className="bg-[#161819] border border-[#f15a2f]/20 p-6 rounded-sm text-center md:text-left">
-                        <CheckCircle2 className="text-[#f15a2f] mb-4 mx-auto md:mx-0" size={32} />
-                        <h3 className="text-3xl font-black text-[#fffdf2] mb-1">95%+</h3>
-                        <p className="text-xs font-bold uppercase tracking-widest text-[#fffdf2]/40">Client Retention</p>
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-24 pb-12 border-b border-nm-text/5">
+                    <div className="nm-flat-sm p-8 rounded-3xl text-left border border-nm-text/5">
+                        <CheckCircle2 className="text-brand-orange mb-6" size={32} />
+                        <h3 className="text-3xl font-black text-nm-text mb-1">95%+</h3>
+                        <p className="text-xs font-bold uppercase tracking-widest text-nm-text-muted">Client Retention</p>
                     </div>
-                    <div className="bg-[#161819] border border-[#f15a2f]/20 p-6 rounded-sm text-center md:text-left">
-                        <BarChart3 className="text-[#f15a2f] mb-4 mx-auto md:mx-0" size={32} />
-                        <h3 className="text-3xl font-black text-[#fffdf2] mb-1">6 Mos</h3>
-                        <p className="text-xs font-bold uppercase tracking-widest text-[#fffdf2]/40">Avg ROI Timeline</p>
+                    <div className="nm-flat-sm p-8 rounded-3xl text-left border border-nm-text/5">
+                        <BarChart3 className="text-brand-orange mb-6" size={32} />
+                        <h3 className="text-3xl font-black text-nm-text mb-1">6 Mos</h3>
+                        <p className="text-xs font-bold uppercase tracking-widest text-nm-text-muted">Avg ROI Timeline</p>
                     </div>
-                    <div className="bg-[#161819] border border-[#f15a2f]/20 p-6 rounded-sm text-center md:text-left">
-                        <Rocket className="text-[#f15a2f] mb-4 mx-auto md:mx-0" size={32} />
-                        <h3 className="text-3xl font-black text-[#fffdf2] mb-1">100%</h3>
-                        <p className="text-xs font-bold uppercase tracking-widest text-[#fffdf2]/40">Uptime for Prod-ML</p>
+                    <div className="nm-flat-sm p-8 rounded-3xl text-left border border-nm-text/5">
+                        <Rocket className="text-brand-orange mb-6" size={32} />
+                        <h3 className="text-3xl font-black text-nm-text mb-1">100%</h3>
+                        <p className="text-xs font-bold uppercase tracking-widest text-nm-text-muted">Uptime for Prod-ML</p>
                     </div>
-                    <div className="bg-[#161819] border border-[#f15a2f]/20 p-6 rounded-sm text-center md:text-left">
-                        <Trophy className="text-[#f15a2f] mb-4 mx-auto md:mx-0" size={32} />
-                        <h3 className="text-3xl font-black text-[#fffdf2] mb-1">Elite</h3>
-                        <p className="text-xs font-bold uppercase tracking-widest text-[#fffdf2]/40">Engineering DNA</p>
+                    <div className="nm-flat-sm p-8 rounded-3xl text-left border border-nm-text/5">
+                        <Trophy className="text-brand-orange mb-6" size={32} />
+                        <h3 className="text-3xl font-black text-nm-text mb-1">Elite</h3>
+                        <p className="text-xs font-bold uppercase tracking-widest text-nm-text-muted">Engineering DNA</p>
                     </div>
                 </div>
 
                 {/* Testimonials Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
                     {testimonials.map((t) => (
-                        <div key={t.id} className="bg-[#161819] border border-[#fffdf2]/5 p-8 sm:p-10 hover:border-[#f15a2f]/40 transition-all rounded-sm flex flex-col group relative overflow-hidden">
+                        <div key={t.id} className="nm-flat-md p-8 sm:p-10 hover:scale-[1.02] transition-all rounded-3xl flex flex-col group relative overflow-hidden border border-nm-text/5">
                             {/* Decorative Quote */}
-                            <Quote className="absolute top-6 right-6 text-[#fffdf2]/5 group-hover:text-[#f15a2f]/10 transition-colors transform scale-150" size={64} />
+                            <Quote className="absolute top-6 right-6 text-brand-orange/10 group-hover:text-brand-orange/20 transition-colors transform scale-150" size={64} />
                             
                             <div className="flex gap-1 mb-8">
                                 {[...Array(t.rating)].map((_, i) => (
-                                    <Star key={i} size={14} className="fill-[#f15a2f] text-[#f15a2f]" />
+                                    <Star key={i} size={14} className="fill-brand-orange text-brand-orange" />
                                 ))}
                             </div>
 
-                            <p className="text-[#fffdf2]/80 italic leading-relaxed text-lg mb-8 relative z-10">
+                            <p className="text-nm-text-muted italic leading-relaxed text-lg mb-8 relative z-10">
                                 &quot;{t.quote}&quot;
                             </p>
 
-                            <div className="mt-auto pt-8 border-t border-[#fffdf2]/5">
-                                <div className="flex flex-col gap-1 mb-4">
-                                    <h4 className="font-bold text-[#fffdf2] text-lg">{t.client_name}</h4>
-                                    <div className="flex items-center gap-2 text-xs text-[#fffdf2]/40 uppercase tracking-widest font-bold">
+                            <div className="mt-auto pt-8 border-t border-nm-text/10">
+                                <div className="flex flex-col gap-1 mb-6">
+                                    <h4 className="font-bold text-nm-text text-lg">{t.client_name}</h4>
+                                    <div className="flex items-center gap-2 text-xs text-nm-text-muted uppercase tracking-widest font-bold">
                                         <Building2 size={12} />
                                         {t.client_company}
                                     </div>
-                                    <p className="text-xs text-[#f15a2f] font-bold uppercase tracking-widest mt-1">
+                                    <p className="text-xs text-brand-orange font-bold uppercase tracking-widest mt-1">
                                         {t.client_role}
                                     </p>
                                 </div>
-                                <div className="inline-block bg-[#f15a2f]/10 border border-[#f15a2f]/20 px-3 py-1 text-xs font-black text-[#f15a2f] uppercase tracking-wider rounded-sm">
+                                <div className="inline-block nm-inset-sm px-4 py-2 text-xs font-black text-brand-orange uppercase tracking-wider rounded-full">
                                     {t.impact}
                                 </div>
                             </div>
@@ -137,14 +137,17 @@ export default function TestimonialsPage() {
                 </div>
 
                 {/* CTA Section */}
-                <div className="mt-32 p-12 bg-[#f15a2f] text-[#fffdf2] rounded-sm text-center">
-                    <h3 className="text-3xl md:text-4xl font-black mb-6">Ready to be our next success story?</h3>
-                    <p className="text-lg opacity-90 max-w-2xl mx-auto mb-10">
+                <div className="mt-32 p-12 nm-flat-lg rounded-3xl text-center border border-nm-text/5 overflow-hidden relative">
+                    <div className="absolute top-0 right-0 w-64 h-64 bg-brand-orange/5 rounded-full blur-3xl -mr-32 -mt-32" />
+                    <div className="absolute bottom-0 left-0 w-64 h-64 bg-brand-orange/5 rounded-full blur-3xl -ml-32 -mb-32" />
+                    
+                    <h3 className="text-3xl md:text-4xl font-black text-nm-text mb-6 relative z-10">Ready to be our next success story?</h3>
+                    <p className="text-lg text-nm-text-muted max-w-2xl mx-auto mb-10 relative z-10">
                         Stop guessing. Start measuring. Schedule a strategy session to see exactly how we can engineer ROI for your operations.
                     </p>
                     <Link
                         href="/contact"
-                        className="inline-block px-10 py-5 bg-[#1c1e20] text-[#fffdf2] font-black uppercase tracking-widest hover:scale-105 transition-all shadow-xl"
+                        className="inline-block px-10 py-5 nm-btn-accent text-white font-black uppercase tracking-widest hover:scale-105 transition-all shadow-xl rounded-full relative z-10"
                     >
                         Schedule Strategy Session
                     </Link>

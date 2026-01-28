@@ -131,14 +131,14 @@ const serviceCategories = [
 
 export default function ServicesHub() {
     return (
-        <div className="pt-32 pb-24 bg-black">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="max-w-3xl mb-20 mx-auto text-center">
-                    <h2 className="text-[#f15a2f] font-bold uppercase tracking-[0.3em] mb-4 text-sm">Our Capabilities</h2>
-                    <h1 className="text-5xl md:text-7xl font-bold mb-8">
-                        Expertise in <br /> <span className="text-[#f15a2f]">Complex AI.</span>
+        <div className="pt-40 pb-24 bg-nm-bg">
+            <div className="max-w-[1380px] mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="max-w-3xl mb-20 text-left">
+                    <h2 className="text-brand-orange font-bold uppercase tracking-[0.3em] mb-4 text-sm">Our Capabilities</h2>
+                    <h1 className="text-5xl md:text-7xl font-bold mb-8 text-nm-text">
+                        Expertise in <br /> <span className="text-brand-orange">Complex AI.</span>
                     </h1>
-                    <p className="text-xl text-[#fffdf2]/70 leading-relaxed">
+                    <p className="text-xl text-nm-text-muted leading-relaxed">
                         From industrial vision to enterprise-scale machine learning, we build the infrastructure that powers intelligent decision making.
                     </p>
                 </div>
@@ -148,14 +148,14 @@ export default function ServicesHub() {
                         <div key={categoryIndex} className="relative">
                             {/* Section Header */}
                             <div className="mb-12 flex items-center gap-6">
-                                <h2 className="text-3xl md:text-4xl font-bold text-white tracking-tight">
+                                <h2 className="text-3xl md:text-4xl font-bold text-nm-text tracking-tight">
                                     {category.title}
                                 </h2>
-                                <div className="h-px flex-1 bg-gradient-to-r from-white/10 to-transparent" />
+                                <div className="h-px flex-1 bg-nm-text/10" />
                             </div>
 
                             {/* Grid */}
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
                                 {category.services.map((service, i) => (
                                     <ServiceCard
                                         key={service.slug}

@@ -21,17 +21,18 @@ export default function ApplicationForm() {
 
     if (status === 'success') {
         return (
-            <div id="application-form" className="bg-[#161819] border border-[#f15a2f]/20 p-8 sm:p-12 text-center rounded-sm h-full flex flex-col items-center justify-center">
-                <div className="w-16 h-16 bg-[#f15a2f]/10 rounded-full flex items-center justify-center mx-auto mb-6 text-[#f15a2f]">
-                    <CheckCircle size={32} />
+            <div id="application-form" className="nm-flat-lg border border-nm-text/5 p-8 sm:p-12 text-center rounded-[32px] h-full flex flex-col items-center justify-center relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-64 h-64 bg-brand-orange/5 rounded-full blur-3xl -mr-32 -mt-32" />
+                <div className="w-20 h-20 nm-inset-sm rounded-full flex items-center justify-center mx-auto mb-8 text-brand-orange animate-pulse">
+                    <CheckCircle size={40} />
                 </div>
-                <h3 className="text-2xl font-bold text-[#fffdf2] mb-4">Application Received</h3>
-                <p className="text-[#fffdf2]/60 mb-8">
+                <h3 className="text-3xl font-bold text-nm-text mb-4 relative z-10">Application Received</h3>
+                <p className="text-nm-text-muted mb-10 max-w-md text-lg relative z-10">
                     Thank you for your interest in joining Codantrix. Our recruitment team will review your profile and get back to you within 48 hours.
                 </p>
                 <button 
                     onClick={() => setStatus('idle')}
-                    className="text-[#f15a2f] font-bold text-sm uppercase tracking-widest hover:text-[#fffdf2] transition-colors"
+                    className="text-brand-orange font-black text-sm uppercase tracking-[0.2em] hover:text-nm-text transition-colors relative z-10"
                 >
                     Submit another application
                 </button>
@@ -40,79 +41,83 @@ export default function ApplicationForm() {
     }
 
     return (
-        <form id="application-form" onSubmit={handleSubmit} className="space-y-6 bg-[#161819] border border-[#fffdf2]/5 p-8 sm:p-12 rounded-sm h-full">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="space-y-2">
-                    <label htmlFor="name" className="text-xs font-bold uppercase tracking-widest text-[#fffdf2]/40">Full Name</label>
+        <form id="application-form" onSubmit={handleSubmit} className="space-y-8 nm-flat-lg border border-nm-text/5 p-8 sm:p-12 rounded-[32px] h-full relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-brand-orange/5 rounded-full blur-[100px] pointer-events-none" />
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 relative z-10">
+                <div className="space-y-3">
+                    <label htmlFor="name" className="text-[10px] font-black uppercase tracking-[0.2em] text-brand-orange">Full Name</label>
                     <input
                         type="text"
                         id="name"
                         required
-                        className="w-full bg-black border border-[#fffdf2]/10 px-4 py-3 text-[#fffdf2] focus:border-[#f15a2f] focus:outline-none transition-colors"
-                        placeholder="John Doe"
+                        className="w-full nm-inset-sm border-transparent rounded-xl px-4 py-4 text-nm-text focus:border-brand-orange/30 focus:outline-none transition-all font-bold placeholder:text-nm-text-muted/30"
+                        placeholder="e.g. Hassan Mehdi"
                     />
                 </div>
-                <div className="space-y-2">
-                    <label htmlFor="email" className="text-xs font-bold uppercase tracking-widest text-[#fffdf2]/40">Email Address</label>
+                <div className="space-y-3">
+                    <label htmlFor="email" className="text-[10px] font-black uppercase tracking-[0.2em] text-brand-orange">Email Address</label>
                     <input
                         type="email"
                         id="email"
                         required
-                        className="w-full bg-black border border-[#fffdf2]/10 px-4 py-3 text-[#fffdf2] focus:border-[#f15a2f] focus:outline-none transition-colors"
-                        placeholder="john@example.com"
+                        className="w-full nm-inset-sm border-transparent rounded-xl px-4 py-4 text-nm-text focus:border-brand-orange/30 focus:outline-none transition-all font-bold placeholder:text-nm-text-muted/30"
+                        placeholder="name@example.com"
                     />
                 </div>
             </div>
 
-            <div className="space-y-2">
-                <label htmlFor="position" className="text-xs font-bold uppercase tracking-widest text-[#fffdf2]/40">Position Applied For</label>
-                <select
-                    id="position"
-                    required
-                    defaultValue={selectedRole}
-                    className="w-full bg-black border border-[#fffdf2]/10 px-4 py-3 text-[#fffdf2] focus:border-[#f15a2f] focus:outline-none transition-colors appearance-none"
-                >
-                    <option value="" disabled>Select a role</option>
-                    <option value="ml-engineer">Senior Machine Learning Engineer</option>
-                    <option value="full-stack">Full Stack Developer (Next.js)</option>
-                    <option value="cv-engineer">Computer Vision Specialist</option>
-                    <option value="sales">Enterprise Sales Manager</option>
-                    <option value="marketing">Product Marketing Manager</option>
-                    <option value="design">Product Designer (UI/UX)</option>
-                    <option value="operations">Operations Manager</option>
-                    <option value="intern">Engineering Intern</option>
-                    <option value="other">Other / General Application</option>
-                </select>
+            <div className="space-y-3 relative z-10">
+                <label htmlFor="position" className="text-[10px] font-black uppercase tracking-[0.2em] text-brand-orange">Position Applied For</label>
+                <div className="relative">
+                    <select
+                        id="position"
+                        required
+                        defaultValue={selectedRole}
+                        className="w-full nm-inset-sm border-transparent rounded-xl px-4 py-4 text-nm-text focus:border-brand-orange/30 focus:outline-none transition-all font-bold appearance-none cursor-pointer"
+                    >
+                        <option value="" disabled className="bg-nm-bg">Select a role...</option>
+                        <option value="ml-engineer" className="bg-nm-bg">Senior Machine Learning Engineer</option>
+                        <option value="full-stack" className="bg-nm-bg">Full Stack Developer (Next.js)</option>
+                        <option value="cv-engineer" className="bg-nm-bg">Computer Vision Specialist</option>
+                        <option value="sales" className="bg-nm-bg">Enterprise Sales Manager</option>
+                        <option value="marketing" className="bg-nm-bg">Product Marketing Manager</option>
+                        <option value="design" className="bg-nm-bg">Product Designer (UI/UX)</option>
+                        <option value="operations" className="bg-nm-bg">Operations Manager</option>
+                        <option value="intern" className="bg-nm-bg">Engineering Intern</option>
+                        <option value="other" className="bg-nm-bg">Other / General Application</option>
+                    </select>
+                </div>
             </div>
 
-            <div className="space-y-2">
-                <label htmlFor="portfolio" className="text-xs font-bold uppercase tracking-widest text-[#fffdf2]/40">Portfolio / LinkedIn URL</label>
+            <div className="space-y-3 relative z-10">
+                <label htmlFor="portfolio" className="text-[10px] font-black uppercase tracking-[0.2em] text-brand-orange">Portfolio / LinkedIn URL</label>
                 <input
                     type="url"
                     id="portfolio"
-                    className="w-full bg-black border border-[#fffdf2]/10 px-4 py-3 text-[#fffdf2] focus:border-[#f15a2f] focus:outline-none transition-colors"
-                    placeholder="https://linkedin.com/in/johndoe"
+                    className="w-full nm-inset-sm border-transparent rounded-xl px-4 py-4 text-nm-text focus:border-brand-orange/30 focus:outline-none transition-all font-bold placeholder:text-nm-text-muted/30"
+                    placeholder="https://linkedin.com/in/username"
                 />
             </div>
 
-            <div className="space-y-2">
-                <label className="text-xs font-bold uppercase tracking-widest text-[#fffdf2]/40">Resume / CV</label>
-                <div className="border-2 border-dashed border-[#fffdf2]/10 rounded-sm p-8 text-center hover:border-[#f15a2f]/40 transition-colors cursor-pointer group">
-                    <Upload className="mx-auto h-8 w-8 text-[#fffdf2]/20 group-hover:text-[#f15a2f] transition-colors mb-4" />
-                    <p className="text-sm text-[#fffdf2]/60 font-medium group-hover:text-[#fffdf2] transition-colors">
+            <div className="space-y-3 relative z-10">
+                <label className="text-[10px] font-black uppercase tracking-[0.2em] text-brand-orange">Resume / CV</label>
+                <div className="nm-inset-sm border-2 border-dashed border-nm-text/10 rounded-2xl p-10 text-center hover:border-brand-orange/40 transition-all cursor-pointer group">
+                    <Upload className="mx-auto h-10 w-10 text-brand-orange/20 group-hover:text-brand-orange transition-colors mb-4" />
+                    <p className="text-base text-nm-text-muted font-bold group-hover:text-nm-text transition-colors">
                         Click to upload or drag and drop
                     </p>
-                    <p className="text-xs text-[#fffdf2]/30 mt-2">PDF, DOCX up to 5MB</p>
+                    <p className="text-[10px] font-black uppercase tracking-widest text-nm-text-muted/30 mt-3">PDF, DOCX up to 5MB</p>
                     <input type="file" className="hidden" accept=".pdf,.doc,.docx" />
                 </div>
             </div>
 
-            <div className="space-y-2">
-                <label htmlFor="cover-letter" className="text-xs font-bold uppercase tracking-widest text-[#fffdf2]/40">Cover Letter (Optional)</label>
+            <div className="space-y-3 relative z-10">
+                <label htmlFor="cover-letter" className="text-[10px] font-black uppercase tracking-[0.2em] text-brand-orange">Cover Letter (Optional)</label>
                 <textarea
                     id="cover-letter"
                     rows={4}
-                    className="w-full bg-black border border-[#fffdf2]/10 px-4 py-3 text-[#fffdf2] focus:border-[#f15a2f] focus:outline-none transition-colors resize-none"
+                    className="w-full nm-inset-sm border-transparent rounded-xl p-4 text-nm-text focus:border-brand-orange/30 focus:outline-none transition-all font-bold resize-none placeholder:text-nm-text-muted/30"
                     placeholder="Tell us why you want to join Codantrix..."
                 ></textarea>
             </div>
@@ -120,7 +125,7 @@ export default function ApplicationForm() {
             <button
                 type="submit"
                 disabled={status === 'loading'}
-                className="w-full bg-[#f15a2f] text-[#fffdf2] font-black uppercase tracking-widest py-4 hover:bg-[#fffdf2] hover:text-[#1c1e20] transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                className="w-full nm-btn-accent text-white rounded-full py-5 font-black uppercase tracking-[0.2em] text-sm hover:scale-[1.01] transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3 relative z-10 active:scale-95 shadow-xl"
             >
                 {status === 'loading' ? (
                     <>

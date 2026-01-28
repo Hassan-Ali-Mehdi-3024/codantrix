@@ -3,7 +3,7 @@ import CaseStudyCard from '@/components/cards/CaseStudyCard'
 
 export const dynamic = 'force-dynamic'
 
-const portfolioProjects = [
+export const portfolioProjects = [
     {
         id: '1',
         title: "Autonomous Drone Fleet Management",
@@ -120,19 +120,19 @@ const portfolioProjects = [
 
 export default function CaseStudiesHub() {
     return (
-        <div className="pt-32 pb-24 bg-black">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="max-w-3xl mb-16 mx-auto text-center">
-                    <h2 className="text-[#f15a2f] font-bold uppercase tracking-[0.3em] mb-4 text-sm">Proof of Performance</h2>
-                    <h1 className="text-5xl md:text-7xl font-bold mb-8">
-                        Measured <br /> <span className="text-[#f15a2f]">ROI.</span>
+        <div className="pt-40 pb-24 bg-nm-bg">
+            <div className="max-w-[1380px] mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="max-w-3xl mb-16 text-left">
+                    <h2 className="text-brand-orange font-bold uppercase tracking-[0.3em] mb-4 text-sm">Proof of Performance</h2>
+                    <h1 className="text-5xl md:text-7xl font-bold mb-8 text-nm-text">
+                        Measured <br /> <span className="text-brand-orange">ROI.</span>
                     </h1>
-                    <p className="text-xl text-[#fffdf2]/70 leading-relaxed">
+                    <p className="text-xl text-nm-text-muted leading-relaxed">
                         We don&apos;t talk about theoretical accuracy. We deliver measurable business impact. Here is how we&apos;ve solved enterprise challenges in the last 12 months.
                     </p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
                     {portfolioProjects.map((study) => (
                         <CaseStudyCard
                             key={study.id}
