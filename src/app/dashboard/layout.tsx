@@ -19,7 +19,7 @@ export default async function DashboardLayout({
   }
 
   return (
-    <div className="min-h-screen bg-[#0b0c0e]">
+    <div className="min-h-screen bg-nm-bg">
       <Sidebar />
       <MobileSidebar />
       <main className="lg:pl-72 py-10">

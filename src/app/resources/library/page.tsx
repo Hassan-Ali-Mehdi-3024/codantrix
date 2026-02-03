@@ -1,15 +1,20 @@
-import { createClient } from '@/utils/supabase/server'
-import { FileText, Download, Lock, CheckCircle2, Calculator } from 'lucide-react'
+import { FileText, Download, Lock, CheckCircle2, Calculator, ArrowRight } from 'lucide-react'
 import type { ElementType } from 'react'
+import Link from 'next/link'
+import resourcesData from '@/data/resources.json'
 
 export const dynamic = 'force-dynamic'
 
+interface Resource {
+    id: string
+    title: string
+    description: string
+    type: string
+    lead_capture: boolean
+}
+
 export default async function ResourceLibraryPage() {
-    const supabase = await createClient()
-    const { data: resources } = await supabase
-        .from('resources')
-        .select('*')
-        .order('created_at', { ascending: false })
+    const resources = resourcesData as Resource[]
 
     const typeIcons: Record<string, ElementType> = {
         'whitepaper': FileText,
@@ -19,37 +24,43 @@ export default async function ResourceLibraryPage() {
     }
 
     return (
-        <div className="pt-32 pb-24 bg-black">
+        <div className="pt-40 pb-24 bg-nm-bg">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="mb-24">
-                    <h2 className="text-[#f15a2f] font-bold uppercase tracking-[0.3em] mb-4 text-sm">Actionable Intelligence</h2>
-                    <h1 className="text-5xl md:text-7xl font-bold text-[#fffdf2] mb-8">
-                        The <span className="text-[#f15a2f]">Library.</span>
+                <div className="mb-24 flex flex-col items-center text-center sm:items-start sm:text-left max-w-2xl mx-auto sm:mx-0">
+                    <h2 className="text-brand-orange font-bold uppercase tracking-[0.3em] mb-4 text-sm">Actionable Intelligence</h2>
+                    <h1 className="text-5xl md:text-7xl font-bold text-nm-text mb-8">
+                        The <span className="text-brand-orange">Library.</span>
                     </h1>
-                    <p className="text-xl text-[#fffdf2]/70 leading-relaxed max-w-2xl">
+                    <p className="text-xl text-nm-text-muted leading-relaxed">
                         Frameworks, checklists, and technical whitepapers designed to help enterprise teams navigate the transition to AI-driven industrial operations.
                     </p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
                     {resources?.map((res) => {
                         const Icon = typeIcons[res.type] || FileText
                         return (
-                            <div key={res.id} className="p-6 sm:p-8 lg:p-10 bg-[#161819] border border-[#fffdf2]/5 group hover:border-[#f15a2f]/40 transition-all">
-                                <div className="w-12 h-12 bg-[#f15a2f]/10 flex items-center justify-center text-[#f15a2f] mb-8">
-                                    <Icon size={24} />
+                            <div key={res.id} className="p-8 sm:p-10 nm-flat-md border border-nm-text/5 rounded-3xl group hover:scale-[1.02] transition-all flex flex-col items-center text-center sm:items-start sm:text-left justify-between">
+                                <div className="w-full">
+                                    <div className="w-14 h-14 nm-inset-sm rounded-2xl flex items-center justify-center text-brand-orange mb-8 group-hover:bg-brand-orange group-hover:text-white transition-colors mx-auto sm:mx-0">
+                                        <Icon size={28} />
+                                    </div>
+                                    <div className="text-[10px] font-black uppercase tracking-widest text-brand-orange mb-3">
+                                        {res.type}
+                                    </div>
+                                    <h3 className="text-2xl font-bold text-nm-text mb-4 leading-tight group-hover:text-brand-orange transition-colors">
+                                        {res.title}
+                                    </h3>
+                                    <p className="text-nm-text-muted text-sm leading-relaxed mb-12 line-clamp-3">
+                                        {res.description}
+                                    </p>
                                 </div>
-                                <div className="text-[10px] font-black uppercase tracking-widest text-[#f15a2f] mb-2">
-                                    {res.type}
-                                </div>
-                                <h3 className="text-2xl font-bold text-[#fffdf2] mb-4 leading-tight">
-                                    {res.title}
-                                </h3>
-                                <p className="text-[#fffdf2]/50 text-sm leading-relaxed mb-12">
-                                    {res.description}
-                                </p>
 
-                                <button className="w-full py-4 border border-[#f15a2f] text-[#f15a2f] text-xs font-black uppercase tracking-widest hover:bg-[#f15a2f] hover:text-[#fffdf2] transition-all flex items-center justify-center gap-3">
+                                <button className={`w-full py-4 rounded-xl text-xs font-black uppercase tracking-widest transition-all flex items-center justify-center gap-3 ${
+                                    res.lead_capture 
+                                    ? 'nm-btn-accent text-white shadow-lg' 
+                                    : 'nm-flat-sm text-brand-orange hover:text-nm-text'
+                                }`}>
                                     {res.lead_capture ? <Lock size={14} /> : <Download size={14} />}
                                     {res.lead_capture ? 'Unlock Resource' : 'Download Now'}
                                 </button>
@@ -58,19 +69,20 @@ export default async function ResourceLibraryPage() {
                     })}
 
                     {/* Industrial ROI Calculator Teaser */}
-                    <div className="p-6 sm:p-8 lg:p-10 bg-[#1c1e20] border-2 border-dashed border-[#fffdf2]/10 flex flex-col items-center justify-center text-center">
-                        <Calculator size={40} className="text-[#fffdf2]/20 mb-6" />
-                        <h3 className="text-xl font-bold text-[#fffdf2]/40 mb-2">Live ROI Calculator</h3>
-                        <p className="text-xs text-[#fffdf2]/30 uppercase tracking-widest font-bold">Deploying in Phase 2B</p>
+                    <div className="p-8 sm:p-10 nm-inset-md border-2 border-dashed border-nm-text/5 rounded-3xl flex flex-col items-center justify-center text-center">
+                        <Calculator size={48} className="text-nm-text/10 mb-6" />
+                        <h3 className="text-xl font-bold text-nm-text/20 mb-2 tracking-tight">Custom ROI Models</h3>
+                        <p className="text-xs text-nm-text/10 uppercase tracking-widest font-black">Deploying in Phase 2B</p>
                     </div>
                 </div>
 
-                <div className="mt-32 p-8 sm:p-12 lg:p-16 border border-[#fffdf2]/5 bg-[#161819] text-center">
-                    <h3 className="text-3xl font-bold text-[#fffdf2] mb-6">Need a custom implementation guide?</h3>
-                    <p className="text-[#fffdf2]/60 mb-12 max-w-xl mx-auto">Our engineering team creates bespoke technical roadmaps for complex industrial environments.</p>
-                    <a href="/contact" className="inline-block w-full sm:w-auto px-6 sm:px-10 lg:px-12 py-5 bg-[#f15a2f] text-[#fffdf2] font-black uppercase tracking-widest hover:scale-105 transition-all text-sm">
-                        Request Engineering Brief
-                    </a>
+                <div className="mt-32 p-8 sm:p-12 lg:p-16 nm-flat-lg border border-nm-text/5 bg-nm-bg rounded-[40px] flex flex-col items-center text-center sm:items-start sm:text-left relative overflow-hidden">
+                    <div className="absolute top-0 right-0 w-64 h-64 bg-brand-orange/5 rounded-full blur-3xl -mr-32 -mt-32" />
+                    <h3 className="text-3xl font-bold text-nm-text mb-6 relative z-10">Need a custom implementation guide?</h3>
+                    <p className="text-nm-text-muted mb-12 max-w-xl text-lg leading-relaxed relative z-10">Our engineering team creates bespoke technical roadmaps for complex industrial environments.</p>
+                    <Link href="/contact" className="inline-flex items-center justify-center gap-3 px-10 py-5 nm-btn-accent text-white font-black uppercase tracking-widest hover:scale-105 active:scale-95 transition-all text-xs rounded-xl relative z-10 w-full sm:w-auto">
+                        Request Engineering Brief <ArrowRight size={16} />
+                    </Link>
                 </div>
             </div>
         </div>

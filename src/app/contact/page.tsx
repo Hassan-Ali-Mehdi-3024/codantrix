@@ -11,7 +11,7 @@ export default function ContactPage() {
             <div className="absolute bottom-0 left-0 w-[40vw] h-[40vw] bg-blue-500/5 rounded-full blur-[100px] pointer-events-none" />
 
             <div className="max-w-[1380px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                <div className="text-left mb-16">
+                <div className="flex flex-col items-center text-center sm:items-start sm:text-left mb-16 mx-auto sm:mx-0">
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full nm-inset-sm text-brand-orange text-[10px] font-black uppercase tracking-[0.2em] mb-8">
                         <span className="w-2 h-2 rounded-full bg-brand-orange animate-pulse" />
                         Status: Online
@@ -29,13 +29,13 @@ export default function ContactPage() {
 
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
                     {/* Left Side: Form */}
-                    <div className="lg:col-span-8">
+                    <div className="lg:col-span-8 w-full">
                         <ContactForm />
                     </div>
 
                     {/* Right Side: Cards */}
-                    <div className="lg:col-span-4 space-y-8">
-                        <div className="nm-flat-md p-8 rounded-3xl hover:scale-[1.02] transition-all group border border-nm-text/5">
+                    <div className="lg:col-span-4 space-y-8 w-full">
+                        <div className="nm-flat-md p-8 rounded-3xl hover:scale-[1.02] transition-all group border border-nm-text/5 flex flex-col items-center text-center sm:items-start sm:text-left">
                             <div className="w-12 h-12 nm-inset-sm rounded-xl flex items-center justify-center mb-6 group-hover:bg-brand-orange transition-colors">
                                 <Mail size={24} className="text-brand-orange group-hover:text-white transition-colors" />
                             </div>
@@ -45,7 +45,7 @@ export default function ContactPage() {
                             </a>
                         </div>
 
-                        <div className="nm-flat-md p-8 rounded-3xl hover:scale-[1.02] transition-all group border border-nm-text/5">
+                        <div className="nm-flat-md p-8 rounded-3xl hover:scale-[1.02] transition-all group border border-nm-text/5 flex flex-col items-center text-center sm:items-start sm:text-left">
                             <div className="w-12 h-12 nm-inset-sm rounded-xl flex items-center justify-center mb-6 group-hover:bg-brand-orange transition-colors">
                                 <Clock size={24} className="text-brand-orange group-hover:text-white transition-colors" />
                             </div>
@@ -53,7 +53,7 @@ export default function ContactPage() {
                             <p className="text-xl font-bold text-nm-text">&lt; 24 Hours</p>
                         </div>
 
-                        <div className="nm-flat-md p-8 rounded-3xl hover:scale-[1.02] transition-all group border border-nm-text/5">
+                        <div className="nm-flat-md p-8 rounded-3xl hover:scale-[1.02] transition-all group border border-nm-text/5 flex flex-col items-center text-center sm:items-start sm:text-left">
                             <div className="w-12 h-12 nm-inset-sm rounded-xl flex items-center justify-center mb-6 group-hover:bg-brand-orange transition-colors">
                                 <Phone size={24} className="text-brand-orange group-hover:text-white transition-colors" />
                             </div>
@@ -63,7 +63,7 @@ export default function ContactPage() {
                             </a>
                         </div>
 
-                        <div className="nm-flat-md p-8 rounded-3xl hover:scale-[1.02] transition-all group border border-nm-text/5">
+                        <div className="nm-flat-md p-8 rounded-3xl hover:scale-[1.02] transition-all group border border-nm-text/5 flex flex-col items-center text-center sm:items-start sm:text-left">
                             <div className="w-12 h-12 nm-inset-sm rounded-xl flex items-center justify-center mb-6 group-hover:bg-brand-orange transition-colors">
                                 <MapPin size={24} className="text-brand-orange group-hover:text-white transition-colors" />
                             </div>

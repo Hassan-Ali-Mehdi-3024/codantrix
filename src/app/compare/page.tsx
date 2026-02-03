@@ -41,36 +41,36 @@ export default function BuildVsBuyPage() {
     ]
 
     return (
-        <div className="pt-32 pb-24 bg-black">
+        <div className="pt-40 pb-24 bg-nm-bg">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="mb-24 text-center">
-                    <h2 className="text-[#f15a2f] font-bold uppercase tracking-[0.3em] mb-4 text-sm">Decision Framework</h2>
-                    <h1 className="text-5xl md:text-7xl font-bold text-[#fffdf2] mb-8 italic">
-                        Build <span className="opacity-20 text-[#fffdf2]">vs</span> Buy <span className="opacity-20 text-[#fffdf2]">vs</span> <span className="text-[#f15a2f]">Codantrix.</span>
+                <div className="mb-24 flex flex-col items-center text-center sm:items-start sm:text-left max-w-2xl mx-auto sm:mx-0">
+                    <h2 className="text-brand-orange font-bold uppercase tracking-[0.3em] mb-4 text-sm">Decision Framework</h2>
+                    <h1 className="text-5xl md:text-7xl font-bold text-nm-text mb-8 italic">
+                        Build <span className="opacity-20 text-nm-text">vs</span> Buy <span className="opacity-20 text-nm-text">vs</span> <span className="text-brand-orange">Codantrix.</span>
                     </h1>
-                    <p className="text-xl text-[#fffdf2]/40 max-w-2xl mx-auto">
+                    <p className="text-xl text-nm-text-muted leading-relaxed">
                         In-house AI teams are expensive. Generic SaaS is inflexible. Codantrix Labs provides the agility of a startup with the reliability of an enterprise partner.
                     </p>
                 </div>
 
                 {/* Comparison Grid */}
-                <div className="overflow-x-auto">
-                    <table className="w-full text-left border-collapse">
+                <div className="overflow-x-auto nm-flat-md rounded-3xl p-4 sm:p-8 border border-nm-text/5">
+                    <table className="w-full text-left border-collapse min-w-[600px]">
                         <thead>
-                            <tr className="border-b border-[#fffdf2]/10">
-                                <th className="py-4 sm:py-6 lg:py-8 px-3 sm:px-4 lg:px-6 text-[10px] font-black uppercase tracking-[0.2em] text-[#fffdf2]/40">Strategic Metric</th>
-                                <th className="py-4 sm:py-6 lg:py-8 px-3 sm:px-4 lg:px-6 text-[10px] font-black uppercase tracking-[0.2em] text-[#fffdf2]/40">In-House Build</th>
-                                <th className="py-4 sm:py-6 lg:py-8 px-3 sm:px-4 lg:px-6 text-[10px] font-black uppercase tracking-[0.2em] text-[#fffdf2]/40">Generic SaaS Tool</th>
-                                <th className="py-4 sm:py-6 lg:py-8 px-3 sm:px-4 lg:px-6 text-[10px] font-black uppercase tracking-[0.2em] text-[#f15a2f]">Codantrix Labs</th>
+                            <tr className="border-b border-nm-text/10">
+                                <th className="py-4 sm:py-6 lg:py-8 px-3 sm:px-4 lg:px-6 text-[10px] font-black uppercase tracking-[0.2em] text-nm-text-muted">Strategic Metric</th>
+                                <th className="py-4 sm:py-6 lg:py-8 px-3 sm:px-4 lg:px-6 text-[10px] font-black uppercase tracking-[0.2em] text-nm-text-muted">In-House Build</th>
+                                <th className="py-4 sm:py-6 lg:py-8 px-3 sm:px-4 lg:px-6 text-[10px] font-black uppercase tracking-[0.2em] text-nm-text-muted">Generic SaaS Tool</th>
+                                <th className="py-4 sm:py-6 lg:py-8 px-3 sm:px-4 lg:px-6 text-[10px] font-black uppercase tracking-[0.2em] text-brand-orange">Codantrix Labs</th>
                             </tr>
                         </thead>
                         <tbody>
                             {tableData.map((row, idx) => (
-                                <tr key={idx} className="border-b border-[#fffdf2]/5 group hover:bg-[#161819] transition-colors">
-                                    <td className="py-4 sm:py-6 lg:py-8 px-3 sm:px-4 lg:px-6 font-bold text-[#fffdf2]/80">{row.feature}</td>
-                                    <td className="py-4 sm:py-6 lg:py-8 px-3 sm:px-4 lg:px-6 text-sm text-[#fffdf2]/40">{row.inHouse}</td>
-                                    <td className="py-4 sm:py-6 lg:py-8 px-3 sm:px-4 lg:px-6 text-sm text-[#fffdf2]/40">{row.saas}</td>
-                                    <td className="py-4 sm:py-6 lg:py-8 px-3 sm:px-4 lg:px-6 font-black text-[#f15a2f] italic">{row.codantrix}</td>
+                                <tr key={idx} className="border-b border-nm-text/5 group hover:nm-inset-sm transition-all duration-300">
+                                    <td className="py-4 sm:py-6 lg:py-8 px-3 sm:px-4 lg:px-6 font-bold text-nm-text/80">{row.feature}</td>
+                                    <td className="py-4 sm:py-6 lg:py-8 px-3 sm:px-4 lg:px-6 text-sm text-nm-text-muted">{row.inHouse}</td>
+                                    <td className="py-4 sm:py-6 lg:py-8 px-3 sm:px-4 lg:px-6 text-sm text-nm-text-muted">{row.saas}</td>
+                                    <td className="py-4 sm:py-6 lg:py-8 px-3 sm:px-4 lg:px-6 font-black text-brand-orange italic">{row.codantrix}</td>
                                 </tr>
                             ))}
                         </tbody>
@@ -79,46 +79,47 @@ export default function BuildVsBuyPage() {
 
                 {/* Risk Analysis Cards */}
                 <div className="mt-32 grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <div className="p-6 sm:p-8 lg:p-12 bg-[#161819] border border-[#fffdf2]/5 hover:border-[#f15a2f]/20 transition-all">
-                        <Clock className="text-[#f15a2f] mb-8" size={32} />
-                        <h3 className="text-xl font-bold mb-4">The Talent Gap</h3>
-                        <p className="text-sm text-[#fffdf2]/50 leading-relaxed">
+                    <div className="p-8 sm:p-10 lg:p-12 nm-flat-md border border-nm-text/5 hover:scale-[1.02] transition-all rounded-3xl group flex flex-col items-center text-center sm:items-start sm:text-left">
+                        <div className="w-14 h-14 nm-inset-sm rounded-2xl flex items-center justify-center mb-8 text-brand-orange group-hover:bg-brand-orange group-hover:text-white transition-colors">
+                            <Clock size={32} />
+                        </div>
+                        <h3 className="text-xl font-bold mb-4 text-nm-text">The Talent Gap</h3>
+                        <p className="text-sm text-nm-text-muted leading-relaxed">
                             Hiring senior ML engineers takes 4-6 months. We deploy in half that time with a team that has already shipped 30+ industrial models.
                         </p>
                     </div>
-                    <div className="p-6 sm:p-8 lg:p-12 bg-[#161819] border border-[#fffdf2]/5 hover:border-[#f15a2f]/20 transition-all">
-                        <Shield className="text-[#f15a2f] mb-8" size={32} />
-                        <h3 className="text-xl font-bold mb-4">The Maintenance Trap</h3>
-                        <p className="text-sm text-[#fffdf2]/50 leading-relaxed">
+                    <div className="p-8 sm:p-10 lg:p-12 nm-flat-md border border-nm-text/5 hover:scale-[1.02] transition-all rounded-3xl group flex flex-col items-center text-center sm:items-start sm:text-left">
+                        <div className="w-14 h-14 nm-inset-sm rounded-2xl flex items-center justify-center mb-8 text-brand-orange group-hover:bg-brand-orange group-hover:text-white transition-colors">
+                            <Shield size={32} />
+                        </div>
+                        <h3 className="text-xl font-bold mb-4 text-nm-text">The Maintenance Trap</h3>
+                        <p className="text-sm text-nm-text-muted leading-relaxed">
                             80% of AI cost is post-deployment. We provide fully managed model lifecycle support, so your IT team doesn&apos;t have to become ML experts.
                         </p>
                     </div>
-                    <div className="p-6 sm:p-8 lg:p-12 bg-[#161819] border border-[#fffdf2]/5 hover:border-[#f15a2f]/20 transition-all">
-                        <TrendingDown className="text-[#f15a2f] mb-8" size={32} />
-                        <h3 className="text-xl font-bold mb-4">The Generic Fail</h3>
-                        <p className="text-sm text-[#fffdf2]/50 leading-relaxed">
+                    <div className="p-8 sm:p-10 lg:p-12 nm-flat-md border border-nm-text/5 hover:scale-[1.02] transition-all rounded-3xl group flex flex-col items-center text-center sm:items-start sm:text-left">
+                        <div className="w-14 h-14 nm-inset-sm rounded-2xl flex items-center justify-center mb-8 text-brand-orange group-hover:bg-brand-orange group-hover:text-white transition-colors">
+                            <TrendingDown size={32} />
+                        </div>
+                        <h3 className="text-xl font-bold mb-4 text-nm-text">The Generic Fail</h3>
+                        <p className="text-sm text-nm-text-muted leading-relaxed">
                             Off-the-shelf AI fails in messy industrial environments (lighting changes, dust, vibration). We optimize for your specific factory floor.
                         </p>
                     </div>
                 </div>
 
-                <div className="mt-32 p-8 sm:p-12 lg:p-16 bg-[#f15a2f] text-[#fffdf2] rounded-sm flex flex-col items-center text-center">
-                    <h2 className="text-4xl font-bold mb-6 italic">Save 60% on Time-to-Market</h2>
-                    <p className="text-xl opacity-80 mb-12 max-w-2xl">
+                <div className="mt-32 p-8 sm:p-12 lg:p-16 bg-brand-orange text-white rounded-3xl flex flex-col items-center text-center sm:items-start sm:text-left relative overflow-hidden shadow-[0_20px_40px_rgba(241,90,47,0.3)]">
+                    <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -mr-32 -mt-32" />
+                    <h2 className="text-4xl font-bold mb-6 italic relative z-10">Save 60% on Time-to-Market</h2>
+                    <p className="text-xl opacity-80 mb-12 max-w-2xl relative z-10">
                         Schedule a feasibility audit where we compare your current buildup strategy against our accelerated deployment path.
                     </p>
-                    <div className="flex flex-col md:flex-row gap-6">
+                    <div className="flex flex-col sm:flex-row gap-6 relative z-10 w-full sm:w-auto">
                         <Link
                             href="/contact"
-                            className="w-full md:w-auto px-6 sm:px-10 py-4 bg-black text-[#fffdf2] font-black uppercase tracking-widest text-xs hover:bg-[#fffdf2] hover:text-[#1c1e20] transition-all text-center"
+                            className="px-8 py-4 bg-white text-brand-orange font-black uppercase tracking-widest text-xs hover:scale-105 transition-all text-center rounded-xl shadow-xl w-full sm:w-auto"
                         >
                             Request Case Comparison
-                        </Link>
-                        <Link
-                            href="/roi-calculator"
-                            className="w-full md:w-auto px-6 sm:px-10 py-4 bg-transparent border-2 border-[#fffdf2] text-[#fffdf2] font-black uppercase tracking-widest text-xs hover:bg-[#fffdf2] hover:text-[#f15a2f] transition-all text-center"
-                        >
-                            Run the Numbers
                         </Link>
                     </div>
                 </div>

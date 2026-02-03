@@ -1,72 +1,27 @@
 import { Star, Building2, Quote, CheckCircle2, Trophy, BarChart3, Rocket } from 'lucide-react'
 import Link from 'next/link'
+import testimonialsData from '@/data/testimonials.json'
 
 export const dynamic = 'force-dynamic'
 
-export const testimonials = [
-    {
-        id: '1',
-        client_name: "Sarah Jenkins",
-        client_role: "VP of Operations",
-        client_company: "AeroLogistics Inc.",
-        quote: "We were drowning in manual tracking data. Codantrix didn't just give us a dashboard; they built a neural nervous system for our fleet. Efficiency is up 40% across the board.",
-        rating: 5,
-        impact: "40% Efficiency Gain"
-    },
-    {
-        id: '2',
-        client_name: "Marcus Thorne",
-        client_role: "Plant Manager",
-        client_company: "HeavyMetal Corp",
-        quote: "Predictive maintenance was a buzzword until we installed their edge nodes. Now, we know a bearing is failing 3 weeks before it actually breaks. It's like magic, but it's math.",
-        rating: 5,
-        impact: "$2M/yr Savings"
-    },
-    {
-        id: '3',
-        client_name: "Dr. Al-Fayed",
-        client_role: "Director of Innovation",
-        client_company: "FutureHealth Systems",
-        quote: "Their computer vision models for quality control are detecting defects the human eye misses. Zero-tolerance quality assurance is finally a reality for us.",
-        rating: 5,
-        impact: "99.9% Accuracy"
-    },
-    {
-        id: '4',
-        client_name: "Elena Rodriguez",
-        client_role: "CTO",
-        client_company: "FinSecure Global",
-        quote: "We needed an on-premise solution that respected data sovereignty. Codantrix delivered a secure, air-gapped inference engine that outperforms our cloud legacy systems.",
-        rating: 5,
-        impact: "100% Data Privacy"
-    },
-    {
-        id: '5',
-        client_name: "James Chen",
-        client_role: "Head of Retail",
-        client_company: "ShopSmart Malls",
-        quote: "The foot traffic analytics gave us insights we didn't know existed. We optimized our staffing schedules and saw a 12% bump in conversions in the first month.",
-        rating: 5,
-        impact: "+12% Conversion"
-    },
-    {
-        id: '6',
-        client_name: "David Miller",
-        client_role: "Operations Director",
-        client_company: "AgriFuture Farms",
-        quote: "Automating our irrigation with satellite imagery seemed like sci-fi. Codantrix made it practical, robust, and incredibly easy for our field teams to use.",
-        rating: 5,
-        impact: "-25% Water Usage"
-    }
-]
+interface Testimonial {
+    id: string
+    client_name: string
+    client_role: string
+    client_company: string
+    quote: string
+    rating: number
+    impact: string
+}
 
 export default function TestimonialsPage() {
+    const testimonials = testimonialsData as Testimonial[]
     return (
         <div className="pt-40 pb-24 bg-nm-bg">
             <div className="max-w-[1380px] mx-auto px-4 sm:px-6 lg:px-8">
                 
                 {/* Hero Section */}
-                <div className="mb-24 text-left max-w-4xl">
+                <div className="mb-24 flex flex-col items-center text-center sm:items-start sm:text-left max-w-4xl mx-auto sm:mx-0">
                     <h2 className="text-brand-orange font-bold uppercase tracking-[0.3em] mb-4 text-sm">Validated Results</h2>
                     <h1 className="text-5xl md:text-7xl font-bold text-nm-text mb-8">
                         Industrial <span className="text-brand-orange">Trust.</span>
@@ -77,23 +32,23 @@ export default function TestimonialsPage() {
                 </div>
 
                 {/* Impact Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-24 pb-12 border-b border-nm-text/5">
-                    <div className="nm-flat-sm p-8 rounded-3xl text-left border border-nm-text/5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 mb-24 pb-12 border-b border-nm-text/5">
+                    <div className="nm-flat-sm p-8 rounded-3xl flex flex-col items-center text-center sm:items-start sm:text-left border border-nm-text/5">
                         <CheckCircle2 className="text-brand-orange mb-6" size={32} />
                         <h3 className="text-3xl font-black text-nm-text mb-1">95%+</h3>
                         <p className="text-xs font-bold uppercase tracking-widest text-nm-text-muted">Client Retention</p>
                     </div>
-                    <div className="nm-flat-sm p-8 rounded-3xl text-left border border-nm-text/5">
+                    <div className="nm-flat-sm p-8 rounded-3xl flex flex-col items-center text-center sm:items-start sm:text-left border border-nm-text/5">
                         <BarChart3 className="text-brand-orange mb-6" size={32} />
                         <h3 className="text-3xl font-black text-nm-text mb-1">6 Mos</h3>
                         <p className="text-xs font-bold uppercase tracking-widest text-nm-text-muted">Avg ROI Timeline</p>
                     </div>
-                    <div className="nm-flat-sm p-8 rounded-3xl text-left border border-nm-text/5">
+                    <div className="nm-flat-sm p-8 rounded-3xl flex flex-col items-center text-center sm:items-start sm:text-left border border-nm-text/5">
                         <Rocket className="text-brand-orange mb-6" size={32} />
                         <h3 className="text-3xl font-black text-nm-text mb-1">100%</h3>
                         <p className="text-xs font-bold uppercase tracking-widest text-nm-text-muted">Uptime for Prod-ML</p>
                     </div>
-                    <div className="nm-flat-sm p-8 rounded-3xl text-left border border-nm-text/5">
+                    <div className="nm-flat-sm p-8 rounded-3xl flex flex-col items-center text-center sm:items-start sm:text-left border border-nm-text/5">
                         <Trophy className="text-brand-orange mb-6" size={32} />
                         <h3 className="text-3xl font-black text-nm-text mb-1">Elite</h3>
                         <p className="text-xs font-bold uppercase tracking-widest text-nm-text-muted">Engineering DNA</p>
@@ -103,7 +58,7 @@ export default function TestimonialsPage() {
                 {/* Testimonials Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
                     {testimonials.map((t) => (
-                        <div key={t.id} className="nm-flat-md p-8 sm:p-10 hover:scale-[1.02] transition-all rounded-3xl flex flex-col group relative overflow-hidden border border-nm-text/5">
+                        <div key={t.id} className="nm-flat-md p-8 sm:p-10 hover:scale-[1.02] transition-all rounded-3xl flex flex-col items-center text-center sm:items-start sm:text-left group relative overflow-hidden border border-nm-text/5">
                             {/* Decorative Quote */}
                             <Quote className="absolute top-6 right-6 text-brand-orange/10 group-hover:text-brand-orange/20 transition-colors transform scale-150" size={64} />
                             
@@ -117,10 +72,10 @@ export default function TestimonialsPage() {
                                 &quot;{t.quote}&quot;
                             </p>
 
-                            <div className="mt-auto pt-8 border-t border-nm-text/10">
+                            <div className="mt-auto pt-8 border-t border-nm-text/10 w-full">
                                 <div className="flex flex-col gap-1 mb-6">
                                     <h4 className="font-bold text-nm-text text-lg">{t.client_name}</h4>
-                                    <div className="flex items-center gap-2 text-xs text-nm-text-muted uppercase tracking-widest font-bold">
+                                    <div className="flex items-center justify-center sm:justify-start gap-2 text-xs text-nm-text-muted uppercase tracking-widest font-bold">
                                         <Building2 size={12} />
                                         {t.client_company}
                                     </div>

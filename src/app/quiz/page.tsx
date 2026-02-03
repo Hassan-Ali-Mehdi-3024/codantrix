@@ -136,32 +136,32 @@ export default function SolutionQuiz() {
     const recommendation = isFinished ? getRecommendation(answers) : null
 
     return (
-        <div className="pt-32 pb-24 bg-black min-h-screen">
+        <div className="pt-40 pb-24 bg-nm-bg min-h-screen">
             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
 
                 {!isFinished ? (
-                    <div>
-                        <div className="mb-16">
-                            <div className="flex justify-between items-center mb-8">
-                                <span className="text-[10px] font-black uppercase tracking-[0.3em] text-[#f15a2f]">
+                    <div className="flex flex-col items-center text-center">
+                        <div className="mb-16 w-full flex flex-col items-center">
+                            <div className="flex justify-between items-center mb-8 w-full">
+                                <span className="text-[10px] font-black uppercase tracking-[0.3em] text-brand-orange text-left">
                                     Requirement Discovery — Step {currentStep + 1} of {steps.length}
                                 </span>
                                 {currentStep > 0 && (
                                     <button
                                         onClick={goBack}
-                                        className="text-[#fffdf2]/40 hover:text-[#f15a2f] text-xs font-bold uppercase tracking-widest flex items-center gap-2 transition-colors"
+                                        className="text-nm-text-muted hover:text-brand-orange text-xs font-bold uppercase tracking-widest flex items-center gap-2 transition-colors shrink-0"
                                     >
                                         <ArrowLeft size={14} /> Back
                                     </button>
                                 )}
                             </div>
 
-                            <h1 className="text-3xl md:text-5xl font-black text-[#fffdf2] leading-tight mb-4">
+                            <h1 className="text-3xl md:text-5xl font-black text-nm-text leading-tight mb-4 text-center">
                                 {steps[currentStep].question}
                             </h1>
-                            <div className="w-full h-1 bg-[#161819] mt-8">
+                            <div className="w-full h-1 bg-nm-text/5 mt-8 rounded-full overflow-hidden">
                                 <motion.div
-                                    className="h-full bg-[#f15a2f]"
+                                    className="h-full bg-brand-orange"
                                     initial={{ width: 0 }}
                                     animate={{ width: `${((currentStep + 1) / steps.length) * 100}%` }}
                                     transition={{ duration: 0.5 }}
@@ -169,7 +169,7 @@ export default function SolutionQuiz() {
                             </div>
                         </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
                             <AnimatePresence mode="wait">
                                 {steps[currentStep].options.map((opt, i) => {
                                     const Icon = opt.icon
@@ -180,19 +180,19 @@ export default function SolutionQuiz() {
                                             animate={{ opacity: 1, y: 0 }}
                                             transition={{ delay: i * 0.05 }}
                                             onClick={() => handleOptionSelect(opt.value)}
-                                            className="p-8 bg-[#161819] border border-[#fffdf2]/5 hover:border-[#f15a2f]/40 text-left group transition-all"
+                                            className="p-8 nm-flat-md border border-nm-text/5 hover:scale-[1.02] text-left group transition-all rounded-3xl flex flex-col items-center text-center sm:items-start sm:text-left"
                                         >
-                                            <div className="flex items-center gap-6">
+                                            <div className="flex flex-col sm:flex-row items-center gap-6">
                                                 {Icon && (
-                                                    <div className="w-12 h-12 bg-black flex items-center justify-center text-[#fffdf2]/40 group-hover:text-[#f15a2f] transition-colors">
+                                                    <div className="w-12 h-12 nm-inset-sm rounded-2xl flex items-center justify-center text-nm-text-muted group-hover:text-brand-orange transition-colors shrink-0">
                                                         <Icon size={24} />
                                                     </div>
                                                 )}
                                                 <div>
-                                                    <p className="font-bold text-lg text-[#fffdf2] group-hover:text-[#f15a2f] transition-colors">
+                                                    <p className="font-bold text-lg text-nm-text group-hover:text-brand-orange transition-colors">
                                                         {opt.label}
                                                     </p>
-                                                    <span className="text-[10px] uppercase tracking-widest text-[#fffdf2]/20 font-black">Select Option</span>
+                                                    <span className="text-[10px] uppercase tracking-widest text-nm-text-muted/40 font-black">Select Option</span>
                                                 </div>
                                             </div>
                                         </motion.button>
@@ -205,37 +205,39 @@ export default function SolutionQuiz() {
                     <motion.div
                         initial={{ opacity: 0, scale: 0.95 }}
                         animate={{ opacity: 1, scale: 1 }}
-                        className="bg-[#161819] p-6 sm:p-10 md:p-20 border-l-8 border-[#f15a2f]"
+                        className="nm-flat-lg p-6 sm:p-10 md:p-20 border-l-8 border-brand-orange rounded-3xl relative overflow-hidden flex flex-col items-center text-center sm:items-start sm:text-left"
                     >
-                        <h2 className="text-[#f15a2f] font-black uppercase tracking-[0.3em] mb-8 text-sm">Recommended Path</h2>
-                        <h3 className="text-4xl md:text-6xl font-black text-[#fffdf2] mb-8 leading-tight italic">
+                        <div className="absolute top-0 right-0 w-64 h-64 bg-brand-orange/5 rounded-full blur-3xl -mr-32 -mt-32" />
+                        
+                        <h2 className="text-brand-orange font-black uppercase tracking-[0.3em] mb-8 text-sm">Recommended Path</h2>
+                        <h3 className="text-4xl md:text-6xl font-black text-nm-text mb-8 leading-tight italic">
                             {recommendation?.title}
                         </h3>
-                        <p className="text-xl text-[#fffdf2]/60 mb-12 leading-relaxed max-w-2xl">
+                        <p className="text-xl text-nm-text-muted mb-12 leading-relaxed max-w-2xl">
                             {recommendation?.description}
                         </p>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16 py-12 border-y border-[#fffdf2]/5">
-                            <div>
-                                <h4 className="text-[10px] font-black uppercase tracking-widest text-[#fffdf2]/40 mb-2">Estimated ROI</h4>
-                                <p className="text-3xl font-black text-[#f15a2f]">{recommendation?.roi}</p>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16 py-12 border-y border-nm-text/5 w-full">
+                            <div className="flex flex-col items-center sm:items-start">
+                                <h4 className="text-[10px] font-black uppercase tracking-widest text-nm-text-muted mb-2">Estimated ROI</h4>
+                                <p className="text-3xl font-black text-brand-orange">{recommendation?.roi}</p>
                             </div>
-                            <div>
-                                <h4 className="text-[10px] font-black uppercase tracking-widest text-[#fffdf2]/40 mb-2">Success Metric</h4>
-                                <p className="text-3xl font-black text-[#f15a2f]">Process Uptime</p>
+                            <div className="flex flex-col items-center sm:items-start">
+                                <h4 className="text-[10px] font-black uppercase tracking-widest text-nm-text-muted mb-2">Success Metric</h4>
+                                <p className="text-3xl font-black text-brand-orange">Process Uptime</p>
                             </div>
                         </div>
 
-                        <div className="flex flex-col md:flex-row gap-6">
+                        <div className="flex flex-col md:flex-row gap-6 relative z-10 w-full sm:w-auto">
                             <Link
                                 href={`/services/${recommendation?.service}`}
-                                className="w-full md:w-auto px-6 sm:px-10 py-5 bg-[#1c1e20] text-[#fffdf2] font-black uppercase tracking-widest text-xs hover:bg-[#fffdf2] hover:text-[#1c1e20] transition-all text-center"
+                                className="w-full md:w-auto px-6 sm:px-10 py-5 nm-flat-md border border-nm-text/5 text-nm-text font-black uppercase tracking-widest text-xs hover:text-brand-orange transition-all text-center rounded-xl"
                             >
                                 Explorer Service Profile
                             </Link>
                             <Link
                                 href="/contact"
-                                className="w-full md:w-auto px-6 sm:px-10 py-5 bg-[#f15a2f] text-[#fffdf2] font-black uppercase tracking-widest text-xs hover:translate-y-[-2px] transition-all text-center flex items-center justify-center gap-3"
+                                className="w-full md:w-auto px-6 sm:px-10 py-5 nm-btn-accent text-white font-black uppercase tracking-widest text-xs hover:scale-105 active:scale-95 transition-all text-center flex items-center justify-center gap-3 rounded-xl"
                             >
                                 Schedule Scoping Call <ArrowRight size={14} />
                             </Link>
@@ -243,7 +245,7 @@ export default function SolutionQuiz() {
 
                         <button
                             onClick={() => { setIsFinished(false); setCurrentStep(0); setAnswers({}); }}
-                            className="mt-12 text-[#fffdf2]/20 hover:text-[#f15a2f] text-[10px] font-black uppercase tracking-widest transition-colors"
+                            className="mt-12 text-nm-text-muted hover:text-brand-orange text-[10px] font-black uppercase tracking-widest transition-colors relative z-10"
                         >
                             Reset Discovery Quiz
                         </button>

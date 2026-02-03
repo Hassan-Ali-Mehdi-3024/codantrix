@@ -24,7 +24,7 @@ export default function IndustrySection() {
                         <h3 className="text-4xl md:text-5xl font-bold text-nm-text leading-tight">Industries We Perfect</h3>
                         <p className="text-base md:text-lg text-nm-text-muted max-w-2xl">Domain-specific pods tuned for manufacturing, logistics, ag, retail, warehousing, and the built world.</p>
                     </div>
-                    <div className="rounded-2xl nm-inset-sm px-6 py-4 text-sm text-nm-text-muted">Ops-grade reliability, not prototypes.</div>
+                    <div className="rounded-2xl nm-inset-sm px-6 py-4 text-sm text-nm-text-muted w-full sm:w-auto">Ops-grade reliability, not prototypes.</div>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">

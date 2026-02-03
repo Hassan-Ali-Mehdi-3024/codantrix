@@ -25,10 +25,10 @@ export default function CaseStudyCard({ title, slug, industry, client, result }:
                 <p className="text-nm-text-muted italic mb-4 line-clamp-2 leading-relaxed">
                     &quot;{result}&quot;
                 </p>
-                <div className="mt-auto pt-4">
+                <div className="mt-auto pt-4 w-full">
                     <Link
                         href={`/case-studies/${slug}`}
-                        className="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-[0.14em] text-nm-text nm-flat-sm px-8 py-3 rounded-full hover:nm-flat-md hover:text-brand-orange transition-all duration-300 mx-auto sm:mx-0 active:nm-pressed-sm"
+                        className="inline-flex items-center justify-center gap-2 text-sm font-bold uppercase tracking-[0.14em] text-nm-text nm-flat-sm px-8 py-3 rounded-full hover:nm-flat-md hover:text-brand-orange transition-all duration-300 w-full sm:w-auto active:nm-pressed-sm"
                     >
                         View Analysis <ArrowRight size={16} className="text-brand-orange" />
                     </Link>

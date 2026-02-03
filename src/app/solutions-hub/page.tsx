@@ -18,29 +18,31 @@ export default function SolutionsHub() {
     const activeProblem = problems.find(p => p.id === selected)
 
     return (
-        <div className="pt-32 pb-24 bg-black">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="text-center mb-24">
-                    <h2 className="text-[#f15a2f] font-bold uppercase tracking-[0.3em] mb-4 text-sm">Interactive Mapper</h2>
-                    <h1 className="text-5xl md:text-7xl font-bold mb-8">
-                        Problem to <span className="text-[#f15a2f]">Solution.</span>
+        <div className="pt-40 pb-24 bg-nm-bg">
+            <div className="max-w-[1380px] mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="flex flex-col items-center text-center sm:items-start sm:text-left mb-24 max-w-3xl mx-auto sm:mx-0">
+                    <h2 className="text-brand-orange font-bold uppercase tracking-[0.3em] mb-4 text-sm">Interactive Mapper</h2>
+                    <h1 className="text-5xl md:text-7xl font-bold mb-8 text-nm-text">
+                        Problem to <br /><span className="text-brand-orange">Solution.</span>
                     </h1>
-                    <p className="text-xl text-[#fffdf2]/70 leading-relaxed max-w-2xl mx-auto">
-                        Choose a challenge you are facing, and we will show you how we solve it.
+                    <p className="text-xl text-nm-text-muted leading-relaxed">
+                        Choose a challenge you are facing, and we will show you how we solve it with measurable evidence.
                     </p>
                 </div>
 
-                <div className="max-w-4xl mx-auto">
-                    <div className="bg-[#161819] p-6 sm:p-8 md:p-12 border border-[#f15a2f]/10 rounded-sm">
-                        <label className="block text-xs font-black uppercase tracking-widest text-[#fffdf2]/40 mb-6">What is your primary bottleneck?</label>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="max-w-4xl mx-auto sm:mr-auto sm:ml-0">
+                    <div className="nm-flat-md p-8 sm:p-10 md:p-14 border border-nm-text/5 rounded-3xl relative overflow-hidden flex flex-col items-center sm:items-stretch">
+                        <div className="absolute top-0 right-0 w-64 h-64 bg-brand-orange/5 rounded-full blur-3xl -mr-32 -mt-32" />
+                        
+                        <label className="block text-xs font-black uppercase tracking-widest text-nm-text/30 mb-8 relative z-10 text-center sm:text-left">What is your primary bottleneck?</label>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10 w-full">
                             {problems.map(prob => (
                                 <button
                                     key={prob.id}
                                     onClick={() => setSelected(prob.id)}
-                                    className={`p-6 text-left border transition-all duration-300 ${selected === prob.id
-                                        ? 'bg-[#f15a2f] border-[#f15a2f] text-[#fffdf2]'
-                                        : 'bg-[#1c1e20] border-[#fffdf2]/10 text-[#fffdf2]/60 hover:border-[#f15a2f]/40'
+                                    className={`p-6 text-left transition-all duration-300 rounded-2xl border ${selected === prob.id
+                                        ? 'nm-inset-sm border-brand-orange/50 text-brand-orange'
+                                        : 'nm-flat-sm border-nm-text/5 text-nm-text-muted hover:border-brand-orange/20'
                                         }`}
                                 >
                                     <p className="font-bold leading-tight">{prob.label}</p>
@@ -49,15 +51,17 @@ export default function SolutionsHub() {
                         </div>
 
                         {activeProblem && (
-                            <div className="mt-12 p-8 bg-[#f15a2f] text-[#fffdf2] rounded-sm transform transition-all animate-in slide-in-from-bottom-4 duration-500">
-                                <div className="flex items-center gap-3 mb-4">
-                                    <Lightbulb size={24} className="opacity-80" />
+                            <div className="mt-12 p-10 bg-brand-orange text-white rounded-3xl transform transition-all animate-in slide-in-from-bottom-4 duration-500 shadow-[0_20px_40px_rgba(241,90,47,0.3)] flex flex-col items-center sm:items-start text-center sm:text-left">
+                                <div className="flex items-center gap-3 mb-6">
+                                    <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
+                                        <Lightbulb size={20} className="text-white" />
+                                    </div>
                                     <span className="text-xs font-black uppercase tracking-widest opacity-80">Recommended Solution</span>
                                 </div>
-                                <h3 className="text-3xl font-bold mb-6">{activeProblem.solution}</h3>
+                                <h3 className="text-3xl font-bold mb-8">{activeProblem.solution}</h3>
                                 <Link
                                     href={activeProblem.type === 'service' ? `/services/${activeProblem.slug}` : `/case-studies/${activeProblem.slug}`}
-                                    className="inline-flex items-center gap-3 py-3 px-6 bg-[#1c1e20] text-sm font-bold uppercase tracking-widest hover:scale-105 transition-all"
+                                    className="inline-flex items-center justify-center gap-3 py-4 px-8 bg-white text-brand-orange text-sm font-bold uppercase tracking-widest rounded-xl hover:scale-105 active:scale-95 transition-all shadow-xl w-full sm:w-auto"
                                 >
                                     View Evidence <ArrowRight size={18} />
                                 </Link>
@@ -65,21 +69,25 @@ export default function SolutionsHub() {
                         )}
 
                         {!selected && (
-                            <div className="mt-12 py-12 text-center border-2 border-dashed border-[#fffdf2]/5 flex flex-col items-center justify-center text-[#fffdf2]/20 italic">
-                                <Search size={48} className="mb-4 opacity-20" />
-                                Select a problem above to see our approach
+                            <div className="mt-12 py-20 text-center nm-inset-xs rounded-3xl border-2 border-dashed border-nm-text/5 flex flex-col items-center justify-center text-nm-text/20 italic">
+                                <Search size={48} className="mb-6 opacity-10" />
+                                <p className="font-medium tracking-wide">Select a problem above to see our approach</p>
                             </div>
                         )}
                     </div>
                 </div>
-                <div className="mt-24 text-center">
-                    <div className="p-6 sm:p-8 lg:p-12 border border-[#fffdf2]/5 bg-[#161819] max-w-2xl mx-auto italic">
-                        <p className="text-[#fffdf2]/60 mb-8">Need a more precise recommendation? Our discovery engine evaluates your throughput, cost constraints, and technical readiness.</p>
+
+                <div className="mt-24 flex flex-col items-center text-center sm:items-start sm:text-left max-w-2xl mx-auto sm:mx-0">
+                    <div className="p-10 nm-flat-sm border border-nm-text/5 rounded-3xl italic relative overflow-hidden group w-full">
+                        <div className="absolute top-0 right-0 w-32 h-32 bg-brand-orange/5 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity" />
+                        <p className="text-nm-text-muted mb-10 text-lg leading-relaxed relative z-10">
+                            Need a more precise recommendation? Our discovery engine evaluates your throughput, cost constraints, and technical readiness to find the optimal path forward.
+                        </p>
                         <Link
-                            href="/quiz"
-                            className="inline-flex w-full sm:w-auto items-center justify-center gap-3 py-4 px-6 sm:px-10 bg-[#f15a2f] text-[#fffdf2] font-black uppercase tracking-widest hover:translate-y-[-2px] transition-all text-xs"
+                            href="/contact"
+                            className="inline-flex w-full sm:w-auto items-center justify-center gap-4 py-5 px-10 nm-btn-accent text-white font-black uppercase tracking-widest hover:scale-105 active:scale-95 transition-all text-xs rounded-xl relative z-10"
                         >
-                            Start Deeper Discovery <ArrowRight size={16} />
+                            Contact Engineering <ArrowRight size={16} />
                         </Link>
                     </div>
                 </div>

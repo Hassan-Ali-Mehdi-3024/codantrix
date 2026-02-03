@@ -1,0 +1,86 @@
+[
+  {
+    "name": "Manufacturing",
+    "slug": "manufacturing",
+    "description": "Smart factory solutions for high-precision quality control and predictive maintenance.",
+    "problem": "Unplanned downtime and manual quality inspection lead to significant revenue loss and customer dissatisfaction in high-speed production lines.",
+    "how_it_works": "We deploy edge AI models that monitor vibration, sound, and visual data in real-time to predict failures before they happen and detect defects with 99.9% accuracy.",
+    "expectations": "30% reduction in maintenance costs, 60% reduction in unplanned downtime, and a near-zero escape rate for production defects.",
+    "icon": "factory",
+    "hurdles": [
+      "Noisy industrial environments",
+      "Legacy machinery integration",
+      "Real-time processing requirements"
+    ]
+  },
+  {
+    "name": "Agriculture",
+    "slug": "agriculture",
+    "description": "Precision farming tools for crop health monitoring and yield optimization.",
+    "problem": "Variable field conditions and late detection of pest or nutrient issues cause 10-15% annual yield loss for large-scale farming operations.",
+    "how_it_works": "Combining satellite imagery, drone data, and ground sensors with predictive ML models to create precise irrigation and fertilization maps.",
+    "expectations": "15-20% increase in yield, 25% reduction in water and fertilizer usage, and early warning systems for pest infestations.",
+    "icon": "leaf",
+    "hurdles": [
+      "Remote connectivity issues",
+      "Extreme weather conditions",
+      "High data variability"
+    ]
+  },
+  {
+    "name": "Logistics",
+    "slug": "logistics",
+    "description": "AI-driven route optimization and automated sorting systems.",
+    "problem": "Manual sorting errors and inefficient last-mile route planning increase delivery times and operational costs in a competitive market.",
+    "how_it_works": "Custom CV sorting rigs and multi-agent reinforcement learning for dynamic route planning that adapts to real-time traffic and weather.",
+    "expectations": "20% reduction in delivery times, 15% reduction in fuel costs, and 99%+ sorting accuracy.",
+    "icon": "truck",
+    "hurdles": [
+      "Dynamic urban environments",
+      "High throughput requirements",
+      "Complex multi-agent coordination"
+    ]
+  },
+  {
+    "name": "Real Estate & Retail",
+    "slug": "retail",
+    "description": "Privacy-first foot traffic analytics and occupancy intelligence.",
+    "problem": "Lack of granular data on customer behavior in physical spaces leads to suboptimal staffing and lease pricing compared to e-commerce.",
+    "how_it_works": "Edge-based computer vision systems that track anonymous dwell times and pathing patterns without storing biometric data.",
+    "expectations": "12% increase in sales conversion through better layout, 20% improvement in staffing efficiency, and optimized lease valuations.",
+    "icon": "shopping-cart",
+    "hurdles": [
+      "Privacy compliance (GDPR/CCPA)",
+      "Variable lighting conditions",
+      "High footfall density"
+    ]
+  },
+  {
+    "name": "Energy",
+    "slug": "energy",
+    "description": "Smart grid balancing and renewable energy forecasting.",
+    "problem": "The volatility of renewable energy sources makes grid balancing difficult, leading to waste and potential instability during peak hours.",
+    "how_it_works": "Predictive models for solar/wind production coupled with RL agents that optimize energy storage and distribution in real-time.",
+    "expectations": "15% reduction in energy waste, 99.99% grid stability, and significantly lower reliance on non-renewable peak-shaving plants.",
+    "icon": "zap",
+    "hurdles": [
+      "High-stakes reliability",
+      "Massive data throughput",
+      "Complex regulatory constraints"
+    ]
+  },
+  {
+    "name": "Warehousing",
+    "slug": "warehousing",
+    "description": "Automated inventory tracking and space optimization.",
+    "problem": "Manual inventory audits are slow, error-prone, and often lead to stockouts or overstocking of critical components.",
+    "how_it_works": "Autonomous drone-based inventory counts and AI-driven slotting optimization that reorganizes the warehouse for maximum picking efficiency.",
+    "expectations": "99.9% inventory accuracy, 30% increase in picking speed, and 15% better space utilization.",
+    "icon": "package",
+    "hurdles": [
+      "Confined space navigation",
+      "Barcode/Label variability",
+      "Dynamic obstacle avoidance"
+    ]
+  }
+]

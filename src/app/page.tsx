@@ -7,7 +7,7 @@ import LogoWall from "@/components/home/LogoWall";
 import FeaturedTestimonials from "@/components/home/FeaturedTestimonials";
 import FeaturedBlog from "@/components/home/FeaturedBlog";
 import Link from 'next/link';
-import { portfolioProjects } from '@/app/case-studies/page'
+import portfolioProjects from '@/data/case-studies.json'
 import { cn } from '@/lib/utils';
 
 export const dynamic = 'force-dynamic'
@@ -51,7 +51,7 @@ export default function Home() {
         </div>
         <div className="relative max-w-[1380px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-12">
-            <div className="space-y-3 flex flex-col items-start text-left">
+            <div className="space-y-3 flex flex-col items-center text-center sm:items-start sm:text-left">
               <h2 className="inline-flex items-center gap-3 rounded-full nm-flat-sm px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-nm-text-muted">What We Solve</h2>
               <h3 className="text-4xl md:text-5xl font-bold text-nm-text leading-tight">Enterprise-Grade AI Services</h3>
               <p className="text-base md:text-lg text-nm-text-muted max-w-2xl">End-to-end pods that ship production ML, computer vision, automation, and full-stack software with measurable ROI.</p>
@@ -88,7 +88,7 @@ export default function Home() {
         </div>
         <div className="relative max-w-[1380px] mx-auto px-4 sm:px-6 lg:px-8"> 
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
-            <div className="space-y-3 flex flex-col items-start text-left">
+            <div className="space-y-3 flex flex-col items-center text-center sm:items-start sm:text-left">
               <h2 className="text-xs font-semibold uppercase tracking-[0.3em] text-brand-orange">Results Delivered</h2>
               <h3 className="text-4xl md:text-5xl font-bold text-nm-text">Real-World Impact</h3>
               <p className="text-base md:text-lg text-nm-text-muted">Proof, not promises. Production deployments with clear deltas on accuracy, throughput, and ROI.</p>
@@ -119,8 +119,8 @@ export default function Home() {
       {/* CTA Section */}
       <section className="relative py-16 sm:py-20 lg:py-24 bg-nm-bg overflow-hidden">
         <div className="relative max-w-[1380px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="rounded-[32px] nm-flat-lg p-7 sm:p-10 lg:p-14 border border-nm-text/5 flex flex-col items-center text-center sm:text-left sm:items-start lg:flex-row gap-8 sm:gap-10 lg:items-center lg:justify-between">
-            <div className="space-y-4 max-w-2xl">
+          <div className="rounded-[32px] nm-flat-lg p-7 sm:p-10 lg:p-14 border border-nm-text/5 flex flex-col items-center text-center sm:items-start sm:text-left lg:flex-row gap-8 sm:gap-10 lg:items-center lg:justify-between">
+            <div className="space-y-4 max-w-2xl flex flex-col items-center sm:items-start">
               <p className="text-xs font-semibold uppercase tracking-[0.3em] text-nm-text-muted">Engage the founders</p>
               <h2 className="text-4xl md:text-5xl font-bold text-nm-text leading-tight">Ready to solve a real problem?</h2>
               <p className="text-lg text-nm-text-muted">Stop chasing hype. Start building solutions. Schedule a consultation with our founding team today.</p>

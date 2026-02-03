@@ -1,16 +1,10 @@
 import { NextResponse } from 'next/server'
-import { createClient } from '@/utils/supabase/server'
+import servicesData from '@/data/services.json'
+import caseStudiesData from '@/data/case-studies.json'
 
 export const dynamic = 'force-dynamic'
 
 export async function GET() {
-    const supabase = await createClient()
-
-    const [services, studies] = await Promise.all([
-        supabase.from('services').select('name, slug, description'),
-        supabase.from('case_studies').select('title, slug, industry')
-    ])
-
     const index = {
         company: "Codantrix Labs",
         mission: "Real Solutions for Real Problems",
@@ -21,8 +15,8 @@ export async function GET() {
             { name: "Solutions Hub", url: "/solutions-hub" },
             { name: "Contact", url: "/contact" }
         ],
-        services: services.data || [],
-        case_studies: studies.data || [],
+        services: (servicesData as any[]).map(s => ({ name: s.name, slug: s.slug, description: s.description })),
+        case_studies: (caseStudiesData as any[]).map(cs => ({ title: cs.title, slug: cs.slug, industry: cs.industry })),
         industries: [
             "Manufacturing", "Agriculture", "Logistics", "Real Estate", "Retail", "Warehousing"
         ]

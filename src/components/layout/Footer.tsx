@@ -9,8 +9,8 @@ export default function Footer() {
                     <div className="grid grid-cols-1 md:grid-cols-6 gap-10 lg:gap-14 mb-12">
                         {/* Brand Col */}
                         <div className="md:col-span-2 space-y-6 flex flex-col items-center sm:items-start text-center sm:text-left">
-                            <Link href="/" className="text-2xl font-bold tracking-tight inline-flex items-center gap-3 text-nm-text hover:text-brand-orange transition-colors">
-                                <Image src="/logo.svg" alt="Codantrix Labs" width={32} height={32} className="h-8 w-auto" />
+                            <Link href="/" className="text-2xl font-bold tracking-tight inline-flex items-center gap-4 text-nm-text hover:text-brand-orange transition-colors">
+                                <Image src="/logo.svg" alt="Codantrix Labs" width={40} height={40} className="h-10 w-auto" />
                                 CODANTRIX <span className="text-brand-orange">LABS</span>
                             </Link>
                             <p className="text-sm md:text-base text-nm-text-muted leading-relaxed max-w-xl">
@@ -36,22 +36,22 @@ export default function Footer() {
                         <div className="space-y-4 flex flex-col items-center sm:items-start text-center sm:text-left">
                             <h4 className="text-xs font-bold uppercase tracking-[0.28em] text-brand-orange">Company</h4>
                             <ul className="space-y-3 text-sm text-nm-text-muted w-full">
+                                <li><Link href="/about" className="hover:text-nm-text transition-all hover:translate-x-1 block">About Us</Link></li>
+                                <li><Link href="/team" className="hover:text-nm-text transition-all hover:translate-x-1 block">Our Team</Link></li>
                                 <li><Link href="/careers" className="hover:text-nm-text transition-all hover:translate-x-1 block">Careers</Link></li>
-                                <li><Link href="/testimonials" className="hover:text-nm-text transition-all hover:translate-x-1 block">Proof (Testimonials)</Link></li>
+                                <li><Link href="/testimonials" className="hover:text-nm-text transition-all hover:translate-x-1 block">Client Proof</Link></li>
                                 <li><Link href="/case-studies" className="hover:text-nm-text transition-all hover:translate-x-1 block">Portfolio</Link></li>
-                                <li><Link href="/our-approach" className="hover:text-nm-text transition-all hover:translate-x-1 block">Our Methodology</Link></li>
+                                <li><Link href="/our-approach" className="hover:text-nm-text transition-all hover:translate-x-1 block">Methodology</Link></li>
                             </ul>
                         </div>
 
                         {/* Links Col 2 */}
                         <div className="space-y-4 flex flex-col items-center sm:items-start text-center sm:text-left">
-                            <h4 className="text-xs font-bold uppercase tracking-[0.28em] text-brand-orange">Expertise</h4>
+                            <h4 className="text-xs font-bold uppercase tracking-[0.28em] text-brand-orange">Resources</h4>
                             <ul className="space-y-3 text-sm text-nm-text-muted w-full">
-                                <li><Link href="/blog" className="hover:text-nm-text transition-all hover:translate-x-1 block">Process Intelligence (Blog)</Link></li>
-                                <li><Link href="/roi-calculator" className="hover:text-nm-text transition-all hover:translate-x-1 block">ROI Calculator</Link></li>
-                                <li><Link href="/quiz" className="hover:text-nm-text transition-all hover:translate-x-1 block">Solution Quiz</Link></li>
-                                <li><Link href="/compare" className="hover:text-nm-text transition-all hover:translate-x-1 block">Build vs. Buy</Link></li>
-                                <li><Link href="/resources/library" className="hover:text-nm-text transition-all hover:translate-x-1 block">Resource Library</Link></li>
+                                <li><Link href="/blog" className="hover:text-nm-text transition-all hover:translate-x-1 block">Blog (Insights)</Link></li>
+                                <li><Link href="/resources/library" className="hover:text-nm-text transition-all hover:translate-x-1 block">Library</Link></li>
+                                <li><Link href="/solutions-hub" className="hover:text-nm-text transition-all hover:translate-x-1 block">Solution Mapper</Link></li>
                             </ul>
                         </div>
 

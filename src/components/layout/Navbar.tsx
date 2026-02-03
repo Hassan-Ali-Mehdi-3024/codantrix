@@ -46,13 +46,13 @@ export default function Navbar() {
     return (
         <nav className="fixed inset-x-0 top-0 z-50" aria-label="Primary">
             <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="mt-2 sm:mt-4 flex h-20 items-center justify-between rounded-2xl nm-flat-md px-6 sm:px-8 lg:px-10 border border-nm-text/5">
-                    <div className="flex items-center gap-4">
-                        <Link href="/" className="inline-flex items-center">
-                            <Image src="/logo.svg" alt="Codantrix Labs" width={40} height={40} className="h-10 w-10" />
+                <div className="mt-2 sm:mt-4 flex h-20 items-center justify-between rounded-2xl nm-flat-md px-4 sm:px-8 lg:px-10 border border-nm-text/5">
+                    <div className="flex items-center gap-4 sm:gap-6">
+                        <Link href="/" className="inline-flex items-center shrink-0">
+                            <Image src="/logo.svg" alt="Codantrix Labs" width={48} height={48} className="h-10 w-10 sm:h-12 sm:w-12" />
                         </Link>
-                        <Link href="/" className="inline-flex items-center text-xl sm:text-2xl font-bold tracking-tight leading-none text-nm-text hover:text-brand-orange transition-colors">
-                            CODANTRIX <span className="text-brand-orange">LABS</span>
+                        <Link href="/" className="inline-flex items-center text-xl sm:text-2xl font-bold tracking-tight leading-none text-nm-text hover:text-brand-orange transition-colors whitespace-nowrap">
+                            CODANTRIX <span className="text-brand-orange ml-2">LABS</span>
                         </Link>
                     </div>
 
@@ -139,8 +139,8 @@ export default function Navbar() {
                     </div>
 
                     {/* Tier 3: Mobile (< lg) - Hamburger */}
-                    <div className="lg:hidden flex items-center gap-4">
-                        <ThemeToggle />
+                    <div className="lg:hidden flex items-center gap-6">
+                        <ThemeToggle variant="round" />
                         <button
                             type="button"
                             onClick={() => setIsOpen(!isOpen)}

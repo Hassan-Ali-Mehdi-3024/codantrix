@@ -1,4 +1,4 @@
-import { testimonials } from '@/app/testimonials/page'
+import testimonials from '@/data/testimonials.json'
 import { Star, Quote } from 'lucide-react'
 import Link from 'next/link'
 
@@ -7,11 +7,11 @@ export default function FeaturedTestimonials() {
         <section className="py-16 sm:py-20 lg:py-24 bg-nm-bg relative overflow-hidden">
             <div className="max-w-[1380px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-14 lg:gap-16 items-start">
-                    <div className="lg:col-span-4 space-y-6 flex flex-col items-start text-left">
+                    <div className="lg:col-span-4 space-y-6 flex flex-col items-center text-center sm:items-start sm:text-left">
                         <h2 className="inline-flex items-center gap-3 rounded-full nm-flat-sm px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-nm-text-muted">Social Proof</h2>
                         <h3 className="text-4xl md:text-5xl font-bold text-nm-text leading-tight">What Partners <span className="text-brand-orange">Say.</span></h3>
                         <p className="text-nm-text-muted text-base md:text-lg">We focus on high-impact deployment. Our results are measured by industrial uptime and bottom-line savings.</p>
-                        <Link href="/testimonials" className="inline-flex items-center justify-center rounded-full nm-flat-sm px-8 py-4 text-sm font-bold uppercase tracking-[0.16em] text-nm-text hover:nm-flat-md hover:text-brand-orange transition-all duration-300 active:nm-pressed-sm">
+                        <Link href="/testimonials" className="inline-flex items-center justify-center rounded-full nm-flat-sm px-8 py-4 text-sm font-bold uppercase tracking-[0.16em] text-nm-text hover:nm-flat-md hover:text-brand-orange transition-all duration-300 active:nm-pressed-sm w-full sm:w-auto">
                             View All Proof
                         </Link>
                     </div>

@@ -10,12 +10,12 @@ export default function FeaturedBlog() {
                 <div className="absolute bottom-0 right-10 h-[min(44vw,10rem)] w-[min(44vw,10rem)] rounded-full bg-brand-orange blur-[min(16vw,120px)] opacity-5" />
             </div>
             <div className="max-w-[1380px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                <div className="flex flex-col items-start text-left md:flex-row md:items-end justify-between mb-14 gap-6">
-                    <div className="space-y-3 flex flex-col items-start">
+                <div className="flex flex-col items-center text-center md:flex-row md:items-end justify-between mb-14 gap-6">
+                    <div className="space-y-3 flex flex-col items-center sm:items-start sm:text-left">
                             <h2 className="inline-flex items-center gap-3 rounded-full nm-flat-sm px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-nm-text-muted">Knowledge Floor</h2>
                         <h3 className="text-4xl md:text-5xl font-bold text-nm-text leading-tight">Thought Leadership</h3>
                     </div>
-                    <Link href="/blog" className="inline-flex items-center gap-2 rounded-full nm-flat-sm px-6 py-3 text-sm font-bold uppercase tracking-[0.16em] text-nm-text hover:nm-flat-md hover:text-brand-orange transition-all duration-300 active:nm-pressed-sm">
+                    <Link href="/blog" className="inline-flex items-center justify-center gap-2 rounded-full nm-flat-sm px-6 py-3 text-sm font-bold uppercase tracking-[0.16em] text-nm-text hover:nm-flat-md hover:text-brand-orange transition-all duration-300 active:nm-pressed-sm w-full sm:w-auto">
                         Explore Full Library →
                     </Link>
                 </div>

@@ -1,0 +1,56 @@
+[
+  {
+    "id": "1",
+    "client_name": "Sarah Jenkins",
+    "client_role": "VP of Operations",
+    "client_company": "AeroLogistics Inc.",
+    "quote": "We were drowning in manual tracking data. Codantrix didn't just give us a dashboard; they built a neural nervous system for our fleet. Efficiency is up 40% across the board.",
+    "rating": 5,
+    "impact": "40% Efficiency Gain"
+  },
+  {
+    "id": "2",
+    "client_name": "Marcus Thorne",
+    "client_role": "Plant Manager",
+    "client_company": "HeavyMetal Corp",
+    "quote": "Predictive maintenance was a buzzword until we installed their edge nodes. Now, we know a bearing is failing 3 weeks before it actually breaks. It's like magic, but it's math.",
+    "rating": 5,
+    "impact": "$2M/yr Savings"
+  },
+  {
+    "id": "3",
+    "client_name": "Dr. Al-Fayed",
+    "client_role": "Director of Innovation",
+    "client_company": "FutureHealth Systems",
+    "quote": "Their computer vision models for quality control are detecting defects the human eye misses. Zero-tolerance quality assurance is finally a reality for us.",
+    "rating": 5,
+    "impact": "99.9% Accuracy"
+  },
+  {
+    "id": "4",
+    "client_name": "Elena Rodriguez",
+    "client_role": "CTO",
+    "client_company": "FinSecure Global",
+    "quote": "We needed an on-premise solution that respected data sovereignty. Codantrix delivered a secure, air-gapped inference engine that outperforms our cloud legacy systems.",
+    "rating": 5,
+    "impact": "100% Data Privacy"
+  },
+  {
+    "id": "5",
+    "client_name": "James Chen",
+    "client_role": "Head of Retail",
+    "client_company": "ShopSmart Malls",
+    "quote": "The foot traffic analytics gave us insights we didn't know existed. We optimized our staffing schedules and saw a 12% bump in conversions in the first month.",
+    "rating": 5,
+    "impact": "+12% Conversion"
+  },
+  {
+    "id": "6",
+    "client_name": "David Miller",
+    "client_role": "Operations Director",
+    "client_company": "AgriFuture Farms",
+    "quote": "Automating our irrigation with satellite imagery seemed like sci-fi. Codantrix made it practical, robust, and incredibly easy for our field teams to use.",
+    "rating": 5,
+    "impact": "-25% Water Usage"
+  }
+]

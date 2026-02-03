@@ -1,0 +1,560 @@
+[
+  {
+    "name": "Autonomous Neural Agents",
+    "slug": "autonomous-neural-agents",
+    "description": "Self-healing RAG bots that answer complex queries instantly using your proprietary data.",
+    "overview": "Advanced AI agents that leverage Retrieval-Augmented Generation (RAG) to provide intelligent, context-aware responses based on your organization's internal knowledge base.",
+    "category": "Automate Operations",
+    "problem_solved": "Internal knowledge silos and slow response times for complex queries that require deep technical or organizational context.",
+    "how_it_works": "By indexing your proprietary documents into a vector database and using an LLM to retrieve and synthesize information in real-time, ensuring responses are grounded in fact.",
+    "expectations": "A 70% reduction in internal support tickets and instant access to accurate information for your entire team.",
+    "service_order": 1,
+    "icon": "bot",
+    "use_cases": [
+      "Customer Support Automation",
+      "Internal Documentation Search",
+      "Automated Knowledge Base Updates"
+    ],
+    "process": [
+      {
+        "title": "Data Ingestion",
+        "description": "We securely ingest your documents, wikis, and databases."
+      },
+      {
+        "title": "Vector Indexing",
+        "description": "Information is converted into mathematical vectors for semantic retrieval."
+      },
+      {
+        "title": "Agent Training",
+        "description": "We fine-tune the agent's personality and guardrails to match your brand."
+      }
+    ]
+  },
+  {
+    "name": "Industrial Computer Vision",
+    "slug": "industrial-computer-vision",
+    "description": "Custom YOLOv8 models that detect defects in milliseconds on the assembly line.",
+    "overview": "Real-time visual inspection systems designed for high-speed manufacturing environments, capable of identifying microscopic defects with superhuman precision.",
+    "category": "Automate Operations",
+    "problem_solved": "Manual inspection is slow, prone to human error, and expensive, leading to high defect rates reaching customers.",
+    "how_it_works": "We deploy custom-trained YOLOv8 models on edge devices (NVIDIA Jetson) that analyze video feeds frame-by-frame at sub-millisecond speeds.",
+    "expectations": "Near-zero escape rate of defects and significantly increased production throughput.",
+    "service_order": 2,
+    "icon": "scan-eye",
+    "use_cases": [
+      "Assembly Line Quality Control",
+      "Safety Protocol Monitoring",
+      "Automated Sorting Systems"
+    ],
+    "process": [
+      {
+        "title": "Data Collection",
+        "description": "Capturing thousands of images of both perfect and defective parts."
+      },
+      {
+        "title": "Model Training",
+        "description": "Training custom vision models optimized for your specific environment."
+      },
+      {
+        "title": "Edge Deployment",
+        "description": "Deploying models to local hardware for real-time, low-latency processing."
+      }
+    ]
+  },
+  {
+    "name": "Predictive Analytics Engines",
+    "slug": "predictive-analytics",
+    "description": "Forecasting models (Prophet/ARIMA) that process historical data to predict inventory & demand.",
+    "overview": "Sophisticated forecasting systems that turn historical data into actionable insights, allowing businesses to anticipate market shifts before they happen.",
+    "category": "Automate Operations",
+    "problem_solved": "Reactive business strategies that lead to overstocking, understocking, and missed revenue opportunities due to poor demand forecasting.",
+    "how_it_works": "Utilizing time-series analysis and machine learning models like Prophet and ARIMA to identify patterns, seasonality, and trends in your historical data.",
+    "expectations": "Higher inventory turnover, reduced carrying costs, and the ability to make data-driven procurement decisions.",
+    "service_order": 3,
+    "icon": "line-chart",
+    "use_cases": [
+      "Demand Forecasting",
+      "Inventory Optimization",
+      "Financial Trend Prediction"
+    ],
+    "process": [
+      {
+        "title": "Historical Audit",
+        "description": "Deep dive into your past performance data and external variables."
+      },
+      {
+        "title": "Model Selection",
+        "description": "Choosing the right mathematical approach for your specific data patterns."
+      },
+      {
+        "title": "Dashboard Integration",
+        "description": "Visualizing predictions in an intuitive way for decision-makers."
+      }
+    ]
+  },
+  {
+    "name": "Proprietary LLM Fine-Tuning",
+    "slug": "llm-fine-tuning",
+    "description": "Open-source models (Llama 3, Mistral) trained specifically on your brand voice and jargon.",
+    "overview": "Customized large language models that understand your specific industry, terminology, and brand personality better than any generic AI.",
+    "category": "Automate Operations",
+    "problem_solved": "Generic LLMs often lack the specific domain knowledge or brand voice required for professional enterprise applications.",
+    "how_it_works": "We fine-tune state-of-the-art open-source models (like Llama 3 or Mistral) on your specific datasets and brand guidelines.",
+    "expectations": "AI outputs that feel authentically yours, with higher accuracy in domain-specific tasks and reduced \"hallucination\" rates.",
+    "service_order": 4,
+    "icon": "brain",
+    "use_cases": [
+      "Brand-Specific Content Creation",
+      "Technical Document Summarization",
+      "Industry-Specific Virtual Assistants"
+    ],
+    "process": [
+      {
+        "title": "Dataset Preparation",
+        "description": "Curating high-quality examples of your brand voice and jargon."
+      },
+      {
+        "title": "Fine-Tuning",
+        "description": "Iterative training on secure, private GPU clusters."
+      },
+      {
+        "title": "Validation",
+        "description": "Testing against your specific benchmarks and safety standards."
+      }
+    ]
+  },
+  {
+    "name": "Semantic Search Architecture",
+    "slug": "semantic-search",
+    "description": "Vector-embedded search systems that understand context, synonyms, and user nuance.",
+    "overview": "Search systems that go beyond keywords to understand the actual meaning behind a user's query, providing much more relevant results.",
+    "category": "Automate Operations",
+    "problem_solved": "Traditional keyword search fails when users don't use the exact terminology found in documents, leading to \"no results found\" errors.",
+    "how_it_works": "By representing documents and queries as high-dimensional vectors, we can calculate the mathematical similarity between concepts.",
+    "expectations": "A dramatic improvement in search relevance and user satisfaction, especially for large, complex datasets.",
+    "service_order": 5,
+    "icon": "search",
+    "use_cases": [
+      "Enterprise Search",
+      "E-commerce Product Discovery",
+      "Legal & Medical Document Retrieval"
+    ],
+    "process": [
+      {
+        "title": "Embedding Generation",
+        "description": "Converting your entire library into semantic vectors."
+      },
+      {
+        "title": "Vector DB Setup",
+        "description": "Deploying high-performance vector stores like Pinecone or Weaviate."
+      },
+      {
+        "title": "Query Optimization",
+        "description": "Refining how user intent is mapped to the search space."
+      }
+    ]
+  },
+  {
+    "name": "Automated Data Pipelines",
+    "slug": "automated-pipelines",
+    "description": "Airflow/Prefect orchestrators that clean, normalize, and feed data to your warehouse automatically.",
+    "overview": "Robust, self-healing data workflows that ensure your analytics and AI models always have access to fresh, clean, and reliable data.",
+    "category": "Automate Operations",
+    "problem_solved": "Manual data cleaning and fragile \"spaghetti\" scripts that break frequently, leading to data downtime and untrustworthy reports.",
+    "how_it_works": "We build orchestrated ETL/ELT pipelines using industry-standard tools like Airflow or Prefect, with built-in monitoring and error handling.",
+    "expectations": "100% data lineage visibility and the elimination of manual data preparation tasks.",
+    "service_order": 6,
+    "icon": "workflow",
+    "use_cases": [
+      "Data Warehouse Feeding",
+      "Real-time Analytics Sync",
+      "Cross-Platform Data Normalization"
+    ],
+    "process": [
+      {
+        "title": "Source Mapping",
+        "description": "Identifying and connecting to all your disparate data sources."
+      },
+      {
+        "title": "Pipeline Design",
+        "description": "Building modular, testable transformation logic."
+      },
+      {
+        "title": "Monitoring Setup",
+        "description": "Implementing automated alerts for any pipeline failures."
+      }
+    ]
+  },
+  {
+    "name": "Next.js Edge Platforms",
+    "slug": "nextjs-edge",
+    "description": "Server-side rendered React apps deployed to the Edge. 99/100 Core Web Vitals guaranteed.",
+    "overview": "High-performance web applications that leverage the power of Edge computing to deliver content to users with near-zero latency.",
+    "category": "Customer Acquisition",
+    "problem_solved": "Slow loading speeds and poor SEO rankings due to traditional client-side rendering or distant server locations.",
+    "how_it_works": "Utilizing Next.js App Router and Vercel's Edge Network to render content as close to the user as possible.",
+    "expectations": "Perfect Lighthouse scores, better SEO rankings, and a significantly higher conversion rate due to snappy performance.",
+    "service_order": 7,
+    "icon": "globe",
+    "use_cases": [
+      "Global E-commerce Sites",
+      "Content-Heavy Media Portals",
+      "High-Traffic Marketing Pages"
+    ],
+    "process": [
+      {
+        "title": "Architecture Audit",
+        "description": "Identifying bottlenecks in your current web stack."
+      },
+      {
+        "title": "Edge Migration",
+        "description": "Refactoring data fetching to work at the Edge."
+      },
+      {
+        "title": "Performance Tuning",
+        "description": "Rigorous optimization of Core Web Vitals."
+      }
+    ]
+  },
+  {
+    "name": "Cross-Platform Mobile Apps",
+    "slug": "mobile-apps",
+    "description": "High-fidelity React Native apps. Single codebase, native performance (60fps).",
+    "overview": "Mobile applications that look, feel, and perform like native apps while being built from a single, maintainable codebase.",
+    "category": "Customer Acquisition",
+    "problem_solved": "High development costs and slow feature parity when maintaining separate iOS and Android teams.",
+    "how_it_works": "Leveraging React Native and Expo to build high-performance apps that share 90%+ of their code across platforms.",
+    "expectations": "Reduced time-to-market and lower maintenance costs without sacrificing the \"native\" feel users expect.",
+    "service_order": 8,
+    "icon": "smartphone",
+    "use_cases": [
+      "Consumer Facing Apps",
+      "Internal Enterprise Tools",
+      "IoT Control Interfaces"
+    ],
+    "process": [
+      {
+        "title": "UX/UI Design",
+        "description": "Designing interfaces that respect both iOS and Android conventions."
+      },
+      {
+        "title": "Core Development",
+        "description": "Building features in a cross-platform compatible way."
+      },
+      {
+        "title": "Store Deployment",
+        "description": "Automated CI/CD for App Store and Play Store submissions."
+      }
+    ]
+  },
+  {
+    "name": "High-Frequency Dashboards",
+    "slug": "high-freq-dashboards",
+    "description": "WebSocket/gRPC pipelines feeding React frontends for sub-millisecond data visualization.",
+    "overview": "Real-time data visualization systems designed for industries where every millisecond counts, from finance to industrial monitoring.",
+    "category": "Customer Acquisition",
+    "problem_solved": "Laggy, outdated dashboards that fail to provide a true real-time view of rapidly changing data.",
+    "how_it_works": "Using WebSockets or gRPC for bidirectional, low-latency communication between the server and the frontend.",
+    "expectations": "Instant visibility into system status and the ability to react to changes as they happen.",
+    "service_order": 9,
+    "icon": "activity",
+    "use_cases": [
+      "Financial Trading Desks",
+      "Live Industrial Monitoring",
+      "Real-time Logistics Tracking"
+    ],
+    "process": [
+      {
+        "title": "Protocol Selection",
+        "description": "Choosing between WebSockets, gRPC, or SSE based on your needs."
+      },
+      {
+        "title": "Frontend Optimization",
+        "description": "Building high-performance React components that handle rapid updates."
+      },
+      {
+        "title": "Load Testing",
+        "description": "Ensuring the system remains stable under high data throughput."
+      }
+    ]
+  },
+  {
+    "name": "Headless E-Commerce",
+    "slug": "headless-commerce",
+    "description": "Composable commerce architectures (Sanity + Stripe) for absolute design freedom.",
+    "overview": "Modern e-commerce solutions that decouple the frontend experience from the backend commerce logic, allowing for limitless creativity.",
+    "category": "Customer Acquisition",
+    "problem_solved": "Restrictive templates and \"locked-in\" ecosystems of traditional e-commerce platforms that limit brand expression.",
+    "how_it_works": "Integrating best-in-class tools like Sanity for CMS and Stripe for payments via high-performance APIs.",
+    "expectations": "A truly unique shopping experience that stands out from the competition and scales effortlessly.",
+    "service_order": 10,
+    "icon": "shopping-bag",
+    "use_cases": [
+      "Luxury Brand Storefronts",
+      "Subscription-Based Services",
+      "Global Multi-Currency Shops"
+    ],
+    "process": [
+      {
+        "title": "Schema Design",
+        "description": "Modeling your products and content for maximum flexibility."
+      },
+      {
+        "title": "Integration",
+        "description": "Connecting the CMS, payment gateway, and frontend."
+      },
+      {
+        "title": "Checkout Optimization",
+        "description": "Building a custom, high-conversion checkout flow."
+      }
+    ]
+  },
+  {
+    "name": "SaaS Multi-Tenant Platforms",
+    "slug": "saas-platforms",
+    "description": "Architecture designed for tenant isolation, subscription handling, and infinite horizontal scale.",
+    "overview": "The technical foundation for modern Software-as-a-Service businesses, built to handle thousands of customers securely.",
+    "category": "Customer Acquisition",
+    "problem_solved": "Difficulty in scaling, managing individual customer data (tenancy), and handling complex subscription logic.",
+    "how_it_works": "Implementing robust row-level security (RLS) and scalable cloud-native architectures that grow with your user base.",
+    "expectations": "A secure, scalable platform that allows you to focus on your core product rather than infrastructure headaches.",
+    "service_order": 11,
+    "icon": "users",
+    "use_cases": [
+      "B2B SaaS Products",
+      "Marketplace Platforms",
+      "Internal Tooling Hubs"
+    ],
+    "process": [
+      {
+        "title": "Tenancy Strategy",
+        "description": "Deciding between shared or isolated database schemas."
+      },
+      {
+        "title": "Security Audit",
+        "description": "Implementing rigorous RLS and authentication patterns."
+      },
+      {
+        "title": "Billing Integration",
+        "description": "Setting up automated subscription and usage-based billing."
+      }
+    ]
+  },
+  {
+    "name": "Progressive Web Apps (PWA)",
+    "slug": "pwa",
+    "description": "Installable web apps with offline capabilities and push notifications. Bypass the store.",
+    "overview": "Web applications that use modern web capabilities to deliver an app-like experience directly in the browser, no download required.",
+    "category": "Customer Acquisition",
+    "problem_solved": "High friction of app store downloads and the cost of maintaining separate web and mobile teams.",
+    "how_it_works": "Using Service Workers and Web App Manifests to enable offline access and \"Add to Home Screen\" functionality.",
+    "expectations": "Higher user engagement and retention by removing the barrier of the app store.",
+    "service_order": 12,
+    "icon": "app-window",
+    "use_cases": [
+      "Offline-First Tools",
+      "News & Content Portals",
+      "Quick-Access Customer Portals"
+    ],
+    "process": [
+      {
+        "title": "Service Worker Config",
+        "description": "Setting up intelligent caching strategies for offline use."
+      },
+      {
+        "title": "Manifest Design",
+        "description": "Optimizing the install experience and splash screens."
+      },
+      {
+        "title": "Notification Setup",
+        "description": "Implementing web-push notifications for re-engagement."
+      }
+    ]
+  },
+  {
+    "name": "Immutable Infrastructure",
+    "slug": "immutable-infrastructure",
+    "description": "Dockerized CI/CD pipelines that scale to zero when idle and infinity when viral.",
+    "overview": "Modern infrastructure-as-code that ensures your environment is consistent, reproducible, and incredibly easy to scale.",
+    "category": "Scalable Foundations",
+    "problem_solved": "\"It works on my machine\" bugs and manual server configuration that is impossible to replicate or scale quickly.",
+    "how_it_works": "Using Docker and Kubernetes to containerize applications and Terraform to manage infrastructure as code.",
+    "expectations": "100% environment consistency and a drastic reduction in deployment-related downtime.",
+    "service_order": 13,
+    "icon": "box",
+    "use_cases": [
+      "Auto-scaling Web Apps",
+      "Secure Microservices",
+      "High-Availability APIs"
+    ],
+    "process": [
+      {
+        "title": "Containerization",
+        "description": "Dockerizing your applications for portability and consistency."
+      },
+      {
+        "title": "IaC Implementation",
+        "description": "Defining your entire infrastructure in version-controlled code."
+      },
+      {
+        "title": "CI/CD Pipeline",
+        "description": "Automating the build, test, and deploy cycle."
+      }
+    ]
+  },
+  {
+    "name": "CTO-as-a-Service",
+    "slug": "cto-as-a-service",
+    "description": "Fractional executive guidance to map roadmaps, hire teams, and select tech stacks.",
+    "overview": "Strategic technical leadership for startups and growing companies that need high-level guidance without the cost of a full-time CTO.",
+    "category": "Scalable Foundations",
+    "problem_solved": "Founders making expensive technical mistakes, choosing the wrong tech stack, or struggling to hire the right engineering talent.",
+    "how_it_works": "Providing part-time, high-impact guidance on product roadmaps, architectural decisions, and team building.",
+    "expectations": "A clear, executable technical roadmap and the confidence that you are building on a solid foundation.",
+    "service_order": 14,
+    "icon": "user-cog",
+    "use_cases": [
+      "Early-stage Startups",
+      "Non-Technical Founders",
+      "Companies undergoing Digital Transformation"
+    ],
+    "process": [
+      {
+        "title": "Technical Audit",
+        "description": "Evaluating your current stack and engineering processes."
+      },
+      {
+        "title": "Roadmap Planning",
+        "description": "Aligning technical goals with your business objectives."
+      },
+      {
+        "title": "Team Mentorship",
+        "description": "Guiding your engineers and helping with key hires."
+      }
+    ]
+  },
+  {
+    "name": "Cloud Cost Optimization",
+    "slug": "cloud-optimization",
+    "description": "Resource auditing and serverless migration to slash infrastructure costs by 30-50%.",
+    "overview": "A rigorous approach to identifying and eliminating wasteful cloud spending while improving system performance.",
+    "category": "Scalable Foundations",
+    "problem_solved": "Skyrocketing AWS/Azure/GCP bills that grow faster than the business, often due to over-provisioned resources.",
+    "how_it_works": "Conducting deep resource audits and migrating suitable workloads to serverless or auto-scaling architectures.",
+    "expectations": "A significant reduction in monthly cloud spend (typically 30-50%) without any loss in performance.",
+    "service_order": 15,
+    "icon": "dollar-sign",
+    "use_cases": [
+      "AWS/GCP/Azure Cost Reduction",
+      "Serverless Migrations",
+      "Resource Right-Sizing"
+    ],
+    "process": [
+      {
+        "title": "Spending Audit",
+        "description": "Identifying exactly where your cloud budget is being wasted."
+      },
+      {
+        "title": "Migration Plan",
+        "description": "Architecting a move to more cost-effective services."
+      },
+      {
+        "title": "Ongoing Monitoring",
+        "description": "Setting up alerts and guardrails to prevent future cost spikes."
+      }
+    ]
+  },
+  {
+    "name": "Legacy Code Rescue",
+    "slug": "legacy-rescue",
+    "description": "Deep dive audits, refactoring roadmaps, and strangler-pattern migrations.",
+    "overview": "Transforming old, brittle, and hard-to-maintain codebases into modern, scalable systems that your team actually enjoys working on.",
+    "category": "Scalable Foundations",
+    "problem_solved": "Technical debt that slows down feature development and a \"fear of touching the code\" among developers.",
+    "how_it_works": "Using the \"strangler pattern\" to incrementally replace old functionality with new, well-tested modules.",
+    "expectations": "A modernized codebase that is easier to maintain, faster to develop on, and more stable in production.",
+    "service_order": 16,
+    "icon": "life-buoy",
+    "use_cases": [
+      "Monolith to Microservices",
+      "Tech Stack Upgrades",
+      "Documentation Recovery"
+    ],
+    "process": [
+      {
+        "title": "Codebase Audit",
+        "description": "Identifying the most critical and brittle areas of your system."
+      },
+      {
+        "title": "Refactoring Roadmap",
+        "description": "Planning an incremental, low-risk path to modernization."
+      },
+      {
+        "title": "Implementation",
+        "description": "Executing the migration while keeping the system running."
+      }
+    ]
+  },
+  {
+    "name": "Security & Compliance",
+    "slug": "security-compliance",
+    "description": "Penetration testing, automated security scanning, and SOC2 preparation.",
+    "overview": "Comprehensive security services to protect your data and ensure you meet the rigorous standards required by your customers.",
+    "category": "Scalable Foundations",
+    "problem_solved": "Vulnerability to cyber-attacks and the inability to close enterprise deals due to lack of compliance (like SOC2).",
+    "how_it_works": "Performing regular penetration tests and implementing automated security scanning into your development lifecycle.",
+    "expectations": "A robust security posture and the documentation needed to pass even the most stringent enterprise security reviews.",
+    "service_order": 17,
+    "icon": "shield-check",
+    "use_cases": [
+      "SOC2/GDPR Preparation",
+      "Security Penetration Testing",
+      "Automated Vulnerability Scanning"
+    ],
+    "process": [
+      {
+        "title": "Risk Assessment",
+        "description": "Identifying potential security gaps in your current systems."
+      },
+      {
+        "title": "Hardening",
+        "description": "Implementing security best practices across your entire stack."
+      },
+      {
+        "title": "Continuous Monitoring",
+        "description": "Setting up automated tools to detect and block threats in real-time."
+      }
+    ]
+  },
+  {
+    "name": "API Interface Design",
+    "slug": "api-design",
+    "description": "Swagger/OpenAPI spec-first development for clean, documented, and versioned APIs",
+    "overview": "Building beautiful, intuitive, and robust APIs that other developers love to use, whether they are internal or external.",
+    "category": "Scalable Foundations",
+    "problem_solved": "Poorly documented, inconsistent, and hard-to-use APIs that slow down integration and lead to developer frustration.",
+    "how_it_works": "Following a \"spec-first\" approach using OpenAPI/Swagger to design and document APIs before a single line of code is written.",
+    "expectations": "APIs that are self-documenting, easy to test, and built to handle future growth without breaking changes.",
+    "service_order": 18,
+    "icon": "file-json",
+    "use_cases": [
+      "Public API Development",
+      "Internal Microservice Communication",
+      "Mobile App Backends"
+    ],
+    "process": [
+      {
+        "title": "Spec Design",
+        "description": "Collaboratively designing your API using OpenAPI standards."
+      },
+      {
+        "title": "Implementation",
+        "description": "Building the API with focus on performance and security."
+      },
+      {
+        "title": "Documentation",
+        "description": "Generating interactive documentation and client SDKs."
+      }
+    ]
+  }
+]

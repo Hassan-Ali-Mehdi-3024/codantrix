@@ -14,12 +14,12 @@ export default function Hero() {
                     </div>
 
                     <div className="relative z-10 grid lg:grid-cols-2 gap-10 sm:gap-16 lg:gap-20 p-6 sm:p-10 lg:p-14 items-stretch">
-                        <div className="flex flex-col justify-center space-y-10">
+                        <div className="flex flex-col items-center text-center sm:items-start sm:text-left justify-center space-y-10">
                             <motion.div
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.6 }}
-                                className="inline-flex items-center gap-2 rounded-full nm-flat-sm px-4 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-nm-text-muted w-fit"
+                                className="inline-flex items-center gap-2 rounded-full nm-flat-sm px-4 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-nm-text-muted w-fit mx-auto sm:mx-0"
                             >
                                 Enterprise AI Built for Reality
                             </motion.div>
@@ -47,17 +47,17 @@ export default function Hero() {
                                 initial={{ opacity: 0, y: 18 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.7, delay: 0.32 }}
-                                className="flex flex-col sm:flex-row gap-4 sm:gap-6 pt-1"
+                                className="flex flex-col sm:flex-row gap-4 sm:gap-6 pt-1 w-full sm:w-auto"
                             >
                                 <Link
                                     href="/contact"
-                                    className="inline-flex items-center justify-center gap-2 rounded-[28px] nm-btn-accent px-7 sm:px-8 py-3.5 sm:py-4 text-base sm:text-lg font-bold uppercase tracking-[0.14em] transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_20px_rgba(241,90,47,0.4)] active:scale-[0.98]"
+                                    className="inline-flex items-center justify-center gap-2 rounded-[28px] nm-btn-accent px-7 sm:px-8 py-3.5 sm:py-4 text-base sm:text-lg font-bold uppercase tracking-[0.14em] transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_20px_rgba(241,90,47,0.4)] active:scale-[0.98] w-full sm:w-auto"
                                 >
                                     Start Your Project
                                 </Link>
                                 <Link
                                     href="/case-studies"
-                                    className="inline-flex items-center justify-center gap-2 rounded-[28px] nm-flat-sm px-7 sm:px-8 py-3.5 sm:py-4 text-base sm:text-lg font-bold uppercase tracking-[0.14em] text-nm-text transition-all duration-300 hover:scale-[1.02] active:nm-pressed-sm"
+                                    className="inline-flex items-center justify-center gap-2 rounded-[28px] nm-flat-sm px-7 sm:px-8 py-3.5 sm:py-4 text-base sm:text-lg font-bold uppercase tracking-[0.14em] text-nm-text transition-all duration-300 hover:scale-[1.02] active:nm-pressed-sm w-full sm:w-auto"
                                 >
                                     View Case Studies
                                 </Link>
@@ -113,7 +113,7 @@ export default function Hero() {
                                         <p className="text-sm uppercase tracking-[0.2em] text-nm-text-muted">Engage the founders</p>
                                         <p className="text-lg font-semibold">Zero fluff. All signal.</p>
                                     </div>
-                                    <Link href="/contact" className="rounded-full nm-btn-accent px-4 py-2 text-sm font-bold uppercase tracking-[0.14em] nm-flat-sm hover:scale-[1.05] transition-all duration-300 active:scale-[0.95]">
+                                    <Link href="/contact" className="rounded-full nm-btn-accent px-4 py-2 text-sm font-bold uppercase tracking-[0.14em] nm-flat-sm hover:scale-[1.05] transition-all duration-300 active:scale-[0.95] w-full sm:w-auto text-center">
                                         Book a Call
                                     </Link>
                                 </div>

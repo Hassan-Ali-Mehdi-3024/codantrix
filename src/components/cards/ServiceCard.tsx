@@ -72,7 +72,7 @@ export default function ServiceCard({ name, slug, description, icon, index, clas
 
     return (
         <div className={cn(
-            "group relative flex h-full flex-col overflow-hidden rounded-3xl nm-flat-md p-6 sm:p-8 transition-all duration-300 border border-nm-text/5 hover:scale-[1.01]",
+            "group relative flex h-full flex-col items-center text-center sm:items-start sm:text-left overflow-hidden rounded-3xl nm-flat-md p-6 sm:p-8 transition-all duration-300 border border-nm-text/5 hover:scale-[1.01]",
             className
         )}>
             <div className="mb-6 inline-flex items-center justify-center h-12 w-12 sm:h-14 sm:w-14 rounded-2xl nm-inset-sm text-brand-orange">
@@ -85,7 +85,7 @@ export default function ServiceCard({ name, slug, description, icon, index, clas
             </p>
             <Link
                 href={`/services/${slug}`}
-                className="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-[0.14em] text-nm-text nm-flat-sm px-8 py-3 rounded-full hover:nm-flat-md hover:text-brand-orange transition-all duration-300 mt-auto w-fit mx-auto sm:mx-0 active:nm-pressed-sm after:absolute after:inset-0 after:z-10"
+                className="inline-flex items-center justify-center gap-2 text-sm font-bold uppercase tracking-[0.14em] text-nm-text nm-flat-sm px-8 py-3 rounded-full hover:nm-flat-md hover:text-brand-orange transition-all duration-300 mt-auto w-full sm:w-fit active:nm-pressed-sm after:absolute after:inset-0 after:z-10"
             >
                 Learn More →
             </Link>
