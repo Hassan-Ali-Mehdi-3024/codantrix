@@ -37,7 +37,7 @@ export default function Footer() {
                             <h4 className="text-xs font-bold uppercase tracking-[0.28em] text-brand-orange">Company</h4>
                             <ul className="space-y-3 text-sm text-nm-text-muted w-full">
                                 <li><Link href="/about" className="hover:text-nm-text transition-all hover:translate-x-1 block">About Us</Link></li>
-                                <li><Link href="/team" className="hover:text-nm-text transition-all hover:translate-x-1 block">Our Team</Link></li>
+                                <li><Link href="/our-team" className="hover:text-nm-text transition-all hover:translate-x-1 block">Our Team</Link></li>
                                 <li><Link href="/careers" className="hover:text-nm-text transition-all hover:translate-x-1 block">Careers</Link></li>
                                 <li><Link href="/testimonials" className="hover:text-nm-text transition-all hover:translate-x-1 block">Client Proof</Link></li>
                                 <li><Link href="/case-studies" className="hover:text-nm-text transition-all hover:translate-x-1 block">Portfolio</Link></li>

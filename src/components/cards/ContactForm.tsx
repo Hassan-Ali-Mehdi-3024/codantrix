@@ -6,7 +6,6 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
 import { Loader2, CheckCircle, ArrowRight, AlertCircle, ChevronDown, Sparkles } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import { createClient } from '@/utils/supabase/client'
 
 const contactSchema = z.object({
     name: z.string().min(2, 'Name is required'),
@@ -32,7 +31,6 @@ export default function ContactForm() {
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [isSuccess, setIsSuccess] = useState(false)
     const [error, setError] = useState<string | null>(null)
-    const supabase = createClient()
 
     const {
         register,
@@ -48,18 +46,15 @@ export default function ContactForm() {
         setError(null)
 
         try {
-            const { error: supabaseError } = await supabase
-                .from('inquiries')
-                .insert([{
-                    name: data.name,
-                    email: data.email,
-                    company: data.company,
-                    message: data.message,
-                    service_interested: data.service,
-                    status: 'new'
-                }])
+            const res = await fetch('/api/db/inquiries', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data),
+            })
 
-            if (supabaseError) throw supabaseError
+            if (!res.ok) {
+                throw new Error('Failed to submit inquiry')
+            }
 
             setIsSuccess(true)
             reset()

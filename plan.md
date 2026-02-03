@@ -19,7 +19,7 @@ Business Impact:
 
 PART A: Client Portal & Authentication
 1. Client Authentication System
-Implement NextAuth.js v5 + Supabase:
+Implement D1-backed sessions (Workers runtime):
 - Email/password login
 - Social login (Google, LinkedIn) optional for Phase 3B
 - Email verification on signup

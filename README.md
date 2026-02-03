@@ -7,7 +7,7 @@
 *   **Framework:** [Next.js 16](https://nextjs.org/) (App Router)
 *   **Language:** [TypeScript](https://www.typescriptlang.org/)
 *   **Styling:** [Tailwind CSS v4](https://tailwindcss.com/)
-*   **Backend / Auth:** [Supabase](https://supabase.com/)
+*   **Backend / Auth:** Cloudflare Workers + D1 (sessions)
 *   **Icons:** [Lucide React](https://lucide.dev/)
 *   **Animations:** [Framer Motion](https://www.framer.com/motion/)
 *   **Form Handling:** React Hook Form + Zod
@@ -32,7 +32,7 @@ src/
 │   ├── layout/          # Navbar, Footer, & Shell
 │   └── ui/              # Base UI elements
 ├── lib/                 # Utility functions & helpers
-└── utils/               # Backend/Supabase utilities
+└── utils/               # Misc utilities
 ```
 
 ## ⚡ Getting Started
@@ -55,10 +55,11 @@ Ensure you have **Node.js 18+** installed on your machine.
     ```
 
 3.  Set up environment variables:
-    Create a `.env.local` file in the root directory and add your Supabase and other API keys:
+    Create a `.env.local` file in the root directory and add your API keys:
     ```env
-    NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
-    NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+    GROQ_API_KEY=your_groq_key
+    RESEND_API_KEY=your_resend_key
+    SETUP_KEY=change_me_setup_key
     ```
 
 ### Running Locally

@@ -4,7 +4,6 @@ import { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname, useRouter } from 'next/navigation'
-import { createClient } from '@/utils/supabase/client'
 import { 
   LayoutDashboard, 
   FolderOpen, 
@@ -18,11 +17,11 @@ import {
 import { cn } from '@/lib/utils'
 
 const navigation = [
-  { name: 'Overview', href: '/dashboard', icon: LayoutDashboard },
-  { name: 'Projects', href: '/dashboard/projects', icon: FolderOpen },
-  { name: 'Documents', href: '/dashboard/documents', icon: FileText },
-  { name: 'Support', href: '/dashboard/support', icon: LifeBuoy },
-  { name: 'Settings', href: '/dashboard/settings', icon: Settings },
+  { name: 'Overview', href: '/client/dashboard', icon: LayoutDashboard },
+  { name: 'Projects', href: '/client/dashboard/projects', icon: FolderOpen },
+  { name: 'Documents', href: '/client/dashboard/documents', icon: FileText },
+  { name: 'Support', href: '/client/dashboard/support', icon: LifeBuoy },
+  { name: 'Settings', href: '/client/dashboard/settings', icon: Settings },
 ]
 
 export default function MobileSidebar() {
@@ -33,10 +32,9 @@ export default function MobileSidebar() {
 function MobileSidebarContent({ pathname }: { pathname: string }) {
   const [open, setOpen] = useState(false)
   const router = useRouter()
-  const supabase = createClient()
 
   const handleSignOut = async () => {
-    await supabase.auth.signOut()
+    await fetch('/api/auth/logout', { method: 'POST' })
     router.push('/login')
     router.refresh()
   }
