@@ -1,0 +1,29 @@
+# Codantrix Labs
+
+> Pragmatic AI/ML partner for enterprises. Real solutions for real problems — built with accountable engineering and measurable ROI.
+
+Codantrix Labs is a B2B AI/ML consultancy founded by Hassan Ali Mehdi in Lahore, Pakistan. We build production-grade machine learning, computer vision, industrial automation, and full-stack software for companies that need systems to work in the real world — not just in a demo.
+
+## What we do
+
+- **AI/ML Solutions** — Custom machine learning models with ground-truth validation for enterprise problems
+- **Computer Vision Models** — Real-time CV systems for industrial applications and precision manufacturing
+- **Industrial Automation** — End-to-end automation designed for reliability and ROI
+- **Web Development** — Full-stack web solutions supporting complex AI backends and data flows
+
+## How we work
+
+Senior-IC pods. Production rigor from day one: hardened MLOps, observability, and ROI-first delivery. Cloud, edge, and on-prem deployment. Direct access to the founders — no layers between you and the people building your system.
+
+## Key pages
+
+- [Home](https://labs.codantrix.com/) — What we solve and how
+- [Services](https://labs.codantrix.com/services) — AI/ML, computer vision, automation, web
+- [Case Studies](https://labs.codantrix.com/case-studies) — Production deployments
+- [Blog](https://labs.codantrix.com/blog) — Notes from the lab
+- [Contact](https://labs.codantrix.com/contact) — Engage the founders
+
+## Contact
+
+Email: contact@codantrix.com
+Location: Lahore, Pakistan (global engagements)
