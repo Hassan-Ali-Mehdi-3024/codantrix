@@ -1,43 +1,58 @@
-import Link from 'next/link'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+    title: 'Privacy policy',
+    description: 'How Codantrix Labs handles your data.',
+}
 
 export default function PrivacyPage() {
     return (
-        <div className="pt-40 pb-24 bg-nm-bg">
-            <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="mb-16 flex flex-col items-center text-center sm:items-start sm:text-left mx-auto sm:mx-0">
-                    <h1 className="text-5xl font-bold mb-6 text-nm-text">Privacy <span className="text-brand-orange">Policy.</span></h1>
-                    <p className="text-lg text-nm-text-muted italic">Last Updated: April 24, 2026</p>
-                </div>
+        <article className="pt-32 md:pt-40 pb-20">
+            <div className="container-page max-w-2xl prose-content">
+                <p className="text-sm text-accent font-medium mb-4">Legal</p>
+                <h1 className="text-4xl md:text-5xl font-semibold leading-[1.1] mb-4 text-fg">Privacy policy</h1>
+                <p className="text-sm text-fg-subtle mb-10">Last updated: April 2026</p>
 
-                <div className="space-y-12">
-                    <section className="nm-flat-md p-8 sm:p-10 rounded-3xl border border-nm-text/5 flex flex-col items-center text-center sm:items-start sm:text-left">
-                        <h2 className="text-2xl font-bold text-brand-orange mb-6 uppercase tracking-wider">1. Data Collection</h2>
-                        <p className="text-nm-text-muted leading-relaxed text-lg">
-                            At Codantrix Labs, we collect minimal data through our lead capture forms (Name, Email, Company, Message). This data is stored securely in our private infrastructure and is only used to respond to your inquiries.
-                        </p>
-                    </section>
+                <Section title="Short version">
+                    I keep what you send me, I don&apos;t sell it, and I don&apos;t track you across the internet. Site analytics are privacy-preserving and anonymous.
+                </Section>
 
-                    <section className="nm-flat-md p-8 sm:p-10 rounded-3xl border border-nm-text/5 flex flex-col items-center text-center sm:items-start sm:text-left">
-                        <h2 className="text-2xl font-bold text-brand-orange mb-6 uppercase tracking-wider">2. B2B Confidentiality</h2>
-                        <p className="text-nm-text-muted leading-relaxed text-lg">
-                            We understand the sensitivity of industrial data. We do not share, sell, or trade your information with third parties. Any project data shared during consultations is subject to strict NDAs.
-                        </p>
-                    </section>
+                <Section title="What I collect">
+                    <ul>
+                        <li><strong>Contact form:</strong> name, email, company, project details you submit. Stored in a Cloudflare D1 database and emailed to me via Resend.</li>
+                        <li><strong>Analytics:</strong> anonymous page-view counts (route, referrer, country at the country level). No cookies, no fingerprinting, no cross-site tracking.</li>
+                    </ul>
+                </Section>
 
-                    <section className="nm-flat-md p-8 sm:p-10 rounded-3xl border border-nm-text/5 flex flex-col items-center text-center sm:items-start sm:text-left">
-                        <h2 className="text-2xl font-bold text-brand-orange mb-6 uppercase tracking-wider">3. External Services</h2>
-                        <p className="text-nm-text-muted leading-relaxed text-lg">
-                            We use industry-standard tools for transactional emails and database storage. Both services are leaders in security and compliance, ensuring your data is protected at rest and in transit.
-                        </p>
-                    </section>
-                </div>
+                <Section title="What I don&apos;t collect">
+                    <ul>
+                        <li>No Google Analytics, no Meta Pixel, no advertising trackers</li>
+                        <li>No cookies beyond strictly necessary session cookies</li>
+                        <li>No personal data from third-party services</li>
+                    </ul>
+                </Section>
 
-                <div className="mt-20 p-10 nm-inset-sm rounded-3xl flex flex-col items-center text-center sm:items-start sm:text-left border-l-4 border-brand-orange">
-                    <Link href="/contact" className="text-nm-text font-bold hover:text-brand-orange transition-colors text-lg flex items-center justify-center sm:justify-start gap-3 w-full sm:w-auto">
-                        Contact us for specific privacy inquiries <span className="text-brand-orange">→</span>
-                    </Link>
-                </div>
+                <Section title="How I use your data">
+                    Only to reply to your inquiry and, if we end up working together, to run the engagement. I don&apos;t add you to a mailing list. I don&apos;t share your data with third parties except the infrastructure I use to deliver the service (Cloudflare, Resend, Stripe if applicable).
+                </Section>
+
+                <Section title="Your rights">
+                    Email me at <a href="mailto:hassan@codantrix.com" className="text-accent hover:text-accent-hover">hassan@codantrix.com</a> to see, correct, or delete any data I hold about you. I&apos;ll action it within 7 days.
+                </Section>
+
+                <Section title="Contact">
+                    Codantrix Labs · Lahore, Pakistan · <a href="mailto:hassan@codantrix.com" className="text-accent hover:text-accent-hover">hassan@codantrix.com</a>
+                </Section>
             </div>
-        </div>
+        </article>
+    )
+}
+
+function Section({ title, children }: { title: string; children: React.ReactNode }) {
+    return (
+        <section className="mb-10">
+            <h2 className="text-xl font-semibold text-fg mb-3">{title}</h2>
+            <div className="text-fg-muted leading-relaxed space-y-3 [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:space-y-2 [&_strong]:text-fg">{children}</div>
+        </section>
     )
 }

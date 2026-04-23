@@ -4,28 +4,23 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
-import { Loader2, CheckCircle, ArrowRight, AlertCircle, ChevronDown, Sparkles } from 'lucide-react'
+import { Loader2, CheckCircle, ArrowRight, AlertCircle } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import servicesData from '@/data/services.json'
 
 const contactSchema = z.object({
-    name: z.string().min(2, 'Name is required'),
-    email: z.string().email('Invalid email address'),
+    name: z.string().min(2, 'Your name'),
+    email: z.string().email('A working email'),
     company: z.string().optional(),
-    message: z.string().min(10, 'Message must be at least 10 characters'),
-    service: z.string().min(1, 'Please select a service'),
+    service: z.string().min(1, 'Pick the closest fit — or "Not sure yet"'),
+    budget: z.string().optional(),
+    timeline: z.string().optional(),
+    message: z.string().min(20, 'Give me at least a couple of sentences about the problem'),
 })
 
 type ContactFormData = z.infer<typeof contactSchema>
 
-const services = [
-    'AI/ML Solutions',
-    'Computer Vision',
-    'Industrial Automation',
-    'ROI Validation / Audit',
-    'Build vs Buy Analysis',
-    'Quick Scoping Call',
-    'Other / Custom Tooling'
-]
+const services = (servicesData as { name: string; slug: string }[]).map(s => s.name)
 
 export default function ContactForm() {
     const [isSubmitting, setIsSubmitting] = useState(false)
@@ -36,31 +31,25 @@ export default function ContactForm() {
         register,
         handleSubmit,
         formState: { errors },
-        reset
+        reset,
     } = useForm<ContactFormData>({
-        resolver: zodResolver(contactSchema)
+        resolver: zodResolver(contactSchema),
     })
 
     const onSubmit = async (data: ContactFormData) => {
         setIsSubmitting(true)
         setError(null)
-
         try {
             const res = await fetch('/api/db/inquiries', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data),
             })
-
-            if (!res.ok) {
-                throw new Error('Failed to submit inquiry')
-            }
-
+            if (!res.ok) throw new Error('Submit failed')
             setIsSuccess(true)
             reset()
-        } catch (e: unknown) {
-            console.error('Submission error:', e)
-            setError('Something went wrong. Please try again or email us directly at contact@codantrix.com.')
+        } catch {
+            setError('Something went wrong. Email me directly at hassan@codantrix.com.')
         } finally {
             setIsSubmitting(false)
         }
@@ -68,176 +57,124 @@ export default function ContactForm() {
 
     if (isSuccess) {
         return (
-            <div className="h-full flex flex-col items-center justify-center py-20 text-center nm-flat-lg rounded-[32px] border border-nm-text/5 p-8 relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-64 h-64 bg-brand-orange/5 rounded-full blur-3xl -mr-32 -mt-32" />
-                <div className="w-24 h-24 nm-inset-sm rounded-full flex items-center justify-center mb-8 animate-pulse">
-                    <CheckCircle size={48} className="text-brand-orange" />
-                </div>
-                <h3 className="text-4xl font-bold mb-4 text-nm-text relative z-10">Transmission Received.</h3>
-                <p className="text-nm-text-muted mb-12 max-w-sm text-lg relative z-10">
-                    Your signal has been locked. Our lead architect will analyze your request and establish a secure link within 24 hours.
-                </p>
+            <div className="card p-10 text-center">
+                <CheckCircle size={36} className="text-accent mx-auto mb-4" />
+                <h3 className="text-xl font-semibold text-fg mb-2">Got it — I&apos;ll reply within 24 hours.</h3>
+                <p className="text-fg-muted">Usually sooner. If you don&apos;t hear back, email me at <a href="mailto:hassan@codantrix.com" className="text-accent hover:text-accent-hover">hassan@codantrix.com</a>.</p>
                 <button
                     onClick={() => setIsSuccess(false)}
-                    className="group flex items-center gap-2 text-brand-orange font-bold uppercase tracking-[0.2em] text-sm hover:text-nm-text transition-colors relative z-10"
+                    className="mt-6 text-sm text-fg-muted hover:text-fg"
                 >
-                    <Sparkles size={16} /> Send Another Signal
+                    Send another
                 </button>
             </div>
         )
     }
 
     return (
-        <div className="relative group">
-            <div className="relative nm-flat-lg rounded-[32px] p-8 md:p-12 overflow-hidden border border-nm-text/5">
-                <div className="absolute top-0 right-0 w-64 h-64 bg-brand-orange/5 rounded-full blur-[100px] pointer-events-none" />
-                
-                <form onSubmit={handleSubmit(onSubmit)} className="space-y-8 relative z-10">
-                    {error && (
-                        <div className="p-4 nm-inset-sm bg-red-500/5 border border-red-500/20 text-red-500 flex items-center gap-3 text-sm font-bold rounded-xl">
-                            <AlertCircle size={18} /> {error}
-                        </div>
-                    )}
+        <form onSubmit={handleSubmit(onSubmit)} className="card p-6 md:p-8 space-y-5" noValidate>
+            {error && (
+                <div className="flex items-center gap-2 text-sm text-red-400 border border-red-500/30 rounded-md px-3 py-2">
+                    <AlertCircle size={16} /> {error}
+                </div>
+            )}
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div className="group/input">
-                            <label htmlFor="contact-name" className="block text-sm font-bold uppercase tracking-widest text-brand-orange mb-3 transition-colors">Full Name</label>
-                            <input
-                                id="contact-name"
-                                {...register('name')}
-                                type="text"
-                                autoComplete="name"
-                                aria-invalid={!!errors.name}
-                                aria-describedby={errors.name ? "contact-name-error" : undefined}
-                                className={cn(
-                                    "w-full h-14 nm-inset-sm border-transparent rounded-xl px-4 font-bold text-nm-text focus:border-brand-orange/30 outline-none transition-all duration-300 placeholder:text-nm-text-muted/30",
-                                    errors.name && "border-red-500/50"
-                                )}
-                                placeholder="e.g. Hassan Mehdi"
-                            />
-                            {errors.name && <p id="contact-name-error" className="mt-2 text-[10px] text-red-500 font-bold uppercase tracking-wider flex items-center gap-1"><AlertCircle size={10} /> {errors.name.message}</p>}
-                        </div>
-                        <div className="group/input">
-                            <label htmlFor="contact-email" className="block text-sm font-bold uppercase tracking-widest text-brand-orange mb-3 transition-colors">Corporate Email</label>
-                            <input
-                                id="contact-email"
-                                {...register('email')}
-                                type="email"
-                                inputMode="email"
-                                autoComplete="email"
-                                aria-invalid={!!errors.email}
-                                aria-describedby={errors.email ? "contact-email-error" : undefined}
-                                className={cn(
-                                    "w-full h-14 nm-inset-sm border-transparent rounded-xl px-4 font-bold text-nm-text focus:border-brand-orange/30 outline-none transition-all duration-300 placeholder:text-nm-text-muted/30",
-                                    errors.email && "border-red-500/50"
-                                )}
-                                placeholder="name@company.com"
-                            />
-                            {errors.email && <p id="contact-email-error" className="mt-2 text-[10px] text-red-500 font-bold uppercase tracking-wider flex items-center gap-1"><AlertCircle size={10} /> {errors.email.message}</p>}
-                        </div>
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div className="group/input">
-                            <label htmlFor="contact-company" className="block text-sm font-bold uppercase tracking-widest text-brand-orange mb-3 transition-colors">Organization</label>
-                            <input
-                                id="contact-company"
-                                {...register('company')}
-                                type="text"
-                                autoComplete="organization"
-                                className="w-full h-14 nm-inset-sm border-transparent rounded-xl px-4 font-bold text-nm-text focus:border-brand-orange/30 outline-none transition-all duration-300 placeholder:text-nm-text-muted/30"
-                                placeholder="Company Name"
-                            />
-                        </div>
-                        <div className="group/input">
-                            <label htmlFor="contact-service" className="block text-sm font-bold uppercase tracking-widest text-brand-orange mb-3 transition-colors">Interest Area</label>
-                            <div className="relative">
-                                <select
-                                    id="contact-service"
-                                    {...register('service')}
-                                    aria-invalid={!!errors.service}
-                                    aria-describedby={errors.service ? "contact-service-error" : undefined}
-                                    className={cn(
-                                        "w-full h-14 nm-inset-sm border-transparent rounded-xl px-4 font-bold text-nm-text focus:border-brand-orange/30 outline-none transition-all duration-300 appearance-none cursor-pointer",
-                                        errors.service && "border-red-500/50"
-                                    )}
-                                >
-                                    <option value="" className="bg-nm-bg">Select Interest...</option>
-                                    {services.map(s => <option key={s} value={s} className="bg-nm-bg">{s}</option>)}
-                                </select>
-                                <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-brand-orange pointer-events-none" size={18} />
-                            </div>
-                            {errors.service && <p id="contact-service-error" className="mt-2 text-[10px] text-red-500 font-bold uppercase tracking-wider flex items-center gap-1"><AlertCircle size={10} /> {errors.service.message}</p>}
-                        </div>
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div className="group/input">
-                            <label htmlFor="contact-budget" className="block text-sm font-bold uppercase tracking-widest text-brand-orange mb-3 transition-colors">Project Budget</label>
-                            <div className="relative">
-                                <select
-                                    id="contact-budget"
-                                    className="w-full h-14 nm-inset-sm border-transparent rounded-xl px-4 font-bold text-nm-text focus:border-brand-orange/30 outline-none transition-all duration-300 appearance-none cursor-pointer"
-                                >
-                                    <option value="" className="bg-nm-bg">Select Range...</option>
-                                    <option value="5-10k" className="bg-nm-bg">$5k - $10k</option>
-                                    <option value="10-50k" className="bg-nm-bg">$10k - $50k</option>
-                                    <option value="50-100k" className="bg-nm-bg">$50k - $100k</option>
-                                    <option value="100k+" className="bg-nm-bg">$100k+</option>
-                                </select>
-                                <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-brand-orange pointer-events-none" size={18} />
-                            </div>
-                        </div>
-                        <div className="group/input">
-                            <label htmlFor="contact-timeline" className="block text-sm font-bold uppercase tracking-widest text-brand-orange mb-3 transition-colors">Timeline</label>
-                            <div className="relative">
-                                <select
-                                    id="contact-timeline"
-                                    className="w-full h-14 nm-inset-sm border-transparent rounded-xl px-4 font-bold text-nm-text focus:border-brand-orange/30 outline-none transition-all duration-300 appearance-none cursor-pointer"
-                                >
-                                    <option value="" className="bg-nm-bg">Select Timeline...</option>
-                                    <option value="immediate" className="bg-nm-bg">Immediate</option>
-                                    <option value="1-3-months" className="bg-nm-bg">1-3 Months</option>
-                                    <option value="3-6-months" className="bg-nm-bg">3-6 Months</option>
-                                    <option value="planning" className="bg-nm-bg">Planning Stage</option>
-                                </select>
-                                <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-brand-orange pointer-events-none" size={18} />
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="group/input">
-                        <label htmlFor="contact-message" className="block text-sm font-bold uppercase tracking-widest text-brand-orange mb-3 transition-colors">Mission Parameters</label>
-                        <textarea
-                            id="contact-message"
-                            {...register('message')}
-                            rows={4}
-                            aria-invalid={!!errors.message}
-                            aria-describedby={errors.message ? "contact-message-error" : undefined}
-                            className={cn(
-                                "w-full nm-inset-sm border-transparent rounded-xl p-4 font-bold text-nm-text focus:border-brand-orange/30 outline-none transition-all duration-300 resize-none placeholder:text-nm-text-muted/30",
-                                errors.message && "border-red-500/50"
-                            )}
-                            placeholder="Describe the challenge. Be specific. We like hard problems..."
-                        />
-                        {errors.message && <p id="contact-message-error" className="mt-2 text-[10px] text-red-500 font-bold uppercase tracking-wider flex items-center gap-1"><AlertCircle size={10} /> {errors.message.message}</p>}
-                    </div>
-
-                    <button
-                        type="submit"
-                        disabled={isSubmitting}
-                        className="w-full relative overflow-hidden group nm-btn-accent text-white py-5 rounded-full font-black uppercase tracking-[0.2em] transition-all disabled:opacity-50 hover:scale-[1.01] active:scale-[0.98]"
-                    >
-                        <span className="relative z-10 flex items-center justify-center gap-3">
-                            {isSubmitting ? (
-                                <Loader2 className="animate-spin" />
-                            ) : (
-                                <>Initialize Uplink <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" /></>
-                            )}
-                        </span>
-                    </button>
-                </form>
+            <div className="grid md:grid-cols-2 gap-5">
+                <Field label="Name" error={errors.name?.message}>
+                    <input
+                        {...register('name')}
+                        type="text"
+                        autoComplete="name"
+                        className={inputCn(errors.name)}
+                        placeholder="First and last"
+                    />
+                </Field>
+                <Field label="Email" error={errors.email?.message}>
+                    <input
+                        {...register('email')}
+                        type="email"
+                        inputMode="email"
+                        autoComplete="email"
+                        className={inputCn(errors.email)}
+                        placeholder="you@company.com"
+                    />
+                </Field>
             </div>
-        </div>
+
+            <div className="grid md:grid-cols-2 gap-5">
+                <Field label="Company (optional)">
+                    <input
+                        {...register('company')}
+                        type="text"
+                        autoComplete="organization"
+                        className={inputCn()}
+                        placeholder="Company or product name"
+                    />
+                </Field>
+                <Field label="Which service?" error={errors.service?.message}>
+                    <select {...register('service')} className={inputCn(errors.service)} defaultValue="">
+                        <option value="" disabled>Pick one</option>
+                        {services.map(s => <option key={s} value={s}>{s}</option>)}
+                        <option value="Not sure yet">Not sure yet</option>
+                    </select>
+                </Field>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-5">
+                <Field label="Budget (optional)">
+                    <select {...register('budget')} className={inputCn()} defaultValue="">
+                        <option value="">No preference</option>
+                        <option value="8-15k">$8K – $15K (Tier B)</option>
+                        <option value="15-30k">$15K – $30K (Tier A)</option>
+                        <option value="30k+">$30K+</option>
+                    </select>
+                </Field>
+                <Field label="Timeline (optional)">
+                    <select {...register('timeline')} className={inputCn()} defaultValue="">
+                        <option value="">Flexible</option>
+                        <option value="asap">Starting ASAP</option>
+                        <option value="1-2mo">Next 1–2 months</option>
+                        <option value="3mo+">3+ months out</option>
+                    </select>
+                </Field>
+            </div>
+
+            <Field label="What's the problem?" error={errors.message?.message}>
+                <textarea
+                    {...register('message')}
+                    rows={5}
+                    className={inputCn(errors.message)}
+                    placeholder="What are you trying to build or fix? The more specific, the better — current stack, what you've tried, what's stuck."
+                />
+            </Field>
+
+            <button
+                type="submit"
+                disabled={isSubmitting}
+                className="btn btn-primary w-full md:w-auto disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+                {isSubmitting ? <><Loader2 size={16} className="animate-spin" /> Sending…</> : <>Send <ArrowRight size={16} /></>}
+            </button>
+            <p className="text-xs text-fg-subtle">Replies within 24 hours. No auto-responders — it&apos;s me.</p>
+        </form>
+    )
+}
+
+function Field({ label, error, children }: { label: string; error?: string; children: React.ReactNode }) {
+    return (
+        <label className="block">
+            <span className="block text-sm font-medium text-fg mb-2">{label}</span>
+            {children}
+            {error && <span className="mt-1 flex items-center gap-1 text-xs text-red-400"><AlertCircle size={12} /> {error}</span>}
+        </label>
+    )
+}
+
+function inputCn(error?: unknown) {
+    return cn(
+        "w-full h-11 px-3 text-sm bg-bg-subtle border border-border rounded-md text-fg placeholder:text-fg-subtle",
+        "focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent",
+        "transition-colors",
+        Boolean(error) && "border-red-500/60"
     )
 }

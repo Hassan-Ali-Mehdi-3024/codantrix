@@ -1,19 +1,30 @@
 import type { Metadata } from "next";
-import { Poppins } from "next/font/google";
+import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import JsonLd, { generateOrganizationSchema } from "@/components/seo/JsonLd";
+import Analytics from "@/components/seo/Analytics";
 
-const poppins = Poppins({
-  variable: "--font-poppins",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  display: "swap",
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  variable: "--font-mono",
+  subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Codantrix Labs | Real Solutions for Real Problems",
-  description: "Pragmatic AI/ML partner for enterprises. Accountable engineering and measurable ROI.",
+  title: {
+    default: "Codantrix Labs — Agentic AI systems, shipped to production",
+    template: "%s | Codantrix Labs",
+  },
+  description:
+    "I'm Hassan. I build production agentic AI systems for SaaS founders and seed–Series B teams. Fixed price, weekly shipped demos, code you own.",
   metadataBase: new URL("https://labs.codantrix.com"),
   icons: {
     icon: "/Logo_Favicon.ico",
@@ -22,10 +33,11 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-    },
+  },
+  openGraph: {
+    type: "website",
+    url: "https://labs.codantrix.com",
+    siteName: "Codantrix Labs",
   },
 };
 
@@ -35,37 +47,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                try {
-                  var theme = localStorage.getItem('theme');
-                  if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-                    document.documentElement.classList.add('dark');
-                  } else {
-                    document.documentElement.classList.remove('dark');
-                  }
-                } catch (e) {}
-              })();
-            `,
-          }}
-        />
-      </head>
-      <body
-        className={`${poppins.variable} antialiased selection:bg-brand-orange selection:text-nm-accent-text`}
-      >
+    <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable}`}>
+      <body className="bg-bg text-fg antialiased">
         <a
-          href="#main-content"
-          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-full focus:bg-brand-orange focus:px-4 focus:py-2 focus:text-black focus:font-semibold"
+          href="#main"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-md focus:bg-accent focus:px-4 focus:py-2 focus:text-accent-fg focus:font-semibold"
         >
           Skip to content
         </a>
         <JsonLd data={generateOrganizationSchema()} />
+        <Analytics />
         <Navbar />
-        <main id="main-content" className="min-h-[80vh]">
+        <main id="main" className="min-h-[calc(100vh-4rem)]">
           {children}
         </main>
         <Footer />

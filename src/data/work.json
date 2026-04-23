@@ -1,0 +1,62 @@
+[
+  {
+    "slug": "agentic-property-management",
+    "title": "Agentic property-management assistant",
+    "industryTag": "US real estate",
+    "year": 2024,
+    "oneLiner": "Agent that handles tenant requests, schedules maintenance, and escalates edge cases to a human — built into an existing PM platform.",
+    "problem": "Property managers were drowning in routine tenant requests, most of which followed a handful of repeatable patterns but still needed human judgment on the edge cases.",
+    "approach": "Single-agent architecture with 7 tools (tenant lookup, work-order creation, vendor scheduling, notification send, invoice lookup, lease read, escalation). Eval set built from 200 real historical tickets, graded for routing accuracy and tone.",
+    "outcome": "Deployed to production. Handles the majority of inbound tenant requests without human touch; edge cases route cleanly to the on-call property manager.",
+    "stack": ["Claude", "TypeScript", "Postgres", "Temporal"],
+    "role": "Sole engineer — architecture, agent design, evals, deployment."
+  },
+  {
+    "slug": "field-ops-dispatch-copilot",
+    "title": "Field-ops dispatch copilot",
+    "industryTag": "US facilities",
+    "year": 2024,
+    "oneLiner": "Copilot that reads incoming maintenance tickets, drafts dispatch plans, and surfaces the right technician for the job.",
+    "problem": "Dispatchers spent most of their shift pattern-matching tickets to technicians — a job they did well but couldn't scale as the operation grew.",
+    "approach": "LLM-driven classification + a retrieval layer over technician skills, certifications, and current workload. Copilot drafts the dispatch; the human approves or edits. Full eval harness to catch regressions as the ticket taxonomy evolved.",
+    "outcome": "Shipped to the dispatch team. Dispatchers now approve ~80% of drafts with minor edits, freeing time for the hard calls.",
+    "stack": ["Claude", "Python", "FastAPI", "pgvector"],
+    "role": "Sole engineer — agent design, retrieval layer, eval harness, production rollout."
+  },
+  {
+    "slug": "agentic-sales-call-analysis",
+    "title": "Agentic sales-call analysis",
+    "industryTag": "SaaS",
+    "year": 2024,
+    "oneLiner": "System that ingests sales-call recordings, scores them against a coaching rubric, and surfaces coachable moments to the rep's manager.",
+    "problem": "Sales managers couldn't listen to every call their reps made. Off-the-shelf call analysis tools scored calls generically and missed the things this team actually cared about.",
+    "approach": "Transcript pipeline → rubric-driven LLM judge with per-category sub-prompts → manager dashboard. LLM-as-judge backed by a human-labeled calibration set that I re-ran against every prompt change.",
+    "outcome": "Production system. Managers use it weekly in coaching. Reduced off-the-shelf tool spend by cancelling the incumbent.",
+    "stack": ["Claude", "Whisper", "Next.js", "Postgres"],
+    "role": "Sole engineer — transcript pipeline, LLM judge, dashboard, calibration loop."
+  },
+  {
+    "slug": "construction-ops-intelligence",
+    "title": "Construction-ops intelligence platform",
+    "industryTag": "US construction",
+    "year": 2023,
+    "oneLiner": "Platform that pulls from project management, scheduling, and field-report sources, then answers operator questions in natural language.",
+    "problem": "Operations leads were stitching together six tools to answer basic questions about project status. Every answer required a human to cross-reference data that already existed.",
+    "approach": "Unified data layer over existing sources, retrieval-augmented agent on top. Operators ask questions in plain English; agent cites the source document for every answer.",
+    "outcome": "Live platform. Operators get answers in seconds instead of hours. Full citation trail on every response — non-negotiable for the team's audit requirements.",
+    "stack": ["Claude", "Python", "pgvector", "Airbyte"],
+    "role": "Sole engineer — data layer, agent architecture, citation system."
+  },
+  {
+    "slug": "agentic-exam-prep-tutor",
+    "title": "Agentic exam-prep tutor with PDF chat",
+    "industryTag": "EdTech",
+    "year": 2023,
+    "oneLiner": "Tutor that ingests a student's textbook or lecture PDFs and drills them on the material, adapting to what they get wrong.",
+    "problem": "Students studying for professional exams needed adaptive practice on their own course material, not generic question banks.",
+    "approach": "PDF ingestion + chunking + retrieval. Tutor agent with three tools (question generation, answer grading, spaced-repetition scheduling). Session memory to avoid re-asking mastered material.",
+    "outcome": "Shipped as a paid product. Students use it daily; retention metrics outperformed the team's generic-question-bank benchmark.",
+    "stack": ["Claude", "Next.js", "Postgres", "pgvector"],
+    "role": "Sole engineer — ingestion, agent, UI, spaced-repetition scheduler."
+  }
+]

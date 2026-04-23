@@ -1,75 +1,148 @@
-import Hero from "@/components/home/Hero";
-import ServiceCard from "@/components/cards/ServiceCard";
-import { cn } from '@/lib/utils';
+import Link from 'next/link'
+import { ArrowRight } from 'lucide-react'
+import Hero from '@/components/home/Hero'
+import servicesData from '@/data/services.json'
+import processData from '@/data/process.json'
+import workData from '@/data/work.json'
 
-export const dynamic = 'force-dynamic'
-
-const services = [
-  { name: 'AI/ML Solutions', slug: 'ai-ml-solutions', icon: 'brain', description: 'Custom machine learning for enterprise problems with ground-truth validation.' },
-  { name: 'Computer Vision Models', slug: 'computer-vision', icon: 'camera', description: 'Real-time CV systems for industrial applications and precision manufacturing.' },
-  { name: 'Industrial Automation', slug: 'industrial-automation', icon: 'cpu', description: 'End-to-end automation systems designed for reliability and ROI.' },
-  { name: 'Web Development', slug: 'web-development', icon: 'code', description: 'Full-stack web solutions supporting complex AI backends and data flows.' },
-]
+type Service = { tier: string; name: string; slug: string; priceLabel: string; duration: string; summary: string; order: number }
+type Process = { step: number; title: string; duration: string; description: string }
+type Work = { slug: string; title: string; industryTag: string; oneLiner: string }
 
 export default function Home() {
-  return (
-    <div className="flex flex-col gap-0">
-      <Hero />
+    const services = (servicesData as Service[]).slice().sort((a, b) => a.order - b.order)
+    const tierA = services.filter(s => s.tier === 'A')
+    const tierB = services.filter(s => s.tier === 'B')
+    const process = processData as Process[]
+    const featured = (workData as Work[]).slice(0, 3)
 
-      {/* Services Section */}
-      <section className="relative py-16 sm:py-20 lg:py-32 bg-nm-bg overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute -top-10 -left-16 h-[min(60vw,18rem)] w-[min(60vw,18rem)] rounded-full bg-brand-orange blur-[min(16vw,120px)] opacity-5" />
-          <div className="absolute bottom-0 right-0 h-[min(56vw,16rem)] w-[min(56vw,16rem)] rounded-full bg-brand-orange blur-[min(14vw,110px)] opacity-5" />
-        </div>
-        <div className="relative max-w-[1380px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mb-12">
-            <div className="space-y-3 flex flex-col items-center text-center sm:items-start sm:text-left">
-              <h2 className="inline-flex items-center gap-3 rounded-full nm-flat-sm px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-nm-text-muted">What We Solve</h2>
-              <h3 className="text-4xl md:text-5xl font-bold text-nm-text leading-tight">Enterprise-Grade AI Services</h3>
-              <p className="text-base md:text-lg text-nm-text-muted max-w-2xl">End-to-end pods that ship production ML, computer vision, automation, and full-stack software with measurable ROI.</p>
-            </div>
-          </div>
-          <div className="grid grid-cols-1 lg:grid-cols-12 auto-rows-[minmax(220px,1fr)] sm:auto-rows-[minmax(260px,1fr)] lg:auto-rows-[minmax(280px,1fr)] gap-8">
-            {services.map((service, i) => {
-              const layout = [
-                "lg:col-span-4 lg:row-span-1",
-                "lg:col-span-8 lg:row-span-1",
-                "lg:col-span-8 lg:row-span-1",
-                "lg:col-span-4 lg:row-span-1",
-              ][i] || "lg:col-span-6"
+    return (
+        <>
+            <Hero />
 
-              return (
-                <ServiceCard
-                  key={service.slug}
-                  {...service}
-                  index={i}
-                  className={cn(layout, "h-full")}
-                />
-              )
-            })}
-          </div>
-        </div>
-      </section>
+            {/* Services — tier A/B */}
+            <section className="py-20 md:py-28 border-t border-border">
+                <div className="container-page">
+                    <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+                        <div className="max-w-2xl">
+                            <p className="text-sm text-accent font-medium mb-3">Services</p>
+                            <h2 className="text-3xl md:text-5xl font-semibold text-fg leading-tight">Six fixed-price engagements.</h2>
+                            <p className="mt-4 text-fg-muted text-lg">
+                                All prices on the site. All scopes written down before work starts. Weekly shipped demos throughout.
+                            </p>
+                        </div>
+                        <Link href="/services" className="text-accent hover:text-accent-hover inline-flex items-center gap-1.5 text-sm font-medium">
+                            Full pricing <ArrowRight size={14} />
+                        </Link>
+                    </div>
 
-      {/* CTA Section */}
-      <section className="relative py-16 sm:py-20 lg:py-24 bg-nm-bg overflow-hidden">
-        <div className="relative max-w-[1380px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="rounded-[32px] nm-flat-lg p-7 sm:p-10 lg:p-14 border border-nm-text/5 flex flex-col items-center text-center sm:items-start sm:text-left lg:flex-row gap-8 sm:gap-10 lg:items-center lg:justify-between">
-            <div className="space-y-4 max-w-2xl flex flex-col items-center sm:items-start">
-              <p className="text-xs font-semibold uppercase tracking-[0.3em] text-nm-text-muted">Engage the founders</p>
-              <h2 className="text-4xl md:text-5xl font-bold text-nm-text leading-tight">Ready to solve a real problem?</h2>
-              <p className="text-lg text-nm-text-muted">Stop chasing hype. Start building solutions. Schedule a consultation with our founding team today.</p>
-            </div>
-            <a
-              href="/contact"
-              className="inline-flex items-center justify-center gap-2 rounded-full nm-btn-accent px-7 sm:px-10 py-3.5 sm:py-4 text-base sm:text-lg font-bold uppercase tracking-[0.14em] nm-flat-md transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_20px_rgba(241,90,47,0.4)] active:scale-[0.98]"
-            >
-              Schedule a Consultation
-            </a>
-          </div>
-        </div>
-      </section>
-    </div>
-  );
+                    <div className="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h3 className="text-xs uppercase tracking-wider text-fg-subtle mb-4">Agentic MVPs · $8–15K · 2–6 weeks</h3>
+                            <div className="space-y-3">
+                                {tierB.map(s => (
+                                    <Link
+                                        key={s.slug}
+                                        href={`/services/${s.slug}`}
+                                        className="card block p-5 hover:border-border-strong transition-colors group"
+                                    >
+                                        <div className="flex items-center justify-between gap-4 mb-2">
+                                            <h4 className="font-medium text-fg group-hover:text-accent transition-colors">{s.name}</h4>
+                                            <span className="text-sm text-fg-muted tabular-nums">{s.priceLabel}</span>
+                                        </div>
+                                        <p className="text-sm text-fg-muted leading-relaxed">{s.summary}</p>
+                                    </Link>
+                                ))}
+                            </div>
+                        </div>
+                        <div>
+                            <h3 className="text-xs uppercase tracking-wider text-fg-subtle mb-4">Agentic Production Systems · $15–30K+ · 6–10 weeks</h3>
+                            <div className="space-y-3">
+                                {tierA.map(s => (
+                                    <Link
+                                        key={s.slug}
+                                        href={`/services/${s.slug}`}
+                                        className="card block p-5 hover:border-border-strong transition-colors group"
+                                    >
+                                        <div className="flex items-center justify-between gap-4 mb-2">
+                                            <h4 className="font-medium text-fg group-hover:text-accent transition-colors">{s.name}</h4>
+                                            <span className="text-sm text-fg-muted tabular-nums">{s.priceLabel}</span>
+                                        </div>
+                                        <p className="text-sm text-fg-muted leading-relaxed">{s.summary}</p>
+                                    </Link>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* Work */}
+            <section className="py-20 md:py-28 border-t border-border">
+                <div className="container-page">
+                    <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+                        <div className="max-w-2xl">
+                            <p className="text-sm text-accent font-medium mb-3">Past work</p>
+                            <h2 className="text-3xl md:text-5xl font-semibold text-fg leading-tight">Five agentic systems, shipped to production.</h2>
+                            <p className="mt-4 text-fg-muted text-lg">
+                                Client names are kept private by default. Industry and shape of the work are public. Happy to talk specifics on a scoping call under NDA.
+                            </p>
+                        </div>
+                        <Link href="/work" className="text-accent hover:text-accent-hover inline-flex items-center gap-1.5 text-sm font-medium">
+                            All work <ArrowRight size={14} />
+                        </Link>
+                    </div>
+
+                    <div className="grid md:grid-cols-3 gap-4">
+                        {featured.map(w => (
+                            <Link key={w.slug} href={`/work/${w.slug}`} className="card p-6 block hover:border-border-strong transition-colors group">
+                                <p className="text-xs uppercase tracking-wider text-fg-subtle mb-3">{w.industryTag}</p>
+                                <h3 className="text-lg font-medium text-fg group-hover:text-accent transition-colors mb-3">{w.title}</h3>
+                                <p className="text-sm text-fg-muted leading-relaxed">{w.oneLiner}</p>
+                            </Link>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* Process */}
+            <section className="py-20 md:py-28 border-t border-border">
+                <div className="container-page">
+                    <div className="max-w-2xl mb-12">
+                        <p className="text-sm text-accent font-medium mb-3">How I work</p>
+                        <h2 className="text-3xl md:text-5xl font-semibold text-fg leading-tight">Four steps, zero surprises.</h2>
+                    </div>
+
+                    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        {process.map(p => (
+                            <div key={p.step} className="card p-6">
+                                <div className="flex items-baseline gap-3 mb-3">
+                                    <span className="text-accent font-mono text-sm">0{p.step}</span>
+                                    <h3 className="font-medium text-fg">{p.title}</h3>
+                                </div>
+                                <p className="text-xs text-fg-subtle mb-3 font-mono">{p.duration}</p>
+                                <p className="text-sm text-fg-muted leading-relaxed">{p.description}</p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* CTA */}
+            <section className="py-20 md:py-28 border-t border-border">
+                <div className="container-page">
+                    <div className="card p-8 md:p-12 flex flex-col md:flex-row md:items-center justify-between gap-6">
+                        <div className="max-w-xl">
+                            <h2 className="text-2xl md:text-3xl font-semibold text-fg mb-3">Got an agentic AI problem worth $8K+ to solve?</h2>
+                            <p className="text-fg-muted">30-minute scoping call, free. If it&apos;s not a fit, I&apos;ll tell you.</p>
+                        </div>
+                        <Link href="/contact" className="btn btn-primary whitespace-nowrap">
+                            Book a scoping call
+                            <ArrowRight size={16} />
+                        </Link>
+                    </div>
+                </div>
+            </section>
+        </>
+    )
 }

@@ -16,26 +16,31 @@ export function generateOrganizationSchema() {
         "logo": "https://labs.codantrix.com/logo.png",
         "founder": {
             "@type": "Person",
-            "name": "Hassan Ali Mehdi"
+            "name": "Hassan Ali Mehdi",
         },
-        "description": "B2B AI/ML partner for enterprises specializing in industrial-grade reliability.",
+        "description":
+            "One-person agentic AI studio. Production agentic systems for SaaS founders and seed–Series B teams, built on fixed-price engagements with weekly shipped demos.",
         "address": {
             "@type": "PostalAddress",
             "addressLocality": "Lahore",
-            "addressCountry": "Pakistan"
-        }
+            "addressCountry": "Pakistan",
+        },
+        "sameAs": [
+            "https://www.linkedin.com/in/hassanmehdi",
+            "https://www.linkedin.com/company/codantrix-labs",
+        ],
     }
 }
 
-export function generateServiceSchema(service: { name: string, description: string }) {
+export function generateServiceSchema(service: { name: string; description: string }) {
     return {
         "@context": "https://schema.org",
         "@type": "Service",
         "serviceType": service.name,
         "provider": {
             "@type": "Organization",
-            "name": "Codantrix Labs"
+            "name": "Codantrix Labs",
         },
-        "description": service.description
+        "description": service.description,
     }
 }

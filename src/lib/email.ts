@@ -5,7 +5,7 @@ function getEnv(name: string) {
     const fromProcess = process.env[name]
     if (typeof fromProcess === 'string' && fromProcess.length > 0) return fromProcess
     const { env } = getCloudflareContext()
-    const fromCf = (env as any)?.[name]
+    const fromCf = (env as unknown as Record<string, string | undefined>)?.[name]
     if (typeof fromCf === 'string' && fromCf.length > 0) return fromCf
     return null
 }
@@ -46,9 +46,9 @@ async function getZohoAccessToken() {
 
     const res = await fetch(url.toString(), { method: 'POST' })
     if (!res.ok) return null
-    const data = (await res.json()) as any
+    const data = (await res.json()) as { access_token?: string }
     if (typeof data?.access_token !== 'string' || data.access_token.length === 0) return null
-    return data.access_token as string
+    return data.access_token
 }
 
 async function sendWithZoho(params: { to: string; subject: string; html: string }) {

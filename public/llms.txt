@@ -1,29 +1,54 @@
 # Codantrix Labs
 
-> Pragmatic AI/ML partner for enterprises. Real solutions for real problems — built with accountable engineering and measurable ROI.
+> One-person agentic AI studio. Production agentic systems for SaaS founders and seed–Series B teams, shipped on fixed-price engagements with weekly demos.
 
-Codantrix Labs is a B2B AI/ML consultancy founded by Hassan Ali Mehdi in Lahore, Pakistan. We build production-grade machine learning, computer vision, industrial automation, and full-stack software for companies that need systems to work in the real world — not just in a demo.
+Codantrix Labs is the studio of Hassan Ali Mehdi, a solo operator based in Lahore, Pakistan. Six years shipping production software, full-time on agentic AI since 2023. Entity registered with SECP Pakistan.
 
-## What we do
+## Who I work with
 
-- **AI/ML Solutions** — Custom machine learning models with ground-truth validation for enterprise problems
-- **Computer Vision Models** — Real-time CV systems for industrial applications and precision manufacturing
-- **Industrial Automation** — End-to-end automation designed for reliability and ROI
-- **Web Development** — Full-stack web solutions supporting complex AI backends and data flows
+- Solo SaaS founders and 1–10 person startups — Tier B engagements ($8–15K, 2–6 weeks)
+- Ops and product leads at seed–Series B companies — Tier A engagements ($15–30K+, 6–10 weeks)
 
-## How we work
+## Services (all fixed-price)
 
-Senior-IC pods. Production rigor from day one: hardened MLOps, observability, and ROI-first delivery. Cloud, edge, and on-prem deployment. Direct access to the founders — no layers between you and the people building your system.
+### Tier B — Agentic MVPs ($8–15K, 2–6 weeks)
+
+- **AI Feature Add-on — $8K, 2–3 weeks** — One AI feature added to an existing SaaS (classification, summarization, extraction, or a single agent behind a chat surface)
+- **Agentic MVP — $12K, 4–6 weeks** — A working agentic system from zero: one agent, 3–6 tools, real data, usable UI, production deployment
+- **Custom (Tier B) — from $15K** — Scoped per project on the call
+
+### Tier A — Agentic Production Systems ($15–30K+, 6–10 weeks)
+
+- **Agentic Workflow — $15K, 6 weeks** — Production agentic workflow inside an existing product: multi-step agent, 5–10 tools, evals, observability, full deployment
+- **Agentic Platform — $22K, 8 weeks** — Multi-agent architecture with router, shared memory, reusable tool library, admin surface, full eval pipeline in CI
+- **Custom Agentic System — from $30K** — Longer-horizon work, domain-specific; vetted contractor brought in if scope genuinely needs it
+
+## How engagements run
+
+1. **Scoping call** — 30 min, free. If it's not a fit, I'll tell you on the call.
+2. **Written SOW + 50% upfront** — fixed scope, fixed price, fixed timeline.
+3. **Weekly shipped demos** — every Friday, Loom walkthrough + link to real running code.
+4. **Production handoff on final 50%** — code in your repo, on your infra, 2-week bug-fix window, no retainer trap.
+
+## Past work (anonymized)
+
+- Agentic property-management assistant — US real estate, 2024
+- Field-ops dispatch copilot — US facilities, 2024
+- Agentic sales-call analysis — SaaS, 2024
+- Construction-ops intelligence platform — US construction, 2023
+- Agentic exam-prep tutor with PDF chat — EdTech, 2023
 
 ## Key pages
 
-- [Home](https://labs.codantrix.com/) — What we solve and how
-- [Services](https://labs.codantrix.com/services) — AI/ML, computer vision, automation, web
-- [Case Studies](https://labs.codantrix.com/case-studies) — Production deployments
-- [Blog](https://labs.codantrix.com/blog) — Notes from the lab
-- [Contact](https://labs.codantrix.com/contact) — Engage the founders
+- [Home](https://labs.codantrix.com/) — Services overview, past work, process, CTA
+- [Services](https://labs.codantrix.com/services) — Six tiered engagements with full scope
+- [Work](https://labs.codantrix.com/work) — Anonymized writeups of five shipped systems
+- [About](https://labs.codantrix.com/about) — Who Hassan is, what the studio is, why solo
+- [Contact](https://labs.codantrix.com/contact) — Book the scoping call
+- [Blog](https://labs.codantrix.com/blog) — Notes on building agentic AI in production
 
 ## Contact
 
-Email: contact@codantrix.com
-Location: Lahore, Pakistan (global engagements)
+Email: hassan@codantrix.com
+Location: Lahore, Pakistan (GMT+5, working US & EU hours)
+Billing: USD via Wise and Payoneer

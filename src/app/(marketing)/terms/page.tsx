@@ -1,43 +1,55 @@
-import Link from 'next/link'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+    title: 'Terms of service',
+    description: 'Terms of using the Codantrix Labs website.',
+}
 
 export default function TermsPage() {
     return (
-        <div className="pt-40 pb-24 bg-nm-bg">
-            <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="mb-16 flex flex-col items-center text-center sm:items-start sm:text-left mx-auto sm:mx-0">
-                    <h1 className="text-5xl font-bold mb-6 text-nm-text">Terms of <span className="text-brand-orange">Service.</span></h1>
-                    <p className="text-lg text-nm-text-muted italic">Last Updated: April 24, 2026</p>
-                </div>
+        <article className="pt-32 md:pt-40 pb-20">
+            <div className="container-page max-w-2xl prose-content">
+                <p className="text-sm text-accent font-medium mb-4">Legal</p>
+                <h1 className="text-4xl md:text-5xl font-semibold leading-[1.1] mb-4 text-fg">Terms of service</h1>
+                <p className="text-sm text-fg-subtle mb-10">Last updated: April 2026</p>
 
-                <div className="space-y-12">
-                    <section className="nm-flat-md p-8 sm:p-10 rounded-3xl border border-nm-text/5 flex flex-col items-center text-center sm:items-start sm:text-left">
-                        <h2 className="text-2xl font-bold text-brand-orange mb-6 uppercase tracking-wider">1. Consulting Services</h2>
-                        <p className="text-nm-text-muted leading-relaxed text-lg">
-                            Codantrix Labs provides B2B AI/ML consulting and development services. All project timelines, deliverables, and costs are finalized via individual Master Service Agreements (MSAs) tailored to your specific operational needs.
-                        </p>
-                    </section>
+                <Section title="Short version">
+                    These terms cover using the website. Paid engagements run under a separate written SOW that I send after the scoping call — that SOW is the binding contract.
+                </Section>
 
-                    <section className="nm-flat-md p-8 sm:p-10 rounded-3xl border border-nm-text/5 flex flex-col items-center text-center sm:items-start sm:text-left">
-                        <h2 className="text-2xl font-bold text-brand-orange mb-6 uppercase tracking-wider">2. Intellectual Property</h2>
-                        <p className="text-nm-text-muted leading-relaxed text-lg">
-                            Unless otherwise agreed in writing, intellectual property for custom models, algorithms, and software developed specifically for your project by Codantrix Labs is transferred to the client upon receipt of full payment.
-                        </p>
-                    </section>
+                <Section title="Website use">
+                    The content on labs.codantrix.com is provided as-is. Nothing on the public site is a binding offer or guarantee — prices and scopes are reference points. The binding document for any engagement is the signed SOW.
+                </Section>
 
-                    <section className="nm-flat-md p-8 sm:p-10 rounded-3xl border border-nm-text/5 flex flex-col items-center text-center sm:items-start sm:text-left">
-                        <h2 className="text-2xl font-bold text-brand-orange mb-6 uppercase tracking-wider">3. Performance Disclaimer</h2>
-                        <p className="text-nm-text-muted leading-relaxed text-lg">
-                            While our models achieve high technical accuracy, real-world deployment outcomes are subject to ground-truth data quality and edge-case noise inherent in industrial environments. We guarantee architectural reliability, but success depends on continuous data integrity.
-                        </p>
-                    </section>
-                </div>
+                <Section title="Intellectual property">
+                    Content, copy, code samples, and case-study writeups on this site are mine. If you&apos;d like to quote them, credit &ldquo;Codantrix Labs&rdquo; and link back. Don&apos;t repost wholesale.
+                </Section>
 
-                <div className="mt-20 p-10 nm-inset-sm rounded-3xl flex flex-col items-center text-center sm:items-start sm:text-left border-l-4 border-brand-orange">
-                    <Link href="/contact" className="text-nm-text font-bold hover:text-brand-orange transition-colors text-lg flex items-center justify-center sm:justify-start gap-3 w-full sm:w-auto">
-                        Questions about our terms? Get in touch <span className="text-brand-orange">→</span>
-                    </Link>
-                </div>
+                <Section title="Liability">
+                    I maintain this site carefully but make no warranty that it&apos;s error-free or always available. To the fullest extent permitted under Pakistani law, Codantrix Labs is not liable for any damages arising from your use of the site.
+                </Section>
+
+                <Section title="Engagements">
+                    Paid work is governed by the SOW we sign, not these terms. The SOW covers scope, price, timeline, deliverables, IP, confidentiality, and termination.
+                </Section>
+
+                <Section title="Governing law">
+                    These terms are governed by the laws of the Islamic Republic of Pakistan.
+                </Section>
+
+                <Section title="Contact">
+                    Codantrix Labs · Lahore, Pakistan · <a href="mailto:hassan@codantrix.com" className="text-accent hover:text-accent-hover">hassan@codantrix.com</a>
+                </Section>
             </div>
-        </div>
+        </article>
+    )
+}
+
+function Section({ title, children }: { title: string; children: React.ReactNode }) {
+    return (
+        <section className="mb-10">
+            <h2 className="text-xl font-semibold text-fg mb-3">{title}</h2>
+            <div className="text-fg-muted leading-relaxed space-y-3">{children}</div>
+        </section>
     )
 }
