@@ -13,8 +13,8 @@ const poppins = Poppins({
 
 export const metadata: Metadata = {
   title: "Codantrix Labs | Real Solutions for Real Problems",
-  description: "B2B AI/ML partner for enterprises. Pragmatic intelligence built for measurable industrial and enterprise ROI.",
-  metadataBase: new URL("https://codantrix.com"),
+  description: "Pragmatic AI/ML partner for enterprises. Accountable engineering and measurable ROI.",
+  metadataBase: new URL("https://labs.codantrix.com"),
   icons: {
     icon: "/Logo_Favicon.ico",
     shortcut: "/Logo_Favicon.ico",

@@ -12,8 +12,8 @@ export function generateOrganizationSchema() {
         "@context": "https://schema.org",
         "@type": "Organization",
         "name": "Codantrix Labs",
-        "url": "https://codantrix.com",
-        "logo": "https://codantrix.com/logo.png",
+        "url": "https://labs.codantrix.com",
+        "logo": "https://labs.codantrix.com/logo.png",
         "founder": {
             "@type": "Person",
             "name": "Hassan Ali Mehdi"
@@ -21,7 +21,7 @@ export function generateOrganizationSchema() {
         "description": "B2B AI/ML partner for enterprises specializing in industrial-grade reliability.",
         "address": {
             "@type": "PostalAddress",
-            "addressLocality": "Karachi",
+            "addressLocality": "Lahore",
             "addressCountry": "Pakistan"
         }
     }

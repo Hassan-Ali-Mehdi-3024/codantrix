@@ -1,43 +1,34 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { Calendar, Clock, ArrowRight, Search } from 'lucide-react'
-import NewsletterForm from '@/components/blog/NewsletterForm'
 import { blogPosts } from '@/data/blog-posts'
 
 export const dynamic = 'force-dynamic'
 
 export default async function BlogHubPage({ searchParams }: { searchParams: Promise<{ category?: string }> }) {
     const { category } = await searchParams
-    
-    // Filter posts based on category
-    let posts = blogPosts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+
+    let posts = [...blogPosts].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
 
     if (category && category !== 'All') {
         posts = posts.filter(post => post.category === category)
     }
 
-    const categories = [
-        'All',
-        'Industry Deep-Dive',
-        'Technical Guide',
-        'Thought Leadership',
-        'Success Stories'
-    ]
+    const categories = ['All']
 
     return (
         <div className="pt-40 pb-24 bg-nm-bg">
             <div className="max-w-[1380px] mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="mb-24 text-left">
-                    <h2 className="text-brand-orange font-bold uppercase tracking-[0.3em] mb-4 text-sm">Industrial Intelligence</h2>
+                    <h2 className="text-brand-orange font-bold uppercase tracking-[0.3em] mb-4 text-sm">Writing</h2>
                     <h1 className="text-5xl md:text-7xl font-bold text-nm-text mb-8">
-                        Process <span className="text-brand-orange">Intelligence.</span>
+                        Notes from the <span className="text-brand-orange">Lab.</span>
                     </h1>
                     <p className="text-xl text-nm-text-muted leading-relaxed max-w-2xl">
-                        Deep dives into industrial AI, ground-truth validation, and the measurable ROI of algorithmic scale.
+                        New posts coming soon.
                     </p>
                 </div>
 
-                {/* Filter Bar */}
                 <div className="flex flex-wrap justify-start gap-4 mb-16 pb-8 border-b border-nm-text/5">
                     {categories.map((cat) => (
                         <Link
@@ -102,11 +93,9 @@ export default async function BlogHubPage({ searchParams }: { searchParams: Prom
                 ) : (
                     <div className="py-24 text-center nm-inset-md rounded-3xl">
                         <Search size={48} className="mx-auto mb-4 text-nm-text-muted/20" />
-                        <p className="text-nm-text-muted/40 uppercase tracking-widest font-bold">No articles found in this category</p>
+                        <p className="text-nm-text-muted/40 uppercase tracking-widest font-bold">No articles yet</p>
                     </div>
                 )}
-
-                <NewsletterForm />
             </div>
         </div>
     )

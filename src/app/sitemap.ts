@@ -3,25 +3,16 @@ import { blogPosts } from '@/data/blog-posts'
 import servicesData from '@/data/services.json'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-    const baseUrl = 'https://codantrix.com'
+    const baseUrl = 'https://labs.codantrix.com'
 
     const staticRoutes = [
         '',
-        '/about',
         '/services',
         '/case-studies',
-        '/our-approach',
-        '/solutions-hub',
         '/contact',
         '/blog',
-        '/careers',
-        '/industries',
         '/privacy',
         '/terms',
-        '/resources',
-        '/resources/library',
-        '/testimonials',
-        '/our-team',
     ].map((route) => ({
         url: `${baseUrl}${route}`,
         lastModified: new Date(),
@@ -36,7 +27,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         priority: 0.7,
     }))
 
-    const serviceRoutes = (servicesData as any[]).map((service) => ({
+    const serviceRoutes = (servicesData as { slug: string }[]).map((service) => ({
         url: `${baseUrl}/services/${service.slug}`,
         lastModified: new Date(),
         changeFrequency: 'monthly' as const,

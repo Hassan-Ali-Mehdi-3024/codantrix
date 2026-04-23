@@ -63,25 +63,6 @@ export default function Hero() {
                                 </Link>
                             </motion.div>
 
-                            <motion.div
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                transition={{ duration: 0.9, delay: 0.5 }}
-                                className="grid grid-cols-1 sm:grid-cols-3 gap-5 sm:gap-6 nm-inset-md p-6 sm:p-7 lg:p-8 rounded-3xl"
-                            >
-                                <div className="space-y-1">
-                                    <p className="text-3xl font-bold text-nm-text">97.8%</p>
-                                    <p className="text-xs uppercase tracking-[0.2em] text-nm-text-muted">Accuracy</p>
-                                </div>
-                                <div className="space-y-1">
-                                    <p className="text-3xl font-bold text-brand-orange drop-shadow-[0_2px_8px_rgba(241,90,47,0.4)]">80%+</p>
-                                    <p className="text-xs uppercase tracking-[0.2em] text-nm-text-muted">Efficiency Gain</p>
-                                </div>
-                                <div className="space-y-1">
-                                    <p className="text-3xl font-bold text-nm-text">ROI</p>
-                                    <p className="text-xs uppercase tracking-[0.2em] text-nm-text-muted">First 12 Months</p>
-                                </div>
-                            </motion.div>
                         </div>
 
                         <motion.div

@@ -9,10 +9,7 @@ import ThemeToggle from './ThemeToggle'
 
 const navItems = [
     { name: 'Services', href: '/services' },
-    { name: 'Portfolio', href: '/case-studies' },
     { name: 'Blog', href: '/blog' },
-    { name: 'Careers', href: '/careers' },
-    { name: 'Proof', href: '/testimonials' },
 ]
 
 export default function Navbar() {
@@ -77,12 +74,6 @@ export default function Navbar() {
                         >
                             Schedule Consultation
                         </Link>
-                        <Link
-                            href="/login"
-                            className="inline-flex h-12 items-center justify-center rounded-full nm-flat-sm px-6 text-base font-medium tracking-wide text-nm-text/85 transition-all duration-300 hover:nm-flat-md hover:text-brand-orange active:nm-pressed-sm whitespace-nowrap"
-                        >
-                            Login
-                        </Link>
                     </div>
 
                     <div className="hidden lg:flex xl:hidden items-center justify-end flex-1 gap-[1%]">
@@ -117,15 +108,6 @@ export default function Navbar() {
                                             {item.name}
                                         </Link>
                                     ))}
-                                    <div className="h-px bg-nm-text/10 my-1 mx-4" />
-                                    <Link
-                                        href="/login"
-                                        onClick={() => setIsDropdownOpen(false)}
-                                        role="menuitem"
-                                        className="block px-4 py-3 text-sm font-medium text-nm-text/80 hover:text-brand-orange hover:nm-flat-sm transition-all duration-200"
-                                    >
-                                        Client Login
-                                    </Link>
                                 </div>
                             </div>
                         </div>
@@ -177,13 +159,6 @@ export default function Navbar() {
                         onClick={() => setIsOpen(false)}
                     >
                         Schedule Consultation
-                    </Link>
-                    <Link
-                        href="/login"
-                        className="block w-full rounded-xl border border-nm-text/10 nm-flat-sm text-center text-nm-text py-3 font-bold uppercase tracking-[0.14em] hover:text-brand-orange transition-all duration-300 active:nm-pressed-sm"
-                        onClick={() => setIsOpen(false)}
-                    >
-                        Client Login
                     </Link>
                 </div>
             </div>

@@ -6,7 +6,7 @@ export default function Footer() {
         <footer className="w-full pb-8 sm:pb-12 relative z-20">
             <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="nm-flat-lg rounded-[32px] p-8 sm:p-12 lg:p-16 border border-nm-text/5">
-                    <div className="grid grid-cols-1 md:grid-cols-6 gap-10 lg:gap-14 mb-12">
+                    <div className="grid grid-cols-1 md:grid-cols-4 gap-10 lg:gap-14 mb-12">
                         {/* Brand Col */}
                         <div className="md:col-span-2 space-y-6 flex flex-col items-center sm:items-start text-center sm:text-left">
                             <Link href="/" className="text-2xl font-bold tracking-tight inline-flex items-center gap-4 text-nm-text hover:text-brand-orange transition-colors">
@@ -16,14 +16,11 @@ export default function Footer() {
                             <p className="text-sm md:text-base text-nm-text-muted leading-relaxed max-w-xl">
                                 Pragmatic AI/ML partner for enterprises. Real solutions for real problems—built with accountable engineering and measurable ROI.
                             </p>
-                            <Link href="/about" className="inline-flex items-center gap-2 text-[11px] font-black uppercase tracking-[0.2em] text-brand-orange hover:text-nm-text transition-all hover:translate-x-1">
-                                Our Story →
-                            </Link>
                         </div>
 
-                        {/* Links Col 3 */}
+                        {/* Services Col */}
                         <div className="space-y-4 flex flex-col items-center sm:items-start text-center sm:text-left">
-                            <h4 className="text-xs font-bold uppercase tracking-[0.28em] text-brand-orange">Intel & Tools</h4>
+                            <h4 className="text-xs font-bold uppercase tracking-[0.28em] text-brand-orange">Services</h4>
                             <ul className="space-y-3 text-sm text-nm-text-muted w-full">
                                 <li><Link href="/services/ai-ml-solutions" className="hover:text-nm-text transition-all hover:translate-x-1 block">AI/ML Solutions</Link></li>
                                 <li><Link href="/services/computer-vision" className="hover:text-nm-text transition-all hover:translate-x-1 block">Computer Vision</Link></li>
@@ -32,34 +29,11 @@ export default function Footer() {
                             </ul>
                         </div>
 
-                        {/* Links Col 2 */}
-                        <div className="space-y-4 flex flex-col items-center sm:items-start text-center sm:text-left">
-                            <h4 className="text-xs font-bold uppercase tracking-[0.28em] text-brand-orange">Company</h4>
-                            <ul className="space-y-3 text-sm text-nm-text-muted w-full">
-                                <li><Link href="/about" className="hover:text-nm-text transition-all hover:translate-x-1 block">About Us</Link></li>
-                                <li><Link href="/our-team" className="hover:text-nm-text transition-all hover:translate-x-1 block">Our Team</Link></li>
-                                <li><Link href="/careers" className="hover:text-nm-text transition-all hover:translate-x-1 block">Careers</Link></li>
-                                <li><Link href="/testimonials" className="hover:text-nm-text transition-all hover:translate-x-1 block">Client Proof</Link></li>
-                                <li><Link href="/case-studies" className="hover:text-nm-text transition-all hover:translate-x-1 block">Portfolio</Link></li>
-                                <li><Link href="/our-approach" className="hover:text-nm-text transition-all hover:translate-x-1 block">Methodology</Link></li>
-                            </ul>
-                        </div>
-
-                        {/* Links Col 2 */}
-                        <div className="space-y-4 flex flex-col items-center sm:items-start text-center sm:text-left">
-                            <h4 className="text-xs font-bold uppercase tracking-[0.28em] text-brand-orange">Resources</h4>
-                            <ul className="space-y-3 text-sm text-nm-text-muted w-full">
-                                <li><Link href="/blog" className="hover:text-nm-text transition-all hover:translate-x-1 block">Blog (Insights)</Link></li>
-                                <li><Link href="/resources/library" className="hover:text-nm-text transition-all hover:translate-x-1 block">Library</Link></li>
-                                <li><Link href="/solutions-hub" className="hover:text-nm-text transition-all hover:translate-x-1 block">Solution Mapper</Link></li>
-                            </ul>
-                        </div>
-
                         {/* Contact Col */}
                         <div className="space-y-4 flex flex-col items-center sm:items-start text-center sm:text-left">
                             <h4 className="text-xs font-bold uppercase tracking-[0.28em] text-brand-orange">Locate Us</h4>
                             <p className="text-sm text-nm-text-muted leading-relaxed">
-                                Based in Pakistan.<br />
+                                Based in Lahore, Pakistan.<br />
                                 Global AI Partner.
                             </p>
                             <div className="pt-2">

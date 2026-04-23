@@ -6,7 +6,7 @@ export default function PrivacyPage() {
             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="mb-16 flex flex-col items-center text-center sm:items-start sm:text-left mx-auto sm:mx-0">
                     <h1 className="text-5xl font-bold mb-6 text-nm-text">Privacy <span className="text-brand-orange">Policy.</span></h1>
-                    <p className="text-lg text-nm-text-muted italic">Last Updated: December 28, 2025</p>
+                    <p className="text-lg text-nm-text-muted italic">Last Updated: April 24, 2026</p>
                 </div>
 
                 <div className="space-y-12">

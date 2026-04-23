@@ -1,13 +1,5 @@
 import Hero from "@/components/home/Hero";
 import ServiceCard from "@/components/cards/ServiceCard";
-import CaseStudyCard from "@/components/cards/CaseStudyCard";
-import IndustrySection from "@/components/home/IndustrySection";
-import SocialProof from "@/components/home/SocialProof";
-import LogoWall from "@/components/home/LogoWall";
-import FeaturedTestimonials from "@/components/home/FeaturedTestimonials";
-import FeaturedBlog from "@/components/home/FeaturedBlog";
-import Link from 'next/link';
-import portfolioProjects from '@/data/case-studies.json'
 import { cn } from '@/lib/utils';
 
 export const dynamic = 'force-dynamic'
@@ -19,29 +11,10 @@ const services = [
   { name: 'Web Development', slug: 'web-development', icon: 'code', description: 'Full-stack web solutions supporting complex AI backends and data flows.' },
 ]
 
-const featuredCaseStudies = [
-  {
-    title: 'Automotive Defect Detection',
-    slug: 'automotive-defect-detection',
-    industry: 'Manufacturing',
-    client: 'Precision Dynamics Ltd.',
-    result: '80% to 97.8% defect detection improvement'
-  },
-  {
-    title: 'Logistics Smart Sorting',
-    slug: 'logistics-smart-sorting',
-    industry: 'Logistics',
-    client: 'FastShip Logistics',
-    result: '3.5 hours to 45 minutes sorting efficiency'
-  },
-]
-
 export default function Home() {
   return (
     <div className="flex flex-col gap-0">
       <Hero />
-      {/* <SocialProof />
-      <LogoWall /> */}
 
       {/* Services Section */}
       <section className="relative py-16 sm:py-20 lg:py-32 bg-nm-bg overflow-hidden">
@@ -67,54 +40,17 @@ export default function Home() {
               ][i] || "lg:col-span-6"
 
               return (
-                <ServiceCard 
+                <ServiceCard
                   key={service.slug}
-                  {...service} 
-                  index={i} 
-                  className={cn(layout, "h-full")} 
+                  {...service}
+                  index={i}
+                  className={cn(layout, "h-full")}
                 />
               )
             })}
           </div>
         </div>
       </section>
-
-      <IndustrySection />
-
-      {/* Case Studies Section */}
-      <section className="py-16 sm:py-20 lg:py-32 bg-nm-bg relative overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-10 right-10 h-[min(44vw,10rem)] w-[min(44vw,10rem)] rounded-full bg-brand-orange blur-[min(12vw,100px)] opacity-5" />
-        </div>
-        <div className="relative max-w-[1380px] mx-auto px-4 sm:px-6 lg:px-8"> 
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
-            <div className="space-y-3 flex flex-col items-center text-center sm:items-start sm:text-left">
-              <h2 className="text-xs font-semibold uppercase tracking-[0.3em] text-brand-orange">Results Delivered</h2>
-              <h3 className="text-4xl md:text-5xl font-bold text-nm-text">Real-World Impact</h3>
-              <p className="text-base md:text-lg text-nm-text-muted">Proof, not promises. Production deployments with clear deltas on accuracy, throughput, and ROI.</p>
-            </div>
-            <Link href="/case-studies" className="inline-flex items-center gap-2 rounded-full nm-flat-sm px-6 py-3 text-sm font-bold uppercase tracking-[0.16em] text-nm-text hover:nm-flat-md transition-all duration-300 active:nm-pressed-sm">
-              View All Case Studies →
-            </Link>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-            {portfolioProjects.slice(0, 2).map((study) => (
-              <div key={study.slug} className="group rounded-3xl nm-flat-md p-1 hover:-translate-y-1 transition-transform duration-300 border border-nm-text/5">
-                <CaseStudyCard
-                  title={study.title}
-                  slug={study.slug}
-                  industry={study.industry}
-                  client={study.client_name}
-                  result={Object.entries(study.results).map(([k, v]) => `${k}: ${v}`).join(', ')}
-                />
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <FeaturedTestimonials />
-      <FeaturedBlog />
 
       {/* CTA Section */}
       <section className="relative py-16 sm:py-20 lg:py-24 bg-nm-bg overflow-hidden">

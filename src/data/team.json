@@ -8,35 +8,5 @@
     "image_url": null,
     "initials": "HAM",
     "order": 1
-  },
-  {
-    "id": "2",
-    "name": "Sarah Chen",
-    "role": "Edge Engineer",
-    "bio": "Specializes in optimizing high-performance computer vision models for low-power edge devices. Sarah ensures that our models run at sub-millisecond speeds on hardware like NVIDIA Jetson and specialized microcontrollers.",
-    "specialties": ["Edge AI", "C++", "NVIDIA Jetson", "Low-latency Systems"],
-    "image_url": null,
-    "initials": "SC",
-    "order": 2
-  },
-  {
-    "id": "3",
-    "name": "David Kim",
-    "role": "Senior Data Scientist",
-    "bio": "Expert in time-series analysis and predictive modeling for industrial assets. David leads our predictive maintenance and grid optimization initiatives, focusing on measurable ROI for every deployment.",
-    "specialties": ["Time-Series", "Predictive Analytics", "Reinforcement Learning", "Data Engineering"],
-    "image_url": null,
-    "initials": "DK",
-    "order": 3
-  },
-  {
-    "id": "4",
-    "name": "James Wilson",
-    "role": "Full-Stack AI Architect",
-    "bio": "Bridges the gap between backend AI pipelines and frontend decision-support tools. James designs the secure, scalable infrastructure that allows our clients to interact with their data in real-time.",
-    "specialties": ["Next.js", "Python", "API Design", "Cloud Infrastructure"],
-    "image_url": null,
-    "initials": "JW",
-    "order": 4
   }
 ]
