@@ -3,6 +3,7 @@ import Link from 'next/link'
 import type { Metadata } from 'next'
 import { ArrowRight } from 'lucide-react'
 import workData from '@/data/work.json'
+import DiagramPlaceholder from '@/components/work/DiagramPlaceholder'
 
 type Props = { params: Promise<{ slug: string }> }
 
@@ -40,55 +41,83 @@ export default async function WorkDetailPage({ params }: Props) {
 
     return (
         <>
-            <section className="pt-32 md:pt-40 pb-12">
-                <div className="container-page max-w-3xl">
-                    <Link href="/work" className="text-sm text-fg-muted hover:text-fg inline-flex items-center gap-1.5 mb-8">
-                        ← All work
-                    </Link>
-                    <div className="flex items-baseline gap-4 mb-4 font-mono text-xs uppercase tracking-wider text-fg-subtle">
-                        <span>{w.industryTag}</span>
-                        <span>·</span>
-                        <span>{w.year}</span>
-                    </div>
-                    <h1 className="text-4xl md:text-5xl font-semibold text-fg leading-[1.1] mb-6">{w.title}</h1>
-                    <p className="text-lg text-fg-muted leading-relaxed">{w.oneLiner}</p>
-                </div>
-            </section>
-
-            <Block label="Problem">{w.problem}</Block>
-            <Block label="Approach">{w.approach}</Block>
-            <Block label="Outcome">{w.outcome}</Block>
-
-            <section className="py-12 border-t border-border">
-                <div className="container-page max-w-3xl grid md:grid-cols-2 gap-12">
-                    <div>
-                        <h2 className="text-xs uppercase tracking-wider text-fg-subtle mb-4">Stack</h2>
-                        <div className="flex flex-wrap gap-2">
-                            {w.stack.map(tech => (
-                                <span key={tech} className="text-xs font-mono px-2.5 py-1 border border-border rounded-md text-fg-muted">
-                                    {tech}
-                                </span>
-                            ))}
+            {/* Header */}
+            <section className="pt-40 md:pt-48 pb-12">
+                <div className="gutter">
+                    <div className="grid grid-cols-12 gap-6">
+                        <div className="col-span-12 lg:col-span-8 lg:col-start-2">
+                            <Link href="/work" className="meta text-fg-45 hover:text-fg-70 transition-colors inline-flex items-center gap-1 mb-10">
+                                ← All work
+                            </Link>
+                            <div className="flex items-baseline gap-4 mb-6 font-mono text-[13px] uppercase tracking-widest">
+                                <span className="text-accent">{w.industryTag}</span>
+                                <span className="text-fg-35">·</span>
+                                <span className="text-fg-45">{w.year}</span>
+                            </div>
+                            <h1 className="mb-8 text-[48px] md:text-[72px]">{w.title}</h1>
+                            <p className="body-lg measure">{w.oneLiner}</p>
                         </div>
-                    </div>
-                    <div>
-                        <h2 className="text-xs uppercase tracking-wider text-fg-subtle mb-4">Role</h2>
-                        <p className="text-fg-muted leading-relaxed">{w.role}</p>
                     </div>
                 </div>
             </section>
 
-            <section className="py-20 md:py-24 border-t border-border">
-                <div className="container-page">
-                    <div className="card p-8 md:p-12 max-w-3xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-6">
-                        <div>
-                            <h2 className="text-xl md:text-2xl font-semibold text-fg mb-2">Building something similar?</h2>
-                            <p className="text-fg-muted text-sm">Book a scoping call — under NDA I can walk through this system and talk specifics about yours.</p>
+            {/* Diagram placeholder */}
+            <section className="py-12">
+                <div className="gutter">
+                    <div className="grid grid-cols-12 gap-6">
+                        <div className="col-span-12 lg:col-span-10 lg:col-start-2">
+                            <DiagramPlaceholder />
                         </div>
-                        <Link href="/contact" className="btn btn-primary whitespace-nowrap">
-                            Book a call
-                            <ArrowRight size={16} />
-                        </Link>
+                    </div>
+                </div>
+            </section>
+
+            <Block marker="01" label="Problem">{w.problem}</Block>
+            <Block marker="02" label="Approach">{w.approach}</Block>
+            <Block marker="03" label="Outcome">{w.outcome}</Block>
+
+            {/* Stack + role */}
+            <section className="py-16 border-t border-hairline">
+                <div className="gutter">
+                    <div className="grid grid-cols-12 gap-6">
+                        <div className="col-span-12 md:col-span-5 lg:col-start-2 mb-10 md:mb-0">
+                            <div className="flex items-baseline gap-6 mb-6">
+                                <span className="section-marker">04</span>
+                                <span className="eyebrow">Stack</span>
+                            </div>
+                            <p className="meta text-fg-70">
+                                {w.stack.join(' · ')}
+                            </p>
+                        </div>
+                        <div className="col-span-12 md:col-span-5 md:col-start-7">
+                            <div className="flex items-baseline gap-6 mb-6">
+                                <span className="section-marker">05</span>
+                                <span className="eyebrow">Role</span>
+                            </div>
+                            <p className="body text-fg-70">{w.role}</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* Quiet CTA */}
+            <section className="py-24 md:py-32">
+                <div className="gutter">
+                    <div className="grid grid-cols-12 gap-6 items-end">
+                        <div className="col-span-12 lg:col-span-6 lg:col-start-2">
+                            <h3 className="text-[28px] md:text-[36px] font-display font-medium tracking-tight mb-3">
+                                Building something similar?
+                            </h3>
+                            <p className="body text-fg-70 measure-narrow">
+                                Under NDA I can walk through this system and talk specifics about yours.
+                            </p>
+                        </div>
+                        <div className="col-span-12 lg:col-span-4 lg:col-start-8 lg:justify-self-end">
+                            <Link href="/book" className="btn btn-primary">
+                                Book a call
+                                <ArrowRight size={16} className="arrow-nudge" />
+                            </Link>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -96,12 +125,19 @@ export default async function WorkDetailPage({ params }: Props) {
     )
 }
 
-function Block({ label, children }: { label: string; children: React.ReactNode }) {
+function Block({ marker, label, children }: { marker: string; label: string; children: React.ReactNode }) {
     return (
-        <section className="py-12 border-t border-border">
-            <div className="container-page max-w-3xl">
-                <h2 className="text-xs uppercase tracking-wider text-fg-subtle mb-4">{label}</h2>
-                <p className="text-fg leading-relaxed text-lg">{children}</p>
+        <section className="py-16 border-t border-hairline">
+            <div className="gutter">
+                <div className="grid grid-cols-12 gap-6">
+                    <div className="col-span-12 lg:col-span-8 lg:col-start-2">
+                        <div className="flex items-baseline gap-6 mb-8">
+                            <span className="section-marker">{marker}</span>
+                            <span className="eyebrow">{label}</span>
+                        </div>
+                        <p className="body text-fg-70 measure">{children}</p>
+                    </div>
+                </div>
             </div>
         </section>
     )

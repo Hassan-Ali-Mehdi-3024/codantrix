@@ -11,16 +11,14 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
-      {
-        source: '/case-studies',
-        destination: '/work',
-        permanent: true,
-      },
-      {
-        source: '/case-studies/:slug',
-        destination: '/work/:slug',
-        permanent: true,
-      },
+      // Legacy rebuild redirects
+      { source: '/case-studies',       destination: '/work',       permanent: true },
+      { source: '/case-studies/:slug', destination: '/work/:slug', permanent: true },
+      // Visual redesign IA renames
+      { source: '/about',              destination: '/hassan',     permanent: true },
+      { source: '/contact',            destination: '/book',       permanent: true },
+      { source: '/blog',               destination: '/notes',      permanent: true },
+      { source: '/blog/:slug',         destination: '/notes/:slug', permanent: true },
     ];
   },
 };

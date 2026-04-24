@@ -1,49 +1,50 @@
 import Link from 'next/link'
 
+// Build-log footer — signature detail (spec Section 7.4 + 11.14)
+// Deploy timestamp baked at build time; readable by humans, ignored by buyers on mobile.
+const BUILD_ISO = new Date().toISOString().slice(0, 10)
+
 export default function Footer() {
     return (
-        <footer className="border-t border-border mt-24 py-12 text-sm text-fg-muted">
-            <div className="container-page">
-                <div className="flex flex-col md:flex-row gap-8 md:gap-12 md:items-start justify-between">
-                    <div className="max-w-sm">
-                        <Link href="/" className="font-semibold text-fg hover:text-accent transition-colors">
+        <footer className="mt-32 border-t border-hairline">
+            <div className="gutter py-12">
+                {/* Build log — mono, muted, left-aligned */}
+                <div className="meta mb-10 space-y-0.5">
+                    <p>
+                        <span className="text-fg-35">last deploy</span> <span className="text-fg-70">{BUILD_ISO}</span>
+                    </p>
+                    <p>
+                        <span className="text-fg-35">built in</span> <span className="text-fg-70">Lahore, Pakistan</span>
+                    </p>
+                    <p>
+                        <span className="text-fg-35">shipped from</span> <span className="text-fg-70">a one-person studio</span>
+                    </p>
+                </div>
+
+                <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-8">
+                    <div>
+                        <Link href="/" className="font-display text-[15px] font-medium tracking-tight hover:opacity-80 transition-opacity">
                             Codantrix Labs
                         </Link>
-                        <p className="mt-3 leading-relaxed">
-                            I&apos;m Hassan. I build production agentic AI systems for SaaS founders and seed–Series B teams. Based in Lahore, Pakistan. Working US &amp; EU hours.
+                        <p className="mt-2 text-[13px] text-fg-45 max-w-xs">
+                            Registered with SECP Pakistan. labs.codantrix.com
                         </p>
                     </div>
 
-                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-8 md:gap-12">
-                        <div>
-                            <h4 className="text-xs font-semibold uppercase tracking-wider text-fg mb-3">Work</h4>
-                            <ul className="space-y-2">
-                                <li><Link href="/services" className="hover:text-fg transition-colors">Services</Link></li>
-                                <li><Link href="/work" className="hover:text-fg transition-colors">Past work</Link></li>
-                                <li><Link href="/contact" className="hover:text-fg transition-colors">Scoping call</Link></li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 className="text-xs font-semibold uppercase tracking-wider text-fg mb-3">Studio</h4>
-                            <ul className="space-y-2">
-                                <li><Link href="/about" className="hover:text-fg transition-colors">About</Link></li>
-                                <li><Link href="/blog" className="hover:text-fg transition-colors">Blog</Link></li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 className="text-xs font-semibold uppercase tracking-wider text-fg mb-3">Legal</h4>
-                            <ul className="space-y-2">
-                                <li><Link href="/privacy" className="hover:text-fg transition-colors">Privacy</Link></li>
-                                <li><Link href="/terms" className="hover:text-fg transition-colors">Terms</Link></li>
-                            </ul>
-                        </div>
-                    </div>
+                    <nav className="flex flex-wrap gap-x-6 gap-y-2 text-[13px]" aria-label="Footer">
+                        <Link href="/services" className="text-fg-70 hover:text-fg">Services</Link>
+                        <Link href="/work" className="text-fg-70 hover:text-fg">Work</Link>
+                        <Link href="/hassan" className="text-fg-70 hover:text-fg">Hassan</Link>
+                        <Link href="/notes" className="text-fg-70 hover:text-fg">Notes</Link>
+                        <Link href="/book" className="text-fg-70 hover:text-fg">Book a call</Link>
+                        <Link href="/privacy" className="text-fg-45 hover:text-fg">Privacy</Link>
+                        <Link href="/terms" className="text-fg-45 hover:text-fg">Terms</Link>
+                    </nav>
                 </div>
 
-                <div className="mt-12 pt-6 border-t border-border flex flex-col sm:flex-row gap-2 justify-between text-xs text-fg-subtle">
-                    <p>© {new Date().getFullYear()} Codantrix Labs. Registered with SECP Pakistan.</p>
-                    <p>labs.codantrix.com</p>
-                </div>
+                <p className="mt-8 meta text-fg-35">
+                    © {new Date().getFullYear()} Codantrix Labs
+                </p>
             </div>
         </footer>
     )

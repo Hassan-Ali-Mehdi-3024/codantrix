@@ -20,7 +20,6 @@ type Service = {
     scope: string[]
     order: number
 }
-
 type Process = { step: number; title: string; duration: string; description: string }
 
 export default function ServicesHub() {
@@ -31,72 +30,110 @@ export default function ServicesHub() {
 
     return (
         <>
-            <section className="pt-32 md:pt-40 pb-16">
-                <div className="container-page max-w-3xl">
-                    <p className="text-sm text-accent font-medium mb-4">Services</p>
-                    <h1 className="text-4xl md:text-6xl font-semibold leading-[1.1] mb-6 text-fg">Six engagements. All fixed price.</h1>
-                    <p className="text-lg text-fg-muted leading-relaxed">
-                        Every scope is written down in an SOW before work starts. Weekly Loom demos every Friday. Code in your repo, running on your infra. No retainer trap, no surprise overages.
-                    </p>
-                </div>
-            </section>
-
-            <section className="py-12 border-t border-border">
-                <div className="container-page">
-                    <div className="flex items-baseline gap-4 mb-8">
-                        <h2 className="text-2xl md:text-3xl font-semibold text-fg">Agentic MVPs</h2>
-                        <p className="text-sm text-fg-muted font-mono">$8–15K · 2–6 weeks · Tier B</p>
-                    </div>
-                    <div className="grid lg:grid-cols-3 gap-6">
-                        {tierB.map(s => <ServiceCard key={s.slug} service={s} />)}
+            {/* Header */}
+            <section className="pt-40 md:pt-48 pb-16">
+                <div className="gutter">
+                    <div className="grid grid-cols-12 gap-6">
+                        <div className="col-span-12 lg:col-span-8 lg:col-start-2">
+                            <p className="eyebrow mb-8">Services</p>
+                            <h1 className="mb-8 measure-wide">Six engagements. All fixed price.</h1>
+                            <p className="body-lg measure">
+                                Every scope is written down in an SOW before work starts. Weekly Loom demos every Friday. Code in your repo, running on your infra. No retainer trap, no surprise overages.
+                            </p>
+                        </div>
                     </div>
                 </div>
             </section>
 
-            <section className="py-12 border-t border-border">
-                <div className="container-page">
-                    <div className="flex items-baseline gap-4 mb-8">
-                        <h2 className="text-2xl md:text-3xl font-semibold text-fg">Agentic Production Systems</h2>
-                        <p className="text-sm text-fg-muted font-mono">$15–30K+ · 6–10 weeks · Tier A</p>
-                    </div>
-                    <div className="grid lg:grid-cols-3 gap-6">
-                        {tierA.map(s => <ServiceCard key={s.slug} service={s} />)}
+            {/* Tier B — Agentic MVPs */}
+            <section className="pt-16 md:pt-24 pb-8">
+                <div className="gutter">
+                    <div className="grid grid-cols-12 gap-6">
+                        <div className="col-span-12 lg:col-span-10 lg:col-start-2">
+                            <div className="flex items-baseline gap-6 mb-8 pb-4 border-b border-hairline">
+                                <span className="section-marker">01</span>
+                                <h2 className="text-[28px] md:text-[32px] font-display font-medium tracking-tight flex-1">
+                                    Agentic MVPs
+                                </h2>
+                                <span className="meta">$8–15K · 2–6 WEEKS</span>
+                            </div>
+                            <ul>
+                                {tierB.map((s, i) => <ServiceRowFull key={s.slug} service={s} index={i + 1} />)}
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </section>
 
-            <section className="py-20 md:py-28 border-t border-border">
-                <div className="container-page">
-                    <div className="max-w-2xl mb-12">
-                        <p className="text-sm text-accent font-medium mb-3">How every engagement runs</p>
-                        <h2 className="text-3xl md:text-4xl font-semibold text-fg">Same four steps, every project.</h2>
+            {/* Tier A — Production Systems */}
+            <section className="pt-16 md:pt-24 pb-16">
+                <div className="gutter">
+                    <div className="grid grid-cols-12 gap-6">
+                        <div className="col-span-12 lg:col-span-10 lg:col-start-2">
+                            <div className="flex items-baseline gap-6 mb-8 pb-4 border-b border-hairline">
+                                <span className="section-marker">02</span>
+                                <h2 className="text-[28px] md:text-[32px] font-display font-medium tracking-tight flex-1">
+                                    Agentic Production Systems
+                                </h2>
+                                <span className="meta">$15–30K+ · 6–10 WEEKS</span>
+                            </div>
+                            <ul>
+                                {tierA.map((s, i) => <ServiceRowFull key={s.slug} service={s} index={i + 1} />)}
+                            </ul>
+                        </div>
                     </div>
-                    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                </div>
+            </section>
+
+            {/* How every engagement runs */}
+            <section className="pt-24 md:pt-32 pb-32">
+                <div className="gutter">
+                    <header className="mb-12 md:mb-16 grid grid-cols-12 gap-6">
+                        <div className="col-span-12 lg:col-span-8 lg:col-start-2">
+                            <div className="flex items-baseline gap-6 mb-6">
+                                <span className="section-marker">03</span>
+                                <span className="eyebrow">How every engagement runs</span>
+                            </div>
+                            <h2 className="measure-wide">Same four steps, every project.</h2>
+                        </div>
+                    </header>
+
+                    <div className="grid grid-cols-12 gap-x-6 gap-y-12">
                         {process.map(p => (
-                            <div key={p.step} className="card p-6">
-                                <div className="flex items-baseline gap-3 mb-3">
-                                    <span className="text-accent font-mono text-sm">0{p.step}</span>
-                                    <h3 className="font-medium text-fg">{p.title}</h3>
-                                </div>
-                                <p className="text-xs text-fg-subtle mb-3 font-mono">{p.duration}</p>
-                                <p className="text-sm text-fg-muted leading-relaxed">{p.description}</p>
+                            <div key={p.step} className="col-span-12 md:col-span-6 lg:col-span-3 lg:[&:first-child]:col-start-2">
+                                <p
+                                    aria-hidden="true"
+                                    className="font-mono text-[72px] leading-none text-fg-35 mb-6"
+                                >
+                                    0{p.step}
+                                </p>
+                                <h3 className="text-[20px] mb-2">{p.title}</h3>
+                                <p className="meta mb-4">{p.duration}</p>
+                                <p className="body text-fg-70">{p.description}</p>
                             </div>
                         ))}
                     </div>
                 </div>
             </section>
 
-            <section className="py-20 md:py-28 border-t border-border">
-                <div className="container-page">
-                    <div className="card p-8 md:p-12 flex flex-col md:flex-row md:items-center justify-between gap-6">
-                        <div className="max-w-xl">
-                            <h2 className="text-2xl md:text-3xl font-semibold text-fg mb-3">Not sure which tier fits?</h2>
-                            <p className="text-fg-muted">Book the call. We&apos;ll figure it out together. Free, 30 minutes.</p>
+            {/* Quiet CTA */}
+            <section className="pb-32">
+                <div className="gutter">
+                    <div className="grid grid-cols-12 gap-6 items-end">
+                        <div className="col-span-12 lg:col-span-6 lg:col-start-2">
+                            <h3 className="text-[28px] md:text-[36px] font-display font-medium tracking-tight mb-3">
+                                Not sure which tier fits?
+                            </h3>
+                            <p className="body text-fg-70 measure-narrow">
+                                Book the call. We&apos;ll figure it out together. Free, 30 minutes.
+                            </p>
                         </div>
-                        <Link href="/contact" className="btn btn-primary whitespace-nowrap">
-                            Book a scoping call
-                            <ArrowRight size={16} />
-                        </Link>
+                        <div className="col-span-12 lg:col-span-4 lg:col-start-8 lg:justify-self-end">
+                            <Link href="/book" className="btn btn-primary">
+                                Book a scoping call
+                                <ArrowRight size={16} className="arrow-nudge" />
+                            </Link>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -104,26 +141,39 @@ export default function ServicesHub() {
     )
 }
 
-function ServiceCard({ service }: { service: Service }) {
+function ServiceRowFull({ service, index }: { service: Service; index: number }) {
     return (
-        <Link href={`/services/${service.slug}`} className="card p-6 block hover:border-border-strong transition-colors group">
-            <div className="flex items-start justify-between gap-4 mb-2">
-                <h3 className="font-medium text-fg group-hover:text-accent transition-colors">{service.name}</h3>
-                <span className="text-sm text-fg-muted tabular-nums whitespace-nowrap">{service.priceLabel}</span>
+        <li className="py-10 border-b border-hairline">
+            <div className="grid grid-cols-12 gap-x-6">
+                {/* Left: marker + name */}
+                <div className="col-span-12 md:col-span-4 flex items-baseline gap-4 mb-6 md:mb-0">
+                    <span className="font-mono text-[13px] text-fg-35 shrink-0 w-6">0{index}</span>
+                    <div>
+                        <h3 className="text-[22px] md:text-[26px] font-display font-medium tracking-tight leading-tight">
+                            {service.name}
+                        </h3>
+                        <p className="meta mt-2">
+                            <span className="text-accent">{service.priceLabel}</span> &nbsp;·&nbsp; {service.duration}
+                        </p>
+                    </div>
+                </div>
+
+                {/* Right: summary + scope + link */}
+                <div className="col-span-12 md:col-span-8 md:pl-6">
+                    <p className="body text-fg-70 mb-6 measure">{service.summary}</p>
+                    <ul className="space-y-2 mb-6">
+                        {service.scope.slice(0, 3).map(line => (
+                            <li key={line} className="flex gap-3 text-[15px] text-fg-70">
+                                <Check size={16} className="text-fg-45 shrink-0 mt-1" />
+                                <span>{line}</span>
+                            </li>
+                        ))}
+                    </ul>
+                    <Link href={`/services/${service.slug}`} className="link-arrow">
+                        Full scope <ArrowRight size={14} />
+                    </Link>
+                </div>
             </div>
-            <p className="text-xs text-fg-subtle font-mono mb-4">{service.duration}</p>
-            <p className="text-sm text-fg-muted leading-relaxed mb-5">{service.summary}</p>
-            <ul className="space-y-2">
-                {service.scope.slice(0, 3).map(line => (
-                    <li key={line} className="flex gap-2 text-sm text-fg-muted">
-                        <Check size={16} className="text-accent shrink-0 mt-0.5" />
-                        <span>{line}</span>
-                    </li>
-                ))}
-            </ul>
-            <div className="mt-5 text-sm text-accent inline-flex items-center gap-1.5 font-medium">
-                Full scope <ArrowRight size={14} />
-            </div>
-        </Link>
+        </li>
     )
 }

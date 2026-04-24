@@ -43,71 +43,90 @@ export default async function ServiceDetailPage({ params }: Props) {
         <>
             <JsonLd data={generateServiceSchema({ name: s.name, description: s.summary })} />
 
-            <section className="pt-32 md:pt-40 pb-12">
-                <div className="container-page max-w-3xl">
-                    <Link href="/services" className="text-sm text-fg-muted hover:text-fg inline-flex items-center gap-1.5 mb-8">
-                        ← All services
-                    </Link>
-                    <p className="text-xs uppercase tracking-wider text-fg-subtle mb-4 font-mono">
-                        Tier {s.tier} · {s.duration}
-                    </p>
-                    <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-6">
-                        <h1 className="text-4xl md:text-5xl font-semibold text-fg leading-[1.1]">{s.name}</h1>
-                        <p className="text-2xl text-accent font-mono">{s.priceLabel}</p>
-                    </div>
-                    <p className="text-lg text-fg-muted leading-relaxed">{s.summary}</p>
-                </div>
-            </section>
-
-            <section className="py-12 border-t border-border">
-                <div className="container-page max-w-3xl">
-                    <h2 className="text-xs uppercase tracking-wider text-fg-subtle mb-3">Who this is for</h2>
-                    <p className="text-fg leading-relaxed">{s.forWho}</p>
-                </div>
-            </section>
-
-            <section className="py-12 border-t border-border">
-                <div className="container-page max-w-3xl">
-                    <h2 className="text-xs uppercase tracking-wider text-fg-subtle mb-4">What&apos;s in scope</h2>
-                    <ul className="space-y-3">
-                        {s.scope.map(line => (
-                            <li key={line} className="flex gap-3 text-fg">
-                                <Check size={18} className="text-accent shrink-0 mt-1" />
-                                <span>{line}</span>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-            </section>
-
-            <section className="py-12 border-t border-border">
-                <div className="container-page max-w-3xl">
-                    <h2 className="text-xs uppercase tracking-wider text-fg-subtle mb-4">Not in scope</h2>
-                    <ul className="space-y-3">
-                        {s.outOfScope.map(line => (
-                            <li key={line} className="flex gap-3 text-fg-muted">
-                                <X size={18} className="text-fg-subtle shrink-0 mt-1" />
-                                <span>{line}</span>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-            </section>
-
-            <section className="py-20 md:py-24 border-t border-border">
-                <div className="container-page">
-                    <div className="card p-8 md:p-12 max-w-3xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-6">
-                        <div>
-                            <h2 className="text-xl md:text-2xl font-semibold text-fg mb-2">Ready to scope {s.name}?</h2>
-                            <p className="text-fg-muted text-sm">30-min call, free. You walk away with clarity either way.</p>
+            {/* Header */}
+            <section className="pt-40 md:pt-48 pb-16">
+                <div className="gutter">
+                    <div className="grid grid-cols-12 gap-6">
+                        <div className="col-span-12 lg:col-span-8 lg:col-start-2">
+                            <Link href="/services" className="meta text-fg-45 hover:text-fg-70 transition-colors inline-flex items-center gap-1 mb-10">
+                                ← Services
+                            </Link>
+                            <p className="meta text-fg-45 mb-6">
+                                TIER {s.tier} &nbsp;·&nbsp; {s.duration.toUpperCase()}
+                            </p>
+                            <h1 className="mb-8 text-[48px] md:text-[72px]">{s.name}</h1>
+                            <p className="font-mono text-[18px] text-accent mb-8">{s.priceLabel}</p>
+                            <p className="body-lg measure">{s.summary}</p>
                         </div>
-                        <Link href="/contact" className="btn btn-primary whitespace-nowrap">
-                            Book a scoping call
-                            <ArrowRight size={16} />
-                        </Link>
+                    </div>
+                </div>
+            </section>
+
+            <Block marker="01" label="Who this is for">
+                <p className="body text-fg-70 measure">{s.forWho}</p>
+            </Block>
+
+            <Block marker="02" label="What's in scope">
+                <ul className="space-y-3 measure">
+                    {s.scope.map(line => (
+                        <li key={line} className="flex gap-3 body text-fg-70">
+                            <Check size={18} className="text-accent shrink-0 mt-1" />
+                            <span>{line}</span>
+                        </li>
+                    ))}
+                </ul>
+            </Block>
+
+            <Block marker="03" label="Not in scope">
+                <ul className="space-y-3 measure">
+                    {s.outOfScope.map(line => (
+                        <li key={line} className="flex gap-3 body text-fg-45">
+                            <X size={18} className="text-fg-35 shrink-0 mt-1" />
+                            <span>{line}</span>
+                        </li>
+                    ))}
+                </ul>
+            </Block>
+
+            {/* Quiet CTA */}
+            <section className="py-24 md:py-32">
+                <div className="gutter">
+                    <div className="grid grid-cols-12 gap-6 items-end">
+                        <div className="col-span-12 lg:col-span-6 lg:col-start-2">
+                            <h3 className="text-[28px] md:text-[36px] font-display font-medium tracking-tight mb-3">
+                                Ready to scope {s.name}?
+                            </h3>
+                            <p className="body text-fg-70 measure-narrow">
+                                30-min call, free. You walk away with clarity either way.
+                            </p>
+                        </div>
+                        <div className="col-span-12 lg:col-span-4 lg:col-start-8 lg:justify-self-end">
+                            <Link href="/book" className="btn btn-primary">
+                                Book a scoping call
+                                <ArrowRight size={16} className="arrow-nudge" />
+                            </Link>
+                        </div>
                     </div>
                 </div>
             </section>
         </>
+    )
+}
+
+function Block({ marker, label, children }: { marker: string; label: string; children: React.ReactNode }) {
+    return (
+        <section className="py-16 border-t border-hairline">
+            <div className="gutter">
+                <div className="grid grid-cols-12 gap-6">
+                    <div className="col-span-12 lg:col-span-10 lg:col-start-2">
+                        <div className="flex items-baseline gap-6 mb-8">
+                            <span className="section-marker">{marker}</span>
+                            <span className="eyebrow">{label}</span>
+                        </div>
+                        {children}
+                    </div>
+                </div>
+            </div>
+        </section>
     )
 }

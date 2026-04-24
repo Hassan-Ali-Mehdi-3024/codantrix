@@ -43,9 +43,9 @@ Codantrix Labs is the studio of Hassan Ali Mehdi, a solo operator based in Lahor
 - [Home](https://labs.codantrix.com/) — Services overview, past work, process, CTA
 - [Services](https://labs.codantrix.com/services) — Six tiered engagements with full scope
 - [Work](https://labs.codantrix.com/work) — Anonymized writeups of five shipped systems
-- [About](https://labs.codantrix.com/about) — Who Hassan is, what the studio is, why solo
-- [Contact](https://labs.codantrix.com/contact) — Book the scoping call
-- [Blog](https://labs.codantrix.com/blog) — Notes on building agentic AI in production
+- [Hassan](https://labs.codantrix.com/hassan) — Who Hassan is, what the studio is, why solo
+- [Book a call](https://labs.codantrix.com/book) — Book the scoping call
+- [Notes](https://labs.codantrix.com/notes) — Notes on building agentic AI in production
 
 ## Contact
 

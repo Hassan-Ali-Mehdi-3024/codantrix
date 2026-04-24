@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
+import { Inter, Geist, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
@@ -8,6 +8,12 @@ import Analytics from "@/components/seo/Analytics";
 
 const inter = Inter({
   variable: "--font-inter",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+const geist = Geist({
+  variable: "--font-geist-sans",
   subsets: ["latin"],
   display: "swap",
 });
@@ -47,18 +53,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable}`}>
-      <body className="bg-bg text-fg antialiased">
+    <html lang="en" className={`${inter.variable} ${geist.variable} ${jetbrainsMono.variable}`}>
+      <body>
         <a
           href="#main"
-          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-md focus:bg-accent focus:px-4 focus:py-2 focus:text-accent-fg focus:font-semibold"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-md focus:bg-accent focus:px-4 focus:py-2 focus:text-black focus:font-semibold"
         >
           Skip to content
         </a>
         <JsonLd data={generateOrganizationSchema()} />
         <Analytics />
         <Navbar />
-        <main id="main" className="min-h-[calc(100vh-4rem)]">
+        <main id="main">
           {children}
         </main>
         <Footer />
