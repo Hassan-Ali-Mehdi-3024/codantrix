@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "wrangler dev",
+    "build": "echo 'Static site — output is ./site'",
     "preview": "wrangler dev",
     "deploy": "wrangler deploy"
   },
