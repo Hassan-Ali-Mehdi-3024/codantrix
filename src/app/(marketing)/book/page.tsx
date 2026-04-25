@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import CalendlyEmbed from '@/components/book/CalendlyEmbed'
 import ContactForm from '@/components/cards/ContactForm'
 
 export const metadata: Metadata = {
@@ -14,34 +15,34 @@ export default function BookPage() {
     return (
         <>
             {/* Header */}
-            <section className="pt-40 md:pt-48 pb-16">
+            <section className="pt-40 md:pt-48 pb-12">
                 <div className="gutter">
                     <div className="grid grid-cols-12 gap-6">
                         <div className="col-span-12 lg:col-span-8 lg:col-start-2">
-                            <p className="eyebrow mb-8">Book a call</p>
+                            <p className="eyebrow mb-8">Contact</p>
                             <h1 className="mb-8 measure-wide">Book a scoping call.</h1>
                             <p className="body-lg measure">
-                                30 minutes, free. You describe the problem. I ask hard questions. We decide together whether this is a fit — and if it&apos;s not, I&apos;ll usually point you to someone better.
+                                30 minutes, free. You describe the problem. I ask hard questions. We decide together whether this is a fit.
                             </p>
                         </div>
                     </div>
                 </div>
             </section>
 
-            {/* Form + meta side-by-side */}
-            <section className="pb-24 md:pb-32">
+            {/* Calendly + meta side-by-side */}
+            <section className="pb-16">
                 <div className="gutter">
-                    <div className="grid grid-cols-12 gap-x-6 gap-y-16">
+                    <div className="grid grid-cols-12 gap-x-6 gap-y-12">
                         <div className="col-span-12 lg:col-span-7 lg:col-start-2">
-                            <div className="flex items-baseline gap-6 mb-10">
+                            <div className="flex items-baseline gap-6 mb-8">
                                 <span className="section-marker">01</span>
-                                <span className="eyebrow">The form</span>
+                                <span className="eyebrow">Pick a time</span>
                             </div>
-                            <ContactForm />
+                            <CalendlyEmbed />
                         </div>
 
                         <aside className="col-span-12 lg:col-span-3 lg:col-start-10">
-                            <div className="flex items-baseline gap-6 mb-10">
+                            <div className="flex items-baseline gap-6 mb-8">
                                 <span className="section-marker">02</span>
                                 <span className="eyebrow">Or directly</span>
                             </div>
@@ -52,14 +53,10 @@ export default function BookPage() {
                                     </a>
                                 </InfoItem>
                                 <InfoItem label="Response time">
-                                    <span className="text-fg">Within 24 hours, usually sooner.</span>
-                                    <br />
-                                    <span className="text-fg-70 text-[14px]">I&apos;m in Lahore, working US &amp; EU hours.</span>
+                                    <span className="text-fg">Within 24 hours.</span>
                                 </InfoItem>
                                 <InfoItem label="Based">
-                                    <span className="text-fg">Lahore, Pakistan</span>
-                                    <br />
-                                    <span className="text-fg-70 text-[14px]">GMT+5</span>
+                                    <span className="text-fg">Lahore, GMT+5</span>
                                 </InfoItem>
                                 <InfoItem label="LinkedIn">
                                     <a
@@ -73,6 +70,24 @@ export default function BookPage() {
                                 </InfoItem>
                             </div>
                         </aside>
+                    </div>
+                </div>
+            </section>
+
+            {/* Form fallback — below divider */}
+            <section className="py-16 border-t border-hairline">
+                <div className="gutter">
+                    <div className="grid grid-cols-12 gap-6">
+                        <div className="col-span-12 lg:col-span-8 lg:col-start-2">
+                            <div className="flex items-baseline gap-6 mb-8">
+                                <span className="section-marker">03</span>
+                                <span className="eyebrow">Prefer to write first?</span>
+                            </div>
+                            <p className="body text-fg-70 mb-10 measure">
+                                Fill the form. I&apos;ll reply within 24 hours and we&apos;ll book a call from there.
+                            </p>
+                            <ContactForm />
+                        </div>
                     </div>
                 </div>
             </section>

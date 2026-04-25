@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import type { Metadata } from 'next'
 import { ArrowRight, Check } from 'lucide-react'
+import Object3D from '@/components/objects/Object3D'
 import servicesData from '@/data/services.json'
 import processData from '@/data/process.json'
 
@@ -38,24 +39,29 @@ export default function ServicesHub() {
                             <p className="eyebrow mb-8">Services</p>
                             <h1 className="mb-8 measure-wide">Six engagements. All fixed price.</h1>
                             <p className="body-lg measure">
-                                Every scope is written down in an SOW before work starts. Weekly Loom demos every Friday. Code in your repo, running on your infra. No retainer trap, no surprise overages.
+                                Every scope is written down in an SOW before work starts. Weekly Loom demos every Friday. Code in your repo, on your infra. No retainer trap.
                             </p>
                         </div>
                     </div>
                 </div>
             </section>
 
-            {/* Tier B — Agentic MVPs */}
+            {/* Tier B — paper plane anchored */}
             <section className="pt-16 md:pt-24 pb-8">
                 <div className="gutter">
                     <div className="grid grid-cols-12 gap-6">
                         <div className="col-span-12 lg:col-span-10 lg:col-start-2">
-                            <div className="flex items-baseline gap-6 mb-8 pb-4 border-b border-hairline">
-                                <span className="section-marker">01</span>
-                                <h2 className="text-[28px] md:text-[32px] font-display font-medium tracking-tight flex-1">
-                                    Agentic MVPs
-                                </h2>
-                                <span className="meta">$8–15K · 2–6 WEEKS</span>
+                            <div className="flex items-end gap-8 mb-8 pb-4 border-b border-hairline">
+                                <div className="w-40 md:w-52 shrink-0">
+                                    <Object3D slug="plane" />
+                                </div>
+                                <div className="flex-1">
+                                    <p className="meta text-fg-45 mb-1">01 · TIER B</p>
+                                    <h2 className="text-[28px] md:text-[40px] font-display font-medium tracking-tight">
+                                        Agentic MVPs
+                                    </h2>
+                                    <p className="meta text-fg-70 mt-2">$8–15K · 2–6 WEEKS</p>
+                                </div>
                             </div>
                             <ul>
                                 {tierB.map((s, i) => <ServiceRowFull key={s.slug} service={s} index={i + 1} />)}
@@ -65,17 +71,22 @@ export default function ServicesHub() {
                 </div>
             </section>
 
-            {/* Tier A — Production Systems */}
+            {/* Tier A — stack anchored */}
             <section className="pt-16 md:pt-24 pb-16">
                 <div className="gutter">
                     <div className="grid grid-cols-12 gap-6">
                         <div className="col-span-12 lg:col-span-10 lg:col-start-2">
-                            <div className="flex items-baseline gap-6 mb-8 pb-4 border-b border-hairline">
-                                <span className="section-marker">02</span>
-                                <h2 className="text-[28px] md:text-[32px] font-display font-medium tracking-tight flex-1">
-                                    Agentic Production Systems
-                                </h2>
-                                <span className="meta">$15–30K+ · 6–10 WEEKS</span>
+                            <div className="flex items-end gap-8 mb-8 pb-4 border-b border-hairline">
+                                <div className="w-40 md:w-52 shrink-0">
+                                    <Object3D slug="stack" />
+                                </div>
+                                <div className="flex-1">
+                                    <p className="meta text-fg-45 mb-1">02 · TIER A</p>
+                                    <h2 className="text-[28px] md:text-[40px] font-display font-medium tracking-tight">
+                                        Agentic Production Systems
+                                    </h2>
+                                    <p className="meta text-fg-70 mt-2">$15–30K+ · 6–10 WEEKS</p>
+                                </div>
                             </div>
                             <ul>
                                 {tierA.map((s, i) => <ServiceRowFull key={s.slug} service={s} index={i + 1} />)}
@@ -85,7 +96,7 @@ export default function ServicesHub() {
                 </div>
             </section>
 
-            {/* How every engagement runs */}
+            {/* How every engagement runs — ribbon */}
             <section className="pt-24 md:pt-32 pb-32">
                 <div className="gutter">
                     <header className="mb-12 md:mb-16 grid grid-cols-12 gap-6">
@@ -98,12 +109,20 @@ export default function ServicesHub() {
                         </div>
                     </header>
 
+                    <div className="hidden lg:block mb-12">
+                        <div className="grid grid-cols-12 gap-6">
+                            <div className="col-span-10 col-start-2">
+                                <Object3D slug="ribbon" aspect="900 / 200" />
+                            </div>
+                        </div>
+                    </div>
+
                     <div className="grid grid-cols-12 gap-x-6 gap-y-12">
                         {process.map(p => (
                             <div key={p.step} className="col-span-12 md:col-span-6 lg:col-span-3 lg:[&:first-child]:col-start-2">
                                 <p
                                     aria-hidden="true"
-                                    className="font-mono text-[72px] leading-none text-fg-35 mb-6"
+                                    className="font-mono text-[64px] leading-none text-fg-35 mb-6"
                                 >
                                     0{p.step}
                                 </p>
@@ -125,12 +144,12 @@ export default function ServicesHub() {
                                 Not sure which tier fits?
                             </h3>
                             <p className="body text-fg-70 measure-narrow">
-                                Book the call. We&apos;ll figure it out together. Free, 30 minutes.
+                                Book the call. Free, 30 minutes.
                             </p>
                         </div>
                         <div className="col-span-12 lg:col-span-4 lg:col-start-8 lg:justify-self-end">
                             <Link href="/book" className="btn btn-primary">
-                                Book a scoping call
+                                Book a call
                                 <ArrowRight size={16} className="arrow-nudge" />
                             </Link>
                         </div>
@@ -145,7 +164,6 @@ function ServiceRowFull({ service, index }: { service: Service; index: number })
     return (
         <li className="py-10 border-b border-hairline">
             <div className="grid grid-cols-12 gap-x-6">
-                {/* Left: marker + name */}
                 <div className="col-span-12 md:col-span-4 flex items-baseline gap-4 mb-6 md:mb-0">
                     <span className="font-mono text-[13px] text-fg-35 shrink-0 w-6">0{index}</span>
                     <div>
@@ -157,8 +175,6 @@ function ServiceRowFull({ service, index }: { service: Service; index: number })
                         </p>
                     </div>
                 </div>
-
-                {/* Right: summary + scope + link */}
                 <div className="col-span-12 md:col-span-8 md:pl-6">
                     <p className="body text-fg-70 mb-6 measure">{service.summary}</p>
                     <ul className="space-y-2 mb-6">
