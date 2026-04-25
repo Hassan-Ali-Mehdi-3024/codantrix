@@ -64,7 +64,62 @@
       <a href="#services" class="btn btn-ghost">See services</a>
     </div>
   </div>
-  <img src="/assets/img/stack.png" alt="" class="hero-object" />
+
+  <!-- Agent topology diagram — the "diagram language" referenced by the spec.
+       Input → routing orchestrator → 3 specialist agents → eval gate → tool calls.
+       Stroke-only, mono-line, accent on the eval gate. -->
+  <svg class="hero-topology" viewBox="0 0 480 280" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <defs>
+      <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M 0 0 L 10 5 L 0 10 z" fill="rgba(255,255,255,0.45)"/>
+      </marker>
+      <marker id="arrowAccent" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M 0 0 L 10 5 L 0 10 z" fill="#FF6B35"/>
+      </marker>
+    </defs>
+
+    <!-- Input -->
+    <g>
+      <rect x="6" y="120" width="80" height="40" rx="4" stroke="rgba(255,255,255,0.45)" stroke-width="1.25"/>
+      <text x="46" y="145" text-anchor="middle" font-family="ui-monospace, Menlo, monospace" font-size="11" fill="rgba(255,255,255,0.7)" letter-spacing="0.06em">INPUT</text>
+    </g>
+
+    <!-- Orchestrator -->
+    <g>
+      <rect x="140" y="100" width="120" height="80" rx="4" stroke="rgba(255,255,255,0.7)" stroke-width="1.25" fill="rgba(255,255,255,0.02)"/>
+      <text x="200" y="135" text-anchor="middle" font-family="Outfit, sans-serif" font-size="13" fill="rgba(255,255,255,1)" font-weight="500">Orchestrator</text>
+      <text x="200" y="155" text-anchor="middle" font-family="ui-monospace, Menlo, monospace" font-size="10" fill="rgba(255,255,255,0.45)" letter-spacing="0.08em">ROUTING + MEMORY</text>
+    </g>
+
+    <!-- 3 specialist agents -->
+    <g>
+      <rect x="290" y="40"  width="90" height="44" rx="4" stroke="rgba(255,255,255,0.45)" stroke-width="1.25"/>
+      <text x="335" y="67" text-anchor="middle" font-family="ui-monospace, Menlo, monospace" font-size="11" fill="rgba(255,255,255,0.7)" letter-spacing="0.06em">AGENT · 1</text>
+      <rect x="290" y="118" width="90" height="44" rx="4" stroke="rgba(255,255,255,0.45)" stroke-width="1.25"/>
+      <text x="335" y="145" text-anchor="middle" font-family="ui-monospace, Menlo, monospace" font-size="11" fill="rgba(255,255,255,0.7)" letter-spacing="0.06em">AGENT · 2</text>
+      <rect x="290" y="196" width="90" height="44" rx="4" stroke="rgba(255,255,255,0.45)" stroke-width="1.25"/>
+      <text x="335" y="223" text-anchor="middle" font-family="ui-monospace, Menlo, monospace" font-size="11" fill="rgba(255,255,255,0.7)" letter-spacing="0.06em">AGENT · 3</text>
+    </g>
+
+    <!-- Eval gate (accent) -->
+    <g>
+      <rect x="404" y="100" width="70" height="80" rx="4" stroke="#FF6B35" stroke-width="1.5" fill="rgba(255,107,53,0.06)"/>
+      <text x="439" y="135" text-anchor="middle" font-family="Outfit, sans-serif" font-size="12" fill="#FF6B35" font-weight="500">Eval</text>
+      <text x="439" y="153" text-anchor="middle" font-family="Outfit, sans-serif" font-size="12" fill="#FF6B35" font-weight="500">gate</text>
+    </g>
+
+    <!-- Connections -->
+    <path d="M 86 140 L 138 140" stroke="rgba(255,255,255,0.35)" stroke-width="1" marker-end="url(#arrow)"/>
+    <path d="M 260 130 C 280 130, 280 62,  288 62"  stroke="rgba(255,255,255,0.25)" stroke-width="1" marker-end="url(#arrow)"/>
+    <path d="M 260 140 L 288 140"                   stroke="rgba(255,255,255,0.25)" stroke-width="1" marker-end="url(#arrow)"/>
+    <path d="M 260 150 C 280 150, 280 218, 288 218" stroke="rgba(255,255,255,0.25)" stroke-width="1" marker-end="url(#arrow)"/>
+    <path d="M 380 62  C 396 62,  398 130, 402 130" stroke="rgba(255,107,53,0.5)" stroke-width="1" marker-end="url(#arrowAccent)"/>
+    <path d="M 380 140 L 402 140"                   stroke="rgba(255,107,53,0.5)" stroke-width="1" marker-end="url(#arrowAccent)"/>
+    <path d="M 380 218 C 396 218, 398 150, 402 150" stroke="rgba(255,107,53,0.5)" stroke-width="1" marker-end="url(#arrowAccent)"/>
+
+    <!-- Output label -->
+    <text x="439" y="262" text-anchor="middle" font-family="ui-monospace, Menlo, monospace" font-size="10" fill="rgba(255,255,255,0.35)" letter-spacing="0.1em">→ TOOL CALL</text>
+  </svg>
 </header>
 
 <!-- ========== Stack strip ========== -->
@@ -97,7 +152,12 @@
 
       <!-- Tier B -->
       <div class="service-tier">
-        <div class="tier-img"><img src="/assets/img/plane.png" alt="" /></div>
+        <!-- Tier B glyph: single agent + scope ring (one orchestrator, one domain) -->
+        <svg class="tier-glyph" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="32" cy="32" r="22" stroke="rgba(255,255,255,0.25)" stroke-width="1" stroke-dasharray="2 4"/>
+          <rect x="20" y="20" width="24" height="24" rx="3" stroke="rgba(255,255,255,0.7)" stroke-width="1.25" fill="rgba(255,255,255,0.02)"/>
+          <circle cx="32" cy="32" r="3" fill="#FF6B35"/>
+        </svg>
         <p class="tier-label">Tier B · Agentic MVPs</p>
         <p class="tier-meta">$8K — 15K &nbsp;·&nbsp; 4 — 6 weeks</p>
         <ul class="service-list">
@@ -127,7 +187,13 @@
 
       <!-- Tier A -->
       <div class="service-tier">
-        <div class="tier-img"><img src="/assets/img/stack.png" alt="" /></div>
+        <!-- Tier A glyph: stacked layers + spine (multi-agent on a deterministic spine) -->
+        <svg class="tier-glyph" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect x="14" y="12" width="36" height="10" rx="2" stroke="rgba(255,255,255,0.45)" stroke-width="1.25"/>
+          <rect x="14" y="27" width="36" height="10" rx="2" stroke="rgba(255,255,255,0.7)"  stroke-width="1.25" fill="rgba(255,255,255,0.02)"/>
+          <rect x="14" y="42" width="36" height="10" rx="2" stroke="rgba(255,255,255,0.45)" stroke-width="1.25"/>
+          <line x1="56" y1="10" x2="56" y2="54" stroke="#FF6B35" stroke-width="1.5"/>
+        </svg>
         <p class="tier-label">Tier A · Production systems</p>
         <p class="tier-meta">$15K — 30K &nbsp;·&nbsp; 6 — 10 weeks</p>
         <ul class="service-list">
@@ -183,30 +249,65 @@
     </header>
 
     <div class="process-grid">
+
       <div class="process-step">
+        <!-- Map: compass / target — discovery anchored on a fixed point -->
+        <svg class="step-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="16" cy="16" r="11" stroke="currentColor" stroke-width="1.25"/>
+          <circle cx="16" cy="16" r="5"  stroke="currentColor" stroke-width="1.25"/>
+          <line x1="16" y1="2" x2="16" y2="7" stroke="#FF6B35" stroke-width="1.5"/>
+          <circle cx="16" cy="16" r="1.5" fill="#FF6B35"/>
+        </svg>
         <p class="num">01 · Map</p>
         <h4>Discovery + scope</h4>
         <p class="duration">3 — 5 days</p>
         <p class="desc">We map every decision point, data source, and failure mode in your workflow. Output: agent architecture spec, scoped SOW, signed decision doc before we touch code.</p>
       </div>
+
       <div class="process-step">
+        <!-- Build: stacked blocks — the spine before the agents -->
+        <svg class="step-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect x="6"  y="6"  width="20" height="6" rx="1" stroke="currentColor" stroke-width="1.25"/>
+          <rect x="6"  y="14" width="20" height="6" rx="1" stroke="currentColor" stroke-width="1.25" fill="rgba(255,255,255,0.05)"/>
+          <rect x="6"  y="22" width="20" height="6" rx="1" stroke="#FF6B35"     stroke-width="1.5"  fill="rgba(255,107,53,0.08)"/>
+        </svg>
         <p class="num">02 · Build</p>
         <h4>Spine first, agents later</h4>
         <p class="duration">2 — 3 weeks</p>
         <p class="desc">Orchestration, memory, retrieval, tool calls. Deterministic where possible. We build the fail modes before the agents — most outages disappear.</p>
       </div>
+
       <div class="process-step">
+        <!-- Wire: connected nodes -->
+        <svg class="step-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <line x1="8"  y1="8"  x2="24" y2="24" stroke="currentColor" stroke-width="1.25"/>
+          <line x1="24" y1="8"  x2="8"  y2="24" stroke="currentColor" stroke-width="1.25"/>
+          <line x1="16" y1="6"  x2="16" y2="26" stroke="currentColor" stroke-width="1.25"/>
+          <circle cx="8"  cy="8"  r="2.5" stroke="currentColor" stroke-width="1.25" fill="#0A0A0A"/>
+          <circle cx="24" cy="8"  r="2.5" stroke="currentColor" stroke-width="1.25" fill="#0A0A0A"/>
+          <circle cx="8"  cy="24" r="2.5" stroke="currentColor" stroke-width="1.25" fill="#0A0A0A"/>
+          <circle cx="24" cy="24" r="2.5" stroke="currentColor" stroke-width="1.25" fill="#0A0A0A"/>
+          <circle cx="16" cy="16" r="3"   stroke="#FF6B35"     stroke-width="1.5"  fill="#0A0A0A"/>
+        </svg>
         <p class="num">03 · Wire</p>
         <h4>Agents in, evals running</h4>
         <p class="duration">2 — 3 weeks</p>
         <p class="desc">Each agent has a specific scope, an eval suite that runs on every commit, a fail mode, and a metric. No "general assistant" agents.</p>
       </div>
+
       <div class="process-step">
+        <!-- Ship: arrow leaving a frame -->
+        <svg class="step-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect x="4" y="6" width="14" height="20" rx="1.5" stroke="currentColor" stroke-width="1.25"/>
+          <line x1="13" y1="16" x2="28" y2="16" stroke="#FF6B35" stroke-width="1.5"/>
+          <polyline points="22,10 28,16 22,22"  stroke="#FF6B35" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        </svg>
         <p class="num">04 · Ship</p>
         <h4>Production deploy + handover</h4>
         <p class="duration">1 week + 30 days</p>
         <p class="desc">Deploy to your infra. Loom walkthrough. Runbook handed over. 30-day support window opens. After that: retainers or you take the wheel.</p>
       </div>
+
     </div>
   </div>
 </section>

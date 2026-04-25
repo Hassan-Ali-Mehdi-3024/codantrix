@@ -304,16 +304,26 @@ hr, .hairline {
   gap: 16px;
   flex-wrap: wrap;
 }
-.hero-object {
+/* Hero topology SVG — the spec's "diagram language" */
+.hero-topology {
   position: absolute;
   right: 5%;
-  top: 30%;
-  width: clamp(140px, 18vw, 240px);
-  opacity: 0.95;
+  top: 18%;
+  width: clamp(320px, 36vw, 520px);
+  height: auto;
   pointer-events: none;
-  transform: rotate(-6deg);
+  opacity: 0.95;
 }
-@media (max-width: 1023px) { .hero-object { display: none; } }
+@media (max-width: 1023px) {
+  .hero-topology {
+    position: static;
+    margin: 48px auto 0;
+    display: block;
+    width: 100%;
+    max-width: 480px;
+    opacity: 1;
+  }
+}
 
 /* --- Stack strip --------------------------------------------- */
 .stack-strip {
@@ -359,8 +369,13 @@ hr, .hairline {
 @media (min-width: 1024px) {
   .services-grid { grid-template-columns: 1fr 1fr; gap: 64px; }
 }
-.service-tier .tier-img { width: 120px; margin-bottom: 24px; }
-.service-tier .tier-img img { width: 100%; }
+.service-tier .tier-glyph {
+  width: 56px;
+  height: 56px;
+  margin-bottom: 24px;
+  display: block;
+  color: var(--fg-70);
+}
 .service-tier .tier-label {
   font-family: var(--font-mono);
   font-size: 11px;
@@ -407,6 +422,13 @@ hr, .hairline {
 }
 @media (min-width: 768px)  { .process-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (min-width: 1024px) { .process-grid { grid-template-columns: repeat(4, 1fr); } }
+.process-step .step-icon {
+  width: 32px;
+  height: 32px;
+  color: var(--fg-70);
+  margin-bottom: 20px;
+  display: block;
+}
 .process-step .num {
   font-family: var(--font-mono);
   font-size: 12px;
