@@ -22,5 +22,6 @@ yarn-debug.log*
 .vscode/
 .idea/
 
-# claude session state
-.claude/
+# claude session state — but keep project-scoped skills tracked
+.claude/*
+!.claude/skills/
