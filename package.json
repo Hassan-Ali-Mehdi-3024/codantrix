@@ -4,11 +4,16 @@
   "private": true,
   "scripts": {
     "dev": "wrangler dev",
-    "build": "echo 'Static site — output is ./site'",
+    "build": "echo 'Worker bundles via wrangler — no separate build step'",
     "preview": "wrangler dev",
-    "deploy": "wrangler deploy"
+    "deploy": "wrangler deploy",
+    "typecheck": "tsc --noEmit",
+    "db:apply:local": "wrangler d1 execute codantrix-labs-db --local --file=./schema/0001_init.sql",
+    "db:apply:remote": "wrangler d1 execute codantrix-labs-db --remote --file=./schema/0001_init.sql"
   },
   "devDependencies": {
+    "@cloudflare/workers-types": "^4.20240403.0",
+    "typescript": "^5.4.0",
     "wrangler": "^4.59.2"
   }
 }

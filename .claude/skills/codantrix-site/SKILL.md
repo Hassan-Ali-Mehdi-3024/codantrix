@@ -13,15 +13,21 @@ Locked design system, voice, and architecture for `labs.codantrix.com`. The site
 
 | Concern | Reality |
 |---|---|
-| Stack | Pure static HTML + inline `<style>`. No Next.js, no build step, no JS framework, no bundler. |
-| Hosting | Cloudflare Worker, assets-only. `wrangler.jsonc` points `assets.directory` at `./site`. |
-| Deploy | `npm run deploy` (= `wrangler deploy`). CF Pages dashboard build output dir = `site`. |
+| Stack | Pure static HTML + inline `<style>` for pages. Worker (TypeScript) for `/api/*` only. No Next.js, no React, no Tailwind, no bundler beyond wrangler's. |
+| Hosting | Cloudflare Worker with `main: worker/index.ts` + `assets` binding fall-through. Worker dispatches `/api/*` and falls through to ASSETS for everything else. |
+| Deploy | `npm run deploy` (= `wrangler deploy`). |
 | Routes | Folder-based: `site/index.html`, `site/book/index.html`, `site/privacy/index.html`, etc. `html_handling: auto-trailing-slash`. |
 | 404 | `site/404.html`, served by `not_found_handling: 404-page`. |
 | Assets | Only `site/assets/img/favicon.ico`. No PNGs. All visuals are inline SVG. |
 | Fonts | Outfit (display) + Poppins (body), via Google Fonts preconnect + stylesheet link. |
+| Worker code | `worker/index.ts` (dispatcher), `worker/routes/{chat,lead,health}.ts`, `worker/lib/{groq,tools,kb,db}.ts`, `worker/system-prompt.ts`, `worker/types.ts`. TypeScript, strict, `@cloudflare/workers-types`. |
+| Storage | D1 binding `DB` for runtime data (conversations, messages, leads). Schema in `schema/0001_init.sql`. Knowledge base (services, tiers, FAQ, contact) lives in `worker/lib/kb.ts`, NOT D1. |
+| Secrets | `GROQ_API_KEY`, `CALENDLY_TOKEN` — set via `wrangler secret put`. Never in `wrangler.jsonc`, never in code, never in chat. |
 
-**Do not** add: Next.js, React, Tailwind, npm scripts beyond wrangler, build tooling, separate stylesheets, image files, or runtime JS.
+**Do not** add: Next.js, React, Tailwind, separate stylesheets, image files, frontend bundlers, or runtime JS in static pages beyond the chat-widget script that lives only on `/book`.
+
+### Stack history note (chatbot exception)
+The `feedback_never_ship.md` "no chatbot widgets" rule was lifted on **2026-04-26** for the contextual scope-call assistant on `/book` only — Worker + D1 + Groq backend, agentic-studio-eats-its-own-dogfood. Ban still applies to: floating widgets on any non-/book page, vendor-supplied bubbles (Intercom, Drift, Crisp), and any widget that hides Hassan's email or Calendly behind it. See plan `replicated-questing-alpaca.md`.
 
 ---
 

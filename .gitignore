@@ -4,6 +4,10 @@
 # wrangler / cloudflare
 /.wrangler/
 
+# legacy Next.js build artifacts
+/.next/
+/.open-next/
+
 # misc
 .DS_Store
 *.pem
