@@ -1,0 +1,43 @@
+# Codantrix Labs
+
+A multi-agent engineering studio building production agentic systems for SaaS, ops, and platform teams.
+
+## Services
+
+- Tier A: Production agentic systems. $15K — 30K. 6 — 10 weeks.
+- Tier B: Agentic MVPs. $8K — 15K. 4 — 6 weeks.
+
+## What we build
+
+- Multi-agent orchestration with hierarchical retrieval
+- Agentic copilots with domain-specific RAG
+- Production observability + agent eval suites
+- Client-facing dashboards over agent systems
+- Document AI pipelines (English and Arabic)
+
+## What we don't build
+
+- Generic chatbots
+- No-code workflow automations
+- Enterprise compliance deployments (SOC 2, HIPAA — not our lane yet)
+
+## Stack
+
+Next.js · Python · OpenAI · Claude · LangGraph · pgvector · Milvus · AWS
+
+## Verticals shipped
+
+Real estate ops · Field ops dispatch · Construction estimation · EdTech learning · Document AI
+
+## Founder
+
+Hassan Ali Mehdi. Engineering lead. Six years shipping software. Lahore, Pakistan.
+
+## Contact
+
+Book a call: https://labs.codantrix.com/book
+Email: hassan@codantrix.com
+
+## Engagement model
+
+Fixed scope, fixed price. No hourly billing. SOW signed before any work begins. 50/50 payment terms. IP transfers on final payment. Owned codebase.
