@@ -15,7 +15,7 @@
     {
       "binding": "DB",
       "database_name": "codantrix-labs-db",
-      "database_id": "REPLACE_WITH_ID_FROM_WRANGLER_D1_CREATE"
+      "database_id": "1ecd521a-1017-45b9-ab90-1e1ce4aca9ae"
     }
   ],
   "vars": {
