@@ -102,7 +102,13 @@
     -webkit-backdrop-filter: blur(14px) saturate(140%);
   }
   nav.top .row { display: flex; align-items: center; justify-content: space-between; padding: 18px 0; gap: 16px; }
-  .wordmark { font-family: var(--display); font-weight: 600; font-size: 18px; letter-spacing: -0.02em; display: flex; align-items: center; gap: 12px; }
+  .wordmark {
+    font-family: var(--display); font-weight: 600;
+    font-size: 14px; letter-spacing: 0.12em; text-transform: uppercase;
+    display: inline-flex; align-items: center; gap: 12px;
+    white-space: nowrap;
+  }
+  .wordmark .sep { color: var(--accent); font-weight: 700; }
   .logo-mark {
     display: inline-flex; align-items: center; justify-content: center;
     height: 22px; width: auto;
@@ -705,7 +711,7 @@
     <div class="row">
       <a href="#" class="wordmark">
         <span class="logo-mark"><svg aria-hidden="true"><use href="#i-logo"/></svg></span>
-        codantrix labs
+        <span>CODANTRIX <span class="sep">·</span> LABS</span>
       </a>
       <div class="nav-links">
         <a href="#services">Services</a>
@@ -1183,7 +1189,7 @@
       <div class="col about">
         <a href="#" class="wordmark">
           <span class="logo-mark"><svg aria-hidden="true"><use href="#i-logo"/></svg></span>
-          codantrix labs
+          <span>CODANTRIX <span class="sep">·</span> LABS</span>
         </a>
         <p>Production agentic systems studio. Founded 2023 in Lahore. Working with teams across US and EU time zones.</p>
       </div>
