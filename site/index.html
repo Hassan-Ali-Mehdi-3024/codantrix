@@ -396,80 +396,141 @@
   .work-card.diagram-card svg.system-diag { width: 100%; height: 80px; margin-top: 18px; }
 
   /* ============ COMPARE TABLE ============ */
+  .compare-lede {
+    color: var(--ink-soft); font-size: 16px;
+    max-width: 720px; margin-bottom: 32px; line-height: 1.75;
+  }
+
   .compare-wrap {
     position: relative;
-    padding: 32px;
+    padding: clamp(16px, 3vw, 32px);
     background: linear-gradient(180deg, var(--surface-1) 0%, var(--bg) 100%);
     border-radius: 28px;
     box-shadow: var(--depth-md);
+    overflow: hidden;
   }
-  .compare-table {
-    display: grid;
-    grid-template-columns: 1.6fr 1fr 1fr 1.05fr;
-    align-items: stretch;
-    position: relative;
-    row-gap: 0;
-  }
-  @media (max-width: 720px) {
-    .compare-table { grid-template-columns: 1.4fr 1fr; }
-    .compare-table .col-3, .compare-table .col-4-cell { display: none; }
-    .codantrix-column { display: none !important; }
-  }
-  .codantrix-column {
-    /* Absolutely positioned over col 4 of .compare-table. Out of grid flow so
-       it doesn't block auto-placement of the head/data cells in col 4.
-       Col 4 width = 1.05 / (1.6 + 1 + 1 + 1.05) = ~22.58% of the table width. */
-    position: absolute;
-    top: -20px;
-    bottom: -20px;
-    right: 0;
-    width: 22.58%;
-    background:
-      radial-gradient(ellipse 400px 220px at 50% 0%, rgba(255, 107, 53, 0.18) 0%, transparent 65%),
-      linear-gradient(180deg, var(--surface-3) 0%, var(--surface-2) 100%);
-    border-radius: 20px;
-    box-shadow: var(--depth-featured);
-    z-index: 0; pointer-events: none;
-  }
-  .compare-table > div {
-    padding: 18px 20px;
+
+  .compare {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-family: var(--body);
     font-size: 13px;
-    position: relative; z-index: 1;
-    display: flex; align-items: center;
+    table-layout: fixed;
   }
-  .compare-table .head-cell {
-    font-family: var(--body); font-weight: 600; font-size: 11px;
-    letter-spacing: 0.04em; color: var(--ink-faint);
-    padding-top: 18px; padding-bottom: 22px;
+
+  /* Column widths via colgroup. Sums to 100; ratios match the prior 1.6/1/1/1.05 design. */
+  .compare .col-label { width: 34%; }
+  .compare .col-alt   { width: 21.5%; }
+  .compare .col-us    { width: 23%; }
+
+  /* Cell defaults */
+  .compare th, .compare td {
+    padding: 18px 20px;
+    text-align: left;
+    vertical-align: middle;
+    font-weight: 400;
   }
-  .compare-table .col-codantrix.head-cell {
-    color: var(--accent); font-weight: 600; font-size: 13px;
+
+  /* Header row */
+  .compare thead th {
+    font-weight: 600;
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    color: var(--ink-faint);
+    padding-top: 18px;
+    padding-bottom: 22px;
+    border-bottom: 1px solid var(--line-strong);
+  }
+
+  /* Body row labels (col 1) */
+  .compare tbody th {
+    color: var(--ink);
+    font-weight: 500;
+    font-size: 13px;
+  }
+
+  /* Body data cells (cols 2 & 3) */
+  .compare tbody td { color: var(--ink-soft); }
+
+  /* Hairlines between rows — applied to all cells from row 2 onward */
+  .compare tbody tr + tr > th,
+  .compare tbody tr + tr > td {
+    border-top: 1px solid var(--line);
+  }
+
+  /* ---- Featured column (Codantrix Labs) ---- */
+
+  /* Subtle column tint on all featured cells (header + body) */
+  .compare .th-us,
+  .compare .us-cell {
+    background-color: rgba(255, 107, 53, 0.035);
+    color: var(--accent);
+  }
+  .compare tbody .us-cell { font-weight: 500; }
+
+  /* Featured header — radial glow + accent inset top */
+  .compare .th-us {
+    background:
+      radial-gradient(ellipse 400px 220px at 50% 0%, rgba(255, 107, 53, 0.16) 0%, transparent 65%),
+      rgba(255, 107, 53, 0.05);
+    color: var(--accent);
+    font-size: 13px;
     letter-spacing: -0.005em;
+    border-bottom: 1px solid rgba(255, 107, 53, 0.22);
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    box-shadow: inset 0 1px 0 rgba(255, 107, 53, 0.22);
   }
-  .codantrix-mark { display: inline-flex; align-items: center; gap: 8px; }
-  .codantrix-mark .dot {
+
+  /* Vertical accent edge along the column */
+  .compare .th-us,
+  .compare .us-cell {
+    border-left: 1px solid rgba(255, 107, 53, 0.12);
+  }
+  .compare .th-us { border-left-color: rgba(255, 107, 53, 0.22); }
+
+  /* Round the bottom corners of the column on the last body row */
+  .compare tbody tr:last-child .us-cell {
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
+  }
+
+  /* The hairline rule above adds a top-border that visually crosses the
+     featured column. Soften the top-border *inside* the featured column
+     so the accent column reads as continuous, not bisected. */
+  .compare tbody tr + tr > .us-cell {
+    border-top-color: rgba(255, 107, 53, 0.08);
+  }
+
+  /* Mark badge in the featured header */
+  .us-tag { display: inline-flex; align-items: center; gap: 8px; }
+  .us-dot {
     width: 6px; height: 6px; border-radius: 50%;
-    background: var(--accent); box-shadow: 0 0 8px var(--accent-glow);
+    background: var(--accent);
+    box-shadow: 0 0 8px var(--accent-glow);
   }
-  .row-divider {
-    grid-column: 1 / -1;
-    height: 1px !important;
-    padding: 0 !important;
-    background: linear-gradient(90deg, transparent 0%, rgba(237, 229, 214, 0.06) 15%, rgba(237, 229, 214, 0.06) 85%, transparent 100%);
-    z-index: 2;
-  }
-  .row-label { color: var(--ink); font-weight: 500; }
-  .cell-other { color: var(--ink-soft); font-weight: 400; }
-  .cell-codantrix { color: var(--accent); font-weight: 500; }
+
+  /* Status badges */
   .status { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; }
-  .status .icon-circle {
+  .status .i {
     width: 18px; height: 18px; border-radius: 50%;
-    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    display: inline-flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
   }
-  .status.yes .icon-circle { background: rgba(255, 107, 53, 0.14); color: var(--accent); }
-  .status.no .icon-circle { background: rgba(94, 88, 77, 0.18); color: var(--ink-faint); }
-  .status.maybe .icon-circle { background: rgba(163, 157, 142, 0.12); color: var(--ink-soft); }
-  .status .icon-circle svg { width: 10px; height: 10px; }
+  .status .i svg { width: 10px; height: 10px; }
+  .status.yes .i   { background: rgba(255, 107, 53, 0.14); color: var(--accent); }
+  .status.no .i    { background: rgba(94, 88, 77, 0.18);   color: var(--ink-faint); }
+  .status.maybe .i { background: rgba(163, 157, 142, 0.12); color: var(--ink-soft); }
+
+  /* Mobile: collapse to label + Codantrix only */
+  @media (max-width: 720px) {
+    .compare { table-layout: auto; }
+    .compare .col-label, .compare .col-alt, .compare .col-us { width: auto; }
+    .compare thead .th-alt,
+    .compare tbody td:not(.us-cell) { display: none; }
+    .compare th, .compare td { padding: 14px 16px; }
+  }
 
   /* ============ STUDIO ============ */
   .studio-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 18px; }
@@ -958,63 +1019,67 @@
       <h2 class="sec-title">When to hire us. <span class="muted">When to use Lindy or Relevance instead.</span></h2>
     </div>
 
-    <p style="color: var(--ink-soft); font-size: 16px; max-width: 720px; margin-bottom: 32px; line-height: 1.75;">
+    <p class="compare-lede">
       No-code agent platforms are good. For some teams they are the right answer. We will tell you which one you are on the scope call. Here is the honest version.
     </p>
 
     <div class="compare-wrap">
-      <div class="compare-table">
-        <div class="codantrix-column"></div>
-
-        <div class="head-cell"></div>
-        <div class="head-cell">No-code platforms</div>
-        <div class="head-cell col-3">Generic dev shop</div>
-        <div class="head-cell col-codantrix col-4-cell">
-          <span class="codantrix-mark"><span class="dot"></span>Codantrix Labs</span>
-        </div>
-
-        <div class="row-divider"></div>
-
-        <div class="row-label">Time to first agent</div>
-        <div class="cell-other">Days</div>
-        <div class="cell-other col-3">2 — 3 months</div>
-        <div class="cell-codantrix col-4-cell">4 — 10 weeks</div>
-
-        <div class="row-divider"></div>
-
-        <div class="row-label">Custom logic above platform ceiling</div>
-        <div class="cell-other"><span class="status no"><span class="icon-circle"><svg><use href="#i-x"/></svg></span>Limited</span></div>
-        <div class="cell-other col-3"><span class="status maybe"><span class="icon-circle"><svg><use href="#i-tilde"/></svg></span>Maybe</span></div>
-        <div class="cell-codantrix col-4-cell"><span class="status yes"><span class="icon-circle"><svg><use href="#i-check"/></svg></span>Yes</span></div>
-
-        <div class="row-divider"></div>
-
-        <div class="row-label">Owned codebase</div>
-        <div class="cell-other"><span class="status no"><span class="icon-circle"><svg><use href="#i-x"/></svg></span>No</span></div>
-        <div class="cell-other col-3"><span class="status yes"><span class="icon-circle"><svg><use href="#i-check"/></svg></span>Yes</span></div>
-        <div class="cell-codantrix col-4-cell"><span class="status yes"><span class="icon-circle"><svg><use href="#i-check"/></svg></span>Yes</span></div>
-
-        <div class="row-divider"></div>
-
-        <div class="row-label">Production observability + evals</div>
-        <div class="cell-other"><span class="status maybe"><span class="icon-circle"><svg><use href="#i-tilde"/></svg></span>Basics</span></div>
-        <div class="cell-other col-3"><span class="status no"><span class="icon-circle"><svg><use href="#i-x"/></svg></span>Rare</span></div>
-        <div class="cell-codantrix col-4-cell"><span class="status yes"><span class="icon-circle"><svg><use href="#i-check"/></svg></span>Default</span></div>
-
-        <div class="row-divider"></div>
-
-        <div class="row-label">On-prem or VPC deploy</div>
-        <div class="cell-other"><span class="status no"><span class="icon-circle"><svg><use href="#i-x"/></svg></span>Hosted only</span></div>
-        <div class="cell-other col-3"><span class="status maybe"><span class="icon-circle"><svg><use href="#i-tilde"/></svg></span>Possible</span></div>
-        <div class="cell-codantrix col-4-cell"><span class="status yes"><span class="icon-circle"><svg><use href="#i-check"/></svg></span>Yes</span></div>
-
-        <div class="row-divider"></div>
-
-        <div class="row-label">Best for</div>
-        <div class="cell-other">Sales / support under platform ceiling</div>
-        <div class="cell-other col-3">Generic web + AI features</div>
-        <div class="cell-codantrix col-4-cell">Production multi-agent with bespoke logic</div>
-      </div>
+      <table class="compare">
+        <colgroup>
+          <col class="col-label" />
+          <col class="col-alt" />
+          <col class="col-alt" />
+          <col class="col-us" />
+        </colgroup>
+        <thead>
+          <tr>
+            <th scope="col" aria-hidden="true"></th>
+            <th scope="col" class="th-alt">No-code platforms</th>
+            <th scope="col" class="th-alt">Generic dev shop</th>
+            <th scope="col" class="th-us">
+              <span class="us-tag"><span class="us-dot"></span>Codantrix Labs</span>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Time to first agent</th>
+            <td>Days</td>
+            <td>2 — 3 months</td>
+            <td class="us-cell">4 — 10 weeks</td>
+          </tr>
+          <tr>
+            <th scope="row">Custom logic above platform ceiling</th>
+            <td><span class="status no"><span class="i"><svg><use href="#i-x"/></svg></span>Limited</span></td>
+            <td><span class="status maybe"><span class="i"><svg><use href="#i-tilde"/></svg></span>Maybe</span></td>
+            <td class="us-cell"><span class="status yes"><span class="i"><svg><use href="#i-check"/></svg></span>Yes</span></td>
+          </tr>
+          <tr>
+            <th scope="row">Owned codebase</th>
+            <td><span class="status no"><span class="i"><svg><use href="#i-x"/></svg></span>No</span></td>
+            <td><span class="status yes"><span class="i"><svg><use href="#i-check"/></svg></span>Yes</span></td>
+            <td class="us-cell"><span class="status yes"><span class="i"><svg><use href="#i-check"/></svg></span>Yes</span></td>
+          </tr>
+          <tr>
+            <th scope="row">Production observability + evals</th>
+            <td><span class="status maybe"><span class="i"><svg><use href="#i-tilde"/></svg></span>Basics</span></td>
+            <td><span class="status no"><span class="i"><svg><use href="#i-x"/></svg></span>Rare</span></td>
+            <td class="us-cell"><span class="status yes"><span class="i"><svg><use href="#i-check"/></svg></span>Default</span></td>
+          </tr>
+          <tr>
+            <th scope="row">On-prem or VPC deploy</th>
+            <td><span class="status no"><span class="i"><svg><use href="#i-x"/></svg></span>Hosted only</span></td>
+            <td><span class="status maybe"><span class="i"><svg><use href="#i-tilde"/></svg></span>Possible</span></td>
+            <td class="us-cell"><span class="status yes"><span class="i"><svg><use href="#i-check"/></svg></span>Yes</span></td>
+          </tr>
+          <tr>
+            <th scope="row">Best for</th>
+            <td>Sales / support under platform ceiling</td>
+            <td>Generic web + AI features</td>
+            <td class="us-cell">Production multi-agent with bespoke logic</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </section>
