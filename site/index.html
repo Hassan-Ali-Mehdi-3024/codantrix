@@ -5,631 +5,1153 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Codantrix Labs — Production agentic systems</title>
 <meta name="description" content="Codantrix Labs builds multi-agent production systems for SaaS, ops, and platform teams. Fixed scope, fixed price, six weeks to ship." />
-<link rel="icon" href="/assets/img/favicon.ico" />
-<link rel="canonical" href="https://labs.codantrix.com/" />
-
 <meta property="og:title" content="Codantrix Labs — Production agentic systems" />
-<meta property="og:description" content="Codantrix Labs builds multi-agent production systems for SaaS, ops, and platform teams. Fixed scope, fixed price, six weeks to ship." />
-<meta property="og:url" content="https://labs.codantrix.com/" />
-<meta property="og:image" content="https://labs.codantrix.com/og.png" />
-<meta property="og:type" content="website" />
+<meta property="og:description" content="A multi-agent engineering studio for SaaS, ops, and platform teams. We end in a deploy, not a slide deck." />
+<meta property="og:url" content="https://labs.codantrix.com" />
 <meta name="twitter:card" content="summary_large_image" />
-
+<link rel="alternate" type="text/plain" href="/llms.txt" />
+<link rel="canonical" href="https://labs.codantrix.com" />
+<link rel="icon" href="/assets/img/favicon.ico" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="/assets/css/style.css" />
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #0b0a08;
+    --bg-deep: #080705;
+    --surface-1: #14110d;
+    --surface-2: #181510;
+    --surface-3: #1c1813;
+    --bg-elev: #131210;
+    --ink: #ede5d6;
+    --ink-soft: #a39d8e;
+    --ink-faint: #5e584d;
+    --line: rgba(237, 229, 214, 0.07);
+    --line-strong: rgba(237, 229, 214, 0.13);
+    --accent: #ff6b35;
+    --accent-deep: #c44a1f;
+    --accent-glow: rgba(255, 107, 53, 0.16);
+    --accent-tint: rgba(255, 107, 53, 0.06);
+
+    --depth-md:
+      inset 0 1px 0 rgba(237, 229, 214, 0.07),
+      0 1px 2px rgba(0,0,0,0.5),
+      0 8px 24px -8px rgba(0,0,0,0.4),
+      0 24px 48px -20px rgba(0,0,0,0.5);
+
+    --depth-lg:
+      inset 0 1px 0 rgba(237, 229, 214, 0.08),
+      0 2px 4px rgba(0,0,0,0.5),
+      0 12px 32px -8px rgba(0,0,0,0.4),
+      0 32px 64px -20px rgba(0,0,0,0.55);
+
+    --depth-featured:
+      inset 0 1px 0 rgba(255, 107, 53, 0.22),
+      0 2px 4px rgba(0,0,0,0.5),
+      0 12px 36px -8px rgba(255, 107, 53, 0.12),
+      0 32px 64px -20px rgba(0,0,0,0.55);
+
+    --depth-hover:
+      inset 0 1px 0 rgba(237, 229, 214, 0.1),
+      0 4px 8px rgba(0,0,0,0.5),
+      0 20px 40px -8px rgba(0,0,0,0.5),
+      0 40px 80px -20px rgba(0,0,0,0.6);
+
+    --r-sm: 10px;
+    --r-md: 14px;
+    --r-lg: 18px;
+    --r-xl: 22px;
+
+    --display: 'Outfit', system-ui, sans-serif;
+    --body: 'Poppins', system-ui, sans-serif;
+    --max: 1240px;
+    --pad: clamp(20px, 4vw, 56px);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 15px;
+    line-height: 1.65;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  ::selection { background: var(--accent); color: var(--bg); }
+  a { color: inherit; text-decoration: none; }
+  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 var(--pad); position: relative; }
+
+  /* ============ SYSBAR ============ */
+  .sysbar { padding: 12px 0; background: var(--bg-elev); }
+  .sysbar .row { display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+  .sysbar .seg { display: flex; align-items: center; gap: 10px; }
+  .sysbar .seg span { font-family: var(--body); font-weight: 500; font-size: 11px; letter-spacing: 0.02em; color: var(--ink-soft); }
+  .sysbar .seg.accent span { color: var(--accent); font-weight: 600; }
+  .pulse { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 10px var(--accent-glow); flex-shrink: 0; }
+  .pulse.green { background: #6ee7a8; box-shadow: 0 0 10px rgba(110, 231, 168, 0.35); }
+  @media (max-width: 720px) { .sysbar .seg.optional { display: none; } }
+
+  /* ============ NAV ============ */
+  nav.top {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(11, 10, 8, 0.78);
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+  }
+  nav.top .row { display: flex; align-items: center; justify-content: space-between; padding: 18px 0; gap: 16px; }
+  .wordmark { font-family: var(--display); font-weight: 600; font-size: 18px; letter-spacing: -0.02em; display: flex; align-items: center; gap: 12px; }
+  .logo-mark {
+    width: 26px; height: 26px; border-radius: 8px;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-deep) 100%);
+    box-shadow: 0 0 16px rgba(255, 107, 53, 0.35), 0 1px 0 rgba(255, 255, 255, 0.2) inset;
+    flex-shrink: 0; padding: 4px;
+  }
+  .logo-mark svg { width: 100%; height: 100%; display: block; }
+  .nav-links { display: flex; gap: 30px; }
+  .nav-links a { font-family: var(--body); font-weight: 500; font-size: 14px; color: var(--ink-soft); transition: color 220ms ease; }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-cta {
+    font-family: var(--body); font-weight: 500; font-size: 13px;
+    background: var(--accent); color: var(--bg);
+    padding: 11px 22px; border-radius: 999px;
+    transition: all 240ms ease;
+    display: inline-flex; align-items: center; gap: 8px;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18), 0 4px 14px -2px rgba(255, 107, 53, 0.35);
+  }
+  .nav-cta:hover { transform: translateY(-1px); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22), 0 8px 22px -4px rgba(255, 107, 53, 0.5); }
+  @media (max-width: 760px) { .nav-links { display: none; } }
+
+  /* ============ HERO ============ */
+  .hero { padding: clamp(72px, 11vw, 150px) 0 clamp(56px, 9vw, 110px); position: relative; }
+  .hero::before {
+    content: ''; position: absolute; top: -260px; left: 50%; transform: translateX(-50%);
+    width: 1300px; height: 700px;
+    background: radial-gradient(ellipse at center, var(--accent-glow) 0%, transparent 60%);
+    pointer-events: none; z-index: 0; filter: blur(80px); opacity: 0.55;
+  }
+  .hero-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 56px; align-items: center; position: relative; z-index: 1; }
+  @media (max-width: 920px) { .hero-grid { grid-template-columns: 1fr; gap: 40px; } }
+
+  .hero-pill {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 6px 16px 6px 6px;
+    background: linear-gradient(180deg, var(--surface-2) 0%, var(--surface-1) 100%);
+    border-radius: 999px; margin-bottom: 36px;
+    font-family: var(--body); font-weight: 500; font-size: 12px;
+    box-shadow: var(--depth-md);
+  }
+  .hero-pill .badge {
+    background: var(--accent); color: var(--bg);
+    padding: 4px 11px; border-radius: 999px;
+    font-size: 10px; letter-spacing: 0.04em; text-transform: uppercase; font-weight: 600;
+  }
+  .hero h1 {
+    font-family: var(--display); font-weight: 600;
+    font-size: clamp(44px, 6.5vw, 84px);
+    line-height: 1.02; letter-spacing: -0.03em;
+    margin-bottom: 30px;
+  }
+  .hero h1 .highlight { color: var(--accent); font-weight: 700; }
+  .hero h1 .strike { color: var(--ink-faint); text-decoration: line-through; text-decoration-thickness: 2px; font-weight: 500; }
+  .hero p.lede { font-size: 18px; color: var(--ink-soft); line-height: 1.65; margin-bottom: 40px; max-width: 540px; }
+  .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+
+  .btn {
+    font-family: var(--body); font-weight: 500; font-size: 14px;
+    padding: 14px 26px; border-radius: 999px;
+    transition: all 240ms ease;
+    display: inline-flex; align-items: center; gap: 10px;
+    cursor: pointer;
+  }
+  .btn.primary {
+    background: var(--accent); color: var(--bg);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18), 0 6px 20px -4px rgba(255, 107, 53, 0.4);
+  }
+  .btn.primary:hover { transform: translateY(-1px); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22), 0 10px 28px -4px rgba(255, 107, 53, 0.5); }
+  .btn.ghost {
+    background: linear-gradient(180deg, var(--surface-2) 0%, var(--surface-1) 100%); color: var(--ink);
+    box-shadow: var(--depth-md);
+  }
+  .btn.ghost:hover { color: var(--accent); transform: translateY(-1px); box-shadow: var(--depth-hover); }
+  .btn .arrow { transition: transform 220ms ease; }
+  .btn:hover .arrow { transform: translateX(4px); }
+
+  .hero-diagram {
+    position: relative; aspect-ratio: 1 / 0.85; width: 100%;
+    padding: 28px;
+    background: linear-gradient(180deg, var(--surface-2) 0%, var(--surface-1) 100%);
+    border-radius: var(--r-xl);
+    box-shadow: var(--depth-lg);
+  }
+  .hero-diagram svg { width: 100%; height: 100%; display: block; }
+  .corner-label {
+    position: absolute;
+    font-family: var(--body); font-weight: 500;
+    font-size: 10px; letter-spacing: 0.06em;
+    color: var(--ink-faint);
+  }
+  .cl-tl { top: 14px; left: 18px; }
+  .cl-tr { top: 14px; right: 18px; }
+  .cl-bl { bottom: 14px; left: 18px; }
+  .cl-br { bottom: 14px; right: 18px; color: var(--accent); font-weight: 600; }
+
+  /* ============ STACK ============ */
+  .stack-strip { padding: 26px 0; background: var(--bg-elev); }
+  .stack-strip .row { display: flex; align-items: center; gap: clamp(20px, 4vw, 48px); flex-wrap: wrap; justify-content: space-between; }
+  .stack-strip .label { color: var(--ink-faint); font-family: var(--body); font-weight: 500; font-size: 12px; letter-spacing: 0.04em; }
+  .stack-strip .items { display: flex; gap: clamp(20px, 4vw, 40px); flex-wrap: wrap; }
+  .stack-strip .items span { font-family: var(--body); font-weight: 500; font-size: 13px; color: var(--ink-soft); transition: color 200ms; }
+  .stack-strip .items span:hover { color: var(--accent); }
+
+  /* ============ SECTION ============ */
+  .section { padding: clamp(80px, 10vw, 140px) 0; position: relative; }
+  .sec-head {
+    margin-bottom: 56px;
+    padding-bottom: 28px;
+    background:
+      linear-gradient(90deg, transparent 0%, rgba(237,229,214,0.08) 15%, rgba(237,229,214,0.08) 85%, transparent 100%) bottom no-repeat;
+    background-size: 100% 1px;
+  }
+  .sec-eyebrow { display: inline-flex; align-items: center; gap: 14px; margin-bottom: 22px; }
+  .sec-eyebrow .num { font-family: var(--display); font-weight: 600; font-size: 13px; color: var(--accent); letter-spacing: -0.01em; }
+  .sec-eyebrow .bar { width: 28px; height: 1px; background: var(--accent); opacity: 0.5; }
+  .sec-eyebrow .name { font-family: var(--body); font-weight: 500; font-size: 13px; color: var(--ink-soft); }
+  .sec-title {
+    font-family: var(--display); font-weight: 500;
+    font-size: clamp(32px, 4.4vw, 52px);
+    line-height: 1.08; letter-spacing: -0.025em;
+    max-width: 26ch;
+  }
+  .sec-title .muted { color: var(--ink-faint); font-weight: 400; }
+
+  /* ============ CARDS — DEPTH ONLY ============ */
+  .card {
+    border-radius: var(--r-xl);
+    padding: 40px;
+    background: linear-gradient(180deg, var(--surface-2) 0%, var(--surface-1) 100%);
+    box-shadow: var(--depth-md);
+    transition: transform 320ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 320ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    position: relative;
+  }
+  .card:hover { transform: translateY(-3px); box-shadow: var(--depth-hover); }
+  .card.featured {
+    background:
+      radial-gradient(ellipse 600px 200px at 50% 0%, var(--accent-tint) 0%, transparent 60%),
+      linear-gradient(180deg, var(--surface-3) 0%, var(--surface-2) 100%);
+    box-shadow: var(--depth-featured);
+  }
+  .card.featured:hover {
+    transform: translateY(-3px);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 107, 53, 0.28),
+      0 4px 8px rgba(0,0,0,0.5),
+      0 20px 48px -8px rgba(255, 107, 53, 0.18),
+      0 40px 80px -20px rgba(0,0,0,0.6);
+  }
+
+  /* ============ SERVICES BENTO ============ */
+  .bento-services { display: grid; grid-template-columns: 1.4fr 1fr; gap: 18px; }
+  @media (max-width: 920px) { .bento-services { grid-template-columns: 1fr; } }
+  .tier .head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; margin-bottom: 28px; padding-bottom: 24px; position: relative; }
+  .tier .head::after {
+    content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 1px;
+    background: linear-gradient(90deg, transparent 0%, rgba(237, 229, 214, 0.1) 20%, rgba(237, 229, 214, 0.1) 80%, transparent 100%);
+  }
+  .tier-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--body); font-weight: 500; font-size: 12px;
+    letter-spacing: 0.02em; color: var(--accent); margin-bottom: 12px;
+  }
+  .tier-tag .badge-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--accent); box-shadow: 0 0 10px var(--accent-glow);
+  }
+  .tier-name { font-family: var(--display); font-weight: 500; font-size: 26px; letter-spacing: -0.02em; line-height: 1.2; }
+  .price-block { text-align: right; flex-shrink: 0; }
+  .price { font-family: var(--display); font-weight: 600; font-size: 30px; letter-spacing: -0.02em; line-height: 1; }
+  .duration { font-family: var(--body); font-weight: 500; font-size: 12px; color: var(--ink-soft); margin-top: 8px; }
+  .tier-desc { color: var(--ink-soft); font-size: 14px; line-height: 1.7; margin-bottom: 28px; }
+  .features { list-style: none; margin-bottom: 28px; }
+  .features li {
+    display: grid; grid-template-columns: 24px 1fr; gap: 12px;
+    padding: 12px 0; font-size: 13px; color: var(--ink-soft);
+    line-height: 1.5; align-items: flex-start; position: relative;
+  }
+  .features li + li::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent 0%, rgba(237, 229, 214, 0.08) 30%, rgba(237, 229, 214, 0.08) 70%, transparent 100%);
+  }
+  .check {
+    width: 18px; height: 18px; border-radius: 50%;
+    background: rgba(255, 107, 53, 0.12);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; margin-top: 1px; color: var(--accent);
+  }
+  .check svg { width: 11px; height: 11px; }
+  .tier-cta {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--body); font-weight: 500; font-size: 13px;
+    color: var(--bg); padding: 12px 22px;
+    background: var(--accent); border-radius: 999px;
+    transition: all 240ms;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.22), 0 4px 12px -2px rgba(255, 107, 53, 0.4);
+  }
+  .tier-cta:hover { transform: translateY(-1px); box-shadow: inset 0 1px 0 rgba(255,255,255,0.28), 0 8px 18px -2px rgba(255, 107, 53, 0.55); }
+  .tier-cta.ghost {
+    background: linear-gradient(180deg, var(--surface-3) 0%, var(--surface-2) 100%);
+    color: var(--accent);
+    box-shadow: var(--depth-md);
+  }
+  .tier-cta.ghost:hover { transform: translateY(-1px); box-shadow: var(--depth-hover); }
+
+  /* ============ PROCESS ============ */
+  .process-frame {
+    background: linear-gradient(180deg, var(--surface-2) 0%, var(--surface-1) 100%);
+    border-radius: var(--r-xl);
+    padding: 48px clamp(20px, 4vw, 56px);
+    box-shadow: var(--depth-md);
+  }
+  .process-meta {
+    display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+    margin-bottom: 36px; padding-bottom: 22px;
+    background: linear-gradient(90deg, transparent 0%, rgba(237,229,214,0.08) 10%, rgba(237,229,214,0.08) 90%, transparent 100%) bottom no-repeat;
+    background-size: 100% 1px;
+  }
+  .process-meta span { font-family: var(--body); font-weight: 500; font-size: 12px; color: var(--ink-soft); }
+  .process-meta .label { color: var(--ink-faint); margin-right: 8px; font-weight: 400; }
+  .process-flow { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; position: relative; }
+  @media (max-width: 920px) { .process-flow { grid-template-columns: 1fr; } }
+  .process-step { padding: 24px 28px 24px 0; position: relative; }
+  .process-step:not(:last-child)::after { content: '→'; position: absolute; right: 16px; top: 28px; color: var(--accent); font-size: 14px; }
+  @media (max-width: 920px) {
+    .process-step:not(:last-child)::after { display: none; }
+    .process-step {
+      padding: 24px 0;
+      background: linear-gradient(90deg, transparent 0%, rgba(237,229,214,0.08) 10%, rgba(237,229,214,0.08) 90%, transparent 100%) bottom no-repeat;
+      background-size: 100% 1px;
+    }
+  }
+  .ph-icon-row { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+  .ph-icon-row .icon-wrap {
+    width: 32px; height: 32px;
+    background: rgba(255, 107, 53, 0.08);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--accent);
+    box-shadow: inset 0 1px 0 rgba(255, 107, 53, 0.18);
+  }
+  .ph-icon-row .icon-wrap svg { width: 16px; height: 16px; }
+  .ph-num { font-family: var(--body); font-weight: 600; font-size: 11px; letter-spacing: 0.04em; color: var(--accent); }
+  .process-step h4 { font-family: var(--display); font-weight: 500; font-size: 19px; letter-spacing: -0.02em; margin-bottom: 12px; line-height: 1.25; }
+  .process-step p { color: var(--ink-soft); font-size: 13px; line-height: 1.65; }
+  .process-step .duration-tag { font-family: var(--body); font-weight: 500; font-size: 11px; color: var(--ink-faint); margin-top: 16px; display: block; }
+
+  /* ============ WORK BENTO ============ */
+  .bento-work { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  @media (max-width: 920px) { .bento-work { grid-template-columns: 1fr; } }
+  .work-card {
+    border-radius: var(--r-xl);
+    padding: 30px;
+    background: linear-gradient(180deg, var(--surface-2) 0%, var(--surface-1) 100%);
+    box-shadow: var(--depth-md);
+    transition: transform 320ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 320ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    display: flex; flex-direction: column;
+  }
+  .work-card.span-2 { grid-column: span 2; }
+  @media (max-width: 920px) { .work-card.span-2 { grid-column: auto; } }
+  .work-card:hover { transform: translateY(-3px); box-shadow: var(--depth-hover); }
+  .work-card .meta {
+    display: flex; justify-content: space-between; gap: 12px; align-items: center;
+    margin-bottom: 22px; padding-bottom: 18px;
+    background: linear-gradient(90deg, transparent 0%, rgba(237,229,214,0.08) 10%, rgba(237,229,214,0.08) 90%, transparent 100%) bottom no-repeat;
+    background-size: 100% 1px;
+  }
+  .work-card .vertical { font-family: var(--body); font-weight: 500; font-size: 11px; letter-spacing: 0.04em; color: var(--accent); display: inline-flex; align-items: center; gap: 8px; }
+  .work-card .vertical svg { width: 14px; height: 14px; flex-shrink: 0; }
+  .work-card .duration { font-family: var(--body); font-weight: 500; font-size: 11px; color: var(--ink-faint); margin: 0; }
+  .work-card h4 { font-family: var(--display); font-weight: 500; font-size: 21px; letter-spacing: -0.02em; line-height: 1.3; margin-bottom: 12px; }
+  .work-card p { color: var(--ink-soft); font-size: 13px; line-height: 1.65; margin-bottom: 22px; flex-grow: 1; }
+  .work-card .outcome {
+    font-family: var(--body); font-weight: 600; font-size: 12px;
+    color: var(--accent); padding: 13px 0; margin-bottom: 18px;
+    display: flex; align-items: center; gap: 8px;
+    background:
+      linear-gradient(90deg, transparent 0%, rgba(237,229,214,0.08) 10%, rgba(237,229,214,0.08) 90%, transparent 100%) top no-repeat,
+      linear-gradient(90deg, transparent 0%, rgba(237,229,214,0.08) 10%, rgba(237,229,214,0.08) 90%, transparent 100%) bottom no-repeat;
+    background-size: 100% 1px;
+  }
+  .work-card .outcome svg { width: 14px; height: 14px; flex-shrink: 0; }
+  .work-card .stack { display: flex; gap: 6px; flex-wrap: wrap; }
+  .work-card .stack span {
+    font-family: var(--body); font-weight: 500; font-size: 11px;
+    color: var(--ink-soft); padding: 5px 11px;
+    background: var(--bg-elev);
+    border-radius: var(--r-sm);
+    box-shadow: inset 0 1px 0 rgba(237, 229, 214, 0.04);
+  }
+  .work-card.diagram-card svg.system-diag { width: 100%; height: 80px; margin-top: 18px; }
+
+  /* ============ COMPARE TABLE ============ */
+  .compare-wrap {
+    position: relative;
+    padding: 32px;
+    background: linear-gradient(180deg, var(--surface-1) 0%, var(--bg) 100%);
+    border-radius: 28px;
+    box-shadow: var(--depth-md);
+  }
+  .compare-table {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr 1fr 1.05fr;
+    align-items: stretch;
+    position: relative;
+    row-gap: 0;
+  }
+  @media (max-width: 720px) {
+    .compare-table { grid-template-columns: 1.4fr 1fr; }
+    .compare-table .col-3, .compare-table .col-4-cell { display: none; }
+    .codantrix-column { display: none !important; }
+  }
+  .codantrix-column {
+    grid-column: 4; grid-row: 1 / -1;
+    margin-top: -20px; margin-bottom: -20px;
+    background:
+      radial-gradient(ellipse 400px 220px at 50% 0%, rgba(255, 107, 53, 0.18) 0%, transparent 65%),
+      linear-gradient(180deg, var(--surface-3) 0%, var(--surface-2) 100%);
+    border-radius: 20px;
+    box-shadow: var(--depth-featured);
+    z-index: 0; pointer-events: none;
+  }
+  .compare-table > div {
+    padding: 18px 20px;
+    font-size: 13px;
+    position: relative; z-index: 1;
+    display: flex; align-items: center;
+  }
+  .compare-table .head-cell {
+    font-family: var(--body); font-weight: 600; font-size: 11px;
+    letter-spacing: 0.04em; color: var(--ink-faint);
+    padding-top: 18px; padding-bottom: 22px;
+  }
+  .compare-table .col-codantrix.head-cell {
+    color: var(--accent); font-weight: 600; font-size: 13px;
+    letter-spacing: -0.005em;
+  }
+  .codantrix-mark { display: inline-flex; align-items: center; gap: 8px; }
+  .codantrix-mark .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent); box-shadow: 0 0 8px var(--accent-glow);
+  }
+  .row-divider {
+    grid-column: 1 / -1;
+    height: 1px !important;
+    padding: 0 !important;
+    background: linear-gradient(90deg, transparent 0%, rgba(237, 229, 214, 0.06) 15%, rgba(237, 229, 214, 0.06) 85%, transparent 100%);
+    z-index: 2;
+  }
+  .row-label { color: var(--ink); font-weight: 500; }
+  .cell-other { color: var(--ink-soft); font-weight: 400; }
+  .cell-codantrix { color: var(--accent); font-weight: 500; }
+  .status { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; }
+  .status .icon-circle {
+    width: 18px; height: 18px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .status.yes .icon-circle { background: rgba(255, 107, 53, 0.14); color: var(--accent); }
+  .status.no .icon-circle { background: rgba(94, 88, 77, 0.18); color: var(--ink-faint); }
+  .status.maybe .icon-circle { background: rgba(163, 157, 142, 0.12); color: var(--ink-soft); }
+  .status .icon-circle svg { width: 10px; height: 10px; }
+
+  /* ============ STUDIO ============ */
+  .studio-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 18px; }
+  @media (max-width: 860px) { .studio-grid { grid-template-columns: 1fr; } }
+  .studio-prose {
+    background: linear-gradient(180deg, var(--surface-2) 0%, var(--surface-1) 100%);
+    border-radius: var(--r-xl);
+    padding: 44px;
+    box-shadow: var(--depth-md);
+  }
+  .studio-prose .label { font-family: var(--body); font-weight: 600; font-size: 11px; letter-spacing: 0.04em; color: var(--accent); margin-bottom: 22px; }
+  .studio-prose p { font-size: 17px; line-height: 1.75; color: var(--ink); margin-bottom: 18px; max-width: 60ch; }
+  .studio-prose p:last-of-type { color: var(--ink-soft); font-size: 15px; }
+  .studio-stats {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;
+    margin-top: 32px; padding-top: 28px;
+    background: linear-gradient(90deg, transparent 0%, rgba(237,229,214,0.08) 10%, rgba(237,229,214,0.08) 90%, transparent 100%) top no-repeat;
+    background-size: 100% 1px;
+  }
+  .stat .label { font-family: var(--body); font-weight: 500; font-size: 11px; color: var(--ink-faint); margin-bottom: 8px; }
+  .stat .value { font-family: var(--display); font-weight: 600; font-size: 28px; letter-spacing: -0.025em; }
+  .stat .value .accent { color: var(--accent); }
+  .founder-card {
+    background: linear-gradient(180deg, var(--surface-2) 0%, var(--surface-1) 100%);
+    border-radius: var(--r-xl);
+    padding: 36px;
+    display: flex; flex-direction: column;
+    box-shadow: var(--depth-md);
+  }
+  .founder-photo {
+    width: 68px; height: 68px; border-radius: 50%;
+    background: linear-gradient(135deg, rgba(255, 107, 53, 0.14) 0%, var(--bg-elev) 100%);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--display); font-weight: 600;
+    font-size: 24px; color: var(--accent);
+    margin-bottom: 26px; letter-spacing: -0.02em;
+    box-shadow: inset 0 1px 0 rgba(237, 229, 214, 0.08), 0 4px 14px -2px rgba(0, 0, 0, 0.4);
+  }
+  .founder-card .role { font-family: var(--body); font-weight: 600; font-size: 11px; letter-spacing: 0.04em; color: var(--accent); margin-bottom: 8px; }
+  .founder-card h4 { font-family: var(--display); font-weight: 500; font-size: 21px; letter-spacing: -0.02em; margin-bottom: 14px; }
+  .founder-card p { color: var(--ink-soft); font-size: 13px; line-height: 1.7; margin-bottom: 22px; flex-grow: 1; }
+  .founder-links {
+    display: flex; gap: 10px; flex-wrap: wrap;
+    padding-top: 20px;
+    background: linear-gradient(90deg, transparent 0%, rgba(237,229,214,0.08) 10%, rgba(237,229,214,0.08) 90%, transparent 100%) top no-repeat;
+    background-size: 100% 1px;
+  }
+  .founder-links a {
+    font-family: var(--body); font-weight: 500; font-size: 12px;
+    color: var(--ink-soft); transition: all 220ms;
+    padding: 8px 14px;
+    background: var(--bg-elev);
+    border-radius: var(--r-sm);
+    display: inline-flex; align-items: center; gap: 6px;
+    box-shadow: inset 0 1px 0 rgba(237, 229, 214, 0.04);
+  }
+  .founder-links a:hover { color: var(--accent); }
+
+  /* ============ FAQ ============ */
+  .faq-list { display: flex; flex-direction: column; gap: 14px; }
+  .faq-item {
+    background: linear-gradient(180deg, var(--surface-2) 0%, var(--surface-1) 100%);
+    border-radius: var(--r-lg);
+    padding: 28px 32px;
+    display: grid; grid-template-columns: 70px 1fr;
+    gap: 24px; align-items: start;
+    box-shadow: var(--depth-md);
+    transition: transform 320ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 320ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .faq-item:hover { transform: translateY(-2px); box-shadow: var(--depth-hover); }
+  @media (max-width: 720px) { .faq-item { grid-template-columns: 1fr; gap: 8px; padding: 22px 24px; } }
+  .faq-num { font-family: var(--body); font-weight: 600; font-size: 12px; letter-spacing: 0.04em; color: var(--accent); padding-top: 4px; }
+  .faq-q { font-family: var(--display); font-weight: 500; font-size: 19px; letter-spacing: -0.018em; margin-bottom: 10px; line-height: 1.3; }
+  .faq-a { color: var(--ink-soft); font-size: 14px; line-height: 1.75; max-width: 70ch; }
+
+  /* ============ FINAL ============ */
+  .final {
+    padding: clamp(96px, 14vw, 180px) 0;
+    position: relative; overflow: hidden;
+    background: linear-gradient(180deg, transparent 0%, var(--bg-deep) 100%);
+  }
+  .final::before {
+    content: ''; position: absolute; bottom: -360px; left: 50%; transform: translateX(-50%);
+    width: 1100px; height: 700px;
+    background: radial-gradient(ellipse at center, var(--accent-glow) 0%, transparent 60%);
+    filter: blur(100px); pointer-events: none; opacity: 0.5;
+  }
+  .final .wrap { position: relative; z-index: 1; }
+  .final h2 {
+    font-family: var(--display); font-weight: 600;
+    font-size: clamp(44px, 7vw, 96px);
+    line-height: 1; letter-spacing: -0.035em;
+    margin-bottom: 32px; max-width: 14ch;
+  }
+  .final h2 .highlight { color: var(--accent); font-weight: 700; }
+  .final p { color: var(--ink-soft); font-size: 17px; margin-bottom: 40px; max-width: 540px; line-height: 1.7; }
+
+  /* ============ FOOTER ============ */
+  footer { padding: 64px 0 40px; background: var(--bg-deep); }
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 48px; }
+  @media (max-width: 720px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+  .footer-grid .col h5 { font-family: var(--body); font-weight: 600; font-size: 11px; letter-spacing: 0.04em; color: var(--ink-faint); margin-bottom: 18px; }
+  .footer-grid .col a { display: block; font-family: var(--body); font-weight: 400; font-size: 13px; color: var(--ink-soft); padding: 5px 0; transition: color 200ms; }
+  .footer-grid .col a:hover { color: var(--accent); }
+  .footer-grid .col.about p { color: var(--ink-soft); font-size: 13px; line-height: 1.7; max-width: 320px; margin-top: 14px; }
+  .footer-bottom {
+    padding-top: 26px;
+    background: linear-gradient(90deg, transparent 0%, rgba(237,229,214,0.08) 10%, rgba(237,229,214,0.08) 90%, transparent 100%) top no-repeat;
+    background-size: 100% 1px;
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+  }
+  .footer-bottom span, .footer-bottom a { font-family: var(--body); font-weight: 400; font-size: 11px; color: var(--ink-faint); }
+  .colophon {
+    margin-top: 32px; padding-top: 26px;
+    background: linear-gradient(90deg, transparent 0%, rgba(237,229,214,0.08) 10%, rgba(237,229,214,0.08) 90%, transparent 100%) top no-repeat;
+    background-size: 100% 1px;
+    font-family: var(--body); font-weight: 400; font-size: 11px; color: var(--ink-faint); line-height: 1.9;
+  }
+
+  /* focus states for a11y */
+  a:focus-visible, button:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+</style>
 </head>
 <body>
 
-<!-- ========== Sysbar ========== -->
+<!-- ICON SPRITE -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-check" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 8.5l3 3 6-7"/></symbol>
+    <symbol id="i-x" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l8 8M4 12l8-8"/></symbol>
+    <symbol id="i-tilde" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9c0-2 1.5-3 3-3s2 2 4 2 3-2 3-2"/></symbol>
+    <symbol id="i-compass" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m15 9-2.5 6.5L9 12l3-3z"/></symbol>
+    <symbol id="i-circuit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><path d="M10 6.5h4M14.5 10v4M17.5 14V8a1 1 0 0 0-1-1H10"/></symbol>
+    <symbol id="i-wire" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2"/><circle cx="18" cy="18" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="6" cy="18" r="2"/><path d="M8 6h8M6 8v8M18 8v8M8 18h8"/></symbol>
+    <symbol id="i-ship" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4c4 0 6 2 6 6 0 4-4 8-8 10-2-2-6-6-6-10 0-4 2-6 6-6"/><circle cx="13" cy="10" r="2"/><path d="m7 14-3 3 1 4 4-1 1-3"/></symbol>
+    <symbol id="i-target" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></symbol>
+    <symbol id="i-building" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V7l7-4 7 4v14"/><path d="M9 9h2M13 9h2M9 13h2M13 13h2M9 17h2M13 17h2"/></symbol>
+    <symbol id="i-route" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="19" r="3"/><circle cx="18" cy="5" r="3"/><path d="M6 16V8a3 3 0 0 1 6 0v8a3 3 0 0 0 6 0"/></symbol>
+    <symbol id="i-tools" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m14.7 6.3 3 3M3 21l8-8M11 13l-3-3-5 8 5-2 3-3z"/><path d="M14 8a3 3 0 1 0 4 4l3 3-3 3-7-7z"/></symbol>
+    <symbol id="i-cap" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m12 4-10 5 10 5 10-5z"/><path d="M6 12v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"/><path d="M22 9v6"/></symbol>
+    <symbol id="i-doc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></symbol>
+    <symbol id="i-linkedin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-12h4v2"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></symbol>
+    <symbol id="i-github" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.9a3.4 3.4 0 0 0-.9-2.5c3-.4 6.2-1.5 6.2-6.7A5.2 5.2 0 0 0 20 5a4.8 4.8 0 0 0-.1-3.5s-1.1-.4-3.7 1.4a12.7 12.7 0 0 0-6.4 0C7.1 1.1 6 1.5 6 1.5A4.8 4.8 0 0 0 5.9 5a5.2 5.2 0 0 0-1.4 3.7c0 5.2 3.2 6.3 6.2 6.7-.6.5-.9 1.4-.9 2.5V22"/></symbol>
+    <symbol id="i-ext" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14 21 3"/></symbol>
+  </defs>
+</svg>
+
+<!-- SYSBAR -->
 <div class="sysbar">
-  <div class="gutter sysbar-row">
-    <span><span class="dot"></span>System online · Lahore PKT</span>
-    <span class="muted">5 production deploys · Booking window: April 2026</span>
-    <span class="slots">2 slots left this quarter</span>
+  <div class="wrap">
+    <div class="row">
+      <div class="seg"><div class="pulse green"></div><span>System online · Lahore</span></div>
+      <div class="seg optional"><span>5 production deploys · Booking window: Jun — Aug 2026</span></div>
+      <div class="seg accent"><div class="pulse"></div><span>2 slots left this quarter</span></div>
+    </div>
   </div>
 </div>
 
-<!-- ========== Nav ========== -->
-<nav class="nav">
-  <div class="gutter nav-row">
-    <a href="/" class="brand">
-      <span class="brand-mark">cx</span>
-      <span>codantrix labs</span>
-    </a>
-    <div class="nav-links">
-      <a href="#services">Services</a>
-      <a href="#process">Process</a>
-      <a href="#work">Work</a>
-      <a href="#studio">Studio</a>
+<!-- NAV -->
+<nav class="top">
+  <div class="wrap">
+    <div class="row">
+      <a href="#" class="wordmark">
+        <span class="logo-mark">
+          <svg viewBox="0 0 18 18" fill="none">
+            <circle cx="9" cy="9" r="2.5" fill="white"/>
+            <circle cx="3" cy="3" r="1.2" fill="white" opacity="0.85"/>
+            <circle cx="15" cy="3" r="1.2" fill="white" opacity="0.85"/>
+            <circle cx="3" cy="15" r="1.2" fill="white" opacity="0.85"/>
+            <circle cx="15" cy="15" r="1.2" fill="white" opacity="0.85"/>
+            <path d="M4 4l3.5 3.5M10.5 7.5 14 4M4 14l3.5-3.5M10.5 10.5 14 14" stroke="white" stroke-width="0.8" opacity="0.7"/>
+          </svg>
+        </span>
+        codantrix labs
+      </a>
+      <div class="nav-links">
+        <a href="#services">Services</a>
+        <a href="#how">Process</a>
+        <a href="#work">Work</a>
+        <a href="#studio">Studio</a>
+      </div>
+      <a href="#contact" class="nav-cta">Book a call <svg width="14" height="14"><use href="#i-arrow"/></svg></a>
     </div>
-    <a href="/book/" class="btn btn-primary btn-pill">Book a call <span aria-hidden="true">→</span></a>
   </div>
 </nav>
 
-<!-- ========== Hero ========== -->
-<header class="hero">
-  <div class="gutter">
-    <div class="hero-eyebrow-row">
-      <span class="section-marker">00</span>
-      <span class="eyebrow">Codantrix Labs</span>
-    </div>
-    <h1>We ship production agentic systems. Six weeks. Yours to keep.</h1>
-    <p class="lede hero-lede">
-      A multi-agent engineering studio for SaaS, ops, and platform teams. Fixed scope. Fixed price. Owned codebase. We end in a deploy, not a slide deck.
-    </p>
-    <div class="hero-cta-row">
-      <a href="/book/" class="btn btn-primary">Book a 30-min scope <span aria-hidden="true">→</span></a>
-      <a href="#services" class="btn btn-ghost">See services</a>
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <div class="hero-pill">
+          <span class="badge">v3.2</span>
+          <span>Production agentic systems for SaaS &amp; ops teams</span>
+        </div>
+        <h1>We ship <span class="highlight">agents</span>,<br/>not <span class="strike">slide decks</span>.</h1>
+        <p class="lede">Codantrix Labs designs and builds multi-agent production systems. Orchestration, retrieval, evals, and the boring infra that makes agents actually work in production. Fixed scope. Fixed price. Six weeks to ship.</p>
+        <div class="hero-ctas">
+          <a href="#contact" class="btn primary">Book a 30-min scope <svg class="arrow" width="14" height="14"><use href="#i-arrow"/></svg></a>
+          <a href="#how" class="btn ghost">See how we work</a>
+        </div>
+      </div>
+
+      <div class="hero-diagram">
+        <span class="corner-label cl-tl">Fig. 01 · System topology</span>
+        <span class="corner-label cl-tr">Rev. 26-04</span>
+        <span class="corner-label cl-bl">Scale 1:1</span>
+        <span class="corner-label cl-br">● Live</span>
+        <svg viewBox="0 0 480 400" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+          <defs>
+            <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#5e584d"/></marker>
+            <marker id="arrowAccent" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ff6b35"/></marker>
+          </defs>
+          <rect x="20" y="40" width="440" height="320" stroke="rgba(237, 229, 214, 0.07)" stroke-width="1" fill="none" rx="8"/>
+          <line x1="20" y1="68" x2="460" y2="68" stroke="rgba(237, 229, 214, 0.07)" stroke-dasharray="2 4"/>
+          <text x="40" y="60" fill="#5e584d" font-family="Poppins, sans-serif" font-weight="500" font-size="10">Production agent flow</text>
+          <text x="460" y="60" text-anchor="end" fill="#5e584d" font-family="Poppins, sans-serif" font-weight="500" font-size="10">Codantrix · v3.2</text>
+
+          <rect x="40" y="180" width="100" height="50" stroke="#5e584d" stroke-width="1" fill="#15130f" rx="8"/>
+          <text x="90" y="200" text-anchor="middle" fill="#a39d8e" font-family="Outfit, sans-serif" font-weight="500" font-size="11">Input</text>
+          <text x="90" y="216" text-anchor="middle" fill="#5e584d" font-family="Poppins, sans-serif" font-weight="400" font-size="9">user task</text>
+
+          <rect x="190" y="180" width="100" height="50" stroke="#ff6b35" stroke-width="1" fill="#15130f" rx="8"/>
+          <text x="240" y="200" text-anchor="middle" fill="#ff6b35" font-family="Outfit, sans-serif" font-weight="600" font-size="11">Orchestrator</text>
+          <text x="240" y="216" text-anchor="middle" fill="#a39d8e" font-family="Poppins, sans-serif" font-weight="400" font-size="9">router · memory</text>
+          <circle cx="190" cy="180" r="2" fill="#ff6b35"/>
+          <circle cx="290" cy="180" r="2" fill="#ff6b35"/>
+          <circle cx="190" cy="230" r="2" fill="#ff6b35"/>
+          <circle cx="290" cy="230" r="2" fill="#ff6b35"/>
+
+          <rect x="340" y="100" width="100" height="40" stroke="#5e584d" stroke-width="1" fill="#15130f" rx="8"/>
+          <text x="390" y="118" text-anchor="middle" fill="#ede5d6" font-family="Outfit, sans-serif" font-weight="500" font-size="10">Research</text>
+          <text x="390" y="130" text-anchor="middle" fill="#5e584d" font-family="Poppins, sans-serif" font-weight="400" font-size="9">tools · search</text>
+
+          <rect x="340" y="190" width="100" height="40" stroke="#5e584d" stroke-width="1" fill="#15130f" rx="8"/>
+          <text x="390" y="208" text-anchor="middle" fill="#ede5d6" font-family="Outfit, sans-serif" font-weight="500" font-size="10">RAG</text>
+          <text x="390" y="220" text-anchor="middle" fill="#5e584d" font-family="Poppins, sans-serif" font-weight="400" font-size="9">pgvector</text>
+
+          <rect x="340" y="270" width="100" height="40" stroke="#5e584d" stroke-width="1" fill="#15130f" rx="8"/>
+          <text x="390" y="288" text-anchor="middle" fill="#ede5d6" font-family="Outfit, sans-serif" font-weight="500" font-size="10">Action</text>
+          <text x="390" y="300" text-anchor="middle" fill="#5e584d" font-family="Poppins, sans-serif" font-weight="400" font-size="9">tools · exec</text>
+
+          <line x1="140" y1="205" x2="186" y2="205" stroke="#ff6b35" stroke-width="1" marker-end="url(#arrowAccent)"/>
+          <line x1="290" y1="195" x2="338" y2="120" stroke="#5e584d" stroke-width="1" marker-end="url(#arrow)"/>
+          <line x1="290" y1="205" x2="338" y2="210" stroke="#5e584d" stroke-width="1" marker-end="url(#arrow)"/>
+          <line x1="290" y1="220" x2="338" y2="290" stroke="#5e584d" stroke-width="1" marker-end="url(#arrow)"/>
+          <path d="M 340 130 Q 310 140 296 200" stroke="rgba(237,229,214,0.13)" stroke-width="1" stroke-dasharray="2 3" fill="none"/>
+          <path d="M 340 280 Q 310 270 296 220" stroke="rgba(237,229,214,0.13)" stroke-width="1" stroke-dasharray="2 3" fill="none"/>
+
+          <text x="240" y="260" text-anchor="middle" fill="#5e584d" font-family="Poppins, sans-serif" font-weight="400" font-size="10">↓ aggregate</text>
+          <rect x="190" y="280" width="100" height="40" stroke="#5e584d" stroke-width="1" fill="#15130f" rx="8"/>
+          <text x="240" y="298" text-anchor="middle" fill="#a39d8e" font-family="Outfit, sans-serif" font-weight="500" font-size="11">Output</text>
+          <text x="240" y="310" text-anchor="middle" fill="#5e584d" font-family="Poppins, sans-serif" font-weight="400" font-size="9">production response</text>
+
+          <text x="30" y="378" fill="#5e584d" font-family="Poppins, sans-serif" font-weight="400" font-size="10">latency 1.2s</text>
+          <text x="240" y="378" text-anchor="middle" fill="#5e584d" font-family="Poppins, sans-serif" font-weight="400" font-size="10">tokens 14k</text>
+          <text x="450" y="378" text-anchor="end" fill="#ff6b35" font-family="Poppins, sans-serif" font-weight="500" font-size="10">status ok</text>
+        </svg>
+      </div>
     </div>
   </div>
+</section>
 
-  <!-- Agent topology diagram — the "diagram language" referenced by the spec.
-       Input → routing orchestrator → 3 specialist agents → eval gate → tool calls.
-       Stroke-only, mono-line, accent on the eval gate. -->
-  <svg class="hero-topology" viewBox="0 0 480 280" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-    <defs>
-      <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-        <path d="M 0 0 L 10 5 L 0 10 z" fill="rgba(255,255,255,0.45)"/>
-      </marker>
-      <marker id="arrowAccent" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-        <path d="M 0 0 L 10 5 L 0 10 z" fill="#FF6B35"/>
-      </marker>
-    </defs>
-
-    <!-- Input -->
-    <g>
-      <rect x="6" y="120" width="80" height="40" rx="4" stroke="rgba(255,255,255,0.45)" stroke-width="1.25"/>
-      <text x="46" y="145" text-anchor="middle" font-family="ui-monospace, Menlo, monospace" font-size="11" fill="rgba(255,255,255,0.7)" letter-spacing="0.06em">INPUT</text>
-    </g>
-
-    <!-- Orchestrator -->
-    <g>
-      <rect x="140" y="100" width="120" height="80" rx="4" stroke="rgba(255,255,255,0.7)" stroke-width="1.25" fill="rgba(255,255,255,0.02)"/>
-      <text x="200" y="135" text-anchor="middle" font-family="Outfit, sans-serif" font-size="13" fill="rgba(255,255,255,1)" font-weight="500">Orchestrator</text>
-      <text x="200" y="155" text-anchor="middle" font-family="ui-monospace, Menlo, monospace" font-size="10" fill="rgba(255,255,255,0.45)" letter-spacing="0.08em">ROUTING + MEMORY</text>
-    </g>
-
-    <!-- 3 specialist agents -->
-    <g>
-      <rect x="290" y="40"  width="90" height="44" rx="4" stroke="rgba(255,255,255,0.45)" stroke-width="1.25"/>
-      <text x="335" y="67" text-anchor="middle" font-family="ui-monospace, Menlo, monospace" font-size="11" fill="rgba(255,255,255,0.7)" letter-spacing="0.06em">AGENT · 1</text>
-      <rect x="290" y="118" width="90" height="44" rx="4" stroke="rgba(255,255,255,0.45)" stroke-width="1.25"/>
-      <text x="335" y="145" text-anchor="middle" font-family="ui-monospace, Menlo, monospace" font-size="11" fill="rgba(255,255,255,0.7)" letter-spacing="0.06em">AGENT · 2</text>
-      <rect x="290" y="196" width="90" height="44" rx="4" stroke="rgba(255,255,255,0.45)" stroke-width="1.25"/>
-      <text x="335" y="223" text-anchor="middle" font-family="ui-monospace, Menlo, monospace" font-size="11" fill="rgba(255,255,255,0.7)" letter-spacing="0.06em">AGENT · 3</text>
-    </g>
-
-    <!-- Eval gate (accent) -->
-    <g>
-      <rect x="404" y="100" width="70" height="80" rx="4" stroke="#FF6B35" stroke-width="1.5" fill="rgba(255,107,53,0.06)"/>
-      <text x="439" y="135" text-anchor="middle" font-family="Outfit, sans-serif" font-size="12" fill="#FF6B35" font-weight="500">Eval</text>
-      <text x="439" y="153" text-anchor="middle" font-family="Outfit, sans-serif" font-size="12" fill="#FF6B35" font-weight="500">gate</text>
-    </g>
-
-    <!-- Connections -->
-    <path d="M 86 140 L 138 140" stroke="rgba(255,255,255,0.35)" stroke-width="1" marker-end="url(#arrow)"/>
-    <path d="M 260 130 C 280 130, 280 62,  288 62"  stroke="rgba(255,255,255,0.25)" stroke-width="1" marker-end="url(#arrow)"/>
-    <path d="M 260 140 L 288 140"                   stroke="rgba(255,255,255,0.25)" stroke-width="1" marker-end="url(#arrow)"/>
-    <path d="M 260 150 C 280 150, 280 218, 288 218" stroke="rgba(255,255,255,0.25)" stroke-width="1" marker-end="url(#arrow)"/>
-    <path d="M 380 62  C 396 62,  398 130, 402 130" stroke="rgba(255,107,53,0.5)" stroke-width="1" marker-end="url(#arrowAccent)"/>
-    <path d="M 380 140 L 402 140"                   stroke="rgba(255,107,53,0.5)" stroke-width="1" marker-end="url(#arrowAccent)"/>
-    <path d="M 380 218 C 396 218, 398 150, 402 150" stroke="rgba(255,107,53,0.5)" stroke-width="1" marker-end="url(#arrowAccent)"/>
-
-    <!-- Output label -->
-    <text x="439" y="262" text-anchor="middle" font-family="ui-monospace, Menlo, monospace" font-size="10" fill="rgba(255,255,255,0.35)" letter-spacing="0.1em">→ TOOL CALL</text>
-  </svg>
-</header>
-
-<!-- ========== Stack strip ========== -->
+<!-- STACK -->
 <section class="stack-strip">
-  <div class="gutter stack-strip-row">
-    <span class="label">Stack</span>
-    <div class="items">
-      <span>Next.js</span><span>Python</span><span>OpenAI</span><span>Claude</span><span>LangGraph</span><span>pgvector</span><span>Milvus</span><span>AWS</span>
+  <div class="wrap">
+    <div class="row">
+      <span class="label">Stack we ship on</span>
+      <div class="items">
+        <span>Next.js</span><span>Python</span><span>OpenAI</span><span>Claude</span><span>LangGraph</span><span>Postgres</span><span>pgvector</span><span>AWS</span>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ========== Services ========== -->
-<section id="services" class="section">
-  <div class="gutter">
-    <header class="grid12 mb-6">
-      <div style="grid-column: span 12;">
-        <div class="hero-eyebrow-row">
-          <span class="section-marker">01</span>
-          <span class="eyebrow">Services</span>
+<!-- SERVICES -->
+<section class="section" id="services">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-eyebrow"><span class="num">01</span><span class="bar"></span><span class="name">Services</span></div>
+      <h2 class="sec-title">Two engagements. <span class="muted">Both fixed-scope, fixed-price, no hourly billing.</span></h2>
+    </div>
+
+    <div class="bento-services">
+      <!-- TIER A — FEATURED -->
+      <div class="card tier featured">
+        <div class="head">
+          <div>
+            <div class="tier-tag"><span class="badge-dot"></span>Tier A — Production system</div>
+            <div class="tier-name">Multi-agent platform, end-to-end.</div>
+          </div>
+          <div class="price-block">
+            <div class="price">$15 — 30K</div>
+            <div class="duration">6 — 10 weeks</div>
+          </div>
         </div>
-        <h2 class="measure-wide">Two tiers. Both ship in production.</h2>
-        <p class="body-lg measure mt-3">
-          Prices public. Scopes written. Demos weekly. We bid on what we can ship, not on what we can pitch.
-        </p>
-      </div>
-    </header>
-
-    <div class="services-grid">
-
-      <!-- Tier B -->
-      <div class="service-tier">
-        <!-- Tier B glyph: single agent + scope ring (one orchestrator, one domain) -->
-        <svg class="tier-glyph" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <circle cx="32" cy="32" r="22" stroke="rgba(255,255,255,0.25)" stroke-width="1" stroke-dasharray="2 4"/>
-          <rect x="20" y="20" width="24" height="24" rx="3" stroke="rgba(255,255,255,0.7)" stroke-width="1.25" fill="rgba(255,255,255,0.02)"/>
-          <circle cx="32" cy="32" r="3" fill="#FF6B35"/>
-        </svg>
-        <p class="tier-label">Tier B · Agentic MVPs</p>
-        <p class="tier-meta">$8K — 15K &nbsp;·&nbsp; 4 — 6 weeks</p>
-        <ul class="service-list">
-          <li>
-            <span class="num">01</span>
-            <div>
-              <p class="name">Single-domain multi-agent system</p>
-              <p class="desc">Routing, memory, retrieval, and tool calls wired into a deterministic spine. Real users on day 30.</p>
-            </div>
-          </li>
-          <li>
-            <span class="num">02</span>
-            <div>
-              <p class="name">Owned codebase from day one</p>
-              <p class="desc">Your repo, your deploy. No platform lock-in. IP transfers on final payment.</p>
-            </div>
-          </li>
-          <li>
-            <span class="num">03</span>
-            <div>
-              <p class="name">Eval suite + observability</p>
-              <p class="desc">Every agent has a fail mode and a metric we test against. We will not ship what we cannot measure.</p>
-            </div>
-          </li>
+        <p class="tier-desc">For ops, sales, dispatch, and field teams who need autonomous workflows running reliably. Orchestration, observability, evals, and a client-facing surface.</p>
+        <ul class="features">
+          <li><span class="check"><svg><use href="#i-check"/></svg></span><span>Multi-agent orchestration with hierarchical retrieval</span></li>
+          <li><span class="check"><svg><use href="#i-check"/></svg></span><span>Client-facing dashboard or portal layer</span></li>
+          <li><span class="check"><svg><use href="#i-check"/></svg></span><span>Production observability + agent eval suite</span></li>
+          <li><span class="check"><svg><use href="#i-check"/></svg></span><span>Domain-specific RAG over your data</span></li>
+          <li><span class="check"><svg><use href="#i-check"/></svg></span><span>30-day post-launch support included</span></li>
         </ul>
+        <a href="#contact" class="tier-cta">Scope a Tier A engagement <svg class="arrow" width="14" height="14"><use href="#i-arrow"/></svg></a>
       </div>
 
-      <!-- Tier A -->
-      <div class="service-tier">
-        <!-- Tier A glyph: stacked layers + spine (multi-agent on a deterministic spine) -->
-        <svg class="tier-glyph" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <rect x="14" y="12" width="36" height="10" rx="2" stroke="rgba(255,255,255,0.45)" stroke-width="1.25"/>
-          <rect x="14" y="27" width="36" height="10" rx="2" stroke="rgba(255,255,255,0.7)"  stroke-width="1.25" fill="rgba(255,255,255,0.02)"/>
-          <rect x="14" y="42" width="36" height="10" rx="2" stroke="rgba(255,255,255,0.45)" stroke-width="1.25"/>
-          <line x1="56" y1="10" x2="56" y2="54" stroke="#FF6B35" stroke-width="1.5"/>
-        </svg>
-        <p class="tier-label">Tier A · Production systems</p>
-        <p class="tier-meta">$15K — 30K &nbsp;·&nbsp; 6 — 10 weeks</p>
-        <ul class="service-list">
-          <li>
-            <span class="num">01</span>
-            <div>
-              <p class="name">Multi-agent orchestration</p>
-              <p class="desc">Hierarchical retrieval, stateful orchestrators, eval gates between agent output and tool execution.</p>
-            </div>
-          </li>
-          <li>
-            <span class="num">02</span>
-            <div>
-              <p class="name">Client-facing dashboard layer</p>
-              <p class="desc">Next.js with auth, audit trails, and agent run logs visible to your team. Not a black box.</p>
-            </div>
-          </li>
-          <li>
-            <span class="num">03</span>
-            <div>
-              <p class="name">Domain-specific RAG over your data</p>
-              <p class="desc">pgvector or Milvus depending on scale. Hierarchical chunking. Re-ranking where it earns its weight.</p>
-            </div>
-          </li>
-          <li>
-            <span class="num">04</span>
-            <div>
-              <p class="name">30-day post-launch support</p>
-              <p class="desc">Slack channel, daily monitoring, evolutions inside the original scope.</p>
-            </div>
-          </li>
+      <!-- TIER B -->
+      <div class="card tier">
+        <div class="head">
+          <div>
+            <div class="tier-tag"><span class="badge-dot"></span>Tier B — Agentic MVP</div>
+            <div class="tier-name">From idea to working MVP in 6 weeks.</div>
+          </div>
+          <div class="price-block">
+            <div class="price">$8 — 15K</div>
+            <div class="duration">4 — 6 weeks</div>
+          </div>
+        </div>
+        <p class="tier-desc">For founders validating an agentic product idea. Single-domain multi-agent system, owned codebase, real users.</p>
+        <ul class="features">
+          <li><span class="check"><svg><use href="#i-check"/></svg></span><span>Multi-agent architecture, not chatbot wrappers</span></li>
+          <li><span class="check"><svg><use href="#i-check"/></svg></span><span>Owned Next.js + FastAPI codebase</span></li>
+          <li><span class="check"><svg><use href="#i-check"/></svg></span><span>Production deploy on day 30</span></li>
+          <li><span class="check"><svg><use href="#i-check"/></svg></span><span>Two iteration rounds inside SOW</span></li>
         </ul>
+        <a href="#contact" class="tier-cta ghost">Scope a Tier B engagement <svg class="arrow" width="14" height="14"><use href="#i-arrow"/></svg></a>
       </div>
-
     </div>
   </div>
 </section>
 
-<!-- ========== Process ========== -->
-<section id="process" class="section" style="border-top: 1px solid var(--hairline);">
-  <div class="gutter">
-    <header class="grid12 mb-6">
-      <div style="grid-column: span 12;">
-        <div class="hero-eyebrow-row">
-          <span class="section-marker">02</span>
-          <span class="eyebrow">Process</span>
+<!-- PROCESS -->
+<section class="section" id="how">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-eyebrow"><span class="num">02</span><span class="bar"></span><span class="name">Process</span></div>
+      <h2 class="sec-title">Four phases. Six weeks. <span class="muted">One production system.</span></h2>
+    </div>
+
+    <div class="process-frame">
+      <div class="process-meta">
+        <span><span class="label">Doc id</span>codantrix.process</span>
+        <span><span class="label">Engagement</span>Tier A · Tier B</span>
+        <span><span class="label">Duration</span>4 — 10 weeks</span>
+        <span><span class="label">Rev</span>26-04</span>
+      </div>
+      <div class="process-flow">
+        <div class="process-step">
+          <div class="ph-icon-row">
+            <div class="icon-wrap"><svg><use href="#i-compass"/></svg></div>
+            <div class="ph-num">01 · Map</div>
+          </div>
+          <h4>Map the agent surface</h4>
+          <p>Two-day discovery on workflows, decision points, data sources. Output: agent architecture spec + scoped SOW.</p>
+          <span class="duration-tag">3 — 5 days</span>
         </div>
-        <h2 class="measure-wide">Four phases. Each ends in a deploy.</h2>
-        <p class="body-lg measure mt-3">
-          The week-one deploy is small. The week-six deploy is real. We don't wait until the end to put code in front of users.
-        </p>
+        <div class="process-step">
+          <div class="ph-icon-row">
+            <div class="icon-wrap"><svg><use href="#i-circuit"/></svg></div>
+            <div class="ph-num">02 · Build</div>
+          </div>
+          <h4>Build the spine</h4>
+          <p>Orchestration, memory, retrieval, tool calls go in first. Stateless before stateful, deterministic before probabilistic.</p>
+          <span class="duration-tag">2 — 3 weeks</span>
+        </div>
+        <div class="process-step">
+          <div class="ph-icon-row">
+            <div class="icon-wrap"><svg><use href="#i-wire"/></svg></div>
+            <div class="ph-num">03 · Wire</div>
+          </div>
+          <h4>Wire the agents</h4>
+          <p>Domain agents wired into the spine with eval suite. Every agent has a fail mode and a rollback path.</p>
+          <span class="duration-tag">2 — 3 weeks</span>
+        </div>
+        <div class="process-step">
+          <div class="ph-icon-row">
+            <div class="icon-wrap"><svg><use href="#i-ship"/></svg></div>
+            <div class="ph-num">04 · Ship</div>
+          </div>
+          <h4>Ship to production</h4>
+          <p>Deployed to your infra or ours. Loom walkthrough, runbook, 30-day support. Code is yours.</p>
+          <span class="duration-tag">1 week + 30d</span>
+        </div>
       </div>
-    </header>
-
-    <div class="process-grid">
-
-      <div class="process-step">
-        <!-- Map: compass / target — discovery anchored on a fixed point -->
-        <svg class="step-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <circle cx="16" cy="16" r="11" stroke="currentColor" stroke-width="1.25"/>
-          <circle cx="16" cy="16" r="5"  stroke="currentColor" stroke-width="1.25"/>
-          <line x1="16" y1="2" x2="16" y2="7" stroke="#FF6B35" stroke-width="1.5"/>
-          <circle cx="16" cy="16" r="1.5" fill="#FF6B35"/>
-        </svg>
-        <p class="num">01 · Map</p>
-        <h4>Discovery + scope</h4>
-        <p class="duration">3 — 5 days</p>
-        <p class="desc">We map every decision point, data source, and failure mode in your workflow. Output: agent architecture spec, scoped SOW, signed decision doc before we touch code.</p>
-      </div>
-
-      <div class="process-step">
-        <!-- Build: stacked blocks — the spine before the agents -->
-        <svg class="step-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <rect x="6"  y="6"  width="20" height="6" rx="1" stroke="currentColor" stroke-width="1.25"/>
-          <rect x="6"  y="14" width="20" height="6" rx="1" stroke="currentColor" stroke-width="1.25" fill="rgba(255,255,255,0.05)"/>
-          <rect x="6"  y="22" width="20" height="6" rx="1" stroke="#FF6B35"     stroke-width="1.5"  fill="rgba(255,107,53,0.08)"/>
-        </svg>
-        <p class="num">02 · Build</p>
-        <h4>Spine first, agents later</h4>
-        <p class="duration">2 — 3 weeks</p>
-        <p class="desc">Orchestration, memory, retrieval, tool calls. Deterministic where possible. We build the fail modes before the agents — most outages disappear.</p>
-      </div>
-
-      <div class="process-step">
-        <!-- Wire: connected nodes -->
-        <svg class="step-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <line x1="8"  y1="8"  x2="24" y2="24" stroke="currentColor" stroke-width="1.25"/>
-          <line x1="24" y1="8"  x2="8"  y2="24" stroke="currentColor" stroke-width="1.25"/>
-          <line x1="16" y1="6"  x2="16" y2="26" stroke="currentColor" stroke-width="1.25"/>
-          <circle cx="8"  cy="8"  r="2.5" stroke="currentColor" stroke-width="1.25" fill="#0A0A0A"/>
-          <circle cx="24" cy="8"  r="2.5" stroke="currentColor" stroke-width="1.25" fill="#0A0A0A"/>
-          <circle cx="8"  cy="24" r="2.5" stroke="currentColor" stroke-width="1.25" fill="#0A0A0A"/>
-          <circle cx="24" cy="24" r="2.5" stroke="currentColor" stroke-width="1.25" fill="#0A0A0A"/>
-          <circle cx="16" cy="16" r="3"   stroke="#FF6B35"     stroke-width="1.5"  fill="#0A0A0A"/>
-        </svg>
-        <p class="num">03 · Wire</p>
-        <h4>Agents in, evals running</h4>
-        <p class="duration">2 — 3 weeks</p>
-        <p class="desc">Each agent has a specific scope, an eval suite that runs on every commit, a fail mode, and a metric. No "general assistant" agents.</p>
-      </div>
-
-      <div class="process-step">
-        <!-- Ship: arrow leaving a frame -->
-        <svg class="step-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <rect x="4" y="6" width="14" height="20" rx="1.5" stroke="currentColor" stroke-width="1.25"/>
-          <line x1="13" y1="16" x2="28" y2="16" stroke="#FF6B35" stroke-width="1.5"/>
-          <polyline points="22,10 28,16 22,22"  stroke="#FF6B35" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-        </svg>
-        <p class="num">04 · Ship</p>
-        <h4>Production deploy + handover</h4>
-        <p class="duration">1 week + 30 days</p>
-        <p class="desc">Deploy to your infra. Loom walkthrough. Runbook handed over. 30-day support window opens. After that: retainers or you take the wheel.</p>
-      </div>
-
     </div>
   </div>
 </section>
 
-<!-- ========== Selected work ========== -->
-<section id="work" class="section" style="border-top: 1px solid var(--hairline);">
-  <div class="gutter">
-    <header class="grid12 mb-6">
-      <div style="grid-column: span 12;">
-        <div class="hero-eyebrow-row">
-          <span class="section-marker">03</span>
-          <span class="eyebrow">Selected work</span>
+<!-- WORK -->
+<section class="section" id="work">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-eyebrow"><span class="num">03</span><span class="bar"></span><span class="name">Selected work</span></div>
+      <h2 class="sec-title">Five systems shipped. <span class="muted">Names anonymized pending client clearance.</span></h2>
+    </div>
+
+    <div class="bento-work">
+      <div class="work-card span-2 diagram-card">
+        <div class="meta">
+          <span class="vertical"><svg><use href="#i-building"/></svg> Real estate · Operations</span>
+          <span class="duration">8 weeks · Tier A</span>
         </div>
-        <h2 class="measure-wide">Five systems shipped. Names anonymized.</h2>
-        <p class="body-lg measure mt-3">
-          Each engagement is multi-agent, production-deployed, and owned end-to-end by the client. No platform lock-in.
-        </p>
+        <h4>Tenant-ops copilot for a US property management platform.</h4>
+        <p>Multi-agent system handling lease ingest, maintenance triage, tenant comms. Three specialist agents wired through a routing orchestrator with eval gating before action.</p>
+        <div class="outcome"><svg><use href="#i-target"/></svg> Ticket resolution: 38 hrs → 6 hrs (− 84%)</div>
+        <div class="stack">
+          <span>Next.js</span><span>Claude</span><span>LangGraph</span><span>pgvector</span><span>AWS</span>
+        </div>
+        <svg class="system-diag" viewBox="0 0 600 80" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+          <defs>
+            <marker id="arr2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#5e584d"/></marker>
+            <marker id="arr2a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ff6b35"/></marker>
+          </defs>
+          <rect x="0" y="30" width="80" height="20" stroke="#5e584d" fill="#15130f" rx="6"/>
+          <text x="40" y="44" text-anchor="middle" fill="#a39d8e" font-family="Outfit, sans-serif" font-weight="500" font-size="10">Intake</text>
+          <line x1="80" y1="40" x2="118" y2="40" stroke="#ff6b35" marker-end="url(#arr2a)"/>
+          <rect x="120" y="30" width="100" height="20" stroke="#ff6b35" fill="#15130f" rx="6"/>
+          <text x="170" y="44" text-anchor="middle" fill="#ff6b35" font-family="Outfit, sans-serif" font-weight="600" font-size="10">Router</text>
+          <line x1="220" y1="40" x2="258" y2="20" stroke="#5e584d" marker-end="url(#arr2)"/>
+          <line x1="220" y1="40" x2="258" y2="40" stroke="#5e584d" marker-end="url(#arr2)"/>
+          <line x1="220" y1="40" x2="258" y2="60" stroke="#5e584d" marker-end="url(#arr2)"/>
+          <rect x="260" y="10" width="80" height="20" stroke="#5e584d" fill="#15130f" rx="6"/>
+          <text x="300" y="24" text-anchor="middle" fill="#a39d8e" font-family="Outfit, sans-serif" font-weight="500" font-size="10">Lease</text>
+          <rect x="260" y="30" width="80" height="20" stroke="#5e584d" fill="#15130f" rx="6"/>
+          <text x="300" y="44" text-anchor="middle" fill="#a39d8e" font-family="Outfit, sans-serif" font-weight="500" font-size="10">Maint</text>
+          <rect x="260" y="50" width="80" height="20" stroke="#5e584d" fill="#15130f" rx="6"/>
+          <text x="300" y="64" text-anchor="middle" fill="#a39d8e" font-family="Outfit, sans-serif" font-weight="500" font-size="10">Comms</text>
+          <line x1="340" y1="20" x2="378" y2="40" stroke="#5e584d" marker-end="url(#arr2)"/>
+          <line x1="340" y1="40" x2="378" y2="40" stroke="#5e584d" marker-end="url(#arr2)"/>
+          <line x1="340" y1="60" x2="378" y2="40" stroke="#5e584d" marker-end="url(#arr2)"/>
+          <rect x="380" y="30" width="80" height="20" stroke="#ff6b35" fill="#15130f" rx="6"/>
+          <text x="420" y="44" text-anchor="middle" fill="#ff6b35" font-family="Outfit, sans-serif" font-weight="600" font-size="10">Eval</text>
+          <line x1="460" y1="40" x2="498" y2="40" stroke="#ff6b35" marker-end="url(#arr2a)"/>
+          <rect x="500" y="30" width="80" height="20" stroke="#5e584d" fill="#15130f" rx="6"/>
+          <text x="540" y="44" text-anchor="middle" fill="#a39d8e" font-family="Outfit, sans-serif" font-weight="500" font-size="10">Action</text>
+        </svg>
       </div>
-    </header>
 
-    <div class="work-grid">
-      <article class="work-card">
-        <div class="tag-row">
-          <span class="tier">Tier A</span>
-          <span>Real estate · Operations</span>
-          <span>8 weeks</span>
-        </div>
-        <h3>Tenant-ops copilot for a US property management platform.</h3>
-        <p class="one-liner">A multi-agent system that ingests leases, triages maintenance, and handles tenant communications without human dispatch in the loop.</p>
-        <div class="stat-row">
-          <span><strong>38 hrs → 6 hrs</strong> resolution</span>
-          <span><strong>24/7</strong> coverage</span>
-          <span><strong>~60 hrs/wk</strong> saved</span>
-        </div>
-      </article>
+      <div class="work-card">
+        <div class="meta"><span class="vertical"><svg><use href="#i-route"/></svg> Field ops · Dispatch</span><span class="duration">10w · A</span></div>
+        <h4>Autonomous dispatch agent for a North American service network.</h4>
+        <p>Routing, scheduling, customer comms agents wired into existing CRM.</p>
+        <div class="outcome"><svg><use href="#i-target"/></svg> 24/7 coverage · 0 new hires</div>
+        <div class="stack"><span>FastAPI</span><span>OpenAI</span><span>Postgres</span></div>
+      </div>
 
-      <article class="work-card">
-        <div class="tag-row">
-          <span class="tier">Tier A</span>
-          <span>Field ops · Dispatch</span>
-          <span>10 weeks</span>
-        </div>
-        <h3>Dispatch agent for a multi-region service-tech company.</h3>
-        <p class="one-liner">Agentic dispatcher that schedules technicians, routes around traffic and skill gaps, and renegotiates with customers when jobs slip.</p>
-        <div class="stat-row">
-          <span><strong>3 days → 4 hrs</strong> assignment</span>
-          <span><strong>~ 22%</strong> route efficiency</span>
-        </div>
-      </article>
+      <div class="work-card">
+        <div class="meta"><span class="vertical"><svg><use href="#i-tools"/></svg> Construction · Estimation</span><span class="duration">6w · A</span></div>
+        <h4>Quote-generation system for a regional contractor.</h4>
+        <p>Doc-aware agents reading drawings, pulling supplier prices, drafting client quotes.</p>
+        <div class="outcome"><svg><use href="#i-target"/></svg> Turnaround: 3 days → 4 hrs</div>
+        <div class="stack"><span>Python</span><span>Claude</span><span>Milvus</span></div>
+      </div>
 
-      <article class="work-card">
-        <div class="tag-row">
-          <span class="tier">Tier B</span>
-          <span>Construction · Estimation</span>
-          <span>6 weeks</span>
-        </div>
-        <h3>Estimation copilot over a contractor's bid history.</h3>
-        <p class="one-liner">Single-domain RAG plus an estimator agent that drafts quantity takeoffs and flags scope ambiguity before bids leave the door.</p>
-        <div class="stat-row">
-          <span><strong>4 days → 1 day</strong> per bid</span>
-          <span><strong>~ 31%</strong> bids drafted</span>
-        </div>
-      </article>
+      <div class="work-card">
+        <div class="meta"><span class="vertical"><svg><use href="#i-cap"/></svg> EdTech · Learning</span><span class="duration">5w · B</span></div>
+        <h4>AI exam-prep platform with PDF chat + MCQ generation.</h4>
+        <p>Conversational document agent over student coursework with auto-generated practice questions.</p>
+        <div class="outcome"><svg><use href="#i-target"/></svg> MVP shipped on day 30</div>
+        <div class="stack"><span>Next.js</span><span>OpenAI</span><span>Supabase</span></div>
+      </div>
 
-      <article class="work-card">
-        <div class="tag-row">
-          <span class="tier">Tier B</span>
-          <span>EdTech · Learning</span>
-          <span>5 weeks</span>
-        </div>
-        <h3>Personalized study agent for a regional test-prep platform.</h3>
-        <p class="one-liner">Agent that reads each student's mistake patterns, generates targeted practice, and stops when mastery is hit. Eval-gated content generation.</p>
-        <div class="stat-row">
-          <span><strong>+ 18 pts</strong> avg. score lift</span>
-          <span><strong>74%</strong> 30-day retention</span>
-        </div>
-      </article>
-
-      <article class="work-card">
-        <div class="tag-row">
-          <span class="tier">Tier A</span>
-          <span>Document AI · English + Arabic</span>
-          <span>9 weeks</span>
-        </div>
-        <h3>Bilingual document pipeline for a regional fintech.</h3>
-        <p class="one-liner">English + Arabic OCR, structured extraction, and a review agent that surfaces anomalies before documents enter the system of record.</p>
-        <div class="stat-row">
-          <span><strong>92%</strong> straight-through</span>
-          <span><strong>− 84%</strong> manual review hrs</span>
-        </div>
-      </article>
+      <div class="work-card">
+        <div class="meta"><span class="vertical"><svg><use href="#i-doc"/></svg> Document AI · Arabic</span><span class="duration">7w · A</span></div>
+        <h4>Arabic RAG pipeline over 100 regulatory PDFs.</h4>
+        <p>Open-source Arabic LLM stack with hierarchical retrieval over Milvus.</p>
+        <div class="outcome"><svg><use href="#i-target"/></svg> 100 PDFs · open-weight stack</div>
+        <div class="stack"><span>Milvus</span><span>Llama</span><span>Python</span></div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ========== Build vs Buy ========== -->
-<section class="section" style="border-top: 1px solid var(--hairline);">
-  <div class="gutter">
-    <header class="grid12 mb-6">
-      <div style="grid-column: span 12;">
-        <div class="hero-eyebrow-row">
-          <span class="section-marker">04</span>
-          <span class="eyebrow">Build vs buy</span>
-        </div>
-        <h2 class="measure-wide">When to hire us. When not to.</h2>
-        <p class="body-lg measure mt-3">
-          Honest comparison against the obvious alternatives. We're not the right call for every workflow.
-        </p>
-      </div>
-    </header>
+<!-- BUILD VS BUY -->
+<section class="section">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-eyebrow"><span class="num">04</span><span class="bar"></span><span class="name">Build vs buy</span></div>
+      <h2 class="sec-title">When to hire us. <span class="muted">When to use Lindy or Relevance instead.</span></h2>
+    </div>
+
+    <p style="color: var(--ink-soft); font-size: 16px; max-width: 720px; margin-bottom: 32px; line-height: 1.75;">
+      No-code agent platforms are good. For some teams they are the right answer. We will tell you which one you are on the scope call. Here is the honest version.
+    </p>
 
     <div class="compare-wrap">
-      <table class="compare">
-        <thead>
-          <tr>
-            <th></th>
-            <th class="us">Codantrix</th>
-            <th>No-code platform</th>
-            <th>Tier 2 consultancy</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th>Code ownership</th>
-            <td class="us">Your repo, your deploy</td>
-            <td>Platform-owned</td>
-            <td>Yours after handover</td>
-          </tr>
-          <tr>
-            <th>Pricing</th>
-            <td class="us">Fixed scope, fixed price</td>
-            <td>Per-seat / per-run</td>
-            <td>T&amp;M, often $80K+</td>
-          </tr>
-          <tr>
-            <th>Time to ship</th>
-            <td class="us">4 — 10 weeks</td>
-            <td>Days, but capped</td>
-            <td>4 — 8 months</td>
-          </tr>
-          <tr>
-            <th>Multi-agent depth</th>
-            <td class="us">Production multi-agent</td>
-            <td>Single-agent / templates</td>
-            <td>Often outsourced</td>
-          </tr>
-          <tr>
-            <th>You talk to</th>
-            <td class="us">The engineer writing your code</td>
-            <td>Support tickets</td>
-            <td>Account manager → PM → engineer</td>
-          </tr>
-          <tr>
-            <th>SOC 2 / HIPAA</th>
-            <td>Not yet</td>
-            <td>Some platforms, yes</td>
-            <td>Yes</td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="compare-table">
+        <div class="codantrix-column"></div>
+
+        <div class="head-cell"></div>
+        <div class="head-cell">No-code platforms</div>
+        <div class="head-cell col-3">Generic dev shop</div>
+        <div class="head-cell col-codantrix col-4-cell">
+          <span class="codantrix-mark"><span class="dot"></span>Codantrix Labs</span>
+        </div>
+
+        <div class="row-divider"></div>
+
+        <div class="row-label">Time to first agent</div>
+        <div class="cell-other">Days</div>
+        <div class="cell-other col-3">2 — 3 months</div>
+        <div class="cell-codantrix col-4-cell">4 — 10 weeks</div>
+
+        <div class="row-divider"></div>
+
+        <div class="row-label">Custom logic above platform ceiling</div>
+        <div class="cell-other"><span class="status no"><span class="icon-circle"><svg><use href="#i-x"/></svg></span>Limited</span></div>
+        <div class="cell-other col-3"><span class="status maybe"><span class="icon-circle"><svg><use href="#i-tilde"/></svg></span>Maybe</span></div>
+        <div class="cell-codantrix col-4-cell"><span class="status yes"><span class="icon-circle"><svg><use href="#i-check"/></svg></span>Yes</span></div>
+
+        <div class="row-divider"></div>
+
+        <div class="row-label">Owned codebase</div>
+        <div class="cell-other"><span class="status no"><span class="icon-circle"><svg><use href="#i-x"/></svg></span>No</span></div>
+        <div class="cell-other col-3"><span class="status yes"><span class="icon-circle"><svg><use href="#i-check"/></svg></span>Yes</span></div>
+        <div class="cell-codantrix col-4-cell"><span class="status yes"><span class="icon-circle"><svg><use href="#i-check"/></svg></span>Yes</span></div>
+
+        <div class="row-divider"></div>
+
+        <div class="row-label">Production observability + evals</div>
+        <div class="cell-other"><span class="status maybe"><span class="icon-circle"><svg><use href="#i-tilde"/></svg></span>Basics</span></div>
+        <div class="cell-other col-3"><span class="status no"><span class="icon-circle"><svg><use href="#i-x"/></svg></span>Rare</span></div>
+        <div class="cell-codantrix col-4-cell"><span class="status yes"><span class="icon-circle"><svg><use href="#i-check"/></svg></span>Default</span></div>
+
+        <div class="row-divider"></div>
+
+        <div class="row-label">On-prem or VPC deploy</div>
+        <div class="cell-other"><span class="status no"><span class="icon-circle"><svg><use href="#i-x"/></svg></span>Hosted only</span></div>
+        <div class="cell-other col-3"><span class="status maybe"><span class="icon-circle"><svg><use href="#i-tilde"/></svg></span>Possible</span></div>
+        <div class="cell-codantrix col-4-cell"><span class="status yes"><span class="icon-circle"><svg><use href="#i-check"/></svg></span>Yes</span></div>
+
+        <div class="row-divider"></div>
+
+        <div class="row-label">Best for</div>
+        <div class="cell-other">Sales / support under platform ceiling</div>
+        <div class="cell-other col-3">Generic web + AI features</div>
+        <div class="cell-codantrix col-4-cell">Production multi-agent with bespoke logic</div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ========== Studio + Founder ========== -->
-<section id="studio" class="section" style="border-top: 1px solid var(--hairline);">
-  <div class="gutter">
-    <header class="grid12 mb-6">
-      <div style="grid-column: span 12;">
-        <div class="hero-eyebrow-row">
-          <span class="section-marker">05</span>
-          <span class="eyebrow">Studio</span>
+<!-- STUDIO -->
+<section class="section" id="studio">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-eyebrow"><span class="num">05</span><span class="bar"></span><span class="name">Studio</span></div>
+      <h2 class="sec-title">Founded 2023, in Lahore. <span class="muted">Small on purpose.</span></h2>
+    </div>
+
+    <div class="studio-grid">
+      <div class="studio-prose">
+        <div class="label">The studio thesis</div>
+        <p>Codantrix Labs builds production agentic systems for SaaS, ops, and platform teams. We exist because most AI engagements end in a slide deck. We end in a deploy.</p>
+        <p>The studio is small on purpose. One founder, contractors on demand, no project managers between you and the engineer writing your code. SOW first, weekly milestones, IP transfers on final payment.</p>
+        <p>Registered with SECP in Pakistan as Codantrix Labs (formerly Technologistics, founded 2023). Working with teams across US and EU time zones, with overlap built into every engagement.</p>
+        <div class="studio-stats">
+          <div class="stat"><div class="label">Founded</div><div class="value">2023</div></div>
+          <div class="stat"><div class="label">Production systems</div><div class="value"><span class="accent">5</span></div></div>
+          <div class="stat"><div class="label">Verticals shipped</div><div class="value">4</div></div>
+          <div class="stat"><div class="label">Avg. cycle</div><div class="value">6 wks</div></div>
         </div>
-        <h2 class="measure-wide">Small on purpose.</h2>
-      </div>
-    </header>
-
-    <div class="studio-row">
-      <div class="card-elev">
-        <p class="lede mb-4">Most AI engagements end in a slide deck. We end in a deploy.</p>
-        <p class="body mb-3">
-          Codantrix exists to close the gap between "we should add AI" and "we have AI in production." That's where most teams stop. We don't.
-        </p>
-        <p class="body mb-3">
-          The studio is small on purpose. One founder, contractors on demand, no project managers between you and the engineer writing your code.
-        </p>
-        <p class="body">
-          Founded 2023 in Lahore. SECP-registered in Pakistan. Operating across US East, US West, and EU central time zones. Daily async, weekly sync.
-        </p>
       </div>
 
-      <aside class="founder-card">
-        <div class="founder-portrait">HM</div>
+      <div class="founder-card">
+        <div class="founder-photo">HM</div>
+        <div class="role">Founder · Engineering</div>
         <h4>Hassan Ali Mehdi</h4>
-        <p class="role">Founder &amp; lead engineer</p>
-        <p>
-          Six years shipping software. Five production agentic systems. BSCS at The Superior University, Lahore. Builds end-to-end — architecture, agents, frontend, deploy.
-        </p>
-        <a href="https://www.linkedin.com/in/hassan-ali-mehdi/" target="_blank" rel="noopener" class="link-arrow">
-          LinkedIn <span class="arrow" aria-hidden="true">→</span>
-        </a>
-      </aside>
-    </div>
-  </div>
-</section>
-
-<!-- ========== FAQ ========== -->
-<section class="section" style="border-top: 1px solid var(--hairline);">
-  <div class="gutter">
-    <header class="grid12 mb-6">
-      <div style="grid-column: span 12;">
-        <div class="hero-eyebrow-row">
-          <span class="section-marker">06</span>
-          <span class="eyebrow">Questions</span>
+        <p>Six years shipping software. Former president of the AI Society at The Superior University, Lahore. BSCS '26. Builds agentic systems end-to-end — architecture, agents, frontend, deploy. Treats SOW like a contract because it is one.</p>
+        <div class="founder-links">
+          <a href="https://linkedin.com/in/hassan-ali-mehdi"><svg width="13" height="13"><use href="#i-linkedin"/></svg> LinkedIn</a>
+          <a href="https://github.com/hassan-ali-mehdi-3024"><svg width="13" height="13"><use href="#i-github"/></svg> GitHub</a>
+          <a href="https://hassanalimehdi.dev"><svg width="13" height="13"><use href="#i-ext"/></svg> Personal</a>
         </div>
-        <h2 class="measure-wide">The ones we get asked.</h2>
-      </div>
-    </header>
-
-    <div class="grid12">
-      <div style="grid-column: span 12;" class="faq-list">
-
-        <details class="faq-item">
-          <summary>What's the engagement model?</summary>
-          <p class="answer">Fixed scope, fixed price, signed SOW before any work begins. 50/50 payment terms — 50% non-refundable upfront retainer, 50% on final delivery. IP transfers on final payment. No hourly billing, no T&amp;M surprises. Change requests get their own SOW.</p>
-        </details>
-
-        <details class="faq-item">
-          <summary>What happens if scope changes mid-engagement?</summary>
-          <p class="answer">A change request is a new mini-SOW with its own price and timeline. We're transparent about what counts as a change versus what's inside scope. Most engagements ship without change requests because we spend the first week locking scope down hard.</p>
-        </details>
-
-        <details class="faq-item">
-          <summary>Can you deploy to our infrastructure?</summary>
-          <p class="answer">Yes. We deploy to your AWS, GCP, or Vercel. We can also deploy to ours during dev and migrate at handoff. We don't run a "platform" you depend on after the engagement closes — your code lives in your repo from day one.</p>
-        </details>
-
-        <details class="faq-item">
-          <summary>Do you do enterprise compliance work (SOC 2, HIPAA)?</summary>
-          <p class="answer">Not yet. If you need attested compliance for a regulated environment, we'll point you to a Layer 2 consultancy and step aside. Honest constraint; we don't pretend to be a fit when we're not.</p>
-        </details>
-
-        <details class="faq-item">
-          <summary>Why are you "we" if it's a one-founder studio?</summary>
-          <p class="answer">Because every engagement involves contractors — designers, frontend devs, sometimes a second backend pair. The engineering lead is always Hassan. The studio is small on purpose, but it's not solo when work is shipping.</p>
-        </details>
-
-        <details class="faq-item">
-          <summary>What's your stack opinion?</summary>
-          <p class="answer">Next.js for the frontend. Python or Node for the backend, depending on team fit. Claude or GPT-4 depending on the agent's job — we don't pick by brand, we pick by eval. LangGraph for orchestration when state matters; raw API calls when it doesn't. pgvector at small scale, Milvus when scale demands it.</p>
-        </details>
-
       </div>
     </div>
   </div>
 </section>
 
-<!-- ========== Final CTA ========== -->
-<section class="cta">
-  <div class="gutter">
-    <div class="hero-eyebrow-row">
-      <span class="section-marker">07</span>
-      <span class="eyebrow">Next step</span>
+<!-- FAQ -->
+<section class="section">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-eyebrow"><span class="num">06</span><span class="bar"></span><span class="name">Common questions</span></div>
+      <h2 class="sec-title">Questions every Tier A buyer asks. <span class="muted">Answered before the call.</span></h2>
     </div>
-    <h2>You bring the workflow. We ship the agents.</h2>
-    <p class="lede cta-sub">
-      30-min scope call. By the end you'll know what we'd build, in what order, what it costs, and whether we're the right fit.
-    </p>
-    <div class="cta-actions">
-      <a href="/book/" class="btn btn-primary">Book a 30-min scope <span aria-hidden="true">→</span></a>
-      <a href="mailto:hassan@codantrix.com" class="btn btn-ghost">Email instead</a>
+
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-num">Q.01</div>
+        <div>
+          <div class="faq-q">How is pricing structured?</div>
+          <div class="faq-a">Fixed-price per engagement. 50% upfront non-refundable retainer, 50% on delivery. No hourly billing. SOW signed before any work begins. Change requests get their own SOW.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-num">Q.02</div>
+        <div>
+          <div class="faq-q">Who owns the IP and code?</div>
+          <div class="faq-a">You do. IP transfers on final payment. Code lives in your repo from day one. We do not maintain a "platform" you depend on after handoff. The studio takes nothing with it.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-num">Q.03</div>
+        <div>
+          <div class="faq-q">How do you work across time zones?</div>
+          <div class="faq-a">We operate on US and EU hours by default. Daily async updates plus one weekly sync. Lahore is GMT+5 — you ship a brief at end of your day, code is on your desk by morning.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-num">Q.04</div>
+        <div>
+          <div class="faq-q">What if we should use Lindy or Relevance instead?</div>
+          <div class="faq-a">Sometimes that is the right answer. We will tell you on the scope call. If your workflow fits inside a no-code platform, hire us only when you need custom logic, owned code, or VPC deploy that platforms cannot give you.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-num">Q.05</div>
+        <div>
+          <div class="faq-q">What happens after handoff?</div>
+          <div class="faq-a">30 days of post-launch support included. Beyond that, retainers for ongoing work or evolution. Most clients return for follow-up engagements rather than long retainers — that is a deliberate design choice.</div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ========== Footer ========== -->
-<footer class="footer">
-  <div class="gutter">
+<!-- FINAL CTA -->
+<section class="final" id="contact">
+  <div class="wrap">
+    <h2>You bring the<br/>workflow. We<br/><span class="highlight">ship the agents.</span></h2>
+    <p>30-min scope call. No obligation, no slide deck. By the end you will know whether we are the right fit, what it will cost, and how long it will take.</p>
+    <div class="hero-ctas">
+      <a href="/book/" class="btn primary">Book a 30-min scope <svg class="arrow" width="14" height="14"><use href="#i-arrow"/></svg></a>
+      <a href="mailto:hassan@codantrix.com" class="btn ghost">hassan@codantrix.com</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
     <div class="footer-grid">
-      <div>
-        <a href="/" class="brand mb-4" style="display: inline-flex;">
-          <span class="brand-mark">cx</span>
-          <span>codantrix labs</span>
+      <div class="col about">
+        <a href="#" class="wordmark">
+          <span class="logo-mark">
+            <svg viewBox="0 0 18 18" fill="none">
+              <circle cx="9" cy="9" r="2.5" fill="white"/>
+              <circle cx="3" cy="3" r="1.2" fill="white" opacity="0.85"/>
+              <circle cx="15" cy="3" r="1.2" fill="white" opacity="0.85"/>
+              <circle cx="3" cy="15" r="1.2" fill="white" opacity="0.85"/>
+              <circle cx="15" cy="15" r="1.2" fill="white" opacity="0.85"/>
+            </svg>
+          </span>
+          codantrix labs
         </a>
-        <p class="body" style="font-size: 14px; color: var(--fg-45); max-width: 36ch;">
-          Production agentic systems studio. Founded 2023 in Lahore. Working with teams across US and EU time zones.
-        </p>
+        <p>Production agentic systems studio. Founded 2023 in Lahore. Working with teams across US and EU time zones.</p>
       </div>
-      <div>
+      <div class="col">
         <h5>Studio</h5>
-        <ul>
-          <li><a href="#services">Services</a></li>
-          <li><a href="#work">Work</a></li>
-          <li><a href="#process">Process</a></li>
-          <li><a href="#studio">Studio</a></li>
-        </ul>
+        <a href="#services">Services</a>
+        <a href="#how">Process</a>
+        <a href="#work">Work</a>
+        <a href="#studio">About</a>
       </div>
-      <div>
+      <div class="col">
         <h5>Founder</h5>
-        <ul>
-          <li><a href="https://www.linkedin.com/in/hassan-ali-mehdi/" target="_blank" rel="noopener">LinkedIn</a></li>
-          <li><a href="https://github.com/hassan-ali-mehdi-3024" target="_blank" rel="noopener">GitHub</a></li>
-          <li><a href="https://hassanalimehdi.dev" target="_blank" rel="noopener">Personal site</a></li>
-        </ul>
+        <a href="https://linkedin.com/in/hassan-ali-mehdi">LinkedIn</a>
+        <a href="https://github.com/hassan-ali-mehdi-3024">GitHub</a>
+        <a href="https://hassanalimehdi.dev">Personal site</a>
       </div>
-      <div>
+      <div class="col">
         <h5>Contact</h5>
-        <ul>
-          <li><a href="mailto:hassan@codantrix.com">hassan@codantrix.com</a></li>
-          <li><a href="/book/">Book a call</a></li>
-          <li><span class="muted">Lahore, Pakistan</span></li>
-        </ul>
+        <a href="mailto:hassan@codantrix.com">hassan@codantrix.com</a>
+        <a href="/book/">Book a call</a>
+        <a href="#">Lahore, Pakistan</a>
       </div>
     </div>
-
-    <div class="footer-strip">
+    <div class="footer-bottom">
       <span>© 2026 Codantrix Labs · SECP-registered in Pakistan</span>
       <span><a href="/privacy/">Privacy</a> · <a href="/terms/">Terms</a></span>
     </div>
-    <p class="colophon">
-      Set in Outfit &amp; Poppins · Hand-built · Hosted on Cloudflare · View source: codantrix-labs/site
-    </p>
+    <div class="colophon">Set in Outfit &amp; Poppins. Hand-built. Hosted on Cloudflare.</div>
   </div>
 </footer>
 
