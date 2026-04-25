@@ -104,6 +104,7 @@
   nav.top .row { display: flex; align-items: center; justify-content: space-between; padding: 18px 0; gap: 16px; }
   .wordmark { font-family: var(--display); font-weight: 600; font-size: 18px; letter-spacing: -0.02em; display: flex; align-items: center; gap: 12px; }
   .logo-mark {
+    display: inline-flex; align-items: center; justify-content: center;
     width: 26px; height: 26px; border-radius: 8px;
     background: linear-gradient(135deg, var(--accent) 0%, var(--accent-deep) 100%);
     box-shadow: 0 0 16px rgba(255, 107, 53, 0.35), 0 1px 0 rgba(255, 255, 255, 0.2) inset;
@@ -565,8 +566,9 @@
   .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 48px; }
   @media (max-width: 720px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
   .footer-grid .col h5 { font-family: var(--body); font-weight: 600; font-size: 11px; letter-spacing: 0.04em; color: var(--ink-faint); margin-bottom: 18px; }
-  .footer-grid .col a { display: block; font-family: var(--body); font-weight: 400; font-size: 13px; color: var(--ink-soft); padding: 5px 0; transition: color 200ms; }
-  .footer-grid .col a:hover { color: var(--accent); }
+  .footer-grid .col a:not(.wordmark) { display: block; font-family: var(--body); font-weight: 400; font-size: 13px; color: var(--ink-soft); padding: 5px 0; transition: color 200ms; }
+  .footer-grid .col a:not(.wordmark):hover { color: var(--accent); }
+  .footer-grid .col .wordmark { font-size: 18px; color: var(--ink); padding: 0; }
   .footer-grid .col.about p { color: var(--ink-soft); font-size: 13px; line-height: 1.7; max-width: 320px; margin-top: 14px; }
   .footer-bottom {
     padding-top: 26px;
