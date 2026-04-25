@@ -416,8 +416,14 @@
     .codantrix-column { display: none !important; }
   }
   .codantrix-column {
-    grid-column: 4; grid-row: 1 / -1;
-    margin-top: -20px; margin-bottom: -20px;
+    /* Absolutely positioned over col 4 of .compare-table. Out of grid flow so
+       it doesn't block auto-placement of the head/data cells in col 4.
+       Col 4 width = 1.05 / (1.6 + 1 + 1 + 1.05) = ~22.58% of the table width. */
+    position: absolute;
+    top: -20px;
+    bottom: -20px;
+    right: 0;
+    width: 22.58%;
     background:
       radial-gradient(ellipse 400px 220px at 50% 0%, rgba(255, 107, 53, 0.18) 0%, transparent 65%),
       linear-gradient(180deg, var(--surface-3) 0%, var(--surface-2) 100%);
