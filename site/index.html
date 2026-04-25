@@ -105,12 +105,12 @@
   .wordmark { font-family: var(--display); font-weight: 600; font-size: 18px; letter-spacing: -0.02em; display: flex; align-items: center; gap: 12px; }
   .logo-mark {
     display: inline-flex; align-items: center; justify-content: center;
-    width: 26px; height: 26px; border-radius: 8px;
-    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-deep) 100%);
-    box-shadow: 0 0 16px rgba(255, 107, 53, 0.35), 0 1px 0 rgba(255, 255, 255, 0.2) inset;
-    flex-shrink: 0; padding: 4px;
+    height: 22px; width: auto;
+    color: var(--accent);
+    flex-shrink: 0;
+    filter: drop-shadow(0 0 12px rgba(255, 107, 53, 0.35));
   }
-  .logo-mark svg { width: 100%; height: 100%; display: block; }
+  .logo-mark svg { height: 100%; width: auto; display: block; }
   .nav-links { display: flex; gap: 30px; }
   .nav-links a { font-family: var(--body); font-weight: 500; font-size: 14px; color: var(--ink-soft); transition: color 220ms ease; }
   .nav-links a:hover { color: var(--ink); }
@@ -681,6 +681,10 @@
     <symbol id="i-linkedin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-12h4v2"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></symbol>
     <symbol id="i-github" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.9a3.4 3.4 0 0 0-.9-2.5c3-.4 6.2-1.5 6.2-6.7A5.2 5.2 0 0 0 20 5a4.8 4.8 0 0 0-.1-3.5s-1.1-.4-3.7 1.4a12.7 12.7 0 0 0-6.4 0C7.1 1.1 6 1.5 6 1.5A4.8 4.8 0 0 0 5.9 5a5.2 5.2 0 0 0-1.4 3.7c0 5.2 3.2 6.3 6.2 6.7-.6.5-.9 1.4-.9 2.5V22"/></symbol>
     <symbol id="i-ext" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14 21 3"/></symbol>
+    <!-- Codantrix brand mark -->
+    <symbol id="i-logo" viewBox="0 0 2552.94 1200">
+      <path fill="currentColor" d="M284.95,86.06c211.74-136.1,510.58-107.03,696.75,60.72,37.29,34.43,75.02,68.41,109.45,105.78,28.88,30.4,63.22,55.98,85.93,91.83-47.39,50.34-94.07,103.19-151.39,142.44-68.67-61.88-127.87-134.04-200.92-191.18-83.7-64.38-196.01-94.34-299.91-71.71-153.89,23.16-283.1,154.87-307.24,307.87-4.38,65.01-7.69,132.43,13.59,195.02,38.99,120.54,144.23,219.17,268.7,245.54,113.47,28.79,239.2-8.05,323.7-88.17,59.2-56.96,116.69-115.8,175.44-173.2,14.31-13.59,27-28.79,37.56-45.51-107.12-7.78-214.07,4.83-321.01,4.65-21.91,11.71-33,38.27-56.33,49.09-46.41,22.18-109.09,14.66-143.79-25.13-44.53-47.39-46.05-132.61,3.04-177.32,33-30.67,83.61-44.89,125.99-25.66,35.14,10.82,59.11,40.33,77.88,70.46,131.09,2.24,262.18,2.41,393.26,2.32,35.77,4.74,55.44-30.4,79.23-50.61,111.59-105.96,213.89-221.13,323.7-328.97,65.1-66.8,145.4-118.12,232.76-150.4,160.51-53.29,345.51-46.14,493.86,39.08,133.95,71.27,232.22,200.03,280.86,342.38,34.43,112.04,34.96,233.65,6.35,347.03-18.96,66.53-50.43,129.21-88.61,186.71-92.28,125.81-232.76,218.81-388.44,241.61-148.97,28.61-306.08-10.91-431.8-93.53-65.99-42.74-118.66-101.94-174.55-156.57-26.11-27.45-55.71-51.86-79.05-82-7.24-17.88,9.12-31.48,19.67-43.37,39.43-39.88,77.88-80.92,122.68-114.9,31.48,33.44,62.5,67.42,95.95,98.99,59.64,57.23,115.8,122.77,193.95,155.41,64.2,30.76,136.63,35.95,206.65,28.97,134.58-21.01,258.06-114.99,305.72-243.93,25.66-61.97,26.02-130.64,20.57-196.54-10.55-93.62-65.63-176.33-134.4-238.21-73.68-59.55-168.55-92.1-263.25-89.51-74.04,6.71-148.26,27.45-208.61,72.16-57.05,43.55-106.05,96.48-157.02,146.74-33.08,34.25-69.03,65.72-99.34,102.56,123.4.8,246.89,2.59,370.28-.36,21.37-38.54,57.14-74.49,104.35-73.95,55.89-7.06,107.93,32.28,127.33,83.07,7.33,40.15,7.15,86.65-22.89,118.12-41.76,57.76-136.18,62.06-184.29,10.37-10.91-10.91-19.67-23.79-28.79-36.21-139.85-3.67-279.52,5.45-419.37,2.32-24.41-.18-52.94-3.13-69.03,19.4-80.39,86.47-166.86,166.86-248.32,252.43-71.09,69.03-137.62,144.86-222.12,198.24-65.19,37.56-136.1,67.87-211.12,77.79-53.65,4.2-107.57,3.93-161.22,1.25C240.78,1161.95,18.22,922.93,1.41,656.91c-1.52-50.52-2.95-101.4,2.24-151.83C26.53,332.05,135.71,174.94,284.95,86.06Z"/>
+    </symbol>
   </defs>
 </svg>
 
@@ -700,16 +704,7 @@
   <div class="wrap">
     <div class="row">
       <a href="#" class="wordmark">
-        <span class="logo-mark">
-          <svg viewBox="0 0 18 18" fill="none">
-            <circle cx="9" cy="9" r="2.5" fill="white"/>
-            <circle cx="3" cy="3" r="1.2" fill="white" opacity="0.85"/>
-            <circle cx="15" cy="3" r="1.2" fill="white" opacity="0.85"/>
-            <circle cx="3" cy="15" r="1.2" fill="white" opacity="0.85"/>
-            <circle cx="15" cy="15" r="1.2" fill="white" opacity="0.85"/>
-            <path d="M4 4l3.5 3.5M10.5 7.5 14 4M4 14l3.5-3.5M10.5 10.5 14 14" stroke="white" stroke-width="0.8" opacity="0.7"/>
-          </svg>
-        </span>
+        <span class="logo-mark"><svg aria-hidden="true"><use href="#i-logo"/></svg></span>
         codantrix labs
       </a>
       <div class="nav-links">
@@ -1187,15 +1182,7 @@
     <div class="footer-grid">
       <div class="col about">
         <a href="#" class="wordmark">
-          <span class="logo-mark">
-            <svg viewBox="0 0 18 18" fill="none">
-              <circle cx="9" cy="9" r="2.5" fill="white"/>
-              <circle cx="3" cy="3" r="1.2" fill="white" opacity="0.85"/>
-              <circle cx="15" cy="3" r="1.2" fill="white" opacity="0.85"/>
-              <circle cx="3" cy="15" r="1.2" fill="white" opacity="0.85"/>
-              <circle cx="15" cy="15" r="1.2" fill="white" opacity="0.85"/>
-            </svg>
-          </span>
+          <span class="logo-mark"><svg aria-hidden="true"><use href="#i-logo"/></svg></span>
           codantrix labs
         </a>
         <p>Production agentic systems studio. Founded 2023 in Lahore. Working with teams across US and EU time zones.</p>
