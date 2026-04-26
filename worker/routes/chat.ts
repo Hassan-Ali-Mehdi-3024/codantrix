@@ -136,7 +136,11 @@ export async function handleChat(request: Request, env: Env): Promise<Response> 
   await sse.send({ type: "meta", conversation_id: conversationId });
 
   // Run loop in the background; flush + close at the end
-  const ctx = { db: env.DB, conversationId };
+  const ctx = {
+    db: env.DB,
+    conversationId,
+    calendlyToken: env.CALENDLY_TOKEN,
+  };
   const loopPromise = (async () => {
     try {
       await runChatLoop({
