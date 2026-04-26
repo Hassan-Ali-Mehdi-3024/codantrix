@@ -4,53 +4,274 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Page not found — Codantrix Labs</title>
-<meta name="description" content="That link does not exist on labs.codantrix.com." />
+<meta name="description" content="That link doesn't exist on labs.codantrix.com." />
 <meta name="robots" content="noindex" />
 <link rel="icon" href="/assets/img/favicon.ico" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="/assets/css/style.css" />
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #0b0a08;
+    --bg-deep: #080705;
+    --surface-1: #14110d;
+    --surface-2: #181510;
+    --surface-3: #1c1813;
+    --bg-elev: #131210;
+    --ink: #ede5d6;
+    --ink-soft: #a39d8e;
+    --ink-faint: #5e584d;
+    --line: rgba(237, 229, 214, 0.07);
+    --line-strong: rgba(237, 229, 214, 0.13);
+    --accent: #ff6b35;
+    --accent-deep: #c44a1f;
+    --accent-glow: rgba(255, 107, 53, 0.16);
+    --accent-tint: rgba(255, 107, 53, 0.06);
+
+    --depth-md:
+      inset 0 1px 0 rgba(237, 229, 214, 0.07),
+      0 1px 2px rgba(0,0,0,0.5),
+      0 8px 24px -8px rgba(0,0,0,0.4),
+      0 24px 48px -20px rgba(0,0,0,0.5);
+
+    --r-sm: 10px;
+    --r-md: 14px;
+    --r-lg: 18px;
+    --r-xl: 22px;
+
+    --display: 'Outfit', system-ui, sans-serif;
+    --body: 'Poppins', system-ui, sans-serif;
+    --max: 1240px;
+    --pad: clamp(20px, 4vw, 56px);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 15px;
+    line-height: 1.65;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+  }
+  ::selection { background: var(--accent); color: var(--bg); }
+  a { color: inherit; text-decoration: none; }
+  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 var(--pad); position: relative; }
+
+  /* ============ SYSBAR ============ */
+  .sysbar { padding: 12px 0; background: var(--bg-elev); }
+  .sysbar .row { display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+  .sysbar .seg { display: flex; align-items: center; gap: 10px; }
+  .sysbar .seg span { font-family: var(--body); font-weight: 500; font-size: 11px; letter-spacing: 0.02em; color: var(--ink-soft); }
+  .sysbar .seg.accent span { color: var(--accent); font-weight: 600; }
+  .pulse { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 10px var(--accent-glow); flex-shrink: 0; }
+  .pulse.warn { background: var(--accent); }
+  @media (max-width: 720px) { .sysbar .seg.optional { display: none; } }
+
+  /* ============ NAV ============ */
+  nav.top {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(11, 10, 8, 0.78);
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+  }
+  nav.top .row { display: flex; align-items: center; justify-content: space-between; padding: 18px 0; gap: 16px; }
+  .wordmark {
+    font-family: var(--display); font-weight: 600;
+    font-size: 14px; letter-spacing: 0.12em; text-transform: uppercase;
+    display: inline-flex; align-items: center; gap: 12px;
+    white-space: nowrap;
+  }
+  .wordmark .sep { color: var(--accent); font-weight: 700; }
+  .logo-mark {
+    display: inline-flex; align-items: center; justify-content: center;
+    color: var(--accent);
+    flex-shrink: 0;
+    filter: drop-shadow(0 0 6px rgba(255, 107, 53, 0.32));
+  }
+  .logo-mark svg { display: block; }
+  .nav-cta {
+    font-family: var(--body); font-weight: 500; font-size: 13px;
+    background: var(--accent); color: var(--bg);
+    padding: 11px 22px; border-radius: 999px;
+    transition: all 240ms ease;
+    display: inline-flex; align-items: center; gap: 8px;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18), 0 4px 14px -2px rgba(255, 107, 53, 0.35);
+  }
+  .nav-cta:hover { transform: translateY(-1px); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22), 0 8px 22px -4px rgba(255, 107, 53, 0.5); }
+
+  /* ============ 404 HERO ============ */
+  main.notfound {
+    flex: 1 0 auto;
+    display: flex; align-items: center; justify-content: center;
+    padding: clamp(80px, 12vw, 160px) 0 clamp(60px, 10vw, 120px);
+    position: relative;
+  }
+  main.notfound::before {
+    content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 1100px; height: 600px;
+    background: radial-gradient(ellipse at center, var(--accent-glow) 0%, transparent 60%);
+    pointer-events: none; z-index: 0; filter: blur(90px); opacity: 0.4;
+  }
+  main.notfound .wrap { position: relative; z-index: 1; text-align: center; }
+
+  .nf-eyebrow { display: inline-flex; align-items: center; gap: 14px; margin-bottom: 28px; }
+  .nf-eyebrow .num {
+    font-family: var(--display); font-weight: 600; font-size: 13px;
+    color: var(--accent); letter-spacing: 0.04em;
+  }
+  .nf-eyebrow .bar { width: 28px; height: 1px; background: var(--accent); opacity: 0.5; }
+  .nf-eyebrow .name {
+    font-family: var(--body); font-weight: 500; font-size: 12px;
+    color: var(--ink-soft); letter-spacing: 0.02em;
+  }
+
+  .nf-code {
+    font-family: var(--display); font-weight: 600;
+    font-size: clamp(96px, 18vw, 200px);
+    line-height: 1; letter-spacing: -0.04em;
+    color: var(--accent);
+    text-shadow: 0 0 60px rgba(255, 107, 53, 0.25);
+    margin-bottom: 18px;
+  }
+  .nf-title {
+    font-family: var(--display); font-weight: 500;
+    font-size: clamp(28px, 4vw, 44px);
+    line-height: 1.1; letter-spacing: -0.02em;
+    margin-bottom: 18px;
+  }
+  .nf-title .muted { color: var(--ink-faint); }
+  .nf-lede {
+    font-family: var(--body); font-weight: 400;
+    font-size: 16px; color: var(--ink-soft); line-height: 1.7;
+    max-width: 52ch; margin: 0 auto 40px;
+  }
+
+  .nf-actions {
+    display: flex; flex-wrap: wrap; gap: 14px;
+    justify-content: center;
+  }
+
+  .btn {
+    font-family: var(--body); font-weight: 500; font-size: 14px;
+    padding: 14px 26px; border-radius: 999px;
+    transition: all 240ms ease;
+    display: inline-flex; align-items: center; gap: 10px;
+    cursor: pointer;
+  }
+  .btn.primary {
+    background: var(--accent); color: var(--bg);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18), 0 6px 20px -4px rgba(255, 107, 53, 0.4);
+  }
+  .btn.primary:hover { transform: translateY(-1px); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22), 0 10px 28px -4px rgba(255, 107, 53, 0.5); }
+  .btn.ghost {
+    background: linear-gradient(180deg, var(--surface-2) 0%, var(--surface-1) 100%);
+    color: var(--ink-soft);
+    box-shadow: var(--depth-md);
+  }
+  .btn.ghost:hover { color: var(--accent); transform: translateY(-1px); }
+  .btn .arrow { transition: transform 240ms ease; }
+  .btn:hover .arrow { transform: translateX(2px); }
+
+  /* ============ FOOTER (compact for /404) ============ */
+  footer {
+    border-top: 1px solid var(--line);
+    background: var(--bg-deep);
+    padding: 40px 0 32px;
+    flex-shrink: 0;
+  }
+  footer .footer-bottom {
+    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    font-family: var(--body); font-weight: 400; font-size: 12px;
+    color: var(--ink-faint);
+  }
+  footer .footer-bottom a { color: var(--ink-soft); }
+  footer .footer-bottom a:hover { color: var(--accent); }
+  footer .colophon {
+    margin-top: 14px;
+    font-family: var(--body); font-weight: 400; font-size: 11px;
+    color: var(--ink-faint); opacity: 0.7;
+  }
+
+  @media (max-width: 600px) {
+    .nf-actions { flex-direction: column; align-items: stretch; }
+    .nf-actions .btn { justify-content: center; }
+  }
+</style>
 </head>
 <body>
 
+<!-- Icon sprite (only what /404 needs) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-arrow-back" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></symbol>
+    <symbol id="i-logo" viewBox="0 0 2552.94 1200">
+      <path fill="currentColor" d="M284.95,86.06c211.74-136.1,510.58-107.03,696.75,60.72,37.29,34.43,75.02,68.41,109.45,105.78,28.88,30.4,63.22,55.98,85.93,91.83-47.39,50.34-94.07,103.19-151.39,142.44-68.67-61.88-127.87-134.04-200.92-191.18-83.7-64.38-196.01-94.34-299.91-71.71-153.89,23.16-283.1,154.87-307.24,307.87-4.38,65.01-7.69,132.43,13.59,195.02,38.99,120.54,144.23,219.17,268.7,245.54,113.47,28.79,239.2-8.05,323.7-88.17,59.2-56.96,116.69-115.8,175.44-173.2,14.31-13.59,27-28.79,37.56-45.51-107.12-7.78-214.07,4.83-321.01,4.65-21.91,11.71-33,38.27-56.33,49.09-46.41,22.18-109.09,14.66-143.79-25.13-44.53-47.39-46.05-132.61,3.04-177.32,33-30.67,83.61-44.89,125.99-25.66,35.14,10.82,59.11,40.33,77.88,70.46,131.09,2.24,262.18,2.41,393.26,2.32,35.77,4.74,55.44-30.4,79.23-50.61,111.59-105.96,213.89-221.13,323.7-328.97,65.1-66.8,145.4-118.12,232.76-150.4,160.51-53.29,345.51-46.14,493.86,39.08,133.95,71.27,232.22,200.03,280.86,342.38,34.43,112.04,34.96,233.65,6.35,347.03-18.96,66.53-50.43,129.21-88.61,186.71-92.28,125.81-232.76,218.81-388.44,241.61-148.97,28.61-306.08-10.91-431.8-93.53-65.99-42.74-118.66-101.94-174.55-156.57-26.11-27.45-55.71-51.86-79.05-82-7.24-17.88,9.12-31.48,19.67-43.37,39.43-39.88,77.88-80.92,122.68-114.9,31.48,33.44,62.5,67.42,95.95,98.99,59.64,57.23,115.8,122.77,193.95,155.41,64.2,30.76,136.63,35.95,206.65,28.97,134.58-21.01,258.06-114.99,305.72-243.93,25.66-61.97,26.02-130.64,20.57-196.54-10.55-93.62-65.63-176.33-134.4-238.21-73.68-59.55-168.55-92.1-263.25-89.51-74.04,6.71-148.26,27.45-208.61,72.16-57.05,43.55-106.05,96.48-157.02,146.74-33.08,34.25-69.03,65.72-99.34,102.56,123.4.8,246.89,2.59,370.28-.36,21.37-38.54,57.14-74.49,104.35-73.95,55.89-7.06,107.93,32.28,127.33,83.07,7.33,40.15,7.15,86.65-22.89,118.12-41.76,57.76-136.18,62.06-184.29,10.37-10.91-10.91-19.67-23.79-28.79-36.21-139.85-3.67-279.52,5.45-419.37,2.32-24.41-.18-52.94-3.13-69.03,19.4-80.39,86.47-166.86,166.86-248.32,252.43-71.09,69.03-137.62,144.86-222.12,198.24-65.19,37.56-136.1,67.87-211.12,77.79-53.65,4.2-107.57,3.93-161.22,1.25C240.78,1161.95,18.22,922.93,1.41,656.91c-1.52-50.52-2.95-101.4,2.24-151.83C26.53,332.05,135.71,174.94,284.95,86.06Z"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- SYSBAR -->
 <div class="sysbar">
-  <div class="gutter sysbar-row">
-    <span><span class="dot" style="background: #FF6B35; box-shadow: 0 0 8px rgba(255, 107, 53, 0.6);"></span>404 · Path not found</span>
-    <span class="muted">Lahore PKT</span>
-    <span class="slots">Try the home page</span>
+  <div class="wrap">
+    <div class="row">
+      <div class="seg"><div class="pulse warn"></div><span>404 · Path not found</span></div>
+      <div class="seg optional"><span>Lahore PKT</span></div>
+      <div class="seg accent"><span>Try the home page</span></div>
+    </div>
   </div>
 </div>
 
-<nav class="nav">
-  <div class="gutter nav-row">
-    <a href="/" class="brand">
-      <span class="brand-mark">cx</span>
-      <span>codantrix labs</span>
-    </a>
-    <a href="/book/" class="btn btn-primary btn-pill">Book a call <span aria-hidden="true">→</span></a>
+<!-- NAV -->
+<nav class="top">
+  <div class="wrap">
+    <div class="row">
+      <a href="/" class="wordmark">
+        <span class="logo-mark"><svg width="38" height="18" viewBox="0 0 2552.94 1200" aria-hidden="true"><use href="#i-logo"/></svg></span>
+        <span>CODANTRIX <span class="sep">·</span> LABS</span>
+      </a>
+      <a href="/book/" class="nav-cta">Book a call <svg width="14" height="14" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+    </div>
   </div>
 </nav>
 
+<!-- 404 HERO -->
 <main class="notfound">
-  <div class="gutter" style="text-align: center;">
-    <p class="meta mb-3" style="color: var(--accent);">404</p>
-    <h1>Page not found.</h1>
-    <p class="lede">The link you followed doesn't exist, or we've moved it.</p>
-    <div class="actions">
-      <a href="/" class="btn btn-primary">← Back home</a>
-      <a href="/#work" class="btn btn-ghost">See our work</a>
-      <a href="/book/" class="btn btn-ghost">Book a call</a>
+  <div class="wrap">
+    <div class="nf-eyebrow">
+      <span class="num">404</span>
+      <span class="bar"></span>
+      <span class="name">Path not found</span>
+    </div>
+    <div class="nf-code">404</div>
+    <h1 class="nf-title">This page doesn't exist. <span class="muted">Or we moved it.</span></h1>
+    <p class="nf-lede">
+      The link you followed is wrong or stale. From here you can head back, see what we've shipped, or grab a 30-min scope call.
+    </p>
+    <div class="nf-actions">
+      <a href="/" class="btn primary"><svg width="14" height="14" aria-hidden="true"><use href="#i-arrow-back"/></svg> Back home</a>
+      <a href="/#work" class="btn ghost">See our work <svg width="14" height="14" class="arrow" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <a href="/book/" class="btn ghost">Book a call <svg width="14" height="14" class="arrow" aria-hidden="true"><use href="#i-arrow"/></svg></a>
     </div>
   </div>
 </main>
 
-<footer class="footer">
-  <div class="gutter">
-    <div class="footer-strip">
+<!-- FOOTER (compact for utility pages) -->
+<footer>
+  <div class="wrap">
+    <div class="footer-bottom">
       <span>© 2026 Codantrix Labs · SECP-registered in Pakistan</span>
-      <span><a href="/privacy/">Privacy</a> · <a href="/terms/">Terms</a></span>
+      <span>
+        <a href="/privacy/">Privacy</a> · <a href="/terms/">Terms</a> · <a href="mailto:hassan@codantrix.com">hassan@codantrix.com</a>
+      </span>
     </div>
+    <div class="colophon">Set in Outfit &amp; Poppins. Hand-built. Hosted on Cloudflare.</div>
   </div>
 </footer>
 
