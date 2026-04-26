@@ -1,16 +1,17 @@
 /**
  * Shared types for the Codantrix Labs worker.
  *
- * Bindings come from wrangler.jsonc. Secrets (GROQ_API_KEY, CALENDLY_TOKEN)
- * are added to this Env interface when their phases land — Phase 3 for both.
+ * Bindings come from wrangler.jsonc. Secrets are added via:
+ *   npx wrangler secret put GROQ_API_KEY
  */
+
+import type { D1Database, Fetcher } from "@cloudflare/workers-types";
 
 export interface Env {
   ASSETS: Fetcher;
   DB: D1Database;
   GROQ_MODEL: string;
-  // GROQ_API_KEY: string;     // Phase 3
-  // CALENDLY_TOKEN: string;   // Phase 3
+  GROQ_API_KEY: string;     // secret — set via wrangler secret put
 }
 
 export type JSONResponse<T> = T & { ok: boolean };
