@@ -19,13 +19,23 @@
     }
   ],
   "vars": {
-    // Provider: OpenRouter (https://openrouter.ai/api/v1) — OpenAI-compatible.
-    // Model: Gemma 4 31B IT, free tier (Google AI Studio proxied via OpenRouter).
-    // 262K context, native tool-calling support, $0/M tokens.
-    // Swapped from Groq llama-3.1-8b-instant on 2026-04-26 for higher
-    // quality at the same cost, with the daily-cap risk acknowledged
-    // (mitigated by $10 credit on OpenRouter for 1000 RPD).
-    "LLM_MODEL": "google/gemma-4-31b-it:free"
+    // Provider: Groq direct (https://api.groq.com/openai/v1) — OpenAI-compatible.
+    // Model: llama-3.3-70b-versatile.
+    //
+    // Why Groq direct after a day of OpenRouter trials:
+    //   morning: Groq llama-3.1-8b-instant (TPM rate-limited under test burst)
+    //   noon:    OpenRouter google/gemma-4-31b-it:free (Google AI Studio shared
+    //            pool returned upstream 429s)
+    //   pm:      OpenRouter meta-llama/llama-3.3-70b-instruct:free (Venice
+    //            shared pool returned upstream 429s)
+    //   evening: Groq llama-3.3-70b-versatile (this) — direct provider, our
+    //            own free quota (12K TPM, 14.4K RPD), no shared pool.
+    //
+    // For a low-volume /book widget (1 visitor at a time, ~1 message per 30s)
+    // the 12K TPM cap is actually fine. If volume justifies it later, switch
+    // to Groq Dev tier (paid) or revisit OpenRouter with a private provider
+    // key (https://openrouter.ai/settings/integrations) to bypass shared pools.
+    "LLM_MODEL": "llama-3.3-70b-versatile"
   }
   // Secrets (set via `wrangler secret put`, NOT here):
   //   LLM_API_KEY     — OpenRouter API key (was GROQ_API_KEY pre-2026-04-26)

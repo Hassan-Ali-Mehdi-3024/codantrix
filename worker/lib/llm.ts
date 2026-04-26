@@ -2,13 +2,19 @@
  * LLM streaming client + tool-calling loop.
  *
  * Provider-agnostic by virtue of OpenAI-compatible request/response shape.
- * Currently pointed at OpenRouter (https://openrouter.ai/api/v1) which
- * proxies to Google AI Studio for Gemma 4 31B IT free tier. Was Groq
- * llama-3.1-8b-instant before 2026-04-26.
  *
- * Internal types still use the 'Groq' prefix for historical reasons; the
- * wire format is identical between Groq, OpenRouter, OpenAI, etc., so
- * renaming would be cosmetic churn.
+ * Provider history (2026-04-26):
+ *   morning: Groq llama-3.1-8b-instant (direct, hit TPM ceiling under test load)
+ *   noon:    OpenRouter google/gemma-4-31b-it:free (upstream Google AI Studio
+ *            shared pool 429s)
+ *   pm:      OpenRouter meta-llama/llama-3.3-70b-instruct:free (Venice
+ *            shared pool 429s)
+ *   evening: Groq llama-3.3-70b-versatile (direct, our own free quota,
+ *            no shared upstream pool — stable for low-volume /book widget)
+ *
+ * Internal types still carry 'Groq' prefix for historical reasons; the
+ * wire format is identical between Groq / OpenAI / OpenRouter, so renaming
+ * would be cosmetic churn.
  *
  * Streams response tokens as they arrive AND executes tool calls when
  * the model emits them, looping until the model gives a final answer
@@ -146,12 +152,7 @@ export interface RunChatLoopArgs {
   signal?: AbortSignal;
 }
 
-const LLM_URL = "https://openrouter.ai/api/v1/chat/completions";
-
-// OpenRouter recommends sending these for analytics/leaderboard attribution.
-// They are not auth-bearing; safe to hardcode.
-const OPENROUTER_REFERER = "https://labs.codantrix.com";
-const OPENROUTER_TITLE = "Codantrix Labs Scope Assistant";
+const LLM_URL = "https://api.groq.com/openai/v1/chat/completions";
 
 export async function runChatLoop(args: RunChatLoopArgs): Promise<void> {
   const maxIters = args.maxIterations ?? 5;
@@ -163,8 +164,6 @@ export async function runChatLoop(args: RunChatLoopArgs): Promise<void> {
       headers: {
         "content-type": "application/json",
         authorization: `Bearer ${args.apiKey}`,
-        "http-referer": OPENROUTER_REFERER,
-        "x-title": OPENROUTER_TITLE,
       },
       body: JSON.stringify({
         model: args.model,
