@@ -305,28 +305,3 @@ export const KB: KB = {
   ],
 };
 
-/**
- * Lightweight keyword search across FAQs. Lowercase substring on q+a.
- * Used by the search_faq tool. Returns up to 3 best-effort matches.
- */
-export function searchFaqs(query: string, limit = 3): FAQ[] {
-  const q = query.toLowerCase().trim();
-  if (!q) return [];
-  const tokens = q.split(/\s+/).filter((t) => t.length > 2);
-  if (tokens.length === 0) return [];
-
-  const scored = KB.faqs.map((faq) => {
-    const hay = (faq.q + " " + faq.a).toLowerCase();
-    let score = 0;
-    for (const tok of tokens) {
-      if (hay.includes(tok)) score += 1;
-    }
-    return { faq, score };
-  });
-
-  return scored
-    .filter((x) => x.score > 0)
-    .sort((a, b) => b.score - a.score)
-    .slice(0, limit)
-    .map((x) => x.faq);
-}
