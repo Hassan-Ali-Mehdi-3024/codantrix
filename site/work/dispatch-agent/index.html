@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Dispatch agent — Case study · Codantrix Labs</title>
+<meta name="description" content="Autonomous dispatch agent for a North American service network. Routing, scheduling, and customer comms agents wired into the existing CRM. 24/7 coverage scaled without new hires." />
+<meta property="og:title" content="Dispatch agent — Case study · Codantrix Labs" />
+<meta property="og:description" content="10-week Tier A engagement. Autonomous dispatch and scheduling for a North American service network." />
+<meta property="og:url" content="https://labs.codantrix.com/work/dispatch-agent/" />
+<meta property="og:image" content="https://labs.codantrix.com/og.png" />
+<meta property="og:type" content="article" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="robots" content="index, follow" />
+<link rel="canonical" href="https://labs.codantrix.com/work/dispatch-agent/" />
+<link rel="icon" href="/assets/img/favicon.ico" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/assets/css/work-case.css" />
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-target" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></symbol>
+    <symbol id="i-building" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V7l7-4 7 4v14"/><path d="M9 9h2M13 9h2M9 13h2M13 13h2M9 17h2M13 17h2"/></symbol>
+    <symbol id="i-route" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="19" r="3"/><circle cx="18" cy="5" r="3"/><path d="M6 16V8a3 3 0 0 1 6 0v8a3 3 0 0 0 6 0"/></symbol>
+    <symbol id="i-tools" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m14.7 6.3 3 3M3 21l8-8M11 13l-3-3-5 8 5-2 3-3z"/><path d="M14 8a3 3 0 1 0 4 4l3 3-3 3-7-7z"/></symbol>
+    <symbol id="i-cap" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m12 4-10 5 10 5 10-5z"/><path d="M6 12v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"/><path d="M22 9v6"/></symbol>
+    <symbol id="i-doc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></symbol>
+    <symbol id="i-logo" viewBox="0 0 2552.94 1200">
+      <path fill="currentColor" d="M284.95,86.06c211.74-136.1,510.58-107.03,696.75,60.72,37.29,34.43,75.02,68.41,109.45,105.78,28.88,30.4,63.22,55.98,85.93,91.83-47.39,50.34-94.07,103.19-151.39,142.44-68.67-61.88-127.87-134.04-200.92-191.18-83.7-64.38-196.01-94.34-299.91-71.71-153.89,23.16-283.1,154.87-307.24,307.87-4.38,65.01-7.69,132.43,13.59,195.02,38.99,120.54,144.23,219.17,268.7,245.54,113.47,28.79,239.2-8.05,323.7-88.17,59.2-56.96,116.69-115.8,175.44-173.2,14.31-13.59,27-28.79,37.56-45.51-107.12-7.78-214.07,4.83-321.01,4.65-21.91,11.71-33,38.27-56.33,49.09-46.41,22.18-109.09,14.66-143.79-25.13-44.53-47.39-46.05-132.61,3.04-177.32,33-30.67,83.61-44.89,125.99-25.66,35.14,10.82,59.11,40.33,77.88,70.46,131.09,2.24,262.18,2.41,393.26,2.32,35.77,4.74,55.44-30.4,79.23-50.61,111.59-105.96,213.89-221.13,323.7-328.97,65.1-66.8,145.4-118.12,232.76-150.4,160.51-53.29,345.51-46.14,493.86,39.08,133.95,71.27,232.22,200.03,280.86,342.38,34.43,112.04,34.96,233.65,6.35,347.03-18.96,66.53-50.43,129.21-88.61,186.71-92.28,125.81-232.76,218.81-388.44,241.61-148.97,28.61-306.08-10.91-431.8-93.53-65.99-42.74-118.66-101.94-174.55-156.57-26.11-27.45-55.71-51.86-79.05-82-7.24-17.88,9.12-31.48,19.67-43.37,39.43-39.88,77.88-80.92,122.68-114.9,31.48,33.44,62.5,67.42,95.95,98.99,59.64,57.23,115.8,122.77,193.95,155.41,64.2,30.76,136.63,35.95,206.65,28.97,134.58-21.01,258.06-114.99,305.72-243.93,25.66-61.97,26.02-130.64,20.57-196.54-10.55-93.62-65.63-176.33-134.4-238.21-73.68-59.55-168.55-92.1-263.25-89.51-74.04,6.71-148.26,27.45-208.61,72.16-57.05,43.55-106.05,96.48-157.02,146.74-33.08,34.25-69.03,65.72-99.34,102.56,123.4.8,246.89,2.59,370.28-.36,21.37-38.54,57.14-74.49,104.35-73.95,55.89-7.06,107.93,32.28,127.33,83.07,7.33,40.15,7.15,86.65-22.89,118.12-41.76,57.76-136.18,62.06-184.29,10.37-10.91-10.91-19.67-23.79-28.79-36.21-139.85-3.67-279.52,5.45-419.37,2.32-24.41-.18-52.94-3.13-69.03,19.4-80.39,86.47-166.86,166.86-248.32,252.43-71.09,69.03-137.62,144.86-222.12,198.24-65.19,37.56-136.1,67.87-211.12,77.79-53.65,4.2-107.57,3.93-161.22,1.25C240.78,1161.95,18.22,922.93,1.41,656.91c-1.52-50.52-2.95-101.4,2.24-151.83C26.53,332.05,135.71,174.94,284.95,86.06Z"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="sysbar"><div class="wrap"><div class="row">
+  <div class="seg"><div class="pulse green"></div><span>System online · Lahore</span></div>
+  <div class="seg optional"><span>Case · 02 / 05</span></div>
+  <div class="seg accent"><span>Anonymized</span></div>
+</div></div></div>
+
+<nav class="top"><div class="wrap"><div class="row">
+  <a href="/" class="wordmark">
+    <span class="logo-mark"><svg width="38" height="18" viewBox="0 0 2552.94 1200" aria-hidden="true"><use href="#i-logo"/></svg></span>
+    <span>CODANTRIX <span class="sep">·</span> LABS</span>
+  </a>
+  <div class="nav-links">
+    <a href="/#services">Services</a>
+    <a href="/#how">Process</a>
+    <a href="/work/" class="active">Work</a>
+    <a href="/studio/">Studio</a>
+  </div>
+  <a href="/book/" class="nav-cta">Book a call <svg width="14" height="14" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+</div></div></nav>
+
+<section class="case-hero"><div class="wrap">
+  <div class="back-link"><a href="/work/">← All work</a></div>
+  <div class="case-eyebrow">
+    <span class="vertical"><svg width="14" height="14"><use href="#i-route"/></svg> Field ops · Dispatch</span>
+    <span class="dot">·</span>
+    <span class="tier">Tier A</span>
+    <span class="dot">·</span>
+    <span class="duration">10 weeks</span>
+  </div>
+  <h1 class="case-title">Autonomous dispatch agent for a North American service network.</h1>
+  <p class="case-summary">
+    Routing, scheduling, and customer-communication agents wired into the existing CRM. The network scaled to 24/7 coverage without adding headcount.
+  </p>
+
+  <div class="outcome-banner">
+    <div class="outcome-icon"><svg width="18" height="18"><use href="#i-target"/></svg></div>
+    <div class="outcome-text">
+      <span class="label">Headline outcome</span>
+      <span class="value"><strong>24/7 coverage</strong> with <span class="delta">zero new hires</span></span>
+    </div>
+  </div>
+
+  <div class="case-facts">
+    <div class="fact"><span class="label">Engagement</span><span class="value">Tier A · 10 weeks</span></div>
+    <div class="fact"><span class="label">Team</span><span class="value">1 founder + 1 contractor</span></div>
+    <div class="fact"><span class="label">Stack</span><span class="value">FastAPI, OpenAI, Postgres</span></div>
+    <div class="fact"><span class="label">Status</span><span class="value">Shipped · in production</span></div>
+  </div>
+</div></section>
+
+<section class="case-section"><div class="wrap">
+  <div class="sec-head">
+    <div class="sec-eyebrow"><span class="num">01</span><span class="bar"></span><span class="name">The problem</span></div>
+    <h2 class="sec-title">A small dispatch team couldn't keep up with after-hours volume.</h2>
+  </div>
+  <div class="prose">
+    <p>The client operates a service network across multiple US regions — technicians in the field, a central dispatch desk, and customers calling for service requests. Most of the volume hit between 9am and 6pm local time, but a stubborn 30 — 40% of it landed outside business hours. After-hours requests either waited until morning or pushed dispatchers into expensive on-call rotations.</p>
+    <p>The team had explored hiring a second-shift dispatch crew, but the math didn't work — the after-hours volume was significant in aggregate but uneven enough that any individual shift sat idle most of the time. They needed a system that could handle the predictable parts of dispatch — intake, basic triage, technician matching, scheduling, customer confirmation — and escalate only the complex cases to a human.</p>
+    <p>The CRM was already custom and integrated with their technician app and billing system. The new system had to fit inside that existing graph, not replace it.</p>
+  </div>
+</div></section>
+
+<section class="case-section"><div class="wrap">
+  <div class="sec-head">
+    <div class="sec-eyebrow"><span class="num">02</span><span class="bar"></span><span class="name">What we built</span></div>
+    <h2 class="sec-title">Three agents, one orchestrator, all wired through the existing CRM.</h2>
+  </div>
+
+  <div class="diagram-frame">
+    <div class="diag-meta">
+      <span>Fig. 02.B · Dispatch flow</span>
+      <span class="accent-dot">Production</span>
+    </div>
+    <svg class="case-diag" viewBox="0 0 720 200" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+      <defs>
+        <marker id="arr-c2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#5e584d"/></marker>
+        <marker id="arr-c2a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ff6b35"/></marker>
+      </defs>
+
+      <text x="360" y="14" text-anchor="middle" fill="#5e584d" font-family="Outfit, sans-serif" font-weight="500" font-size="9" letter-spacing="2">CALL · ROUTE · SCHEDULE · CONFIRM</text>
+
+      <!-- Inputs -->
+      <rect x="10" y="60" width="100" height="26" stroke="#5e584d" fill="#15130f" rx="6"/>
+      <text x="60" y="76" text-anchor="middle" fill="#a39d8e" font-family="Outfit, sans-serif" font-weight="500" font-size="11">Phone</text>
+      <rect x="10" y="96" width="100" height="26" stroke="#5e584d" fill="#15130f" rx="6"/>
+      <text x="60" y="112" text-anchor="middle" fill="#a39d8e" font-family="Outfit, sans-serif" font-weight="500" font-size="11">SMS</text>
+      <rect x="10" y="132" width="100" height="26" stroke="#5e584d" fill="#15130f" rx="6"/>
+      <text x="60" y="148" text-anchor="middle" fill="#a39d8e" font-family="Outfit, sans-serif" font-weight="500" font-size="11">Web form</text>
+
+      <!-- Arrows to intake -->
+      <line x1="110" y1="73" x2="178" y2="105" stroke="#5e584d" marker-end="url(#arr-c2)"/>
+      <line x1="110" y1="109" x2="178" y2="109" stroke="#5e584d" marker-end="url(#arr-c2)"/>
+      <line x1="110" y1="145" x2="178" y2="113" stroke="#5e584d" marker-end="url(#arr-c2)"/>
+
+      <!-- Intake / orchestrator -->
+      <rect x="180" y="92" width="120" height="34" stroke="#ff6b35" fill="#15130f" rx="6" stroke-width="1.4"/>
+      <text x="240" y="108" text-anchor="middle" fill="#ff6b35" font-family="Outfit, sans-serif" font-weight="600" font-size="11">Triage</text>
+      <text x="240" y="120" text-anchor="middle" fill="#5e584d" font-family="Outfit, sans-serif" font-weight="500" font-size="9">+ severity score</text>
+
+      <!-- Three agents -->
+      <line x1="300" y1="100" x2="338" y2="56" stroke="#5e584d" marker-end="url(#arr-c2)"/>
+      <line x1="300" y1="109" x2="338" y2="109" stroke="#5e584d" marker-end="url(#arr-c2)"/>
+      <line x1="300" y1="118" x2="338" y2="162" stroke="#5e584d" marker-end="url(#arr-c2)"/>
+
+      <rect x="340" y="42" width="120" height="32" stroke="#5e584d" fill="#15130f" rx="6"/>
+      <text x="400" y="56" text-anchor="middle" fill="#a39d8e" font-family="Outfit, sans-serif" font-weight="500" font-size="11">Routing agent</text>
+      <text x="400" y="68" text-anchor="middle" fill="#5e584d" font-family="Outfit, sans-serif" font-weight="500" font-size="9">tech selection</text>
+
+      <rect x="340" y="92" width="120" height="32" stroke="#5e584d" fill="#15130f" rx="6"/>
+      <text x="400" y="106" text-anchor="middle" fill="#a39d8e" font-family="Outfit, sans-serif" font-weight="500" font-size="11">Schedule agent</text>
+      <text x="400" y="118" text-anchor="middle" fill="#5e584d" font-family="Outfit, sans-serif" font-weight="500" font-size="9">time-window fit</text>
+
+      <rect x="340" y="142" width="120" height="32" stroke="#5e584d" fill="#15130f" rx="6"/>
+      <text x="400" y="156" text-anchor="middle" fill="#a39d8e" font-family="Outfit, sans-serif" font-weight="500" font-size="11">Comms agent</text>
+      <text x="400" y="168" text-anchor="middle" fill="#5e584d" font-family="Outfit, sans-serif" font-weight="500" font-size="9">SMS + voice</text>
+
+      <!-- Arrows to CRM -->
+      <line x1="460" y1="58" x2="498" y2="100" stroke="#5e584d" marker-end="url(#arr-c2)"/>
+      <line x1="460" y1="108" x2="498" y2="108" stroke="#5e584d" marker-end="url(#arr-c2)"/>
+      <line x1="460" y1="158" x2="498" y2="116" stroke="#5e584d" marker-end="url(#arr-c2)"/>
+
+      <!-- CRM -->
+      <rect x="500" y="88" width="100" height="40" stroke="#ff6b35" fill="#15130f" rx="6" stroke-width="1.4"/>
+      <text x="550" y="104" text-anchor="middle" fill="#ff6b35" font-family="Outfit, sans-serif" font-weight="600" font-size="11">CRM</text>
+      <text x="550" y="118" text-anchor="middle" fill="#5e584d" font-family="Outfit, sans-serif" font-weight="500" font-size="9">existing system</text>
+
+      <!-- Arrow to escalation -->
+      <line x1="600" y1="108" x2="638" y2="108" stroke="#ff6b35" marker-end="url(#arr-c2a)"/>
+      <rect x="640" y="90" width="70" height="36" stroke="#ff6b35" fill="#15130f" rx="6"/>
+      <text x="675" y="106" text-anchor="middle" fill="#ff6b35" font-family="Outfit, sans-serif" font-weight="600" font-size="10">Human</text>
+      <text x="675" y="118" text-anchor="middle" fill="#5e584d" font-family="Outfit, sans-serif" font-weight="500" font-size="9">if uncertain</text>
+    </svg>
+  </div>
+
+  <div class="prose">
+    <p>The triage agent fronts the system. It pulls signal from the inbound channel, assigns a severity score, classifies the service category, and decides whether to route the case to the agents or escalate immediately to a human dispatcher. Anything urgent or anomalous — a safety issue, a customer at risk of churn, a request the model isn't confident about — goes straight to a person.</p>
+    <p>Three specialist agents handle the routine cases. The <strong>routing agent</strong> picks the right technician from a pool of dozens based on skills, current location, certifications, and historical fit. The <strong>schedule agent</strong> finds a time window that works for both the customer and the tech, accounting for travel time and existing appointments. The <strong>comms agent</strong> handles the customer-facing thread — SMS confirmations, voice calls for older customers who prefer them, follow-ups when a tech is running late.</p>
+    <p>Everything writes back to the existing CRM as the source of truth. The agents read and write through a thin service layer — they never touch the CRM database directly, which kept the integration tight and made rollback trivial during the first weeks.</p>
+  </div>
+</div></section>
+
+<section class="case-section"><div class="wrap">
+  <div class="sec-head">
+    <div class="sec-eyebrow"><span class="num">03</span><span class="bar"></span><span class="name">How we built it</span></div>
+    <h2 class="sec-title">Four phases. <span class="muted">Ten weeks.</span></h2>
+  </div>
+
+  <div class="phase-flow">
+    <div class="phase">
+      <div class="phase-num">01 · Map</div>
+      <h4>Two-day discovery</h4>
+      <p>Shadowed the dispatch desk for a day, mapped every decision point, and identified the cases the agents could safely take versus the ones that always needed a human.</p>
+      <span class="duration-tag">Days 1 — 2</span>
+    </div>
+    <div class="phase">
+      <div class="phase-num">02 · Build</div>
+      <h4>Spine + CRM bridge</h4>
+      <p>Built the triage skeleton and the read/write service layer to the CRM first. Verified writes were idempotent and reversible before any agent code touched real data.</p>
+      <span class="duration-tag">Weeks 1 — 4</span>
+    </div>
+    <div class="phase">
+      <div class="phase-num">03 · Wire</div>
+      <h4>Agents land one at a time</h4>
+      <p>Routing first, then scheduling, then comms. Each shadowed real dispatch decisions for a week before being trusted with live writes. Eval rubric scored each agent's pick against what the human dispatcher chose.</p>
+      <span class="duration-tag">Weeks 4 — 8</span>
+    </div>
+    <div class="phase">
+      <div class="phase-num">04 · Ship</div>
+      <h4>After-hours first, then full</h4>
+      <p>Went live for after-hours requests only for two weeks before extending to daytime fallback. Loom walkthrough, runbook, 30-day support tail. Dispatch desk supervises with override authority.</p>
+      <span class="duration-tag">Weeks 9 — 10</span>
+    </div>
+  </div>
+</div></section>
+
+<section class="case-section"><div class="wrap">
+  <div class="sec-head">
+    <div class="sec-eyebrow"><span class="num">04</span><span class="bar"></span><span class="name">Stack &amp; tradeoffs</span></div>
+    <h2 class="sec-title">Why these tools.</h2>
+  </div>
+  <div class="prose">
+    <p><strong>FastAPI</strong> for the service layer between agents and CRM. The team's existing stack was Python; staying in-language meant their engineers could review and extend the code without context-switching. <strong>OpenAI</strong> for the agent calls — at the time of build, function-calling reliability on dispatch-style structured outputs was the strongest among options we benchmarked.</p>
+    <p><strong>Postgres</strong> for the agent state store, sitting alongside the CRM's existing Postgres. No new database technology introduced. The schedule-agent's time-window logic ran as deterministic SQL with the LLM only used to summarize and explain — a deliberate choice to keep the highest-stakes decisions out of model reasoning.</p>
+    <p>Considered and rejected: a no-code dispatch platform (couldn't express the CRM-specific routing logic), a single big agent with all three responsibilities (failed safety review on the comms-agent voice tone in week 2 testing), and routing entirely through model context (degraded over long conversations, lost track of half-scheduled appointments).</p>
+  </div>
+</div></section>
+
+<section class="case-section"><div class="wrap">
+  <div class="sec-head">
+    <div class="sec-eyebrow"><span class="num">05</span><span class="bar"></span><span class="name">Outcomes</span></div>
+    <h2 class="sec-title">What changed after deploy.</h2>
+  </div>
+  <div class="outcomes-grid">
+    <div class="outcome-card featured">
+      <span class="oc-label">Coverage</span>
+      <span class="oc-value"><span class="accent">24/7</span></span>
+      <span class="oc-delta">no new hires</span>
+    </div>
+    <div class="outcome-card">
+      <span class="oc-label">After-hours requests handled autonomously</span>
+      <span class="oc-value">~70%</span>
+      <span class="oc-delta">routed end-to-end</span>
+    </div>
+    <div class="outcome-card">
+      <span class="oc-label">Escalation rate (to human)</span>
+      <span class="oc-value">~30%</span>
+      <span class="oc-delta">caught early on triage</span>
+    </div>
+    <div class="outcome-card">
+      <span class="oc-label">Customer wait at intake</span>
+      <span class="oc-value">Min →&nbsp;sec</span>
+      <span class="oc-delta">SMS confirmation</span>
+    </div>
+  </div>
+
+  <p class="illustrative-note"><strong>Illustrative ranges.</strong> Specific client metrics are confirmed under NDA. Numbers shown reflect reported outcomes at handover.</p>
+</div></section>
+
+<section class="more-work"><div class="wrap">
+  <div class="sec-head">
+    <div class="sec-eyebrow"><span class="num">→</span><span class="bar"></span><span class="name">More work</span></div>
+    <h2 class="sec-title">Other systems we've shipped.</h2>
+  </div>
+
+  <div class="related-grid">
+    <a href="/work/tenant-ops-copilot/" class="related-card">
+      <div class="rc-meta"><span class="rc-vertical"><svg width="13" height="13"><use href="#i-building"/></svg> Real estate · Operations</span><span class="rc-duration">8w · A</span></div>
+      <h4>Tenant-ops copilot for a US property management platform.</h4>
+      <span class="rc-outcome">Ticket resolution: 38 hrs → 6 hrs</span>
+    </a>
+    <a href="/work/estimation-copilot/" class="related-card">
+      <div class="rc-meta"><span class="rc-vertical"><svg width="13" height="13"><use href="#i-tools"/></svg> Construction · Estimation</span><span class="rc-duration">6w · A</span></div>
+      <h4>Quote-generation system for a regional contractor.</h4>
+      <span class="rc-outcome">Turnaround: 3 days → 4 hrs</span>
+    </a>
+    <a href="/work/bilingual-doc-pipeline/" class="related-card">
+      <div class="rc-meta"><span class="rc-vertical"><svg width="13" height="13"><use href="#i-doc"/></svg> Document AI · Arabic</span><span class="rc-duration">7w · A</span></div>
+      <h4>Arabic RAG pipeline over 100 regulatory PDFs.</h4>
+      <span class="rc-outcome">100 PDFs · open-weight stack</span>
+    </a>
+  </div>
+
+  <div class="case-cta">
+    <div class="text">
+      <h3>Want one of these for your team?</h3>
+      <p>30-min scope call. By the end you'll know what we'd build, in what order, what it costs.</p>
+    </div>
+    <div class="actions">
+      <a href="/book/" class="btn primary">Book a call <svg width="14" height="14" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <a href="mailto:contact@codantrix.com" class="btn ghost">Email instead</a>
+    </div>
+  </div>
+</div></section>
+
+<footer><div class="wrap">
+  <div class="footer-grid">
+    <div class="col about">
+      <a href="/" class="wordmark">
+        <span class="logo-mark"><svg width="38" height="18" viewBox="0 0 2552.94 1200" aria-hidden="true"><use href="#i-logo"/></svg></span>
+        <span>CODANTRIX <span class="sep">·</span> LABS</span>
+      </a>
+      <p>Production agentic systems studio. Founded 2023 in Lahore. Working with teams across US and EU time zones.</p>
+    </div>
+    <div class="col">
+      <h5>Studio</h5>
+      <a href="/studio/">About</a>
+      <a href="/#services">Services</a>
+      <a href="/#how">Process</a>
+      <a href="/work/">Work</a>
+    </div>
+    <div class="col">
+      <h5>Founder</h5>
+      <a href="/founder/">Bio</a>
+      <a href="https://www.linkedin.com/in/hassan-ali-mehdi/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/hassan-ali-mehdi-3024" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://hassanalimehdi.dev" target="_blank" rel="noopener">Personal site</a>
+    </div>
+    <div class="col">
+      <h5>Contact</h5>
+      <a href="mailto:contact@codantrix.com">contact@codantrix.com</a>
+      <a href="/book/">Book a call</a>
+      <a href="/studio/">Lahore, Pakistan</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Codantrix Labs · SECP-registered in Pakistan</span>
+    <span><a href="/privacy/">Privacy</a> · <a href="/terms/">Terms</a></span>
+  </div>
+  <div class="colophon">Set in Outfit &amp; Poppins. Hand-built. Hosted on Cloudflare.</div>
+</div></footer>
+
+</body>
+</html>

@@ -289,6 +289,16 @@ When adding a new top-level page (e.g., `/work`, `/studio`, `/founder` per IA sp
 
 Yes, this duplicates CSS across pages. **That's intentional** — single-file pages, no build step. If duplication grows painful, the user will explicitly ask to extract a shared stylesheet.
 
+### Documented exception: `/work/<slug>/` case studies
+
+The 5 case-study detail pages share an identical template — inlining would duplicate ~3000 lines across them, breaking edit-once-fix-all on the very thing it's meant to protect. They load `/assets/css/work-case.css` instead. This exception applies ONLY to `/work/<slug>/` and is enforced by:
+
+- The shared file's header comment naming the constraint
+- The locked rule still applying to every top-level page (`/`, `/book`, `/studio`, `/founder`, `/work` index, `/privacy`, `/terms`, `/404`)
+- `/work/index.html` (the index, not detail pages) staying inline
+
+Do not extend this exception to other multi-page sets without an explicit decision logged in memory.
+
 ---
 
 ## 11. Anti-patterns (DO NOT REPEAT)

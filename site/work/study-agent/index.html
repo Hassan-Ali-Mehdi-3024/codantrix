@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Study agent — Case study · Codantrix Labs</title>
+<meta name="description" content="AI exam-prep platform with PDF chat and MCQ generation. Conversational document agent over student coursework with auto-generated practice questions. Tier B, MVP shipped on day 30." />
+<meta property="og:title" content="Study agent — Case study · Codantrix Labs" />
+<meta property="og:description" content="5-week Tier B engagement. AI exam-prep platform with PDF chat + MCQ generation." />
+<meta property="og:url" content="https://labs.codantrix.com/work/study-agent/" />
+<meta property="og:image" content="https://labs.codantrix.com/og.png" />
+<meta property="og:type" content="article" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="robots" content="index, follow" />
+<link rel="canonical" href="https://labs.codantrix.com/work/study-agent/" />
+<link rel="icon" href="/assets/img/favicon.ico" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/assets/css/work-case.css" />
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-target" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></symbol>
+    <symbol id="i-building" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V7l7-4 7 4v14"/><path d="M9 9h2M13 9h2M9 13h2M13 13h2M9 17h2M13 17h2"/></symbol>
+    <symbol id="i-route" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="19" r="3"/><circle cx="18" cy="5" r="3"/><path d="M6 16V8a3 3 0 0 1 6 0v8a3 3 0 0 0 6 0"/></symbol>
+    <symbol id="i-tools" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m14.7 6.3 3 3M3 21l8-8M11 13l-3-3-5 8 5-2 3-3z"/><path d="M14 8a3 3 0 1 0 4 4l3 3-3 3-7-7z"/></symbol>
+    <symbol id="i-cap" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m12 4-10 5 10 5 10-5z"/><path d="M6 12v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"/><path d="M22 9v6"/></symbol>
+    <symbol id="i-doc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></symbol>
+    <symbol id="i-logo" viewBox="0 0 2552.94 1200">
+      <path fill="currentColor" d="M284.95,86.06c211.74-136.1,510.58-107.03,696.75,60.72,37.29,34.43,75.02,68.41,109.45,105.78,28.88,30.4,63.22,55.98,85.93,91.83-47.39,50.34-94.07,103.19-151.39,142.44-68.67-61.88-127.87-134.04-200.92-191.18-83.7-64.38-196.01-94.34-299.91-71.71-153.89,23.16-283.1,154.87-307.24,307.87-4.38,65.01-7.69,132.43,13.59,195.02,38.99,120.54,144.23,219.17,268.7,245.54,113.47,28.79,239.2-8.05,323.7-88.17,59.2-56.96,116.69-115.8,175.44-173.2,14.31-13.59,27-28.79,37.56-45.51-107.12-7.78-214.07,4.83-321.01,4.65-21.91,11.71-33,38.27-56.33,49.09-46.41,22.18-109.09,14.66-143.79-25.13-44.53-47.39-46.05-132.61,3.04-177.32,33-30.67,83.61-44.89,125.99-25.66,35.14,10.82,59.11,40.33,77.88,70.46,131.09,2.24,262.18,2.41,393.26,2.32,35.77,4.74,55.44-30.4,79.23-50.61,111.59-105.96,213.89-221.13,323.7-328.97,65.1-66.8,145.4-118.12,232.76-150.4,160.51-53.29,345.51-46.14,493.86,39.08,133.95,71.27,232.22,200.03,280.86,342.38,34.43,112.04,34.96,233.65,6.35,347.03-18.96,66.53-50.43,129.21-88.61,186.71-92.28,125.81-232.76,218.81-388.44,241.61-148.97,28.61-306.08-10.91-431.8-93.53-65.99-42.74-118.66-101.94-174.55-156.57-26.11-27.45-55.71-51.86-79.05-82-7.24-17.88,9.12-31.48,19.67-43.37,39.43-39.88,77.88-80.92,122.68-114.9,31.48,33.44,62.5,67.42,95.95,98.99,59.64,57.23,115.8,122.77,193.95,155.41,64.2,30.76,136.63,35.95,206.65,28.97,134.58-21.01,258.06-114.99,305.72-243.93,25.66-61.97,26.02-130.64,20.57-196.54-10.55-93.62-65.63-176.33-134.4-238.21-73.68-59.55-168.55-92.1-263.25-89.51-74.04,6.71-148.26,27.45-208.61,72.16-57.05,43.55-106.05,96.48-157.02,146.74-33.08,34.25-69.03,65.72-99.34,102.56,123.4.8,246.89,2.59,370.28-.36,21.37-38.54,57.14-74.49,104.35-73.95,55.89-7.06,107.93,32.28,127.33,83.07,7.33,40.15,7.15,86.65-22.89,118.12-41.76,57.76-136.18,62.06-184.29,10.37-10.91-10.91-19.67-23.79-28.79-36.21-139.85-3.67-279.52,5.45-419.37,2.32-24.41-.18-52.94-3.13-69.03,19.4-80.39,86.47-166.86,166.86-248.32,252.43-71.09,69.03-137.62,144.86-222.12,198.24-65.19,37.56-136.1,67.87-211.12,77.79-53.65,4.2-107.57,3.93-161.22,1.25C240.78,1161.95,18.22,922.93,1.41,656.91c-1.52-50.52-2.95-101.4,2.24-151.83C26.53,332.05,135.71,174.94,284.95,86.06Z"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="sysbar"><div class="wrap"><div class="row">
+  <div class="seg"><div class="pulse green"></div><span>System online · Lahore</span></div>
+  <div class="seg optional"><span>Case · 04 / 05</span></div>
+  <div class="seg accent"><span>Anonymized</span></div>
+</div></div></div>
+
+<nav class="top"><div class="wrap"><div class="row">
+  <a href="/" class="wordmark">
+    <span class="logo-mark"><svg width="38" height="18" viewBox="0 0 2552.94 1200" aria-hidden="true"><use href="#i-logo"/></svg></span>
+    <span>CODANTRIX <span class="sep">·</span> LABS</span>
+  </a>
+  <div class="nav-links">
+    <a href="/#services">Services</a>
+    <a href="/#how">Process</a>
+    <a href="/work/" class="active">Work</a>
+    <a href="/studio/">Studio</a>
+  </div>
+  <a href="/book/" class="nav-cta">Book a call <svg width="14" height="14" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+</div></div></nav>
+
+<section class="case-hero"><div class="wrap">
+  <div class="back-link"><a href="/work/">← All work</a></div>
+  <div class="case-eyebrow">
+    <span class="vertical"><svg width="14" height="14"><use href="#i-cap"/></svg> EdTech · Learning</span>
+    <span class="dot">·</span>
+    <span class="tier">Tier B</span>
+    <span class="dot">·</span>
+    <span class="duration">5 weeks</span>
+  </div>
+  <h1 class="case-title">AI exam-prep platform with PDF chat and MCQ generation.</h1>
+  <p class="case-summary">
+    Conversational document agent over student coursework with auto-generated practice questions. A Tier B engagement — owned codebase, MVP shipped on day 30, real students by week 6.
+  </p>
+
+  <div class="outcome-banner">
+    <div class="outcome-icon"><svg width="18" height="18"><use href="#i-target"/></svg></div>
+    <div class="outcome-text">
+      <span class="label">Headline outcome</span>
+      <span class="value"><strong>MVP shipped on day 30</strong> <span class="delta">two iteration rounds inside SOW</span></span>
+    </div>
+  </div>
+
+  <div class="case-facts">
+    <div class="fact"><span class="label">Engagement</span><span class="value">Tier B · 5 weeks</span></div>
+    <div class="fact"><span class="label">Team</span><span class="value">1 founder + 1 contractor</span></div>
+    <div class="fact"><span class="label">Stack</span><span class="value">Next.js, OpenAI, Supabase</span></div>
+    <div class="fact"><span class="label">Status</span><span class="value">Shipped · live with users</span></div>
+  </div>
+</div></section>
+
+<section class="case-section"><div class="wrap">
+  <div class="sec-head">
+    <div class="sec-eyebrow"><span class="num">01</span><span class="bar"></span><span class="name">The problem</span></div>
+    <h2 class="sec-title">A founder needed a working product, not a prototype.</h2>
+  </div>
+  <div class="prose">
+    <p>The client is an edtech founder who'd validated demand: students preparing for professional exams wanted a tool that could read their coursework PDFs and answer questions, then quiz them on what they'd just learned. The market signals were clear; what was missing was a working product to put in front of paying users.</p>
+    <p>They'd spent three months on contractor-built prototypes that demoed well in 30-second clips and broke the moment a student uploaded a 400-page textbook. The retrieval was naive, the conversation lost context after a few turns, and the auto-generated questions skewed either too easy or factually wrong.</p>
+    <p>This is a textbook Tier B fit. The founder needed an MVP fast, owned in their repo, ready for real users to push on. Not a prototype. Not a "platform." A product.</p>
+  </div>
+</div></section>
+
+<section class="case-section"><div class="wrap">
+  <div class="sec-head">
+    <div class="sec-eyebrow"><span class="num">02</span><span class="bar"></span><span class="name">What we built</span></div>
+    <h2 class="sec-title">A document chat with a quiz generator on top, both grounded in the student's PDFs.</h2>
+  </div>
+
+  <div class="diagram-frame">
+    <div class="diag-meta">
+      <span>Fig. 02.D · Study session flow</span>
+      <span class="accent-dot">Production</span>
+    </div>
+    <svg class="case-diag" viewBox="0 0 720 200" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+      <defs>
+        <marker id="arr-c4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#5e584d"/></marker>
+        <marker id="arr-c4a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ff6b35"/></marker>
+      </defs>
+
+      <text x="360" y="14" text-anchor="middle" fill="#5e584d" font-family="Outfit, sans-serif" font-weight="500" font-size="9" letter-spacing="2">UPLOAD · INDEX · CHAT · QUIZ</text>
+
+      <!-- Student input -->
+      <rect x="10" y="80" width="100" height="40" stroke="#5e584d" fill="#15130f" rx="6"/>
+      <text x="60" y="96" text-anchor="middle" fill="#a39d8e" font-family="Outfit, sans-serif" font-weight="500" font-size="11">Student</text>
+      <text x="60" y="110" text-anchor="middle" fill="#5e584d" font-family="Outfit, sans-serif" font-weight="500" font-size="9">PDFs + chat</text>
+
+      <line x1="110" y1="100" x2="148" y2="100" stroke="#ff6b35" marker-end="url(#arr-c4a)"/>
+
+      <!-- Indexer -->
+      <rect x="150" y="80" width="120" height="40" stroke="#ff6b35" fill="#15130f" rx="6" stroke-width="1.4"/>
+      <text x="210" y="96" text-anchor="middle" fill="#ff6b35" font-family="Outfit, sans-serif" font-weight="600" font-size="11">Indexer</text>
+      <text x="210" y="110" text-anchor="middle" fill="#5e584d" font-family="Outfit, sans-serif" font-weight="500" font-size="9">chunk + embed</text>
+
+      <line x1="270" y1="100" x2="308" y2="100" stroke="#5e584d" marker-end="url(#arr-c4)"/>
+
+      <!-- Vector store -->
+      <rect x="310" y="80" width="100" height="40" stroke="#5e584d" fill="#15130f" rx="6"/>
+      <text x="360" y="96" text-anchor="middle" fill="#a39d8e" font-family="Outfit, sans-serif" font-weight="500" font-size="11">Supabase</text>
+      <text x="360" y="110" text-anchor="middle" fill="#5e584d" font-family="Outfit, sans-serif" font-weight="500" font-size="9">pgvector</text>
+
+      <!-- Two agents -->
+      <line x1="410" y1="92" x2="448" y2="60" stroke="#5e584d" marker-end="url(#arr-c4)"/>
+      <line x1="410" y1="108" x2="448" y2="140" stroke="#5e584d" marker-end="url(#arr-c4)"/>
+
+      <rect x="450" y="46" width="120" height="32" stroke="#5e584d" fill="#15130f" rx="6"/>
+      <text x="510" y="60" text-anchor="middle" fill="#a39d8e" font-family="Outfit, sans-serif" font-weight="500" font-size="11">Chat agent</text>
+      <text x="510" y="72" text-anchor="middle" fill="#5e584d" font-family="Outfit, sans-serif" font-weight="500" font-size="9">cited answers</text>
+
+      <rect x="450" y="126" width="120" height="32" stroke="#5e584d" fill="#15130f" rx="6"/>
+      <text x="510" y="140" text-anchor="middle" fill="#a39d8e" font-family="Outfit, sans-serif" font-weight="500" font-size="11">Quiz agent</text>
+      <text x="510" y="152" text-anchor="middle" fill="#5e584d" font-family="Outfit, sans-serif" font-weight="500" font-size="9">MCQ + explain</text>
+
+      <!-- Outputs -->
+      <line x1="570" y1="62" x2="608" y2="100" stroke="#ff6b35" marker-end="url(#arr-c4a)"/>
+      <line x1="570" y1="142" x2="608" y2="100" stroke="#ff6b35" marker-end="url(#arr-c4a)"/>
+
+      <rect x="610" y="80" width="100" height="40" stroke="#ff6b35" fill="#15130f" rx="6"/>
+      <text x="660" y="96" text-anchor="middle" fill="#ff6b35" font-family="Outfit, sans-serif" font-weight="600" font-size="11">Student UI</text>
+      <text x="660" y="110" text-anchor="middle" fill="#5e584d" font-family="Outfit, sans-serif" font-weight="500" font-size="9">Next.js</text>
+    </svg>
+  </div>
+
+  <div class="prose">
+    <p>The student uploads their coursework PDFs. The <strong>indexer</strong> chunks each document with overlap, embeds the chunks, and stores them in Supabase's pgvector — one library per student so retrieval can't bleed between users. Indexing finishes in seconds for typical textbook chapters.</p>
+    <p>Two agents run on top of the vector store. The <strong>chat agent</strong> answers questions in the student's library, citing the source page on every claim. The <strong>quiz agent</strong> generates multiple-choice questions from a passage the student picks (or a chapter the chat agent surfaces), with answer explanations grounded in the source text.</p>
+    <p>Both agents share retrieval logic. The chat agent feeds its retrieval context into the quiz agent when a student says "quiz me on what we just covered" — that handoff is the difference between a chatbot and a study tool. The whole UI is a Next.js app the founder owns end-to-end.</p>
+  </div>
+</div></section>
+
+<section class="case-section"><div class="wrap">
+  <div class="sec-head">
+    <div class="sec-eyebrow"><span class="num">03</span><span class="bar"></span><span class="name">How we built it</span></div>
+    <h2 class="sec-title">Four phases. <span class="muted">Five weeks.</span></h2>
+  </div>
+
+  <div class="phase-flow">
+    <div class="phase">
+      <div class="phase-num">01 · Map</div>
+      <h4>Two-day discovery</h4>
+      <p>Walked through the existing prototype, identified the failures, agreed on the smallest possible MVP that would pass real-student testing. Cut three "nice to have" features in the first hour.</p>
+      <span class="duration-tag">Days 1 — 2</span>
+    </div>
+    <div class="phase">
+      <div class="phase-num">02 · Build</div>
+      <h4>Indexer + chat</h4>
+      <p>Built the upload, chunking, embedding, and chat path end-to-end first. No quiz, no auth flourishes. Got document chat working before anything else.</p>
+      <span class="duration-tag">Weeks 1 — 2</span>
+    </div>
+    <div class="phase">
+      <div class="phase-num">03 · Wire</div>
+      <h4>Quiz + iteration</h4>
+      <p>Quiz agent landed in week 3. First iteration round used founder feedback on 50 generated questions. Second round used real beta-student feedback in week 4.</p>
+      <span class="duration-tag">Weeks 3 — 4</span>
+    </div>
+    <div class="phase">
+      <div class="phase-num">04 · Ship</div>
+      <h4>Production deploy on day 30</h4>
+      <p>Deployed to production on the founder's domain, MVP shipped on day 30. Loom walkthrough, runbook, 30-day support tail. Two iteration rounds inside the SOW, one held in reserve in case the launch surfaced a regression.</p>
+      <span class="duration-tag">Week 5</span>
+    </div>
+  </div>
+</div></section>
+
+<section class="case-section"><div class="wrap">
+  <div class="sec-head">
+    <div class="sec-eyebrow"><span class="num">04</span><span class="bar"></span><span class="name">Stack &amp; tradeoffs</span></div>
+    <h2 class="sec-title">Why these tools.</h2>
+  </div>
+  <div class="prose">
+    <p><strong>Next.js</strong> for the app. The founder wanted a single deploy target, server components for the data-heavy library views, and a stack their next hire could pick up. <strong>OpenAI</strong> for the agents — at MVP scale, the latency and cost story were better than alternatives we tested, and function-calling on the quiz-generation rubric was reliable from day one.</p>
+    <p><strong>Supabase</strong> as the everything-else layer: auth, Postgres, pgvector, file storage, edge functions. One vendor, one dashboard, one set of secrets. For a Tier B MVP this consolidation was the right call — the founder didn't need a polyglot infra story for 100 beta users.</p>
+    <p>Considered and rejected: a separate vector DB like Pinecone (extra service for no measurable retrieval gain at this scale), Anthropic Claude for the agents (similar quality on this workload, OpenAI's structured-output reliability won the bake-off), and a fully serverless agent layer on Cloudflare Workers (good idea, would have added a week we didn't have).</p>
+  </div>
+</div></section>
+
+<section class="case-section"><div class="wrap">
+  <div class="sec-head">
+    <div class="sec-eyebrow"><span class="num">05</span><span class="bar"></span><span class="name">Outcomes</span></div>
+    <h2 class="sec-title">What changed after deploy.</h2>
+  </div>
+  <div class="outcomes-grid">
+    <div class="outcome-card featured">
+      <span class="oc-label">MVP delivery</span>
+      <span class="oc-value"><span class="accent">Day 30</span></span>
+      <span class="oc-delta">on schedule</span>
+    </div>
+    <div class="outcome-card">
+      <span class="oc-label">SOW iteration rounds</span>
+      <span class="oc-value">2 used / 2 included</span>
+      <span class="oc-delta">no overruns</span>
+    </div>
+    <div class="outcome-card">
+      <span class="oc-label">Codebase ownership</span>
+      <span class="oc-value">100%</span>
+      <span class="oc-delta">in founder's repo</span>
+    </div>
+    <div class="outcome-card">
+      <span class="oc-label">Time to first paying user</span>
+      <span class="oc-value">Week 6</span>
+      <span class="oc-delta">post-handover</span>
+    </div>
+  </div>
+
+  <p class="illustrative-note"><strong>Illustrative ranges.</strong> Specific client metrics are confirmed under NDA. Numbers shown reflect reported outcomes at handover.</p>
+</div></section>
+
+<section class="more-work"><div class="wrap">
+  <div class="sec-head">
+    <div class="sec-eyebrow"><span class="num">→</span><span class="bar"></span><span class="name">More work</span></div>
+    <h2 class="sec-title">Other systems we've shipped.</h2>
+  </div>
+
+  <div class="related-grid">
+    <a href="/work/tenant-ops-copilot/" class="related-card">
+      <div class="rc-meta"><span class="rc-vertical"><svg width="13" height="13"><use href="#i-building"/></svg> Real estate · Operations</span><span class="rc-duration">8w · A</span></div>
+      <h4>Tenant-ops copilot for a US property management platform.</h4>
+      <span class="rc-outcome">Ticket resolution: 38 hrs → 6 hrs</span>
+    </a>
+    <a href="/work/dispatch-agent/" class="related-card">
+      <div class="rc-meta"><span class="rc-vertical"><svg width="13" height="13"><use href="#i-route"/></svg> Field ops · Dispatch</span><span class="rc-duration">10w · A</span></div>
+      <h4>Autonomous dispatch agent for a North American service network.</h4>
+      <span class="rc-outcome">24/7 coverage · 0 new hires</span>
+    </a>
+    <a href="/work/bilingual-doc-pipeline/" class="related-card">
+      <div class="rc-meta"><span class="rc-vertical"><svg width="13" height="13"><use href="#i-doc"/></svg> Document AI · Arabic</span><span class="rc-duration">7w · A</span></div>
+      <h4>Arabic RAG pipeline over 100 regulatory PDFs.</h4>
+      <span class="rc-outcome">100 PDFs · open-weight stack</span>
+    </a>
+  </div>
+
+  <div class="case-cta">
+    <div class="text">
+      <h3>Want one of these for your team?</h3>
+      <p>30-min scope call. By the end you'll know what we'd build, in what order, what it costs.</p>
+    </div>
+    <div class="actions">
+      <a href="/book/" class="btn primary">Book a call <svg width="14" height="14" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <a href="mailto:contact@codantrix.com" class="btn ghost">Email instead</a>
+    </div>
+  </div>
+</div></section>
+
+<footer><div class="wrap">
+  <div class="footer-grid">
+    <div class="col about">
+      <a href="/" class="wordmark">
+        <span class="logo-mark"><svg width="38" height="18" viewBox="0 0 2552.94 1200" aria-hidden="true"><use href="#i-logo"/></svg></span>
+        <span>CODANTRIX <span class="sep">·</span> LABS</span>
+      </a>
+      <p>Production agentic systems studio. Founded 2023 in Lahore. Working with teams across US and EU time zones.</p>
+    </div>
+    <div class="col">
+      <h5>Studio</h5>
+      <a href="/studio/">About</a>
+      <a href="/#services">Services</a>
+      <a href="/#how">Process</a>
+      <a href="/work/">Work</a>
+    </div>
+    <div class="col">
+      <h5>Founder</h5>
+      <a href="/founder/">Bio</a>
+      <a href="https://www.linkedin.com/in/hassan-ali-mehdi/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/hassan-ali-mehdi-3024" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://hassanalimehdi.dev" target="_blank" rel="noopener">Personal site</a>
+    </div>
+    <div class="col">
+      <h5>Contact</h5>
+      <a href="mailto:contact@codantrix.com">contact@codantrix.com</a>
+      <a href="/book/">Book a call</a>
+      <a href="/studio/">Lahore, Pakistan</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Codantrix Labs · SECP-registered in Pakistan</span>
+    <span><a href="/privacy/">Privacy</a> · <a href="/terms/">Terms</a></span>
+  </div>
+  <div class="colophon">Set in Outfit &amp; Poppins. Hand-built. Hosted on Cloudflare.</div>
+</div></footer>
+
+</body>
+</html>
