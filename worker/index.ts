@@ -24,7 +24,7 @@ import { handlePreflight, withCors } from "./lib/cors";
  */
 
 export default {
-  async fetch(request: Request, env: Env, _ctx: ExecutionContext): Promise<Response> {
+  async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     const url = new URL(request.url);
     const { pathname } = url;
     const method = request.method;
@@ -39,7 +39,7 @@ export default {
       return withCors(await handleHealth(request, env), request);
     }
     if (pathname === "/api/chat" && method === "POST") {
-      return withCors(await handleChat(request, env), request);
+      return withCors(await handleChat(request, env, ctx), request);
     }
     if (pathname === "/api/lead" && method === "POST") {
       return withCors(await handleLead(request, env), request);

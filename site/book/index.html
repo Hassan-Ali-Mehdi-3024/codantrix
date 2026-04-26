@@ -14,7 +14,7 @@
 <link rel="icon" href="/assets/img/favicon.ico" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link rel="preconnect" href="https://assets.calendly.com" />
+<link rel="preconnect" href="https://codantrix-labs.hassanalimehdi30.workers.dev" />
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 <style>
   :root {
@@ -180,48 +180,177 @@
     color: var(--ink-soft); font-size: 14px; line-height: 1.7;
   }
 
-  .calendly-frame {
+  /* ============ SCOPE CHAT WIDGET ============ */
+  .scope-chat {
     background: linear-gradient(180deg, var(--surface-2) 0%, var(--surface-1) 100%);
     border-radius: var(--r-xl);
     padding: 14px;
     box-shadow: var(--depth-lg);
-    position: relative;
-    overflow: hidden;
+    display: flex; flex-direction: column;
+    min-height: 560px;
   }
-  .calendly-frame .frame-meta {
+  @media (min-width: 1100px) {
+    .scope-chat { min-height: 640px; }
+  }
+  .scope-chat .frame-meta {
     display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap;
     padding: 8px 14px 14px;
     font-family: var(--body); font-weight: 500; font-size: 10px;
     letter-spacing: 0.06em; text-transform: uppercase;
     color: var(--ink-faint);
   }
-  .calendly-frame .frame-meta .accent-dot {
+  .scope-chat .frame-meta .accent-dot {
     color: var(--accent); font-weight: 600;
     display: inline-flex; align-items: center; gap: 6px;
   }
-  .calendly-frame .frame-meta .accent-dot::before {
+  .scope-chat .frame-meta .accent-dot::before {
     content: ''; width: 5px; height: 5px; border-radius: 50%;
     background: var(--accent); box-shadow: 0 0 8px var(--accent-glow);
+    animation: scope-pulse 2.4s ease-in-out infinite;
   }
-  .calendly-inline-widget {
-    width: 100%;
-    min-height: 560px;
-    border-radius: var(--r-lg);
-    overflow: hidden;
+  @keyframes scope-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+  .chat-body {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    padding: 8px 12px 4px;
     background: var(--bg);
+    border-radius: var(--r-lg) var(--r-lg) 0 0;
+    scrollbar-width: thin;
+    scrollbar-color: var(--line-strong) transparent;
   }
-  @media (min-width: 1100px) {
-    .calendly-inline-widget { min-height: 640px; }
+  .chat-body::-webkit-scrollbar { width: 6px; }
+  .chat-body::-webkit-scrollbar-thumb { background: var(--line-strong); border-radius: 3px; }
+  .chat-messages {
+    display: flex; flex-direction: column; gap: 14px;
+    padding: 14px 4px;
   }
-  .calendly-fallback {
-    padding: 48px 24px; text-align: center;
-    color: var(--ink-soft); font-size: 14px;
+  .msg {
+    font-family: var(--body); font-weight: 400;
+    font-size: 14.5px; line-height: 1.65;
+    word-wrap: break-word;
   }
-  .calendly-fallback a {
-    display: inline-block; margin-top: 16px;
-    color: var(--accent); font-weight: 500;
-    border-bottom: 1px solid var(--accent);
+  .msg-user {
+    align-self: flex-end;
+    max-width: 82%;
+    background: var(--surface-3);
+    color: var(--ink);
+    padding: 10px 16px;
+    border-radius: 16px 16px 4px 16px;
+    box-shadow: inset 0 1px 0 rgba(237, 229, 214, 0.05);
   }
+  .msg-assistant {
+    align-self: flex-start;
+    max-width: 92%;
+    color: var(--ink);
+    padding: 4px 4px 4px 12px;
+    border-left: 2px solid var(--accent-tint);
+  }
+  .msg-assistant p { margin: 0; }
+  .msg-assistant p + p { margin-top: 10px; }
+  .msg-assistant a {
+    color: var(--accent);
+    border-bottom: 1px solid rgba(255, 107, 53, 0.4);
+    padding-bottom: 1px;
+  }
+  .msg-assistant a:hover { border-bottom-color: var(--accent); }
+  .msg-assistant .caret {
+    display: inline-block;
+    color: var(--accent);
+    animation: scope-caret 0.85s steps(2) infinite;
+    font-weight: 400;
+    margin-left: 1px;
+  }
+  @keyframes scope-caret {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+  }
+  .msg-tool {
+    align-self: flex-start;
+    color: var(--ink-faint);
+    font-size: 12px; font-style: italic;
+    padding: 0 12px;
+    letter-spacing: 0.01em;
+  }
+  .msg-error {
+    align-self: stretch;
+    background: rgba(255, 107, 53, 0.06);
+    border-left: 2px solid var(--accent);
+    padding: 12px 16px;
+    border-radius: 8px;
+    color: var(--ink-soft); font-size: 13.5px;
+  }
+  .msg-error a { color: var(--accent); border-bottom: 1px solid var(--accent); }
+
+  .chat-prompts {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    padding: 8px 4px 14px;
+  }
+  .prompt-chip {
+    font-family: var(--body); font-weight: 500;
+    font-size: 12.5px; color: var(--ink-soft);
+    background: var(--surface-2);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 7px 14px;
+    cursor: pointer;
+    transition: all 180ms ease;
+  }
+  .prompt-chip:hover {
+    color: var(--accent);
+    border-color: rgba(255, 107, 53, 0.35);
+    background: var(--accent-tint);
+    transform: translateY(-1px);
+  }
+
+  .chat-input-row {
+    display: flex; align-items: flex-end; gap: 10px;
+    padding: 12px 14px;
+    background: var(--surface-2);
+    border-radius: 0 0 var(--r-lg) var(--r-lg);
+    border-top: 1px solid var(--line);
+  }
+  .chat-input {
+    flex: 1 1 auto;
+    font-family: var(--body); font-weight: 400;
+    font-size: 14.5px; color: var(--ink);
+    background: transparent;
+    border: none;
+    outline: none;
+    resize: none;
+    line-height: 1.5;
+    max-height: 140px;
+    padding: 6px 4px;
+  }
+  .chat-input::placeholder { color: var(--ink-faint); }
+  .chat-input:focus { outline: none; }
+  .chat-send {
+    flex: 0 0 auto;
+    width: 36px; height: 36px;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--accent); color: var(--bg);
+    border: none; border-radius: 8px;
+    cursor: pointer;
+    transition: all 200ms ease;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.18), 0 4px 12px -2px rgba(255, 107, 53, 0.4);
+  }
+  .chat-send:hover:not([aria-disabled="true"]) {
+    transform: translateY(-1px);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.22), 0 6px 16px -2px rgba(255, 107, 53, 0.55);
+  }
+  .chat-send[aria-disabled="true"] {
+    opacity: 0.5; cursor: not-allowed; transform: none;
+  }
+  .chat-foot {
+    padding: 12px 14px 4px;
+    font-family: var(--body); font-weight: 400;
+    font-size: 11.5px; color: var(--ink-faint);
+    line-height: 1.6;
+  }
+  .chat-foot a { color: var(--ink-soft); border-bottom: 1px solid var(--line-strong); }
+  .chat-foot a:hover { color: var(--accent); }
 
   /* ============ BUTTONS ============ */
   .btn {
@@ -417,22 +546,44 @@
       </div>
 
       <div>
-        <div class="calendly-frame">
+        <div class="scope-chat" id="scope-chat">
           <div class="frame-meta">
-            <span>Fig. 02 · Scheduling surface</span>
-            <span class="accent-dot">Live</span>
+            <span>Fig. 02 · Scope assistant</span>
+            <span class="accent-dot">Live · Gemma 4</span>
           </div>
-          <div
-            class="calendly-inline-widget"
-            data-url="https://calendly.com/hassanalimehdi?background_color=0b0a08&text_color=ede5d6&primary_color=ff6b35&hide_event_type_details=0&hide_gdpr_banner=1"
-          >
-            <noscript>
-              <div class="calendly-fallback">
-                <p>Scheduling needs JavaScript.</p>
-                <a href="https://calendly.com/hassanalimehdi" target="_blank" rel="noopener">Open Calendly directly →</a>
+          <div class="chat-body" id="chat-body">
+            <div class="chat-messages" id="chat-messages" role="log" aria-live="polite" aria-label="Conversation with the scope assistant">
+              <div class="msg msg-assistant">
+                <p>Hi — we're the scope-call assistant for Codantrix Labs. Ask anything: pricing, fit, timeline, past work. When you're ready to book, we'll surface a calendar slot.</p>
               </div>
-            </noscript>
+            </div>
+            <div class="chat-prompts" id="chat-prompts">
+              <button class="prompt-chip" type="button" data-prompt="How much for Tier B?">How much for Tier B?</button>
+              <button class="prompt-chip" type="button" data-prompt="When can we talk this week?">When can we talk?</button>
+              <button class="prompt-chip" type="button" data-prompt="What's included in Tier A?">What's in Tier A?</button>
+              <button class="prompt-chip" type="button" data-prompt="Can you build me a Shopify chatbot?">Shopify chatbot — fit?</button>
+            </div>
           </div>
+          <form class="chat-input-row" id="chat-form">
+            <textarea
+              id="chat-input"
+              class="chat-input"
+              placeholder="Ask about pricing, fit, timeline, or just say hi."
+              rows="1"
+              maxlength="1000"
+              aria-label="Message"
+              autocomplete="off"></textarea>
+            <button type="submit" class="chat-send" id="chat-send" aria-label="Send">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="22" y1="2" x2="11" y2="13"/>
+                <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+              </svg>
+            </button>
+          </form>
+          <p class="chat-foot">
+            Streaming answers grounded in our service spec. 30-min scope calls are free, no obligation.
+            Or email <a href="mailto:hassan@codantrix.com">hassan@codantrix.com</a>.
+          </p>
         </div>
       </div>
 
@@ -547,7 +698,292 @@
 </footer>
 
 <!-- Calendly widget loader (async, after DOM) -->
-<script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+<script>
+/**
+ * Codantrix Labs — scope-call chat widget.
+ *
+ * Talks to the Worker at codantrix-labs.hassanalimehdi30.workers.dev/api/chat.
+ * Cross-origin call; CORS is handled by the Worker's allowlist (see
+ * worker/lib/cors.ts).
+ *
+ * Streams Server-Sent Events. Event shapes:
+ *   { type: "meta", conversation_id }
+ *   { type: "content", text }                     -- token chunk
+ *   { type: "tool", name, status: "running"|"done"|"error", ... }
+ *   { type: "done" }
+ *   { type: "error", message }
+ *
+ * Conversation id is persisted in localStorage so a page refresh keeps the
+ * thread. The Worker treats unknown ids as "start fresh" so stale ids are
+ * harmless.
+ */
+(function () {
+  'use strict';
+
+  var API_BASE = 'https://codantrix-labs.hassanalimehdi30.workers.dev';
+  var STORAGE_KEY = 'codantrix.scope.convId';
+  var TOOL_LABELS = {
+    capture_lead: 'saving your details',
+    check_availability: 'checking the calendar',
+    create_scheduling_link: 'preparing a one-time booking link'
+  };
+
+  var $messages = document.getElementById('chat-messages');
+  var $body = document.getElementById('chat-body');
+  var $prompts = document.getElementById('chat-prompts');
+  var $form = document.getElementById('chat-form');
+  var $input = document.getElementById('chat-input');
+  var $send = document.getElementById('chat-send');
+
+  if (!$messages || !$form || !$input || !$send) return;
+
+  var convId = null;
+  try { convId = localStorage.getItem(STORAGE_KEY); } catch (_) { /* private mode */ }
+
+  var busy = false;
+  var $currentAssistant = null;
+  var assistantText = '';
+
+  // Auto-resize textarea up to max-height (CSS clamps the actual height).
+  $input.addEventListener('input', function () {
+    $input.style.height = 'auto';
+    $input.style.height = Math.min($input.scrollHeight, 140) + 'px';
+  });
+
+  // Enter sends, Shift+Enter inserts newline.
+  $input.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      if (typeof $form.requestSubmit === 'function') $form.requestSubmit();
+      else $form.dispatchEvent(new Event('submit', { cancelable: true }));
+    }
+  });
+
+  // Suggested prompt chips: send on click, then hide the chip row.
+  if ($prompts) {
+    $prompts.addEventListener('click', function (e) {
+      var btn = e.target.closest('.prompt-chip');
+      if (!btn || busy) return;
+      $input.value = btn.dataset.prompt || btn.textContent || '';
+      if (typeof $form.requestSubmit === 'function') $form.requestSubmit();
+      else $form.dispatchEvent(new Event('submit', { cancelable: true }));
+    });
+  }
+
+  $form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (busy) return;
+    var text = ($input.value || '').trim();
+    if (!text) return;
+
+    setBusy(true);
+    if ($prompts) $prompts.style.display = 'none';
+
+    appendMessage('user', text);
+    $input.value = '';
+    $input.style.height = 'auto';
+
+    $currentAssistant = appendMessage('assistant', '');
+    assistantText = '';
+    renderAssistant('');
+
+    streamChat(text).catch(function (err) {
+      showInlineError(err && err.message ? err.message : 'Something went wrong.');
+    }).then(function () {
+      setBusy(false);
+      $currentAssistant = null;
+    });
+  });
+
+  function setBusy(b) {
+    busy = b;
+    if (b) $send.setAttribute('aria-disabled', 'true');
+    else $send.removeAttribute('aria-disabled');
+  }
+
+  function streamChat(text) {
+    var body = JSON.stringify({
+      conversation_id: convId || undefined,
+      message: text
+    });
+    return fetch(API_BASE + '/api/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: body
+    }).then(function (res) {
+      if (!res.ok) {
+        return res.text().then(function (txt) {
+          var msg = 'Chat request failed (' + res.status + ').';
+          try {
+            var parsed = JSON.parse(txt);
+            if (parsed && parsed.error) msg = parsed.hint || parsed.error;
+          } catch (_) { /* not json */ }
+          throw new Error(msg);
+        });
+      }
+      if (!res.body || !res.body.getReader) {
+        throw new Error('Streaming not supported in this browser. Try Chrome or Firefox.');
+      }
+      return readStream(res.body.getReader());
+    });
+  }
+
+  function readStream(reader) {
+    var decoder = new TextDecoder();
+    var buffer = '';
+
+    function pump() {
+      return reader.read().then(function (chunk) {
+        if (chunk.done) {
+          flushBuffer(buffer);
+          return;
+        }
+        buffer += decoder.decode(chunk.value, { stream: true });
+        var idx;
+        while ((idx = buffer.indexOf('\n\n')) >= 0) {
+          var rawEvent = buffer.slice(0, idx);
+          buffer = buffer.slice(idx + 2);
+          processSseEvent(rawEvent);
+        }
+        return pump();
+      });
+    }
+
+    return pump();
+  }
+
+  function flushBuffer(buffer) {
+    if (buffer && buffer.trim()) processSseEvent(buffer);
+  }
+
+  function processSseEvent(rawEvent) {
+    var lines = rawEvent.split('\n');
+    for (var i = 0; i < lines.length; i++) {
+      var line = lines[i];
+      if (line.indexOf('data:') !== 0) continue;
+      var json = line.slice(5).trim();
+      if (!json || json === '[DONE]') continue;
+      var data;
+      try { data = JSON.parse(json); } catch (_) { continue; }
+      handleEvent(data);
+    }
+  }
+
+  function handleEvent(evt) {
+    if (!evt || typeof evt !== 'object') return;
+    switch (evt.type) {
+      case 'meta':
+        convId = evt.conversation_id || convId;
+        if (convId) {
+          try { localStorage.setItem(STORAGE_KEY, convId); } catch (_) {}
+        }
+        break;
+      case 'content':
+        if (evt.text) {
+          assistantText += evt.text;
+          renderAssistant(assistantText);
+        }
+        break;
+      case 'tool':
+        if (evt.status === 'running') showToolStatus(evt.name);
+        break;
+      case 'done':
+        // Finalize: render without trailing caret
+        if ($currentAssistant) renderAssistant(assistantText, true);
+        break;
+      case 'error':
+        showInlineError(evt.message || 'Stream error.');
+        break;
+    }
+  }
+
+  function appendMessage(role, text) {
+    var el = document.createElement('div');
+    el.className = 'msg msg-' + role;
+    var p = document.createElement('p');
+    if (text) p.innerHTML = renderInline(text);
+    el.appendChild(p);
+    $messages.appendChild(el);
+    scrollDown();
+    return el;
+  }
+
+  function renderAssistant(text, finalized) {
+    if (!$currentAssistant) return;
+    var p = $currentAssistant.querySelector('p');
+    if (!p) return;
+    if (!text && !finalized) {
+      p.innerHTML = '<span class="caret">▍</span>';
+    } else if (finalized) {
+      p.innerHTML = renderInline(text);
+    } else {
+      p.innerHTML = renderInline(text) + '<span class="caret">▍</span>';
+    }
+    scrollDown();
+  }
+
+  function showToolStatus(name) {
+    var label = TOOL_LABELS[name] || String(name).replace(/_/g, ' ');
+    var el = document.createElement('div');
+    el.className = 'msg msg-tool';
+    el.textContent = '· ' + label + '…';
+    // Insert tool indicator BEFORE the streaming assistant message so it reads
+    // chronologically (tool ran, then answer composed).
+    if ($currentAssistant && $currentAssistant.parentNode) {
+      $currentAssistant.parentNode.insertBefore(el, $currentAssistant);
+    } else {
+      $messages.appendChild(el);
+    }
+    scrollDown();
+  }
+
+  function showInlineError(msg) {
+    var el = document.createElement('div');
+    el.className = 'msg msg-error';
+    var p1 = document.createElement('p');
+    p1.textContent = msg;
+    var p2 = document.createElement('p');
+    p2.style.fontSize = '13px';
+    p2.style.marginTop = '6px';
+    p2.innerHTML = 'Or email <a href="mailto:hassan@codantrix.com">hassan@codantrix.com</a>.';
+    el.appendChild(p1);
+    el.appendChild(p2);
+    $messages.appendChild(el);
+    scrollDown();
+  }
+
+  /**
+   * Render assistant text inline. Escapes HTML, auto-links http(s) URLs,
+   * preserves newlines. Deliberately NOT a markdown parser — the system
+   * prompt instructs the model to avoid markdown.
+   */
+  function renderInline(text) {
+    var escaped = escapeHtml(text || '');
+    // Auto-link http(s) URLs
+    escaped = escaped.replace(/(https?:\/\/[^\s<]+[^\s<.,;:!?)\]])/g, function (url) {
+      return '<a href="' + url + '" target="_blank" rel="noopener noreferrer">' + url + '</a>';
+    });
+    return escaped.replace(/\n/g, '<br>');
+  }
+
+  function escapeHtml(s) {
+    return String(s)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
+  function scrollDown() {
+    if (!$body) return;
+    // Defer to next frame so layout settles before scroll.
+    requestAnimationFrame(function () {
+      $body.scrollTop = $body.scrollHeight;
+    });
+  }
+})();
+</script>
 
 </body>
 </html>

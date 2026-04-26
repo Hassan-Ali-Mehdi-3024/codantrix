@@ -23,7 +23,7 @@ export async function handleHealth(_request: Request, env: Env): Promise<Respons
 
   const ok = db === "ok";
   return new Response(
-    JSON.stringify({ ok, ts, db, model: env.GROQ_MODEL }, null, 2),
+    JSON.stringify({ ok, ts, db, model: env.LLM_MODEL }, null, 2),
     {
       status: ok ? 200 : 503,
       headers: { "content-type": "application/json; charset=utf-8" },

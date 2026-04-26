@@ -19,9 +19,15 @@
     }
   ],
   "vars": {
-    "GROQ_MODEL": "llama-3.3-70b-versatile"
+    // Provider: OpenRouter (https://openrouter.ai/api/v1) — OpenAI-compatible.
+    // Model: Gemma 4 31B IT, free tier (Google AI Studio proxied via OpenRouter).
+    // 262K context, native tool-calling support, $0/M tokens.
+    // Swapped from Groq llama-3.1-8b-instant on 2026-04-26 for higher
+    // quality at the same cost, with the daily-cap risk acknowledged
+    // (mitigated by $10 credit on OpenRouter for 1000 RPD).
+    "LLM_MODEL": "google/gemma-4-31b-it:free"
   }
   // Secrets (set via `wrangler secret put`, NOT here):
-  //   GROQ_API_KEY     — Phase 3, when /api/chat goes live
-  //   CALENDLY_TOKEN   — Phase 3, when book_call/check_availability tools land
+  //   LLM_API_KEY     — OpenRouter API key (was GROQ_API_KEY pre-2026-04-26)
+  //   CALENDLY_TOKEN  — Calendly Personal Access Token (optional)
 }

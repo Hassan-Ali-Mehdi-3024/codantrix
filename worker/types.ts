@@ -2,7 +2,7 @@
  * Shared types for the Codantrix Labs worker.
  *
  * Bindings come from wrangler.jsonc. Secrets are added via:
- *   npx wrangler secret put GROQ_API_KEY
+ *   npx wrangler secret put LLM_API_KEY
  */
 
 import type { D1Database, Fetcher } from "@cloudflare/workers-types";
@@ -10,8 +10,8 @@ import type { D1Database, Fetcher } from "@cloudflare/workers-types";
 export interface Env {
   ASSETS: Fetcher;
   DB: D1Database;
-  GROQ_MODEL: string;
-  GROQ_API_KEY: string;     // secret — wrangler secret put GROQ_API_KEY
+  LLM_MODEL: string;        // var (set in wrangler.jsonc) e.g. "google/gemma-4-31b-it:free"
+  LLM_API_KEY: string;      // secret — wrangler secret put LLM_API_KEY (OpenRouter key)
   CALENDLY_TOKEN?: string;  // secret — wrangler secret put CALENDLY_TOKEN (optional)
 }
 

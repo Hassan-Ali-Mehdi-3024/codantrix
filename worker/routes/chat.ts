@@ -1,7 +1,8 @@
 /**
  * POST /api/chat
  *
- * Streams a chat response from Groq with tool-calling against the KB.
+ * Streams a chat response from the LLM (OpenRouter Gemma 4 31B IT) with
+ * tool-calling against the KB and Calendly tools.
  * Logs the conversation + every message + every tool call to D1.
  *
  * Request body:
@@ -21,7 +22,7 @@
  */
 
 import type { Env } from "../types";
-import { runChatLoop, SSEWriter, type GroqMessage } from "../lib/groq";
+import { runChatLoop, SSEWriter, type GroqMessage } from "../lib/llm";
 import { TOOL_SCHEMAS, runTool } from "../lib/tools";
 import { SYSTEM_PROMPT } from "../system-prompt";
 import {
@@ -41,7 +42,11 @@ const ALLOWED_ORIGINS = new Set<string>([
   "http://127.0.0.1:8787",
 ]);
 
-export async function handleChat(request: Request, env: Env): Promise<Response> {
+export async function handleChat(
+  request: Request,
+  env: Env,
+  ctx?: ExecutionContext
+): Promise<Response> {
   // Origin enforcement (browser CORS already blocks reads, this also blocks
   // server-to-server abuse: only requests from allowlisted Origin or with
   // no Origin at all from non-browser tooling are accepted).
@@ -64,9 +69,9 @@ export async function handleChat(request: Request, env: Env): Promise<Response> 
   }
 
   // Secret check
-  if (!env.GROQ_API_KEY) {
+  if (!env.LLM_API_KEY) {
     return jsonError(503, "chat-not-configured", {
-      hint: "GROQ_API_KEY secret not set. Run: wrangler secret put GROQ_API_KEY",
+      hint: "LLM_API_KEY secret not set. Run: wrangler secret put LLM_API_KEY",
     });
   }
 
@@ -127,29 +132,33 @@ export async function handleChat(request: Request, env: Env): Promise<Response> 
     { role: "user", content: userMessage },
   ];
 
-  // SSE pipe
+  // SSE pipe. CRITICAL: do NOT await any writer.write() before returning the
+  // Response below. TransformStream backpressure means write() resolves only
+  // after the readable side is being consumed, which doesn't happen until
+  // the runtime starts reading the Response body. Awaiting before return
+  // deadlocks (Worker hangs, runtime kills it with 1101).
   const { readable, writable } = new TransformStream<Uint8Array, Uint8Array>();
   const writer = writable.getWriter();
   const sse = new SSEWriter(writer);
 
-  // Open with a meta event so the client can pin the conversation_id
-  await sse.send({ type: "meta", conversation_id: conversationId });
-
-  // Run loop in the background; flush + close at the end
-  const ctx = {
+  const toolCtx = {
     db: env.DB,
     conversationId,
     calendlyToken: env.CALENDLY_TOKEN,
   };
+
   const loopPromise = (async () => {
     try {
+      // First write goes here, AFTER the Response is in flight.
+      await sse.send({ type: "meta", conversation_id: conversationId });
+
       await runChatLoop({
-        apiKey: env.GROQ_API_KEY,
-        model: env.GROQ_MODEL,
+        apiKey: env.LLM_API_KEY,
+        model: env.LLM_MODEL,
         messages,
         tools: TOOL_SCHEMAS,
         sse,
-        onToolCall: (name, args) => runTool(name, args, ctx),
+        onToolCall: (name, args) => runTool(name, args, toolCtx),
         onToolMessagePersisted: async (name, args, result) => {
           await addMessage(env.DB, {
             conversationId,
@@ -179,10 +188,14 @@ export async function handleChat(request: Request, env: Env): Promise<Response> 
     }
   })();
 
-  // Don't await loopPromise — we need to return the Response immediately so
-  // the browser can start consuming the stream. The writer keeps the body
-  // open until close().
-  void loopPromise;
+  // Keep the Worker alive until the loop finishes, even after the response
+  // headers have been returned. Without waitUntil, the runtime is allowed
+  // to garbage-collect the isolate as soon as the Response is constructed.
+  if (ctx?.waitUntil) {
+    ctx.waitUntil(loopPromise);
+  } else {
+    void loopPromise;
+  }
 
   return new Response(readable, {
     status: 200,

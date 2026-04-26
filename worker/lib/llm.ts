@@ -1,13 +1,19 @@
 /**
- * Groq streaming client + tool-calling loop.
+ * LLM streaming client + tool-calling loop.
  *
- * Talks to Groq's OpenAI-compatible chat completions endpoint
- * (https://api.groq.com/openai/v1/chat/completions). Streams response
- * tokens as they arrive AND executes tool calls when the model emits
- * them, looping until the model gives a final answer with no tool calls.
+ * Provider-agnostic by virtue of OpenAI-compatible request/response shape.
+ * Currently pointed at OpenRouter (https://openrouter.ai/api/v1) which
+ * proxies to Google AI Studio for Gemma 4 31B IT free tier. Was Groq
+ * llama-3.1-8b-instant before 2026-04-26.
  *
- * Output is forwarded to the client as a Server-Sent Events stream of
- * JSON-encoded events. See ChatStreamEvent below.
+ * Internal types still use the 'Groq' prefix for historical reasons; the
+ * wire format is identical between Groq, OpenRouter, OpenAI, etc., so
+ * renaming would be cosmetic churn.
+ *
+ * Streams response tokens as they arrive AND executes tool calls when
+ * the model emits them, looping until the model gives a final answer
+ * with no tool calls. Output is forwarded to the client as a
+ * Server-Sent Events stream of JSON-encoded events (see ChatStreamEvent).
  */
 
 import type { ToolSchema } from "./tools";
@@ -140,18 +146,25 @@ export interface RunChatLoopArgs {
   signal?: AbortSignal;
 }
 
-const GROQ_URL = "https://api.groq.com/openai/v1/chat/completions";
+const LLM_URL = "https://openrouter.ai/api/v1/chat/completions";
+
+// OpenRouter recommends sending these for analytics/leaderboard attribution.
+// They are not auth-bearing; safe to hardcode.
+const OPENROUTER_REFERER = "https://labs.codantrix.com";
+const OPENROUTER_TITLE = "Codantrix Labs Scope Assistant";
 
 export async function runChatLoop(args: RunChatLoopArgs): Promise<void> {
   const maxIters = args.maxIterations ?? 5;
   const messages = [...args.messages];
 
   for (let iter = 0; iter < maxIters; iter++) {
-    const response = await fetch(GROQ_URL, {
+    const response = await fetch(LLM_URL, {
       method: "POST",
       headers: {
         "content-type": "application/json",
         authorization: `Bearer ${args.apiKey}`,
+        "http-referer": OPENROUTER_REFERER,
+        "x-title": OPENROUTER_TITLE,
       },
       body: JSON.stringify({
         model: args.model,
@@ -167,7 +180,7 @@ export async function runChatLoop(args: RunChatLoopArgs): Promise<void> {
 
     if (!response.ok || !response.body) {
       const errBody = await safeText(response);
-      throw new Error(`Groq HTTP ${response.status}: ${errBody.slice(0, 300)}`);
+      throw new Error(`LLM HTTP ${response.status}: ${errBody.slice(0, 300)}`);
     }
 
     const reader = response.body.getReader();
