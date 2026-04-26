@@ -252,7 +252,7 @@ export const KB: KB = {
   },
 
   contact: {
-    email: "hassan@codantrix.com",
+    email: "contact@codantrix.com",
     calendly_url: "https://calendly.com/hassanalimehdi",
     book_page: "https://labs.codantrix.com/book/",
     address: "Lahore, Pakistan",

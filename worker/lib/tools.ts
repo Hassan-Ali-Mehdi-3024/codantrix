@@ -276,7 +276,7 @@ async function runCheckAvailability(
     return {
       ok: true,
       slots: [],
-      note: "No active event types yet. Suggest emailing hassan@codantrix.com.",
+      note: "No active event types yet. Suggest emailing contact@codantrix.com.",
     };
   }
   const now = new Date();

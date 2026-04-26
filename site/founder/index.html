@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Founder — Hassan Ali Mehdi · Codantrix Labs</title>
+<meta name="description" content="Hassan Ali Mehdi, founder of Codantrix Labs. Seven years coding, three on production agentic systems. Lahore, Pakistan." />
+<meta property="og:title" content="Founder — Hassan Ali Mehdi · Codantrix Labs" />
+<meta property="og:description" content="Hassan Ali Mehdi, founder of Codantrix Labs. Seven years coding, three on production agentic systems." />
+<meta property="og:url" content="https://labs.codantrix.com/founder/" />
+<meta property="og:image" content="https://labs.codantrix.com/og.png" />
+<meta property="og:type" content="profile" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="robots" content="index, follow" />
+<link rel="canonical" href="https://labs.codantrix.com/founder/" />
+<link rel="icon" href="/assets/img/favicon.ico" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #0b0a08;
+    --bg-deep: #080705;
+    --surface-1: #14110d;
+    --surface-2: #181510;
+    --surface-3: #1c1813;
+    --bg-elev: #131210;
+    --ink: #ede5d6;
+    --ink-soft: #a39d8e;
+    --ink-faint: #5e584d;
+    --line: rgba(237, 229, 214, 0.07);
+    --line-strong: rgba(237, 229, 214, 0.13);
+    --accent: #ff6b35;
+    --accent-deep: #c44a1f;
+    --accent-glow: rgba(255, 107, 53, 0.16);
+    --accent-tint: rgba(255, 107, 53, 0.06);
+
+    --depth-md:
+      inset 0 1px 0 rgba(237, 229, 214, 0.07),
+      0 1px 2px rgba(0,0,0,0.5),
+      0 8px 24px -8px rgba(0,0,0,0.4),
+      0 24px 48px -20px rgba(0,0,0,0.5);
+
+    --depth-lg:
+      inset 0 1px 0 rgba(237, 229, 214, 0.08),
+      0 2px 4px rgba(0,0,0,0.5),
+      0 12px 32px -8px rgba(0,0,0,0.4),
+      0 32px 64px -20px rgba(0,0,0,0.55);
+
+    --depth-hover:
+      inset 0 1px 0 rgba(237, 229, 214, 0.1),
+      0 4px 8px rgba(0,0,0,0.5),
+      0 20px 40px -8px rgba(0,0,0,0.5),
+      0 40px 80px -20px rgba(0,0,0,0.6);
+
+    --r-sm: 10px;
+    --r-md: 14px;
+    --r-lg: 18px;
+    --r-xl: 22px;
+
+    --display: 'Outfit', system-ui, sans-serif;
+    --body: 'Poppins', system-ui, sans-serif;
+    --max: 1240px;
+    --pad: clamp(20px, 4vw, 56px);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 15px;
+    line-height: 1.65;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  ::selection { background: var(--accent); color: var(--bg); }
+  a { color: inherit; text-decoration: none; }
+  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 var(--pad); position: relative; }
+
+  /* ============ SYSBAR ============ */
+  .sysbar { padding: 12px 0; background: var(--bg-elev); }
+  .sysbar .row { display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+  .sysbar .seg { display: flex; align-items: center; gap: 10px; }
+  .sysbar .seg span { font-family: var(--body); font-weight: 500; font-size: 11px; letter-spacing: 0.02em; color: var(--ink-soft); }
+  .sysbar .seg.accent span { color: var(--accent); font-weight: 600; }
+  .pulse { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 10px var(--accent-glow); flex-shrink: 0; }
+  .pulse.green { background: #6ee7a8; box-shadow: 0 0 10px rgba(110, 231, 168, 0.35); }
+  @media (max-width: 720px) { .sysbar .seg.optional { display: none; } }
+
+  /* ============ NAV ============ */
+  nav.top {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(11, 10, 8, 0.78);
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+  }
+  nav.top .row { display: flex; align-items: center; justify-content: space-between; padding: 18px 0; gap: 16px; }
+  .wordmark {
+    font-family: var(--display); font-weight: 600;
+    font-size: 14px; letter-spacing: 0.12em; text-transform: uppercase;
+    display: inline-flex; align-items: center; gap: 12px;
+    white-space: nowrap;
+  }
+  .wordmark .sep { color: var(--accent); font-weight: 700; }
+  .logo-mark {
+    display: inline-flex; align-items: center; justify-content: center;
+    color: var(--accent);
+    flex-shrink: 0;
+    filter: drop-shadow(0 0 6px rgba(255, 107, 53, 0.32));
+  }
+  .logo-mark svg { display: block; }
+  .nav-links { display: flex; gap: 30px; }
+  .nav-links a { font-family: var(--body); font-weight: 500; font-size: 14px; color: var(--ink-soft); transition: color 220ms ease; }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-links a.active { color: var(--ink); }
+  .nav-cta {
+    font-family: var(--body); font-weight: 500; font-size: 13px;
+    background: var(--accent); color: var(--bg);
+    padding: 11px 22px; border-radius: 999px;
+    transition: all 240ms ease;
+    display: inline-flex; align-items: center; gap: 8px;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18), 0 4px 14px -2px rgba(255, 107, 53, 0.35);
+  }
+  .nav-cta:hover { transform: translateY(-1px); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22), 0 8px 22px -4px rgba(255, 107, 53, 0.5); }
+  @media (max-width: 760px) { .nav-links { display: none; } }
+
+  /* ============ FOUNDER HERO ============ */
+  .founder-hero { padding: clamp(64px, 9vw, 120px) 0 clamp(40px, 6vw, 80px); position: relative; }
+  .founder-hero::before {
+    content: ''; position: absolute; top: -200px; right: -10%;
+    width: 900px; height: 600px;
+    background: radial-gradient(ellipse at center, var(--accent-glow) 0%, transparent 60%);
+    pointer-events: none; z-index: 0; filter: blur(80px); opacity: 0.5;
+  }
+  .founder-hero .wrap { position: relative; z-index: 1; }
+
+  .founder-eyebrow { display: inline-flex; align-items: center; gap: 14px; margin-bottom: 26px; }
+  .founder-eyebrow .num { font-family: var(--display); font-weight: 600; font-size: 13px; color: var(--accent); letter-spacing: 0.04em; }
+  .founder-eyebrow .bar { width: 28px; height: 1px; background: var(--accent); opacity: 0.5; }
+  .founder-eyebrow .name { font-family: var(--body); font-weight: 500; font-size: 12px; color: var(--ink-soft); letter-spacing: 0.02em; }
+
+  .hero-grid {
+    display: grid; grid-template-columns: 1.4fr 1fr;
+    gap: clamp(40px, 6vw, 80px);
+    align-items: center;
+  }
+  @media (max-width: 920px) { .hero-grid { grid-template-columns: 1fr; gap: 48px; } }
+
+  .hero-name {
+    font-family: var(--display); font-weight: 600;
+    font-size: clamp(40px, 6vw, 72px);
+    line-height: 1.04; letter-spacing: -0.03em;
+    margin-bottom: 20px;
+  }
+  .hero-role {
+    font-family: var(--body); font-weight: 500; font-size: 14px;
+    color: var(--ink-soft); letter-spacing: 0.02em;
+    margin-bottom: 22px;
+    display: inline-flex; align-items: center; gap: 10px;
+  }
+  .hero-role::before {
+    content: ''; width: 24px; height: 1px; background: var(--accent); opacity: 0.7;
+  }
+  .hero-statement {
+    font-family: var(--display); font-weight: 400;
+    font-size: clamp(20px, 2.6vw, 28px);
+    line-height: 1.4; letter-spacing: -0.01em;
+    color: var(--ink); max-width: 28ch;
+    margin-bottom: 28px;
+  }
+  .hero-statement .accent { color: var(--accent); }
+  .hero-meta {
+    display: flex; flex-wrap: wrap; gap: 18px 28px;
+    font-family: var(--body); font-weight: 400; font-size: 13px;
+    color: var(--ink-faint);
+  }
+  .hero-meta strong { color: var(--ink-soft); font-weight: 500; }
+
+  /* Portrait */
+  .hero-portrait {
+    position: relative;
+    aspect-ratio: 3 / 4;
+    background: linear-gradient(180deg, var(--surface-2) 0%, var(--surface-1) 100%);
+    border-radius: var(--r-xl);
+    box-shadow: var(--depth-lg);
+    overflow: hidden;
+    max-width: 380px;
+    justify-self: end;
+    width: 100%;
+  }
+  @media (max-width: 920px) { .hero-portrait { justify-self: start; max-width: 320px; } }
+  .hero-portrait img {
+    display: block; width: 100%; height: 100%;
+    object-fit: cover; object-position: center top;
+    filter: contrast(1.02) saturate(0.95);
+  }
+  .hero-portrait .frame-meta {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: linear-gradient(180deg, transparent 0%, rgba(11, 10, 8, 0.85) 100%);
+    padding: 32px 18px 14px;
+    display: flex; justify-content: space-between; gap: 12px;
+    font-family: var(--body); font-weight: 500; font-size: 10px;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .hero-portrait .frame-meta .accent-dot {
+    color: var(--accent); font-weight: 600;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .hero-portrait .frame-meta .accent-dot::before {
+    content: ''; width: 5px; height: 5px; border-radius: 50%;
+    background: var(--accent); box-shadow: 0 0 8px var(--accent-glow);
+  }
+
+  /* ============ SECTION HEADER ============ */
+  .section { padding: clamp(60px, 8vw, 100px) 0; }
+  .sec-head { margin-bottom: clamp(40px, 5vw, 60px); padding-bottom: 24px; border-bottom: 1px solid var(--line); }
+  .sec-eyebrow { display: inline-flex; align-items: center; gap: 14px; margin-bottom: 18px; }
+  .sec-eyebrow .num { font-family: var(--display); font-weight: 600; font-size: 13px; color: var(--accent); letter-spacing: 0.04em; }
+  .sec-eyebrow .bar { width: 28px; height: 1px; background: var(--accent); opacity: 0.5; }
+  .sec-eyebrow .name { font-family: var(--body); font-weight: 500; font-size: 12px; color: var(--ink-soft); letter-spacing: 0.02em; }
+  .sec-title {
+    font-family: var(--display); font-weight: 500;
+    font-size: clamp(28px, 4vw, 44px);
+    line-height: 1.1; letter-spacing: -0.025em;
+  }
+  .sec-title .muted { color: var(--ink-faint); }
+
+  /* ============ ABOUT (I voice) ============ */
+  .about-body { max-width: 70ch; }
+  .about-body p {
+    font-family: var(--body); font-weight: 400;
+    font-size: 16.5px; line-height: 1.8;
+    color: var(--ink-soft);
+    margin-bottom: 22px;
+  }
+  .about-body p strong { color: var(--ink); font-weight: 500; }
+  .about-body p:first-child::first-letter {
+    font-family: var(--display); font-weight: 500;
+    font-size: 3.6em; line-height: 0.9;
+    float: left; margin: 6px 12px -2px 0;
+    color: var(--accent);
+    letter-spacing: -0.04em;
+  }
+
+  /* ============ TIMELINE ============ */
+  .timeline { display: flex; flex-direction: column; gap: 0; max-width: 720px; }
+  .tl-item {
+    display: grid; grid-template-columns: 80px 1fr;
+    gap: 24px;
+    padding: 22px 0;
+    border-bottom: 1px solid var(--line);
+    position: relative;
+  }
+  .tl-item:last-child { border-bottom: none; }
+  .tl-year {
+    font-family: var(--display); font-weight: 600;
+    font-size: 17px; color: var(--accent);
+    letter-spacing: 0.02em;
+    padding-top: 1px;
+  }
+  .tl-text {
+    font-family: var(--body); font-weight: 400;
+    font-size: 15.5px; line-height: 1.65;
+    color: var(--ink-soft);
+  }
+  .tl-text strong { color: var(--ink); font-weight: 500; }
+
+  /* ============ CURRENTLY ============ */
+  .currently-card {
+    background: linear-gradient(180deg, var(--surface-2) 0%, var(--surface-1) 100%);
+    border-radius: var(--r-xl);
+    box-shadow: var(--depth-md);
+    padding: clamp(28px, 4vw, 44px) clamp(28px, 4vw, 48px);
+    max-width: 760px;
+    position: relative;
+    overflow: hidden;
+  }
+  .currently-card::before {
+    content: ''; position: absolute; top: -120px; right: -120px;
+    width: 360px; height: 360px;
+    background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+    filter: blur(40px); pointer-events: none;
+  }
+  .currently-card .label {
+    font-family: var(--body); font-weight: 600; font-size: 11px;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--accent);
+    display: inline-flex; align-items: center; gap: 10px;
+    margin-bottom: 18px;
+    position: relative; z-index: 1;
+  }
+  .currently-card .label::before {
+    content: ''; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent); box-shadow: 0 0 8px var(--accent-glow);
+  }
+  .currently-card p {
+    font-family: var(--display); font-weight: 400;
+    font-size: clamp(18px, 2.2vw, 22px);
+    line-height: 1.5; letter-spacing: -0.01em;
+    color: var(--ink); position: relative; z-index: 1;
+    max-width: 56ch;
+  }
+
+  /* ============ CONTACT CARD ============ */
+  .contact-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    max-width: 880px;
+  }
+  .contact-card {
+    background: linear-gradient(180deg, var(--surface-2) 0%, var(--surface-1) 100%);
+    border-radius: var(--r-lg);
+    padding: 22px 24px;
+    box-shadow: var(--depth-md);
+    transition: all 240ms ease;
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .contact-card:hover { transform: translateY(-2px); box-shadow: var(--depth-hover); }
+  .contact-card .ck-label {
+    font-family: var(--body); font-weight: 600; font-size: 10.5px;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .contact-card .ck-value {
+    font-family: var(--display); font-weight: 500;
+    font-size: 15px; color: var(--ink);
+    transition: color 200ms ease;
+    word-break: break-all;
+  }
+  .contact-card:hover .ck-value { color: var(--accent); }
+
+  /* ============ FOOTER (we voice, full 4-col like home) ============ */
+  footer {
+    border-top: 1px solid var(--line);
+    background: var(--bg-deep);
+    padding: clamp(48px, 6vw, 72px) 0 32px;
+    margin-top: clamp(60px, 8vw, 100px);
+  }
+  .footer-grid {
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: clamp(24px, 4vw, 56px);
+    margin-bottom: 36px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--line);
+  }
+  .footer-grid .col h5 {
+    font-family: var(--body); font-weight: 600; font-size: 11px;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 14px;
+  }
+  .footer-grid .col a:not(.wordmark) {
+    display: block;
+    font-family: var(--body); font-weight: 400;
+    font-size: 13px; color: var(--ink-soft);
+    padding: 5px 0;
+    transition: color 200ms;
+  }
+  .footer-grid .col a:not(.wordmark):hover { color: var(--accent); }
+  .footer-grid .col .wordmark { font-size: 18px; color: var(--ink); padding: 0; }
+  .footer-grid .col.about p {
+    font-family: var(--body); font-weight: 400; font-size: 13px;
+    color: var(--ink-soft); line-height: 1.7;
+    margin-top: 14px; max-width: 36ch;
+  }
+  @media (max-width: 860px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 540px) { .footer-grid { grid-template-columns: 1fr; } }
+  .footer-bottom {
+    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    font-family: var(--body); font-weight: 400; font-size: 12px;
+    color: var(--ink-faint);
+  }
+  .footer-bottom a { color: var(--ink-soft); }
+  .footer-bottom a:hover { color: var(--accent); }
+  .colophon {
+    margin-top: 14px;
+    font-family: var(--body); font-weight: 400; font-size: 11px;
+    color: var(--ink-faint); opacity: 0.7;
+  }
+</style>
+</head>
+<body>
+
+<!-- Icon sprite -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-logo" viewBox="0 0 2552.94 1200">
+      <path fill="currentColor" d="M284.95,86.06c211.74-136.1,510.58-107.03,696.75,60.72,37.29,34.43,75.02,68.41,109.45,105.78,28.88,30.4,63.22,55.98,85.93,91.83-47.39,50.34-94.07,103.19-151.39,142.44-68.67-61.88-127.87-134.04-200.92-191.18-83.7-64.38-196.01-94.34-299.91-71.71-153.89,23.16-283.1,154.87-307.24,307.87-4.38,65.01-7.69,132.43,13.59,195.02,38.99,120.54,144.23,219.17,268.7,245.54,113.47,28.79,239.2-8.05,323.7-88.17,59.2-56.96,116.69-115.8,175.44-173.2,14.31-13.59,27-28.79,37.56-45.51-107.12-7.78-214.07,4.83-321.01,4.65-21.91,11.71-33,38.27-56.33,49.09-46.41,22.18-109.09,14.66-143.79-25.13-44.53-47.39-46.05-132.61,3.04-177.32,33-30.67,83.61-44.89,125.99-25.66,35.14,10.82,59.11,40.33,77.88,70.46,131.09,2.24,262.18,2.41,393.26,2.32,35.77,4.74,55.44-30.4,79.23-50.61,111.59-105.96,213.89-221.13,323.7-328.97,65.1-66.8,145.4-118.12,232.76-150.4,160.51-53.29,345.51-46.14,493.86,39.08,133.95,71.27,232.22,200.03,280.86,342.38,34.43,112.04,34.96,233.65,6.35,347.03-18.96,66.53-50.43,129.21-88.61,186.71-92.28,125.81-232.76,218.81-388.44,241.61-148.97,28.61-306.08-10.91-431.8-93.53-65.99-42.74-118.66-101.94-174.55-156.57-26.11-27.45-55.71-51.86-79.05-82-7.24-17.88,9.12-31.48,19.67-43.37,39.43-39.88,77.88-80.92,122.68-114.9,31.48,33.44,62.5,67.42,95.95,98.99,59.64,57.23,115.8,122.77,193.95,155.41,64.2,30.76,136.63,35.95,206.65,28.97,134.58-21.01,258.06-114.99,305.72-243.93,25.66-61.97,26.02-130.64,20.57-196.54-10.55-93.62-65.63-176.33-134.4-238.21-73.68-59.55-168.55-92.1-263.25-89.51-74.04,6.71-148.26,27.45-208.61,72.16-57.05,43.55-106.05,96.48-157.02,146.74-33.08,34.25-69.03,65.72-99.34,102.56,123.4.8,246.89,2.59,370.28-.36,21.37-38.54,57.14-74.49,104.35-73.95,55.89-7.06,107.93,32.28,127.33,83.07,7.33,40.15,7.15,86.65-22.89,118.12-41.76,57.76-136.18,62.06-184.29,10.37-10.91-10.91-19.67-23.79-28.79-36.21-139.85-3.67-279.52,5.45-419.37,2.32-24.41-.18-52.94-3.13-69.03,19.4-80.39,86.47-166.86,166.86-248.32,252.43-71.09,69.03-137.62,144.86-222.12,198.24-65.19,37.56-136.1,67.87-211.12,77.79-53.65,4.2-107.57,3.93-161.22,1.25C240.78,1161.95,18.22,922.93,1.41,656.91c-1.52-50.52-2.95-101.4,2.24-151.83C26.53,332.05,135.71,174.94,284.95,86.06Z"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- SYSBAR -->
+<div class="sysbar">
+  <div class="wrap">
+    <div class="row">
+      <div class="seg"><div class="pulse green"></div><span>System online · Lahore</span></div>
+      <div class="seg optional"><span>Founder bio · First-person</span></div>
+      <div class="seg accent"><span>Updated April 2026</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="top">
+  <div class="wrap">
+    <div class="row">
+      <a href="/" class="wordmark">
+        <span class="logo-mark"><svg width="38" height="18" viewBox="0 0 2552.94 1200" aria-hidden="true"><use href="#i-logo"/></svg></span>
+        <span>CODANTRIX <span class="sep">·</span> LABS</span>
+      </a>
+      <div class="nav-links">
+        <a href="/#services">Services</a>
+        <a href="/#process">Process</a>
+        <a href="/#work">Work</a>
+        <a href="/founder/" class="active">Founder</a>
+      </div>
+      <a href="/book/" class="nav-cta">Book a call <svg width="14" height="14" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="founder-hero">
+  <div class="wrap">
+    <div class="founder-eyebrow">
+      <span class="num">→</span>
+      <span class="bar"></span>
+      <span class="name">Founder</span>
+    </div>
+    <div class="hero-grid">
+      <div>
+        <h1 class="hero-name">Hassan Ali Mehdi</h1>
+        <div class="hero-role">Founder &amp; engineering lead · Codantrix Labs</div>
+        <p class="hero-statement">
+          Seven years coding. Three on production <span class="accent">agentic systems.</span> Building from Lahore.
+        </p>
+        <div class="hero-meta">
+          <span><strong>Based</strong> Lahore, Pakistan</span>
+          <span><strong>Working hours</strong> US &amp; EU windows</span>
+          <span><strong>Email</strong> <a href="mailto:contact@codantrix.com" style="color: var(--ink-soft); border-bottom: 1px solid var(--line-strong);">contact@codantrix.com</a></span>
+        </div>
+      </div>
+      <div class="hero-portrait">
+        <img
+          src="/assets/img/founder.jpg"
+          alt="Hassan Ali Mehdi, founder of Codantrix Labs"
+          loading="eager"
+          width="380" height="507" />
+        <div class="frame-meta">
+          <span>Fig. 01 · Founder</span>
+          <span class="accent-dot">2026</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 01 · ABOUT -->
+<section class="section" id="about">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-eyebrow">
+        <span class="num">01</span>
+        <span class="bar"></span>
+        <span class="name">About me</span>
+      </div>
+      <h2 class="sec-title">Seven years in. <span class="muted">Three of them serious.</span></h2>
+    </div>
+
+    <div class="about-body">
+      <p>I started coding in 9th grade because I couldn't run GTA V on my machine. If I couldn't play games, I'd build them — modeling first, then C# for the scripting. Somewhere in that, the goal shifted from games to engineering. HTML, CSS, JS, then three years of Flutter, then React when my first client asked for it. In 2023, my first semester of university, I started Technologistics and took contract work for an outsourcing firm. I learned the firm was billing clients $2 — 3K for systems I was shipping alone, while I earned 30 — 50K PKR. That's when I decided I'd only work on my own company. In 2025 I rebranded and registered Codantrix Labs with the SECP. Seven years in, three of them serious. I've fallen, but I haven't lost.</p>
+
+      <p>The agentic shift came from using Gemini as a full system and getting hands-on with GitHub Copilot. The applications go far past coding. The right pipeline saves a company millions in repeat effort. The right agent moves the rote work off a person and leaves room for judgment, review, creative direction. Most people miss the part that's actually hard. In a world where every high-school dropout dreams of being a millionaire, building something that actually scales is the part no one is thinking about. It's easy to dream big. The first step is the hard one.</p>
+
+      <p>I never set out to make a lot of cash. I wanted to make something sustainable — something that stays. Codantrix isn't another money-making machine. That's why I'm careful about the work we take. I hate wasting time — what should take a month shouldn't be dragged to six. And the fastest way to lose me is wanting to "try" agentic AI without being ready to commit. These systems cost real money to build well. Plan carefully, ask for options, push back during scoping — but once we ship, the only way back is a new system. <strong>That's not aggression. That's business etiquette.</strong></p>
+
+      <p>During scope calls, ask anything. No question is stupid, no statement is wrong. What I appreciate in return is empathy — talk to us the way you'd want to be talked to. We put everything into the projects we take.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 02 · TIMELINE -->
+<section class="section" id="timeline" style="padding-top: 0;">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-eyebrow">
+        <span class="num">02</span>
+        <span class="bar"></span>
+        <span class="name">Background</span>
+      </div>
+      <h2 class="sec-title">The path here. <span class="muted">In short.</span></h2>
+    </div>
+
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-year">2019</div>
+        <div class="tl-text"><strong>Started coding in 9th grade.</strong> C# for game modding. The first goal was to build games I couldn't play.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">2020</div>
+        <div class="tl-text"><strong>Pivoted to web.</strong> HTML, CSS, JS. Then Flutter — three years of cross-platform mobile, getting fluent with widgets and stateful UI.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">2023</div>
+        <div class="tl-text"><strong>First React client. Founded Technologistics in the first semester of university.</strong> Started contract work for an outsourcing firm shipping agentic systems.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">2025</div>
+        <div class="tl-text"><strong>Rebranded to Codantrix Labs.</strong> Registered with the SECP in Pakistan. Started taking work directly.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">2026</div>
+        <div class="tl-text"><strong>Focused entirely on production agentic systems.</strong> Tier A and Tier B engagements only. Fixed scope, fixed price.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 · CURRENTLY -->
+<section class="section" id="currently" style="padding-top: 0;">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-eyebrow">
+        <span class="num">03</span>
+        <span class="bar"></span>
+        <span class="name">Currently building</span>
+      </div>
+      <h2 class="sec-title">What I'm thinking about <span class="muted">right now.</span></h2>
+    </div>
+
+    <div class="currently-card">
+      <div class="label">Active focus</div>
+      <p>
+        Multi-agent swarms for marketing — agents grounded in a company's data and brand voice, running full campaigns with feedback loops and audience response baked in. The step beyond single-agent copilots.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- 04 · REACH ME -->
+<section class="section" id="reach" style="padding-top: 0;">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-eyebrow">
+        <span class="num">04</span>
+        <span class="bar"></span>
+        <span class="name">How to reach me</span>
+      </div>
+      <h2 class="sec-title">Five ways. <span class="muted">All of them work.</span></h2>
+    </div>
+
+    <div class="contact-grid">
+      <a href="mailto:contact@codantrix.com" class="contact-card">
+        <span class="ck-label">Email · best</span>
+        <span class="ck-value">contact@codantrix.com</span>
+      </a>
+      <a href="/book/" class="contact-card">
+        <span class="ck-label">Scope call · 30 min</span>
+        <span class="ck-value">labs.codantrix.com/book</span>
+      </a>
+      <a href="https://www.linkedin.com/in/hassan-ali-mehdi/" target="_blank" rel="noopener noreferrer" class="contact-card">
+        <span class="ck-label">LinkedIn</span>
+        <span class="ck-value">in/hassan-ali-mehdi</span>
+      </a>
+      <a href="https://github.com/hassan-ali-mehdi-3024" target="_blank" rel="noopener noreferrer" class="contact-card">
+        <span class="ck-label">GitHub</span>
+        <span class="ck-value">hassan-ali-mehdi-3024</span>
+      </a>
+      <a href="https://hassanalimehdi.dev" target="_blank" rel="noopener noreferrer" class="contact-card">
+        <span class="ck-label">Personal site</span>
+        <span class="ck-value">hassanalimehdi.dev</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER (we voice, full 4-col like home) -->
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="col about">
+        <a href="/" class="wordmark">
+          <span class="logo-mark"><svg width="38" height="18" viewBox="0 0 2552.94 1200" aria-hidden="true"><use href="#i-logo"/></svg></span>
+          <span>CODANTRIX <span class="sep">·</span> LABS</span>
+        </a>
+        <p>Production agentic systems studio. Founded 2023 in Lahore. Working with teams across US and EU time zones.</p>
+      </div>
+      <div class="col">
+        <h5>Studio</h5>
+        <a href="/#services">Services</a>
+        <a href="/#process">Process</a>
+        <a href="/#work">Work</a>
+      </div>
+      <div class="col">
+        <h5>Founder</h5>
+        <a href="/founder/">Bio</a>
+        <a href="https://www.linkedin.com/in/hassan-ali-mehdi/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://github.com/hassan-ali-mehdi-3024" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://hassanalimehdi.dev" target="_blank" rel="noopener">Personal site</a>
+      </div>
+      <div class="col">
+        <h5>Contact</h5>
+        <a href="mailto:contact@codantrix.com">contact@codantrix.com</a>
+        <a href="/book/">Book a call</a>
+        <a href="/#studio">Lahore, Pakistan</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Codantrix Labs · SECP-registered in Pakistan</span>
+      <span><a href="/privacy/">Privacy</a> · <a href="/terms/">Terms</a></span>
+    </div>
+    <div class="colophon">Set in Outfit &amp; Poppins. Hand-built. Hosted on Cloudflare.</div>
+  </div>
+</footer>
+
+</body>
+</html>
