@@ -28,14 +28,20 @@
     //            pool returned upstream 429s)
     //   pm:      OpenRouter meta-llama/llama-3.3-70b-instruct:free (Venice
     //            shared pool returned upstream 429s)
-    //   evening: Groq llama-3.3-70b-versatile (this) — direct provider, our
-    //            own free quota (12K TPM, 14.4K RPD), no shared pool.
+    //   evening: Groq llama-3.3-70b-versatile (had silent empty-response bug
+    //            on tool-calling — model would emit zero content + zero
+    //            tool_calls when asked tier-detail questions, making the
+    //            chat appear frozen. Reproducible).
+    //   late evening: Groq llama-3.1-8b-instant (this) — same provider/quota
+    //            but much more reliable tool-calling on our prompt. Fits
+    //            6K TPM cap with our trimmed prompt + 4 tools. Trade-off is
+    //            slightly less smart, but reliably routes get_info /
+    //            capture_lead / check_availability / create_scheduling_link.
     //
-    // For a low-volume /book widget (1 visitor at a time, ~1 message per 30s)
-    // the 12K TPM cap is actually fine. If volume justifies it later, switch
-    // to Groq Dev tier (paid) or revisit OpenRouter with a private provider
-    // key (https://openrouter.ai/settings/integrations) to bypass shared pools.
-    "LLM_MODEL": "llama-3.3-70b-versatile"
+    // For low-volume /book traffic the 6K TPM cap is fine. If volume
+    // justifies it, options: Groq Dev tier (paid) for higher TPM, or
+    // OpenRouter with a private provider key to bypass shared pools.
+    "LLM_MODEL": "llama-3.1-8b-instant"
   }
   // Secrets (set via `wrangler secret put`, NOT here):
   //   LLM_API_KEY     — OpenRouter API key (was GROQ_API_KEY pre-2026-04-26)
