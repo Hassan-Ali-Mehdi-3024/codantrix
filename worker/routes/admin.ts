@@ -34,6 +34,7 @@ import {
   renderPostsListPage,
 } from "../lib/admin-templates";
 import { countPendingComments } from "../lib/comments";
+import { purgeWritingCache } from "./writing";
 
 const SLUG_RX = /^[a-z0-9-]{1,80}$/;
 
@@ -108,6 +109,9 @@ export async function handleAdminPostCreate(request: Request, env: Env): Promise
     if (msg.includes("UNIQUE")) return redirectFlash("/admin/writing/new", "error", "slug-already-exists");
     return redirectFlash("/admin/writing/new", "error", "create-failed");
   }
+  // Best-effort cache purge — newly created posts likely won't have cached
+  // index/sitemap pages yet, but draft → published creation is possible.
+  purgeWritingCache(input.slug).catch(() => {});
   return redirectFlash(`/admin/writing/edit/${input.slug}`, "ok", "post-created");
 }
 
@@ -153,6 +157,11 @@ export async function handleAdminPostSave(request: Request, env: Env, oldSlug: s
     if (msg === "post-not-found") return notFound();
     return redirectFlash(`/admin/writing/edit/${oldSlug}`, "error", "save-failed");
   }
+  // Purge both old and new slug's cache (slug rename invalidates the previous URL).
+  await Promise.all([
+    purgeWritingCache(oldSlug),
+    oldSlug !== input.slug ? purgeWritingCache(input.slug) : Promise.resolve(),
+  ]).catch(() => {});
   return redirectFlash(`/admin/writing/edit/${input.slug}`, "ok", "saved");
 }
 
@@ -162,6 +171,7 @@ export async function handleAdminPostDelete(request: Request, env: Env, slug: st
   const auth = await requireSession(request, env);
   if (auth instanceof Response) return auth;
   const ok = await deletePostBySlug(env.DB, slug);
+  if (ok) await purgeWritingCache(slug).catch(() => {});
   return redirectFlash("/admin/writing/", ok ? "ok" : "error", ok ? "post-deleted" : "delete-failed");
 }
 

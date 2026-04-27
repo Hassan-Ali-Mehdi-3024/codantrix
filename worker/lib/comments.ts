@@ -12,6 +12,13 @@
 
 import type { D1Database } from "@cloudflare/workers-types";
 
+export interface CommentRow {
+  id: number;
+  author_name: string;
+  body: string;
+  created_at: number;
+}
+
 export async function countPendingComments(db: D1Database): Promise<number> {
   try {
     const row = await db
@@ -21,5 +28,24 @@ export async function countPendingComments(db: D1Database): Promise<number> {
   } catch {
     // Table missing (W4 migration not applied yet) → no pending.
     return 0;
+  }
+}
+
+export async function listApprovedCommentsForPost(
+  db: D1Database,
+  postId: number
+): Promise<CommentRow[]> {
+  try {
+    const res = await db
+      .prepare(
+        `SELECT id, author_name, body, created_at FROM comments
+         WHERE post_id = ? AND status = 'approved'
+         ORDER BY created_at ASC`
+      )
+      .bind(postId)
+      .all<CommentRow>();
+    return res.results ?? [];
+  } catch {
+    return [];
   }
 }

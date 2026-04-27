@@ -18,26 +18,22 @@ import {
   handleAdminPreview,
 } from "./routes/admin";
 import { handleImageUpload } from "./routes/upload";
+import {
+  handleSitemap,
+  handleWritingIndex,
+  handleWritingPost,
+  handleWritingTag,
+} from "./routes/writing";
 import { handlePreflight, withCors } from "./lib/cors";
 
 /**
  * Codantrix Labs Worker — main fetch dispatcher.
  *
- * Routing groups:
- *   /api/health             → handleHealth
- *   /api/chat               → handleChat (chat assistant)
- *   /api/lead               → handleLead (email follow-up form)
- *   /api/auth/*             → magic-link auth (W1)
- *   /api/writing/preview    → server-side markdown render (admin-only)
- *   /api/writing/upload-image → R2 cover image upload (admin-only)
- *   /admin/writing/         → posts list (W2)
- *   /admin/writing/new      → editor (W2)
- *   /admin/writing/edit/<slug> → editor (W2)
- *   /admin/writing/delete/<slug> → form-post delete (W2)
- *   /admin/login            → static asset (site/admin/login/index.html)
- *   *                       → ASSETS fall-through
- *
- * /admin/writing/comments/ moderation routes land in W4.
+ * /api/*  → JSON endpoints (chat, lead, auth, writing helpers, comments)
+ * /admin/writing/*  → admin UI (W2)
+ * /writing/*  → public blog (W3)
+ * /sitemap.xml  → dynamic sitemap including writing posts
+ * everything else → ASSETS fall-through
  */
 
 const SLUG_RX = /^[a-z0-9-]{1,80}$/;
@@ -48,7 +44,6 @@ export default {
     const { pathname } = url;
     const method = request.method;
 
-    // CORS preflight
     if (method === "OPTIONS" && pathname.startsWith("/api/")) {
       return handlePreflight(request);
     }
@@ -64,12 +59,11 @@ export default {
       return withCors(await handleLead(request, env), request);
     }
 
-    // ---- /writing admin auth (W1) ----
+    // ---- /writing magic-link auth (W1) ----
     if (pathname === "/api/auth/request" && method === "POST") {
       return withCors(await handleAuthRequest(request, env), request);
     }
     if (pathname === "/api/auth/verify" && method === "GET") {
-      // Direct nav from email — no CORS wrap.
       return handleAuthVerify(request, env);
     }
     if (pathname === "/api/auth/logout" && method === "POST") {
@@ -113,7 +107,32 @@ export default {
       }
     }
 
-    // Unmatched /api/* → JSON 404/405 with CORS.
+    // ---- /writing public read-side (W3) ----
+    if (pathname === "/sitemap.xml" && method === "GET") {
+      return await handleSitemap(request, env, ctx);
+    }
+    if ((pathname === "/writing/" || pathname === "/writing") && method === "GET") {
+      // Normalize /writing → /writing/
+      if (pathname === "/writing") {
+        return new Response(null, { status: 301, headers: { location: "/writing/" } });
+      }
+      return await handleWritingIndex(request, env, ctx);
+    }
+    {
+      const tagMatch = /^\/writing\/tag\/([a-z0-9-]{1,40})\/?$/.exec(pathname);
+      if (tagMatch && method === "GET") {
+        const tag = tagMatch[1] ?? "";
+        return await handleWritingTag(request, env, ctx, tag);
+      }
+      const slugMatch = /^\/writing\/([a-z0-9-]{1,80})\/?$/.exec(pathname);
+      if (slugMatch && method === "GET") {
+        const slug = slugMatch[1] ?? "";
+        if (!SLUG_RX.test(slug)) return notFound();
+        return await handleWritingPost(request, env, ctx, slug);
+      }
+    }
+
+    // Unmatched /api/* → 404/405 with CORS
     if (pathname.startsWith("/api/")) {
       const res = new Response(
         JSON.stringify({ ok: false, error: "not-found", path: pathname }),
@@ -125,7 +144,7 @@ export default {
       return withCors(res, request);
     }
 
-    // Static fall-through. /admin/login/ and any other static path lands here.
+    // Static fall-through.
     return env.ASSETS.fetch(request);
   },
 } satisfies ExportedHandler<Env>;
