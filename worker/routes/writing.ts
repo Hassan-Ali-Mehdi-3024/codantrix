@@ -126,6 +126,72 @@ export async function handleWritingTag(
   return saveCache(request, ctx, htmlResponse(html));
 }
 
+// ============ /writing/rss.xml ============
+
+export async function handleWritingRss(
+  request: Request,
+  env: Env,
+  ctx: ExecutionContext
+): Promise<Response> {
+  const cached = await readCache(request);
+  if (cached) return cached;
+
+  // Last 20 published posts; full body NOT included (we send excerpt only).
+  // Readers who want the full post follow the link — keeps the feed light
+  // and stops aggregators from skipping the canonical pageview.
+  const posts = await listPublishedPosts(env.DB, { limit: 20 });
+  const r2 = (env.R2_PUBLIC_URL ?? "").replace(/\/$/, "");
+  const now = new Date().toUTCString();
+
+  const items = posts
+    .map((p) => {
+      const link = `https://labs.codantrix.com/writing/${p.slug}/`;
+      const pubDate = p.published_at
+        ? new Date(p.published_at).toUTCString()
+        : new Date(p.updated_at).toUTCString();
+      const description = p.excerpt ?? p.title;
+      const cover = p.cover_image_key && r2
+        ? `<enclosure url="${escapeXml(r2 + "/" + p.cover_image_key)}" type="image/jpeg" />`
+        : "";
+      const cats = p.tags
+        .map((t) => `    <category>${escapeXml(t)}</category>`)
+        .join("\n");
+      return `  <item>
+    <title>${escapeXml(p.title)}</title>
+    <link>${escapeXml(link)}</link>
+    <guid isPermaLink="true">${escapeXml(link)}</guid>
+    <pubDate>${pubDate}</pubDate>
+    <description>${escapeXml(description)}</description>
+${cats}
+    ${cover}
+  </item>`;
+    })
+    .join("\n");
+
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+  <title>Codantrix Labs — Writing</title>
+  <link>https://labs.codantrix.com/writing/</link>
+  <atom:link href="https://labs.codantrix.com/writing/rss.xml" rel="self" type="application/rss+xml" />
+  <description>Field notes from shipping production agentic systems. Architecture, evaluation, cost, and the parts that do not fit a tweet.</description>
+  <language>en</language>
+  <lastBuildDate>${now}</lastBuildDate>
+  <generator>Codantrix Labs Worker</generator>
+${items}
+</channel>
+</rss>`;
+
+  const res = new Response(xml, {
+    status: 200,
+    headers: {
+      "content-type": "application/rss+xml; charset=utf-8",
+      "cache-control": `public, max-age=${PAGE_CACHE_SECONDS}, s-maxage=${PAGE_CACHE_SECONDS}`,
+    },
+  });
+  return saveCache(request, ctx, res);
+}
+
 // ============ /sitemap.xml ============
 
 export async function handleSitemap(
@@ -217,6 +283,8 @@ export async function purgeWritingCache(slug: string | null): Promise<void> {
     "https://codantrix-labs.hassanalimehdi30.workers.dev/writing/",
     "https://labs.codantrix.com/sitemap.xml",
     "https://codantrix-labs.hassanalimehdi30.workers.dev/sitemap.xml",
+    "https://labs.codantrix.com/writing/rss.xml",
+    "https://codantrix-labs.hassanalimehdi30.workers.dev/writing/rss.xml",
   ];
   if (slug) {
     keys.push(`https://labs.codantrix.com/writing/${slug}/`);
@@ -241,6 +309,15 @@ function htmlResponse(body: string, status = 200): Response {
       "referrer-policy": "strict-origin-when-cross-origin",
     },
   });
+}
+
+function escapeXml(s: string): string {
+  return s
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&apos;");
 }
 
 function isoDate(ms: number): string {

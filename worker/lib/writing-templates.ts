@@ -55,6 +55,7 @@ function head(meta: PageMeta): string {
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/css/writing.css">
+<link rel="alternate" type="application/rss+xml" title="Codantrix Labs — Writing" href="/writing/rss.xml">
 ${article}
 ${meta.extraHead ?? ""}
 </head>
@@ -170,6 +171,28 @@ export function renderWritingIndex(opts: {
     canonical: "https://labs.codantrix.com/writing/",
   };
 
+  // Schema.org Blog markup so the index is structurally interpretable.
+  const blogJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    name: "Codantrix Labs — Writing",
+    url: "https://labs.codantrix.com/writing/",
+    description: meta.description,
+    publisher: {
+      "@type": "Organization",
+      name: "Codantrix Labs",
+      url: "https://labs.codantrix.com",
+    },
+    blogPost: opts.posts.slice(0, 10).map((p) => ({
+      "@type": "BlogPosting",
+      headline: p.title,
+      url: `https://labs.codantrix.com/writing/${p.slug}/`,
+      datePublished: p.published_at ? new Date(p.published_at).toISOString() : undefined,
+      keywords: p.tags.join(", "),
+    })),
+  };
+  const blogScript = `<script type="application/ld+json">${JSON.stringify(blogJsonLd)}</script>`;
+
   const tagChips = renderTagStrip(opts.tags, opts.activeTag);
   const grid =
     opts.posts.length === 0
@@ -177,6 +200,7 @@ export function renderWritingIndex(opts: {
       : `<div class="cards">${opts.posts.map((p) => renderCard(p, opts.r2PublicUrl)).join("")}</div>`;
 
   return `${head(meta)}
+${blogScript}
 ${logoSprite()}
 ${sysbar()}
 ${nav()}
@@ -274,6 +298,40 @@ export function renderPostPage(opts: {
       ? `<section class="post-cover"><div class="frame"><img src="${escapeHtml(r2PublicUrl.replace(/\/$/, ""))}/${escapeHtml(post.cover_image_key)}" alt="${escapeHtml(post.cover_alt ?? post.title)}" width="1600" height="900" decoding="async"></div></section>`
       : "";
 
+  // Schema.org Article markup for SEO + LLM-extractor consumption.
+  const coverImageUrl = post.cover_image_key && r2PublicUrl
+    ? `${r2PublicUrl.replace(/\/$/, "")}/${post.cover_image_key}`
+    : "https://labs.codantrix.com/og.png";
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: post.title,
+    description: post.excerpt ?? post.title,
+    image: coverImageUrl,
+    datePublished: post.published_at ? new Date(post.published_at).toISOString() : undefined,
+    dateModified: new Date(post.updated_at).toISOString(),
+    author: {
+      "@type": "Person",
+      name: "Hassan Ali Mehdi",
+      url: "https://labs.codantrix.com/founder/",
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "Codantrix Labs",
+      url: "https://labs.codantrix.com",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://labs.codantrix.com/og.png",
+      },
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": `https://labs.codantrix.com/writing/${post.slug}/`,
+    },
+    keywords: post.tags.join(", "),
+  };
+  const jsonLdScript = `<script type="application/ld+json">${JSON.stringify(jsonLd)}</script>`;
+
   const siblingsBlock =
     siblings.length === 0
       ? ""
@@ -285,6 +343,7 @@ export function renderPostPage(opts: {
   const commentsBlock = renderCommentsBlock(post.id, post.slug, approvedComments);
 
   return `${head(meta)}
+${jsonLdScript}
 ${logoSprite()}
 ${sysbar()}
 ${nav()}

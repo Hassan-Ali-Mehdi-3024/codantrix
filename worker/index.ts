@@ -22,6 +22,7 @@ import {
   handleSitemap,
   handleWritingIndex,
   handleWritingPost,
+  handleWritingRss,
   handleWritingTag,
 } from "./routes/writing";
 import { handleCommentPost, handleCommentVerify } from "./routes/comments";
@@ -143,6 +144,9 @@ export default {
     // ---- /writing public read-side (W3) ----
     if (pathname === "/sitemap.xml" && method === "GET") {
       return await handleSitemap(request, env, ctx);
+    }
+    if (pathname === "/writing/rss.xml" && method === "GET") {
+      return await handleWritingRss(request, env, ctx);
     }
     if ((pathname === "/writing/" || pathname === "/writing") && method === "GET") {
       // Normalize /writing → /writing/

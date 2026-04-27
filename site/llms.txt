@@ -1,11 +1,10 @@
 # Codantrix Labs
 
-A multi-agent engineering studio building production agentic systems for SaaS, ops, and platform teams.
+A multi-agent engineering studio building production agentic systems. Founded 2023 in Lahore, Pakistan. Working with teams across US and EU time zones.
 
-## Services
-
-- Tier A: Production agentic systems. $15K — 30K. 6 — 10 weeks.
-- Tier B: Agentic MVPs. $8K — 15K. 4 — 6 weeks.
+URL: https://labs.codantrix.com
+Contact: contact@codantrix.com
+Founder: Hassan Ali Mehdi (engineering lead)
 
 ## What we build
 
@@ -15,29 +14,71 @@ A multi-agent engineering studio building production agentic systems for SaaS, o
 - Client-facing dashboards over agent systems
 - Document AI pipelines (English and Arabic)
 
-## What we don't build
+## What we do not build
 
 - Generic chatbots
 - No-code workflow automations
-- Enterprise compliance deployments (SOC 2, HIPAA — not our lane yet)
+- SOC 2 / HIPAA compliance deployments (not our lane yet)
+- Pure CRUD apps without an agentic component
 
-## Stack
+## Service tiers
 
-Next.js · Python · OpenAI · Claude · LangGraph · pgvector · Milvus · AWS
+- Tier A: Production agentic systems. $15K — 30K. 6 — 10 weeks. Three SKUs (Workflow / Platform / Custom Enterprise).
+- Tier B: Agentic MVPs. $8K — 15K. 4 — 6 weeks. Three SKUs (AI Feature Add-on / Agentic MVP / Custom).
 
-## Verticals shipped
-
-Real estate ops · Field ops dispatch · Construction estimation · EdTech learning · Document AI
-
-## Founder
-
-Hassan Ali Mehdi. Engineering lead. Six years shipping software. Lahore, Pakistan.
-
-## Contact
-
-Book a call: https://labs.codantrix.com/book
-Email: contact@codantrix.com
+Detailed SKU pages live at /services/tier-a and /services/tier-b (shipping at v3, after first Tier A engagement).
 
 ## Engagement model
 
-Fixed scope, fixed price. No hourly billing. SOW signed before any work begins. 50/50 payment terms. IP transfers on final payment. Owned codebase.
+Fixed scope, fixed price. No hourly billing. SOW signed before any work begins. 50/50 payment terms. IP transfers on final payment. Owned codebase. Every change ends in a deploy — see /writing/we-end-in-a-deploy.
+
+## Stack
+
+Next.js · Python · OpenAI · Claude · LangGraph · pgvector · Milvus · AWS · Cloudflare Workers · D1
+
+## Verticals shipped
+
+Real estate ops · Field ops dispatch · Construction estimation · EdTech learning · Document AI (Arabic + English)
+
+## Pages
+
+- / — Home: studio overview, services teaser, work grid, process strip
+- /studio — Studio operating principles, anti-services, current focus
+- /work — Work index with five anonymized case studies
+  - /work/tenant-ops-copilot — Multi-agent system for US property management
+  - /work/dispatch-agent — Autonomous dispatch for North American service network
+  - /work/estimation-copilot — Quote-generation system for regional contractor
+  - /work/study-agent — AI exam-prep with PDF chat + MCQ generation
+  - /work/bilingual-doc-pipeline — Arabic RAG over 100 regulatory PDFs
+- /founder — Hassan Ali Mehdi bio and timeline (only page where "I" voice is used)
+- /writing — Field notes from shipping production agentic systems
+- /book — Scope assistant (chat) + booking link to a 30-min scope call
+- /privacy — Privacy notice
+- /terms — Terms of service
+
+## Writing
+
+Field notes on shipping production agentic systems. Architecture, evaluation, cost, and the parts that do not fit a tweet.
+
+- /writing/we-end-in-a-deploy — A working condition we wrote down: every change ends in production behind a real URL, or it does not end at all.
+- /writing/the-6k-tpm-rule-of-free-llm-stacks — There is exactly one number that controls what is possible inside a free LLM stack: 6,000 tokens per minute.
+- /writing/build-vs-buy-agent-platforms-in-2026 — When to build your own agent platform from primitives versus integrating LangGraph, Agno, or AWS Bedrock Agents.
+
+RSS: /writing/rss.xml
+
+## Process
+
+Four steps, shown on home and (deeper) at /process (v3):
+
+1. Scoping call — 30 min, free
+2. Written SOW + 50% upfront
+3. Weekly shipped demos — Friday Loom + production code behind feature flags
+4. Production handoff on final 50%
+
+## Booking
+
+Book a 30-min scope call: https://labs.codantrix.com/book
+
+## Voice
+
+Corporate "we" everywhere except the /founder bio paragraphs, where Hassan speaks in "I". The studio is small on purpose — every engagement involves contractors, but engineering lead is always Hassan.
