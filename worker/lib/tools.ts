@@ -47,7 +47,7 @@ export const TOOL_SCHEMAS: ToolSchema[] = [
     function: {
       name: "get_info",
       description:
-        "Fetch read-only studio info by topic. Use 'tier_a' or 'tier_b' for full tier includes/scope; 'process' for the 4-phase delivery; 'work' for past anonymized projects; 'faq:<keywords>' for FAQ search (e.g. 'faq:IP ownership', 'faq:NDA', 'faq:pricing structure').",
+        "Fetch read-only studio info by topic. Use 'tier_a' or 'tier_b' for full tier includes/scope; 'process' for the 4-phase delivery; 'work' for past anonymized projects; 'writing' for published blog posts; 'faq:<keywords>' for FAQ search (e.g. 'faq:IP ownership', 'faq:NDA', 'faq:pricing structure').",
       parameters: {
         type: "object",
         properties: {
@@ -150,6 +150,9 @@ function runGetInfo(args: Record<string, unknown>): unknown {
   if (raw === "work") {
     return workPayload();
   }
+  if (raw === "writing" || raw === "blog" || raw === "posts") {
+    return writingPayload();
+  }
   if (raw.startsWith("faq:") || raw.startsWith("faq ")) {
     const query = raw.replace(/^faq[: ]/, "").trim();
     return faqPayload(query);
@@ -196,6 +199,21 @@ function workPayload(): unknown {
       stack: w.stack,
     })),
     note: "Past clients anonymous by default. Names shared only with sign-off.",
+  };
+}
+
+function writingPayload(): unknown {
+  return {
+    description: KB.writing.description,
+    index_url: KB.links.writing,
+    rss_url: KB.links.rss,
+    posts: KB.writing.posts.map((p) => ({
+      title: p.title,
+      url: `${KB.links.writing}${p.slug}/`,
+      excerpt: p.excerpt,
+      tags: p.tags,
+    })),
+    note: "Share a relevant URL only when the visitor asks about writing, examples, or the studio approach. Do not pitch posts unprompted.",
   };
 }
 

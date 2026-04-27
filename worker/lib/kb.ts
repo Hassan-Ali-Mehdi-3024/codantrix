@@ -84,6 +84,12 @@ export interface KB {
     linkedin: string;
     github: string;
     personal_site: string;
+    writing: string;
+    rss: string;
+  };
+  writing: {
+    description: string;
+    posts: { title: string; slug: string; excerpt: string; tags: string[] }[];
   };
   faqs: FAQ[];
 }
@@ -263,6 +269,36 @@ export const KB: KB = {
     linkedin: "https://linkedin.com/in/hassan-ali-mehdi",
     github: "https://github.com/hassan-ali-mehdi-3024",
     personal_site: "https://hassanalimehdi.dev",
+    writing: "https://labs.codantrix.com/writing/",
+    rss: "https://labs.codantrix.com/writing/rss.xml",
+  },
+
+  writing: {
+    description:
+      "Field notes from shipping production agentic systems. Three published posts as of April 2026.",
+    posts: [
+      {
+        title: "We end in a deploy",
+        slug: "we-end-in-a-deploy",
+        excerpt:
+          "A working condition we wrote down — every change ends in production behind a real URL, or it does not end at all.",
+        tags: ["building", "process", "lessons"],
+      },
+      {
+        title: "The 6K TPM rule of free LLM stacks",
+        slug: "the-6k-tpm-rule-of-free-llm-stacks",
+        excerpt:
+          "There is exactly one number that controls what is possible inside a free LLM stack: 6,000 tokens per minute. Internalize it before writing any code.",
+        tags: ["cost", "architecture", "lessons"],
+      },
+      {
+        title: "Build vs buy — agent platforms in 2026",
+        slug: "build-vs-buy-agent-platforms-in-2026",
+        excerpt:
+          "Most teams asking 'build versus buy' actually mean 'rent versus buy'. Here is how we decide on every engagement.",
+        tags: ["building", "architecture", "lessons"],
+      },
+    ],
   },
 
   faqs: [
