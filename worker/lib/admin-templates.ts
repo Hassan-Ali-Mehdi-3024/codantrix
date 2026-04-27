@@ -417,7 +417,7 @@ export function renderCommentsPage(opts: {
     author_name: string;
     author_email: string;
     body: string;
-    status: "pending" | "approved" | "rejected";
+    status: "pending_unverified" | "pending" | "approved" | "rejected";
     created_at: number;
   }>;
   filter: "pending" | "approved" | "rejected" | "all";
@@ -458,7 +458,7 @@ function commentRow(c: {
   author_name: string;
   author_email: string;
   body: string;
-  status: "pending" | "approved" | "rejected";
+  status: "pending_unverified" | "pending" | "approved" | "rejected";
   created_at: number;
 }): string {
   const statusPill =
@@ -466,6 +466,8 @@ function commentRow(c: {
       ? `<span class="pill pill--approved">Approved</span>`
       : c.status === "rejected"
       ? `<span class="pill pill--rejected">Rejected</span>`
+      : c.status === "pending_unverified"
+      ? `<span class="pill pill--draft">Email unverified</span>`
       : `<span class="pill pill--pending">Pending</span>`;
   return `<div class="pane" style="margin-bottom:14px">
   <div style="display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;margin-bottom:10px">

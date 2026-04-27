@@ -24,6 +24,13 @@ import {
   handleWritingPost,
   handleWritingTag,
 } from "./routes/writing";
+import { handleCommentPost, handleCommentVerify } from "./routes/comments";
+import {
+  handleAdminCommentApprove,
+  handleAdminCommentDelete,
+  handleAdminCommentReject,
+  handleAdminCommentsList,
+} from "./routes/admin-comments";
 import { handlePreflight, withCors } from "./lib/cors";
 
 /**
@@ -81,6 +88,15 @@ export default {
       return await handleImageUpload(request, env);
     }
 
+    // ---- /writing comments (W4) ----
+    if (pathname === "/api/comments/post" && method === "POST") {
+      return withCors(await handleCommentPost(request, env), request);
+    }
+    if (pathname === "/api/comments/verify" && method === "GET") {
+      // Direct navigation from email — no CORS wrap.
+      return handleCommentVerify(request, env);
+    }
+
     if (pathname === "/admin/writing/" || pathname === "/admin/writing") {
       if (method === "GET") return await handleAdminPostsList(request, env);
       return methodNotAllowed();
@@ -104,6 +120,23 @@ export default {
         const slug = delMatch[1] ?? "";
         if (!SLUG_RX.test(slug)) return notFound();
         return await handleAdminPostDelete(request, env, slug);
+      }
+    }
+
+    // ---- /writing admin moderation (W4) ----
+    if (pathname === "/admin/writing/comments/" || pathname === "/admin/writing/comments") {
+      if (method === "GET") return await handleAdminCommentsList(request, env);
+      return methodNotAllowed();
+    }
+    {
+      const m = /^\/admin\/writing\/comments\/(\d+)\/(approve|reject|delete)\/?$/.exec(pathname);
+      if (m && method === "POST") {
+        const id = Number(m[1]);
+        const action = m[2];
+        if (!Number.isFinite(id) || id <= 0) return notFound();
+        if (action === "approve") return await handleAdminCommentApprove(request, env, id);
+        if (action === "reject") return await handleAdminCommentReject(request, env, id);
+        if (action === "delete") return await handleAdminCommentDelete(request, env, id);
       }
     }
 

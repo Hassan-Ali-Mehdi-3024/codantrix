@@ -128,3 +128,60 @@ export function buildMagicLinkEmail(opts: {
 
   return { to: toEmail, subject: "Sign in to Codantrix Labs admin", html, text };
 }
+
+/**
+ * Build the comment-email-verification email. Sent the first time a fresh
+ * email address posts a comment. Once clicked, the comment is promoted from
+ * 'pending_unverified' to 'pending' (awaiting Hassan's moderation), and the
+ * email is cached in verified_emails for 90 days.
+ */
+export function buildCommentVerifyEmail(opts: {
+  toEmail: string;
+  verifyUrl: string;
+  postTitle: string;
+  ttlHours: number;
+}): EmailMessage {
+  const { toEmail, verifyUrl, postTitle, ttlHours } = opts;
+  const ttl = `${ttlHours} hour${ttlHours === 1 ? "" : "s"}`;
+
+  const text = [
+    `Confirm your comment on Codantrix Labs.`,
+    ``,
+    `You commented on: ${postTitle}`,
+    ``,
+    `Click the link below within ${ttl} to confirm your email and submit your`,
+    `comment for moderation:`,
+    verifyUrl,
+    ``,
+    `If you didn't post this, ignore this email — nothing was published.`,
+    ``,
+    `— Codantrix Labs`,
+  ].join("\n");
+
+  const html = `<!doctype html>
+<html><body style="margin:0;padding:0;background:#f5f4ee;font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Helvetica,Arial,sans-serif;">
+  <div style="max-width:520px;margin:0 auto;padding:48px 24px;color:#1a1a1a;">
+    <p style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#6b6b6b;margin:0 0 24px;">Codantrix Labs · Comment</p>
+    <h1 style="font-size:22px;line-height:1.3;font-weight:600;margin:0 0 12px;">Confirm your comment</h1>
+    <p style="font-size:14px;line-height:1.6;margin:0 0 8px;color:#3a3a3a;">You commented on:</p>
+    <p style="font-size:15px;line-height:1.4;font-weight:600;margin:0 0 24px;">${escapeForEmail(postTitle)}</p>
+    <p style="font-size:15px;line-height:1.55;margin:0 0 24px;">Click the button below within ${ttl} to confirm your email and submit your comment for moderation.</p>
+    <p style="margin:0 0 32px;">
+      <a href="${verifyUrl}" style="display:inline-block;padding:14px 22px;background:#1a1a1a;color:#fafaf6;text-decoration:none;font-size:14px;border-radius:2px;">Confirm comment</a>
+    </p>
+    <p style="font-size:13px;line-height:1.55;color:#6b6b6b;margin:0 0 8px;">Or paste this URL into your browser:</p>
+    <p style="font-size:12px;line-height:1.5;word-break:break-all;color:#3a3a3a;margin:0 0 32px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;">${verifyUrl}</p>
+    <p style="font-size:12px;line-height:1.55;color:#6b6b6b;margin:0;">If you didn't post this, ignore this email — nothing was published.</p>
+  </div>
+</body></html>`;
+
+  return { to: toEmail, subject: "Confirm your comment on Codantrix Labs", html, text };
+}
+
+function escapeForEmail(s: string): string {
+  return s
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
