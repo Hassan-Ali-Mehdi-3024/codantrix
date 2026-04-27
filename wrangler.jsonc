@@ -1,49 +1,66 @@
 {
-  "$schema": "./node_modules/wrangler/config-schema.json",
-  "name": "codantrix-labs",
-  "main": "worker/index.ts",
-  "compatibility_date": "2026-02-03",
-  "compatibility_flags": ["nodejs_compat"],
-  "assets": {
-    "directory": "./site",
-    "binding": "ASSETS",
-    "not_found_handling": "404-page",
-    "html_handling": "auto-trailing-slash",
-    "run_worker_first": ["/api/*"]
-  },
-  "d1_databases": [
-    {
-      "binding": "DB",
-      "database_name": "codantrix-labs-db",
-      "database_id": "1ecd521a-1017-45b9-ab90-1e1ce4aca9ae"
-    }
-  ],
-  "vars": {
-    // Provider: Groq direct (https://api.groq.com/openai/v1) — OpenAI-compatible.
-    // Model: llama-3.3-70b-versatile.
-    //
-    // Why Groq direct after a day of OpenRouter trials:
-    //   morning: Groq llama-3.1-8b-instant (TPM rate-limited under test burst)
-    //   noon:    OpenRouter google/gemma-4-31b-it:free (Google AI Studio shared
-    //            pool returned upstream 429s)
-    //   pm:      OpenRouter meta-llama/llama-3.3-70b-instruct:free (Venice
-    //            shared pool returned upstream 429s)
-    //   evening: Groq llama-3.3-70b-versatile (had silent empty-response bug
-    //            on tool-calling — model would emit zero content + zero
-    //            tool_calls when asked tier-detail questions, making the
-    //            chat appear frozen. Reproducible).
-    //   late evening: Groq llama-3.1-8b-instant (this) — same provider/quota
-    //            but much more reliable tool-calling on our prompt. Fits
-    //            6K TPM cap with our trimmed prompt + 4 tools. Trade-off is
-    //            slightly less smart, but reliably routes get_info /
-    //            capture_lead / check_availability / create_scheduling_link.
-    //
-    // For low-volume /book traffic the 6K TPM cap is fine. If volume
-    // justifies it, options: Groq Dev tier (paid) for higher TPM, or
-    // OpenRouter with a private provider key to bypass shared pools.
-    "LLM_MODEL": "llama-3.1-8b-instant"
-  }
-  // Secrets (set via `wrangler secret put`, NOT here):
-  //   LLM_API_KEY     — OpenRouter API key (was GROQ_API_KEY pre-2026-04-26)
-  //   CALENDLY_TOKEN  — Calendly Personal Access Token (optional)
+	"$schema": "./node_modules/wrangler/config-schema.json",
+	"name": "codantrix-labs",
+	"main": "worker/index.ts",
+	"compatibility_date": "2026-02-03",
+	"compatibility_flags": [
+		"nodejs_compat"
+	],
+	"assets": {
+		"directory": "./site",
+		"binding": "ASSETS",
+		"not_found_handling": "404-page",
+		"html_handling": "auto-trailing-slash",
+		"run_worker_first": [
+			"/api/*"
+		]
+	},
+	"d1_databases": [
+		{
+			"binding": "DB",
+			"database_name": "codantrix-labs-db",
+			"database_id": "1ecd521a-1017-45b9-ab90-1e1ce4aca9ae"
+		}
+	],
+	"vars": {
+		// Provider: Groq direct (https://api.groq.com/openai/v1) — OpenAI-compatible.
+		// Model: llama-3.3-70b-versatile.
+		//
+		// Why Groq direct after a day of OpenRouter trials:
+		//   morning: Groq llama-3.1-8b-instant (TPM rate-limited under test burst)
+		//   noon:    OpenRouter google/gemma-4-31b-it:free (Google AI Studio shared
+		//            pool returned upstream 429s)
+		//   pm:      OpenRouter meta-llama/llama-3.3-70b-instruct:free (Venice
+		//            shared pool returned upstream 429s)
+		//   evening: Groq llama-3.3-70b-versatile (had silent empty-response bug
+		//            on tool-calling — model would emit zero content + zero
+		//            tool_calls when asked tier-detail questions, making the
+		//            chat appear frozen. Reproducible).
+		//   late evening: Groq llama-3.1-8b-instant (this) — same provider/quota
+		//            but much more reliable tool-calling on our prompt. Fits
+		//            6K TPM cap with our trimmed prompt + 4 tools. Trade-off is
+		//            slightly less smart, but reliably routes get_info /
+		//            capture_lead / check_availability / create_scheduling_link.
+		//
+		// For low-volume /book traffic the 6K TPM cap is fine. If volume
+		// justifies it, options: Groq Dev tier (paid) for higher TPM, or
+		// OpenRouter with a private provider key to bypass shared pools.
+		"LLM_MODEL": "llama-3.1-8b-instant",
+		// /writing system: public base URL for cover images stored in R2.
+		// Initially the free pub-<hash>.r2.dev subdomain; swap to
+		// media.codantrix.com once the user attaches a custom domain.
+		// Empty for now — Phase W1 doesn't render any images. Set in W2.
+		"R2_PUBLIC_URL": ""
+	},
+	"r2_buckets": [
+		{
+			"bucket_name": "codantrix-writing-images",
+			"binding": "codantrix_writing_images",
+			"remote": true
+		}
+	]
+	// Secrets (set via `wrangler secret put`, NOT here):
+	//   LLM_API_KEY     — Groq API key (OpenAI-compatible)
+	//   CALENDLY_TOKEN  — Calendly Personal Access Token (optional)
+	//   RESEND_API_KEY  — Resend API key for /writing magic-link auth (W1)
 }

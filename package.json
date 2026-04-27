@@ -8,8 +8,9 @@
     "preview": "wrangler dev",
     "deploy": "wrangler deploy",
     "typecheck": "tsc --noEmit",
-    "db:apply:local": "wrangler d1 execute codantrix-labs-db --local --file=./schema/0001_init.sql",
-    "db:apply:remote": "wrangler d1 execute codantrix-labs-db --remote --file=./schema/0001_init.sql"
+    "db:apply:local": "wrangler d1 execute codantrix-labs-db --local --file=./schema/0001_init.sql && wrangler d1 execute codantrix-labs-db --local --file=./schema/0002_rate_limit.sql && wrangler d1 execute codantrix-labs-db --local --file=./schema/0003_writing_posts.sql && wrangler d1 execute codantrix-labs-db --local --file=./schema/0004_writing_auth.sql",
+    "db:apply:remote": "wrangler d1 execute codantrix-labs-db --remote --file=./schema/0001_init.sql && wrangler d1 execute codantrix-labs-db --remote --file=./schema/0002_rate_limit.sql && wrangler d1 execute codantrix-labs-db --remote --file=./schema/0003_writing_posts.sql && wrangler d1 execute codantrix-labs-db --remote --file=./schema/0004_writing_auth.sql",
+    "db:apply:writing:remote": "wrangler d1 execute codantrix-labs-db --remote --file=./schema/0003_writing_posts.sql && wrangler d1 execute codantrix-labs-db --remote --file=./schema/0004_writing_auth.sql"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20240403.0",

@@ -2,25 +2,36 @@ import type { Env } from "./types";
 import { handleHealth } from "./routes/health";
 import { handleChat } from "./routes/chat";
 import { handleLead } from "./routes/lead";
+import {
+  handleAuthLogout,
+  handleAuthMe,
+  handleAuthRequest,
+  handleAuthVerify,
+} from "./routes/auth";
 import { handlePreflight, withCors } from "./lib/cors";
 
 /**
  * Codantrix Labs Worker — main fetch dispatcher.
  *
  * Routing:
- *   OPTIONS /api/*    → handlePreflight (CORS preflight)
- *   GET     /api/health → handleHealth
- *   POST    /api/chat   → handleChat   (Phase 3 implementation)
- *   POST    /api/lead   → handleLead   (Phase 3 implementation)
- *   *                   → env.ASSETS.fetch (static fall-through, ./site)
+ *   OPTIONS /api/*               → handlePreflight (CORS preflight)
+ *   GET     /api/health          → handleHealth
+ *   POST    /api/chat            → handleChat
+ *   POST    /api/lead            → handleLead
+ *   POST    /api/auth/request    → handleAuthRequest    (W1)
+ *   GET     /api/auth/verify     → handleAuthVerify     (W1) — sets cookie + 302
+ *   POST    /api/auth/logout     → handleAuthLogout     (W1)
+ *   GET     /api/auth/me         → handleAuthMe         (W1)
+ *   /admin/* (W2+)               → reserved for admin UI; falls through to ASSETS for now
+ *   *                            → env.ASSETS.fetch (static fall-through, ./site)
  *
- * CORS: This Worker is hosted at codantrix-labs.hassanalimehdi30.workers.dev
- * and consumed by labs.codantrix.com — every browser call is cross-origin.
- * worker/lib/cors.ts maintains a small allowlist (production domain +
- * localhost for dev). Non-browser callers (curl, server-to-server) work
- * without CORS headers since they don't send an Origin header.
+ * CORS: Worker hosted at codantrix-labs.hassanalimehdi30.workers.dev, consumed
+ * by labs.codantrix.com. /api/* → cross-origin → CORS allowlist in cors.ts.
  *
- * No global state. No top-level await. Everything reachable from `fetch`.
+ * /api/auth/verify is intentionally NOT wrapped in CORS: it's hit directly via
+ * a browser navigation from an email link, sets a cookie, and 302s. CORS would
+ * reject the redirect chain when the verify URL host doesn't match the email
+ * client's origin (which it never does).
  */
 
 export default {
@@ -34,7 +45,7 @@ export default {
       return handlePreflight(request);
     }
 
-    // API routes — wrap each response with CORS so allowlisted origins can read it
+    // ---- /book chat assistant + lead capture ----
     if (pathname === "/api/health" && method === "GET") {
       return withCors(await handleHealth(request, env), request);
     }
@@ -44,6 +55,23 @@ export default {
     if (pathname === "/api/lead" && method === "POST") {
       return withCors(await handleLead(request, env), request);
     }
+
+    // ---- /writing admin auth (Phase W1) ----
+    if (pathname === "/api/auth/request" && method === "POST") {
+      return withCors(await handleAuthRequest(request, env), request);
+    }
+    if (pathname === "/api/auth/verify" && method === "GET") {
+      // Direct navigation from email; do not wrap in CORS — see file header.
+      return handleAuthVerify(request, env);
+    }
+    if (pathname === "/api/auth/logout" && method === "POST") {
+      return withCors(await handleAuthLogout(request, env), request);
+    }
+    if (pathname === "/api/auth/me" && method === "GET") {
+      return withCors(await handleAuthMe(request, env), request);
+    }
+
+    // Unmatched /api/* → 404/405 with CORS so the frontend can surface it cleanly.
     if (pathname.startsWith("/api/")) {
       const res = new Response(
         JSON.stringify({ ok: false, error: "not-found", path: pathname }),
@@ -56,8 +84,8 @@ export default {
     }
 
     // Static fall-through — every non-/api/* request hits the ASSETS binding,
-    // which serves files from ./site with html_handling: auto-trailing-slash
-    // and not_found_handling: 404-page (see wrangler.jsonc).
+    // which serves files from ./site. /admin/login/ is a static page; /admin/writing/*
+    // will be intercepted by route handlers in W2.
     return env.ASSETS.fetch(request);
   },
 } satisfies ExportedHandler<Env>;
