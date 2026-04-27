@@ -25,6 +25,8 @@ interface PageMeta {
   ogType?: "website" | "article";
   publishedTime?: number;
   noindex?: boolean;
+  /** Extra <head> markup (e.g., Prism CSS + JS) appended for specific pages. */
+  extraHead?: string;
 }
 
 function head(meta: PageMeta): string {
@@ -54,9 +56,27 @@ function head(meta: PageMeta): string {
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/css/writing.css">
 ${article}
+${meta.extraHead ?? ""}
 </head>
 <body>`;
 }
+
+// Prism.js syntax highlighting — loaded only on /writing/<slug>/ where code
+// blocks render. Uses the autoloader plugin so language grammars are fetched
+// on-demand based on the `class="language-foo"` attributes our markdown
+// parser emits. CSS is the prism-tomorrow dark theme (matches our cream-on-dark
+// aesthetic). Total weight on first paint: ~14KB gz (CSS + core + autoloader);
+// individual grammar files are <2KB each and lazy-loaded.
+const PRISM_HEAD = `<link rel="preconnect" href="https://cdnjs.cloudflare.com">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" referrerpolicy="no-referrer">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js" referrerpolicy="no-referrer" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js" referrerpolicy="no-referrer" defer></script>
+<style>
+  /* Override prism-tomorrow padding to match our .prose pre styling. */
+  .prose pre[class*="language-"] { background: var(--surface-2); padding: 18px 20px; border: 1px solid var(--line); border-radius: var(--r-sm); margin: 0; }
+  .prose pre[class*="language-"] code { background: transparent; padding: 0; border: 0; color: inherit; font-size: inherit; }
+  .prose :not(pre) > code[class*="language-"], .prose code[class*="language-"] { background: var(--surface-2); padding: 2px 6px; border: 1px solid var(--line); border-radius: 4px; }
+</style>`;
 
 function logoSprite(): string {
   return `<svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -240,6 +260,7 @@ export function renderPostPage(opts: {
       post.cover_image_key && r2PublicUrl
         ? `${r2PublicUrl.replace(/\/$/, "")}/${post.cover_image_key}`
         : undefined,
+    extraHead: PRISM_HEAD,
   };
 
   const date = post.published_at ? formatDate(post.published_at) : "Draft";
