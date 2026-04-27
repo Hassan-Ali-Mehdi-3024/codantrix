@@ -8,31 +8,39 @@ import {
   handleAuthRequest,
   handleAuthVerify,
 } from "./routes/auth";
+import {
+  handleAdminPostCreate,
+  handleAdminPostDelete,
+  handleAdminPostEdit,
+  handleAdminPostNew,
+  handleAdminPostSave,
+  handleAdminPostsList,
+  handleAdminPreview,
+} from "./routes/admin";
+import { handleImageUpload } from "./routes/upload";
 import { handlePreflight, withCors } from "./lib/cors";
 
 /**
  * Codantrix Labs Worker — main fetch dispatcher.
  *
- * Routing:
- *   OPTIONS /api/*               → handlePreflight (CORS preflight)
- *   GET     /api/health          → handleHealth
- *   POST    /api/chat            → handleChat
- *   POST    /api/lead            → handleLead
- *   POST    /api/auth/request    → handleAuthRequest    (W1)
- *   GET     /api/auth/verify     → handleAuthVerify     (W1) — sets cookie + 302
- *   POST    /api/auth/logout     → handleAuthLogout     (W1)
- *   GET     /api/auth/me         → handleAuthMe         (W1)
- *   /admin/* (W2+)               → reserved for admin UI; falls through to ASSETS for now
- *   *                            → env.ASSETS.fetch (static fall-through, ./site)
+ * Routing groups:
+ *   /api/health             → handleHealth
+ *   /api/chat               → handleChat (chat assistant)
+ *   /api/lead               → handleLead (email follow-up form)
+ *   /api/auth/*             → magic-link auth (W1)
+ *   /api/writing/preview    → server-side markdown render (admin-only)
+ *   /api/writing/upload-image → R2 cover image upload (admin-only)
+ *   /admin/writing/         → posts list (W2)
+ *   /admin/writing/new      → editor (W2)
+ *   /admin/writing/edit/<slug> → editor (W2)
+ *   /admin/writing/delete/<slug> → form-post delete (W2)
+ *   /admin/login            → static asset (site/admin/login/index.html)
+ *   *                       → ASSETS fall-through
  *
- * CORS: Worker hosted at codantrix-labs.hassanalimehdi30.workers.dev, consumed
- * by labs.codantrix.com. /api/* → cross-origin → CORS allowlist in cors.ts.
- *
- * /api/auth/verify is intentionally NOT wrapped in CORS: it's hit directly via
- * a browser navigation from an email link, sets a cookie, and 302s. CORS would
- * reject the redirect chain when the verify URL host doesn't match the email
- * client's origin (which it never does).
+ * /admin/writing/comments/ moderation routes land in W4.
  */
+
+const SLUG_RX = /^[a-z0-9-]{1,80}$/;
 
 export default {
   async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
@@ -40,7 +48,7 @@ export default {
     const { pathname } = url;
     const method = request.method;
 
-    // CORS preflight (browsers send OPTIONS before POST with content-type: application/json)
+    // CORS preflight
     if (method === "OPTIONS" && pathname.startsWith("/api/")) {
       return handlePreflight(request);
     }
@@ -56,12 +64,12 @@ export default {
       return withCors(await handleLead(request, env), request);
     }
 
-    // ---- /writing admin auth (Phase W1) ----
+    // ---- /writing admin auth (W1) ----
     if (pathname === "/api/auth/request" && method === "POST") {
       return withCors(await handleAuthRequest(request, env), request);
     }
     if (pathname === "/api/auth/verify" && method === "GET") {
-      // Direct navigation from email; do not wrap in CORS — see file header.
+      // Direct nav from email — no CORS wrap.
       return handleAuthVerify(request, env);
     }
     if (pathname === "/api/auth/logout" && method === "POST") {
@@ -71,7 +79,41 @@ export default {
       return withCors(await handleAuthMe(request, env), request);
     }
 
-    // Unmatched /api/* → 404/405 with CORS so the frontend can surface it cleanly.
+    // ---- /writing admin write-side (W2) ----
+    if (pathname === "/api/writing/preview" && method === "POST") {
+      return await handleAdminPreview(request, env);
+    }
+    if (pathname === "/api/writing/upload-image" && method === "POST") {
+      return await handleImageUpload(request, env);
+    }
+
+    if (pathname === "/admin/writing/" || pathname === "/admin/writing") {
+      if (method === "GET") return await handleAdminPostsList(request, env);
+      return methodNotAllowed();
+    }
+    if (pathname === "/admin/writing/new") {
+      if (method === "GET") return await handleAdminPostNew(request, env);
+      if (method === "POST") return await handleAdminPostCreate(request, env);
+      return methodNotAllowed();
+    }
+    {
+      const editMatch = /^\/admin\/writing\/edit\/([a-z0-9-]{1,80})\/?$/.exec(pathname);
+      if (editMatch) {
+        const slug = editMatch[1] ?? "";
+        if (!SLUG_RX.test(slug)) return notFound();
+        if (method === "GET") return await handleAdminPostEdit(request, env, slug);
+        if (method === "POST") return await handleAdminPostSave(request, env, slug);
+        return methodNotAllowed();
+      }
+      const delMatch = /^\/admin\/writing\/delete\/([a-z0-9-]{1,80})\/?$/.exec(pathname);
+      if (delMatch && method === "POST") {
+        const slug = delMatch[1] ?? "";
+        if (!SLUG_RX.test(slug)) return notFound();
+        return await handleAdminPostDelete(request, env, slug);
+      }
+    }
+
+    // Unmatched /api/* → JSON 404/405 with CORS.
     if (pathname.startsWith("/api/")) {
       const res = new Response(
         JSON.stringify({ ok: false, error: "not-found", path: pathname }),
@@ -83,9 +125,21 @@ export default {
       return withCors(res, request);
     }
 
-    // Static fall-through — every non-/api/* request hits the ASSETS binding,
-    // which serves files from ./site. /admin/login/ is a static page; /admin/writing/*
-    // will be intercepted by route handlers in W2.
+    // Static fall-through. /admin/login/ and any other static path lands here.
     return env.ASSETS.fetch(request);
   },
 } satisfies ExportedHandler<Env>;
+
+function methodNotAllowed(): Response {
+  return new Response("Method not allowed", {
+    status: 405,
+    headers: { "content-type": "text/plain; charset=utf-8" },
+  });
+}
+
+function notFound(): Response {
+  return new Response("Not found", {
+    status: 404,
+    headers: { "content-type": "text/plain; charset=utf-8" },
+  });
+}
