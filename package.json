@@ -10,7 +10,9 @@
     "typecheck": "tsc --noEmit",
     "db:apply:local": "wrangler d1 execute codantrix-labs-db --local --file=./schema/0001_init.sql && wrangler d1 execute codantrix-labs-db --local --file=./schema/0002_rate_limit.sql && wrangler d1 execute codantrix-labs-db --local --file=./schema/0003_writing_posts.sql && wrangler d1 execute codantrix-labs-db --local --file=./schema/0004_writing_auth.sql && wrangler d1 execute codantrix-labs-db --local --file=./schema/0005_writing_comments.sql",
     "db:apply:remote": "wrangler d1 execute codantrix-labs-db --remote --file=./schema/0001_init.sql && wrangler d1 execute codantrix-labs-db --remote --file=./schema/0002_rate_limit.sql && wrangler d1 execute codantrix-labs-db --remote --file=./schema/0003_writing_posts.sql && wrangler d1 execute codantrix-labs-db --remote --file=./schema/0004_writing_auth.sql && wrangler d1 execute codantrix-labs-db --remote --file=./schema/0005_writing_comments.sql",
-    "db:apply:writing:remote": "wrangler d1 execute codantrix-labs-db --remote --file=./schema/0003_writing_posts.sql && wrangler d1 execute codantrix-labs-db --remote --file=./schema/0004_writing_auth.sql && wrangler d1 execute codantrix-labs-db --remote --file=./schema/0005_writing_comments.sql"
+    "db:apply:writing:remote": "wrangler d1 execute codantrix-labs-db --remote --file=./schema/0003_writing_posts.sql && wrangler d1 execute codantrix-labs-db --remote --file=./schema/0004_writing_auth.sql && wrangler d1 execute codantrix-labs-db --remote --file=./schema/0005_writing_comments.sql",
+    "db:seed:writing:remote": "wrangler d1 execute codantrix-labs-db --remote --file=./schema/seed_writing_posts.sql",
+    "db:seed:writing:local":  "wrangler d1 execute codantrix-labs-db --local  --file=./schema/seed_writing_posts.sql"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20240403.0",
